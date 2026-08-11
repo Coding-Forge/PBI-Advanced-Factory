@@ -1,0 +1,17 @@
+TargetMonth,TerritoryKey,ProductCategory,TargetSalesAmount
+2026-01-01,T01,Security,7000
+2026-01-01,T01,Analytics,8000
+2026-01-01,T02,Integration,5000
+2026-01-01,T03,Operations,4000
+2026-01-01,T04,Security,2000
+2026-02-01,T01,Analytics,11000
+2026-02-01,T01,Integration,7000
+2026-02-01,T02,Operations,6000
+2026-02-01,T03,Analytics,4500
+2026-02-01,T04,Analytics,6000
+2026-03-01,T01,Operations,6000
+2026-03-01,T01,Security,5000
+2026-03-01,T02,Analytics,7500
+2026-03-01,T03,Integration,4000
+2026-03-01,T04,Operations,3500
+

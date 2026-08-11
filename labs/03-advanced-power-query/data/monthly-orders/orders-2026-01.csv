@@ -1,0 +1,6 @@
+OrderId,OrderDate,CustomerName,ProductCode,Quantity,UnitPrice,SalesChannel
+3001,2026-01-03, Northwind Health ,P001,4,1200,Enterprise
+3002,2026-01-06,Contoso Defense,P002,2,3400,Government
+3003,2026-01-11,Fabrikam Energy,P003,3,1800,Enterprise
+3004,2026-01-19,Wide World Logistics,P004,5,900,Commercial
+
