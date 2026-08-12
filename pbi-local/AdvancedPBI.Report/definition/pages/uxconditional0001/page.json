@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
-  "name": "987f95033a267e607ec7",
-  "displayName": "Executive Summary",
+  "name": "uxconditional0001",
+  "displayName": "Conditional Formatting",
   "displayOption": "FitToPage",
   "height": 1080,
   "width": 1920

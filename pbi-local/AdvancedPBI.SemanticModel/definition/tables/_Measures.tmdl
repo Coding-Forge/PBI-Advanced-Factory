@@ -137,6 +137,21 @@ table _Measures
 			    "Sales Performance - " & SelectedRegion
 		lineageTag: 1a40cc65-431f-40c6-8954-e8d3b42616e5
 
+	measure 'Selected Metric Value' =
+			
+			VAR SelectedMetric =
+			    SELECTEDVALUE ( 'Metric Parameter'[Metric], "Sales Amount" )
+			RETURN
+			    SWITCH (
+			        SelectedMetric,
+			        "Sales Amount", [Sales Amount],
+			        "Gross Margin", [Gross Margin],
+			        "Gross Margin %", [Gross Margin %],
+			        "Quantity", [Quantity],
+			        [Sales Amount]
+			    )
+		lineageTag: 341185de-dc32-4121-8c3c-30e1143ef03f
+
 	column Measures
 		dataType: string
 		lineageTag: 44dc2435-c2ec-4ad7-b81e-8f60302b76e4

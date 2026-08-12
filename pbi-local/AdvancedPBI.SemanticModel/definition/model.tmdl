@@ -11,7 +11,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","BridgeCustomerSegment","FactTargets","FactSales","DimCustomer","DimProduct","DimTerritory","DimOrderDate","DimShipDate","DimSegment","DimProductCategory","_Measures","orders-2026-01","orders-2026-02","orders-2026-03","product-category-map","stg_OrdersCombined","RawDataBaseUrl","RangeStart","RangeEnd","FactOrders","fn_CleanText","SourceFolderPath","EnvironmentName","err_OrdersReview"]
+annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","BridgeCustomerSegment","FactTargets","FactSales","DimCustomer","DimProduct","DimTerritory","DimOrderDate","DimShipDate","DimSegment","DimProductCategory","_Measures","orders-2026-01","orders-2026-02","orders-2026-03","product-category-map","stg_OrdersCombined","RawDataBaseUrl","RangeStart","RangeEnd","FactOrders","fn_CleanText","SourceFolderPath","EnvironmentName","err_OrdersReview","Metric Parameter"]
 
 annotation PBI_ProTooling = ["DevMode","CalcGroup"]
 
@@ -35,6 +35,7 @@ ref table 'Time Calculation'
 ref table product-category-map
 ref table FactOrders
 ref table LocalDateTable_35731b34-cb56-4998-ba94-589bde342bb3
+ref table 'Metric Parameter'
 
 ref cultureInfo en-US
 

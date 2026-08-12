@@ -36,8 +36,6 @@ The workshop should be organized around three learning tracks:
 - Composite models
 - Import, DirectQuery, Dual storage mode, and hybrid tables
 - Aggregation tables
-- Calculation groups
-- Field parameters
 - Model perspectives
 - Shared semantic models and thin reports
 - Managing large semantic models
@@ -48,8 +46,6 @@ The workshop should be organized around three learning tracks:
 |---|---|---|
 | Star schema, relationships, DAX measures | Gov-ready | Core Desktop modeling concepts. |
 | Composite models and DirectQuery | Gov-ready | Data source support and gateway configuration still need tenant validation. |
-| Calculation groups | Verify for Gov | Native Desktop authoring depends on Desktop version; validate TMDL, XMLA, external tools, and capacity/workstation policy as needed. |
-| Field parameters | Gov-ready | Confirm Desktop and Service version parity for the customer tenant. |
 | Hybrid tables and advanced incremental refresh | Verify for Gov | Licensing, capacity, and cloud support should be validated. |
 | Large semantic models | Verify for Gov | Requires Premium, PPU, or Fabric capacity capabilities depending on tenant. |
 
