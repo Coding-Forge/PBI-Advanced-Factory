@@ -16,7 +16,7 @@ Contoso Advanced Manufacturing has a reusable semantic model, but report authors
 
 ## Azure Government readiness
 
-The core labs are **Gov-ready** because they use Power BI Desktop and core DAX. Optional diagnostics with DAX Studio or other external tools are **Verify for Gov** because customer workstation policy, tenant connectivity, and XMLA settings may differ.
+The core labs are **Gov-ready** because they use Power BI Desktop and core DAX. Calculation groups are **Verify for Gov** because native authoring depends on Desktop version, and TMDL, XMLA, external tooling, workstation policy, tenant connectivity, and capacity requirements may differ.
 
 ## Recommended base measures
 
@@ -46,8 +46,9 @@ Sales Variance % = DIVIDE ( [Sales Variance], [Target Sales Amount] )
 4. Build advanced time-intelligence measures.
 5. Create semi-additive measures.
 6. Build rank and Top N logic.
-7. Add dynamic titles and measure switching.
-8. Optimize and validate the measure layer.
+7. Review or create calculation groups for reusable time intelligence.
+8. Add dynamic titles and measure switching.
+9. Optimize and validate the measure layer.
 
 ## Validate your work
 
@@ -58,6 +59,7 @@ Your completed module work should include:
 - A semi-additive pattern.
 - A rank measure.
 - A Top N visual pattern.
+- A calculation group implementation or conceptual review.
 - A dynamic title.
 - Notes about any optional external-tool diagnostics.
 

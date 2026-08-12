@@ -1,0 +1,7 @@
+Persona,PowerBIRole,ExpectedAccess,BuildPermission,ExternalSharingAllowed,Notes
+Executive Sponsor,App Viewer,All territories,No,No,Uses dynamic mapping for all territories.
+Regional Manager,App Viewer,Assigned territories only,No,No,Filtered by dynamic RLS.
+Analyst,Workspace Viewer,Assigned territories only,Yes,No,May build thin reports if approved.
+Semantic Model Developer,Workspace Member,Development workspace data,Yes,No,Should not be used for production RLS validation.
+External Partner,App Viewer,Restricted approved data only,No,Verify,Requires B2B and Gov policy validation.
+

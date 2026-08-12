@@ -1,0 +1,9 @@
+@page { size: letter; margin: 0.55in; }
+body { font-size: 10pt; line-height: 1.4; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.shell { max-width: none !important; padding: 0 !important; }
+header { padding: 14pt 0 !important; }
+h1 { font-size: 25pt !important; }
+h2 { font-size: 16pt !important; break-after: avoid-page; }
+section, .panel, .urlcard, .checklist, .task-card { break-inside: avoid-page; }
+a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; overflow-wrap: anywhere; }
+input[type="checkbox"] { appearance: none; width: 10pt; height: 10pt; border: 1pt solid var(--cp-border-strong); background: var(--cp-surface); }

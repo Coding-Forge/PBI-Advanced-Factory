@@ -2,9 +2,25 @@
 
 This workshop uses synthetic data only. Do not add customer data, tenant identifiers, secrets, subscription IDs, or real user principal names.
 
+## Canonical raw data location
+
+Labs should load CSV data through the Power BI **Web** connector from the repository raw data location:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/
+```
+
+The lab-local `labs\...\data` files are retained as authoring/reference copies. The canonical learner-facing source for Power BI imports is the `data\` folder.
+
 ## Module 1: Advanced Semantic Modeling
 
-### `labs\01-advanced-semantic-modeling\data\sales-flat.csv`
+### `data\sales-flat.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/sales-flat.csv
+```
 
 | Column | Description |
 |---|---|
@@ -30,14 +46,26 @@ This workshop uses synthetic data only. Do not add customer data, tenant identif
 | SalesAmount | Extended sales amount. |
 | GrossMargin | Sales amount less cost. |
 
-### `labs\01-advanced-semantic-modeling\data\customer-segments.csv`
+### `data\customer-segments.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/customer-segments.csv
+```
 
 | Column | Description |
 |---|---|
 | CustomerKey | Synthetic customer key. |
 | Segment | Multi-valued customer segment used for bridge-table modeling. |
 
-### `labs\01-advanced-semantic-modeling\data\targets.csv`
+### `data\targets.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/targets.csv
+```
 
 | Column | Description |
 |---|---|
@@ -46,9 +74,89 @@ This workshop uses synthetic data only. Do not add customer data, tenant identif
 | ProductCategory | Product category. |
 | TargetSalesAmount | Monthly target amount. |
 
+## Authoring standards example datasets
+
+### `data\sales-fact.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/sales-fact.csv
+```
+
+| Column | Description |
+|---|---|
+| SalesOrderLineKey | Synthetic transaction line identifier. |
+| OrderDate | Order date. |
+| ShipDate | Ship date. |
+| InvoiceDate | Invoice date. |
+| CustomerKey | Customer foreign key. |
+| ProductKey | Product foreign key. |
+| TerritoryKey | Territory foreign key. |
+| Quantity | Units sold. |
+| UnitPrice | Unit sales price. |
+| UnitCost | Unit cost. |
+| SalesAmount | Extended sales amount. |
+| GrossMargin | Sales amount less cost. |
+
+### `data\customer-dimension.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/customer-dimension.csv
+```
+
+| Column | Description |
+|---|---|
+| CustomerKey | Synthetic customer key. |
+| CustomerName | Synthetic customer name. |
+| CustomerType | Customer type. |
+| CustomerState | Customer state. |
+| CustomerRegion | Customer region. |
+
+### `data\product-dimension.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/product-dimension.csv
+```
+
+| Column | Description |
+|---|---|
+| ProductKey | Synthetic product key. |
+| ProductName | Product name. |
+| ProductCategory | Product category. |
+| ProductSubcategory | Product subcategory. |
+
+### `data\security-user-map.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security-user-map.csv
+```
+
+| Column | Description |
+|---|---|
+| UserPrincipalName | Synthetic UPN for dynamic RLS examples. |
+| DisplayName | Synthetic display name. |
+| TerritoryKey | Territory key granted to user. |
+| TerritoryName | Territory name granted to user. |
+| AccessLevel | Synthetic access level. |
+
 ## Module 3: Advanced Power Query
 
-### `labs\03-advanced-power-query\data\monthly-orders\orders-YYYY-MM.csv`
+### `data\monthly-orders\orders-YYYY-MM.csv`
+
+Raw URLs:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-01.csv
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-02.csv
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-03.csv
+```
 
 | Column | Description |
 |---|---|
@@ -60,7 +168,13 @@ This workshop uses synthetic data only. Do not add customer data, tenant identif
 | UnitPrice | Unit price. |
 | SalesChannel | Sales channel. |
 
-### `labs\03-advanced-power-query\data\reference\product-category-map.csv`
+### `data\reference\product-category-map.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/reference/product-category-map.csv
+```
 
 | Column | Description |
 |---|---|
@@ -71,7 +185,15 @@ This workshop uses synthetic data only. Do not add customer data, tenant identif
 
 ## Module 7: Security Design
 
-### `labs\07-security-design\data\security-user-territory.csv`
+## Module 7: Security Design
+
+### `data\security\security-user-territory.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-user-territory.csv
+```
 
 | Column | Description |
 |---|---|
@@ -81,7 +203,13 @@ This workshop uses synthetic data only. Do not add customer data, tenant identif
 | TerritoryName | Territory name granted to user. |
 | AccessLevel | Synthetic access level. |
 
-### `labs\07-security-design\data\security-role-matrix.csv`
+### `data\security\security-role-matrix.csv`
+
+Raw URL:
+
+```text
+https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-role-matrix.csv
+```
 
 | Column | Description |
 |---|---|

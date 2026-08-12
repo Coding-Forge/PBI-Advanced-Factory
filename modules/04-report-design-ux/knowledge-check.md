@@ -12,6 +12,7 @@
 8. What are three accessibility checks every report should include?
 9. Why are personalized visuals marked **Verify for Gov**?
 10. Why should AI visuals be optional for Azure Government delivery?
+11. What problem do field parameters solve in a report experience?
 
 ## Answer key
 
@@ -25,4 +26,5 @@
 8. Accessibility checks include alt text, tab order, contrast, descriptive titles, keyboard navigation, and avoiding color-only meaning.
 9. Personalized visuals depend on Service availability and tenant settings that can differ in Azure Government.
 10. AI visual availability may lag, vary by tenant, or be unavailable in sovereign clouds, so Gov labs need a non-AI path.
+11. Field parameters let report users switch between approved measures or dimensions in a visual without duplicating report pages or creating uncontrolled self-service behavior.
 

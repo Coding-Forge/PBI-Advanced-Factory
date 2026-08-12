@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Power BI Advanced Factory Labs</title>
+  <link rel="stylesheet" href="styles/manual-print.css" media="print">
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <script src="scripts/delivery-brand.js" defer></script>
+  <style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.55; }
+a { color: var(--cp-link); }
+button, input { font: inherit; }
+.shell { max-width: 1120px; margin: auto; padding: 24px; }
+.topnav, .bottomnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.topnav a, .bottomnav a { font-weight: 700; text-decoration: none; }
+.crumb, .small, .meta { color: var(--cp-text-muted); }
+header { padding: 32px 0 28px; border-block: 1px solid var(--cp-border); }
+.eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+h1 { max-width: 860px; margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.06; letter-spacing: 0; }
+h2 { margin: 0 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: 0; }
+.lede { max-width: 780px; color: var(--cp-text-muted); font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9rem; }
+.start { display: inline-flex; align-items: center; margin-top: 24px; padding: 12px 18px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 0.625rem; text-decoration: none; font-weight: 800; }
+.start:hover { background: var(--cp-accent-hover); }
+main { padding: 30px 0; }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.lab-card, .panel, .urlcard, .checklist, .task-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.lab-card { display: flex; flex-direction: column; min-height: 250px; padding: 20px; border-top: 4px solid var(--cp-accent); text-decoration: none; color: var(--cp-text); }
+.lab-card:hover { border-color: var(--cp-border-strong); transform: translateY(-2px); }
+.number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.lab-card h3 { margin: 16px 0 8px; }
+.lab-card p, .task-card p, .panel p { color: var(--cp-text-muted); }
+.outcome { margin-top: auto; padding-top: 18px; color: var(--cp-accent); font-weight: 700; }
+.requirements, .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.panel { padding: 20px; }
+.panel ul { margin: 8px 0 0; padding-left: 20px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; }
+article { min-width: 0; }
+aside { position: sticky; top: 18px; }
+section { margin: 0 0 30px; }
+.task-list { display: grid; gap: 14px; }
+.task-card { padding: 18px; }
+.task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
+.lab-sequence { display: grid; gap: 14px; }
+.column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+.column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
+.column-table code { font-family: Consolas, "Courier New", Courier, monospace; }
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
+.callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
+.callout.success { border-left-color: var(--cp-success); }
+.urls { display: grid; gap: 12px; }
+.urlcard { padding: 15px; }
+.urlcard strong { display: block; margin-bottom: 6px; }
+.code { display: block; overflow: auto; padding: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 0.625rem; font: 12px/1.45 Consolas, "Courier New", Courier, monospace; white-space: nowrap; }
+pre.code { white-space: pre; }
+.answer-key { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); overflow: hidden; }
+.answer-key summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--cp-accent); background: var(--cp-surface-soft); }
+.answer-key__body { padding: 18px; }
+.answer-key__body p { color: var(--cp-text-muted); }
+.copy { margin-top: 9px; padding: 7px 11px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); cursor: pointer; }
+.copy:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.checklist { padding: 18px; }
+.checklist label { display: flex; gap: 9px; align-items: flex-start; margin: 10px 0; }
+.checklist input { margin-top: 5px; accent-color: var(--cp-accent); }
+.progress { height: 7px; background: var(--cp-surface-soft); border-radius: 0.625rem; overflow: hidden; }
+.bar { height: 100%; width: 0; background: var(--cp-accent); transition: width 0.2s; }
+.bottomnav { border-top: 1px solid var(--cp-border); padding: 22px 0 34px; }
+footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 0.85rem; }
+@media (max-width: 840px) { .roadmap, .requirements, .track-grid, .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } .shell { padding: 16px; } }
+@media print { aside, .topnav, .bottomnav, .copy { display: none !important; } .layout { display: block !important; } .lab-card, .panel, .urlcard, .checklist, .task-card { box-shadow: none !important; break-inside: avoid-page; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <h1>Power BI Advanced Factory labs</h1>
+      <p class="lede">A PBIP-first advanced Power BI lab site with persistent completion checkboxes, raw GitHub CSV data, Azure Government delivery notes, and customer-brandable HTML pages.</p>
+      <div class="meta"><span>12 guided labs</span><span>PBIP source control</span><span>Gov-ready core path</span><span>Customer-brandable</span></div>
+      <a class="start" href="01-advanced-semantic-modeling.html">Start Lab 1</a>
+    </header>
+    <main>
+      <section>
+        <h2>Lab path</h2>
+        <div class="roadmap"><a class="lab-card" href="01-advanced-semantic-modeling.html">
+  <span class="number">01</span>
+  <h3>Advanced Semantic Modeling</h3>
+  <p>Build the reusable model foundation: facts, dimensions, relationships, role-playing dates, bridge tables, and Gov-aware optional modeling features.</p>
+  <span class="outcome">PBIP semantic model plan - open</span>
+</a>
+<a class="lab-card" href="02-advanced-dax.html">
+  <span class="number">02</span>
+  <h3>Advanced DAX</h3>
+  <p>Build a maintainable DAX layer that demonstrates context transition, CALCULATE, time intelligence, semi-additive logic, ranking, dynamic titles, and optimization.</p>
+  <span class="outcome">Trusted measure layer - open</span>
+</a>
+<a class="lab-card" href="03-advanced-power-query.html">
+  <span class="number">03</span>
+  <h3>Advanced Power Query</h3>
+  <p>Create staged, reusable Power Query transformations using raw GitHub CSVs, parameters, custom functions, data quality checks, and incremental refresh preparation.</p>
+  <span class="outcome">Reusable Power Query pipeline - open</span>
+</a>
+<a class="lab-card" href="04-report-design-ux.html">
+  <span class="number">04</span>
+  <h3>Report Design and UX</h3>
+  <p>Turn the model and measures into an audience-aware report with drillthrough, tooltips, bookmarks, dynamic navigation, conditional formatting, mobile layout, and accessibility review.</p>
+  <span class="outcome">Interactive report pages - open</span>
+</a>
+<a class="lab-card" href="05-performance-optimization.html">
+  <span class="number">05</span>
+  <h3>Performance Optimization</h3>
+  <p>Use an evidence-driven workflow to diagnose report, model, DAX, visual, refresh, and capacity performance.</p>
+  <span class="outcome">Performance improvement notes - open</span>
+</a>
+<a class="lab-card" href="06-advanced-analytics-ai.html">
+  <span class="number">06</span>
+  <h3>Advanced Analytics and AI</h3>
+  <p>Use what-if parameters as the Gov-ready core and evaluate advanced/AI features only when tenant availability is validated.</p>
+  <span class="outcome">Analytics scenario and Gov-safe alternatives - open</span>
+</a>
+<a class="lab-card" href="07-security-design.html">
+  <span class="number">07</span>
+  <h3>Security Design</h3>
+  <p>Configure static and dynamic RLS, test roles, review Build permission, and document OLS, Purview, labels, external sharing, and B2B validation needs.</p>
+  <span class="outcome">Security test evidence - open</span>
+</a>
+<a class="lab-card" href="08-service-enterprise-deployment.html">
+  <span class="number">08</span>
+  <h3>Service Enterprise Deployment</h3>
+  <p>Publish PBIP-authored content to the Service, configure refresh, review gateways, shared semantic models, Apps, App audiences, deployment pipelines, and endorsement.</p>
+  <span class="outcome">Published workspace/App plan - open</span>
+</a>
+<a class="lab-card" href="09-monitoring-governance.html">
+  <span class="number">09</span>
+  <h3>Monitoring and Governance</h3>
+  <p>Monitor adoption, troubleshoot refresh, review tenant settings, inspect gateways, and document support operations.</p>
+  <span class="outcome">Operations runbook - open</span>
+</a>
+<a class="lab-card" href="10-premium-fabric-capacity.html">
+  <span class="number">10</span>
+  <h3>Premium, Fabric, and Capacity</h3>
+  <p>Compare Pro, PPU, Premium, and Fabric capacity and evaluate XMLA, paginated reports, Direct Lake, OneLake, Semantic Link, capacity metrics, and Gov-safe alternatives.</p>
+  <span class="outcome">Capacity architecture recommendation - open</span>
+</a>
+<a class="lab-card" href="11-automation-devops.html">
+  <span class="number">11</span>
+  <h3>Automation and DevOps</h3>
+  <p>Use PBIP and git as the source-control foundation, then review external tools, APIs, service principals, Fabric Git integration, and conceptual CI/CD.</p>
+  <span class="outcome">Deployment checklist - open</span>
+</a>
+<a class="lab-card" href="12-capstone.html">
+  <span class="number">12</span>
+  <h3>Capstone</h3>
+  <p>Bring together modeling, DAX, report UX, performance, security, Service deployment, governance, monitoring, and lifecycle management.</p>
+  <span class="outcome">Validated PBIP solution package - open</span>
+</a></div>
+      </section>
+      <section class="requirements">
+        <div class="panel">
+          <h2>Before you begin</h2>
+          <ul>
+            <li>Install Power BI Desktop.</li>
+            <li>Confirm access to raw.githubusercontent.com.</li>
+            <li>Use PBIP as the source-controlled format.</li>
+            <li>Use the Gov-ready path unless optional features are validated.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h2>Branding</h2>
+          <p>Edit <code>scripts\delivery-config.js</code> to set the customer name, logo, badge, and accent colors. Alternate configs can be tested with the <code>brandConfig</code> query-string parameter.</p>
+        </div>
+      </section>
+    </main>
+    <footer>Power BI Advanced Factory - HTML lab instructions</footer>
+  </div>
+</body>
+</html>

@@ -13,6 +13,7 @@
 | Symptom | Likely cause | Resolution |
 |---|---|---|
 | Relationship cannot be created as one-to-many | Dimension table contains duplicate keys | Remove duplicates in the dimension query and confirm one row per business key. |
+| Product category relationship to targets becomes many-to-many | `DimProduct[ProductCategory]` is repeated across multiple product rows | Create a distinct `DimProductCategory` lookup table and relate it to `DimProduct` and `FactTargets` with one-to-many, single-direction relationships. |
 | Sales totals are duplicated | Dimension grain is not unique or bridge table is filtering incorrectly | Validate row counts and relationship direction before adding visuals. |
 | Dimension slicer does not filter sales | Relationship is inactive or points to the wrong key | Confirm the relationship connects the dimension key to the fact foreign key. |
 
@@ -22,7 +23,9 @@
 |---|---|---|
 | Date slicer filters both order and ship date unexpectedly | A single date table is being reused with ambiguous relationships | Use separate role-playing date tables for the Gov-ready beginner path. |
 | Ship date analysis returns blank | Relationship is missing or date values do not match | Confirm `DimShipDate[Date]` relates to `FactSales[ShipDate]` and both columns are Date type. |
-| Measures do not align by month | Date table lacks a proper month column | Add Year, Month Number, Month Name, and Year-Month columns. |
+| Measures do not align by month | Date table lacks a proper month column | Add Year, Month Number, Month Name, and Year-Month columns using the Lab 1 date table pattern. |
+| Fiscal periods do not match the business calendar | Fiscal year start month was left at the default or calculated manually | Use `fn_DimDate` and pass the correct fiscal-year start month. |
+| Month or fiscal period labels sort alphabetically | Display labels are not sorted by numeric helper columns | Sort month labels by `Month`, year-month labels by `YearMonth`, and fiscal period labels by `FiscalYearQuarterNumber`. |
 
 ## Bridge table pattern
 
@@ -42,21 +45,10 @@
 | Visuals are slow | Source latency or too many visual queries | Reduce visuals, use aggregations, or change appropriate tables to Import/Dual. |
 | Model features are unavailable | DirectQuery/composite model limitation | Review feature limitations before choosing storage mode. |
 
-## Calculation groups
-
-> **Azure Government note:** Calculation groups are **Verify for Gov** because they often require external tools, XMLA connectivity, and compatible tenant/capacity settings.
+## Module hand-offs
 
 | Symptom | Likely cause | Resolution |
 |---|---|---|
-| Cannot connect Tabular Editor to model | External tools blocked or unsupported configuration | Use conceptual path or validate workstation policy. |
-| XMLA endpoint unavailable | Capacity or tenant setting limitation | Validate workspace capacity and admin settings. |
-| Calculation item returns unexpected result | Base measure or calculation expression has incorrect context | Test against one base measure before applying broadly. |
-
-## Field parameters
-
-| Symptom | Likely cause | Resolution |
-|---|---|---|
-| Parameter does not appear in slicer | Parameter table was not added to the model or visual | Add the generated field parameter column to a slicer. |
-| Service behavior differs from Desktop | Feature parity or tenant setting issue | Validate in the target tenant before delivery. |
-| Users can choose confusing combinations | Parameter includes too many unrelated fields | Keep parameters focused on a small set of related measures or dimensions. |
+| Learner asks about calculation groups | This is an advanced DAX maintainability topic | Continue to Module 2, where calculation groups are taught with time-intelligence measures. |
+| Learner asks about field parameters | This is a report interaction and UX topic | Continue to Module 4, where field parameters are taught as guided report exploration. |
 

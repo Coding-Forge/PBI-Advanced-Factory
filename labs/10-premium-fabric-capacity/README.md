@@ -4,6 +4,22 @@
 
 These labs and demos help learners compare capacity options and evaluate advanced architecture features. Most hands-on activities are optional because they depend on licensing, capacity, cloud, tenant settings, and customer policy.
 
+## Novice-friendly how-to guide
+
+### Compare capacity options
+
+1. Start with the workload requirements: user count, model size, refresh frequency, sharing needs, and governance needs.
+2. List which requirements work with Pro, PPU, Premium, or Fabric capacity.
+3. Mark features that require tenant, license, capacity, or cloud validation.
+4. Choose a Gov-safe fallback when a feature is not validated.
+5. Record the recommendation and the reason for it.
+
+### Review capacity metrics conceptually
+
+1. Identify the capacity or workspace that would be monitored.
+2. Review which metrics matter: refresh duration, query duration, throttling, memory, and user activity.
+3. If the capacity metrics app is unavailable, document what evidence the admin team would need to provide.
+
 ## Azure Government readiness
 
 Fabric capacity, Direct Lake, OneLake, Lakehouse, Warehouse, Semantic Link, and autoscale are **Commercial-focused / Verify for Gov**. XMLA, paginated reports, large semantic model settings, and capacity metrics are **Verify for Gov**.

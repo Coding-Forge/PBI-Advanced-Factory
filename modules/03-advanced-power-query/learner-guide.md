@@ -26,10 +26,12 @@ If you create a Power BI artifact while completing this module, save it as a PBI
 
 | File or folder | Purpose |
 |---|---|
-| `data\monthly-orders\orders-2026-01.csv` | Monthly source file for folder combine. |
-| `data\monthly-orders\orders-2026-02.csv` | Monthly source file for folder combine. |
-| `data\monthly-orders\orders-2026-03.csv` | Monthly source file for folder combine. |
-| `data\reference\product-category-map.csv` | Reference data for merge and cleanup. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-01.csv` | Monthly source file for append/combine. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-02.csv` | Monthly source file for append/combine. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-03.csv` | Monthly source file for append/combine. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/reference/product-category-map.csv` | Reference data for merge and cleanup. |
+
+Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub URL.
 
 ## Tasks
 

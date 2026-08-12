@@ -1,0 +1,7 @@
+CustomerKey,CustomerName,CustomerType,CustomerState,CustomerRegion
+C001,Northwind Health,Enterprise,VA,East
+C002,Contoso Defense,Government,MD,East
+C003,Fabrikam Energy,Enterprise,TX,Central
+C004,Wide World Logistics,Commercial,WA,West
+C005,Adventure Works Gov,Government,CO,West
+

@@ -1,0 +1,17 @@
+SalesOrderLineKey,OrderDate,ShipDate,InvoiceDate,CustomerKey,CustomerName,CustomerType,CustomerState,CustomerRegion,ProductKey,ProductName,ProductCategory,ProductSubcategory,TerritoryKey,TerritoryName,TerritoryRegion,Quantity,UnitPrice,UnitCost,SalesAmount,GrossMargin
+1001,2026-01-05,2026-01-08,2026-01-09,C001,Northwind Health,Enterprise,VA,East,P001,Secure Gateway,Security,Network,T01,Mid-Atlantic,East,4,1200,760,4800,1760
+1002,2026-01-07,2026-01-10,2026-01-11,C002,Contoso Defense,Government,MD,East,P002,Analytics Workspace,Analytics,Platform,T01,Mid-Atlantic,East,2,3400,2100,6800,2600
+1003,2026-01-11,2026-01-15,2026-01-16,C003,Fabrikam Energy,Enterprise,TX,Central,P003,Data Gateway,Integration,Connectivity,T02,South Central,Central,3,1800,950,5400,2550
+1004,2026-01-14,2026-01-18,2026-01-19,C004,Wide World Logistics,Commercial,WA,West,P004,Monitoring Pack,Operations,Observability,T03,Pacific Northwest,West,5,900,420,4500,2400
+1005,2026-01-20,2026-01-23,2026-01-24,C005,Adventure Works Gov,Government,CO,West,P001,Secure Gateway,Security,Network,T04,Mountain,West,1,1200,760,1200,440
+1006,2026-02-02,2026-02-05,2026-02-06,C001,Northwind Health,Enterprise,VA,East,P005,AI Readiness Kit,Analytics,AI,T01,Mid-Atlantic,East,2,5200,3100,10400,4200
+1007,2026-02-08,2026-02-11,2026-02-12,C002,Contoso Defense,Government,MD,East,P003,Data Gateway,Integration,Connectivity,T01,Mid-Atlantic,East,4,1800,950,7200,3400
+1008,2026-02-14,2026-02-17,2026-02-18,C003,Fabrikam Energy,Enterprise,TX,Central,P004,Monitoring Pack,Operations,Observability,T02,South Central,Central,6,900,420,5400,2880
+1009,2026-02-21,2026-02-25,2026-02-26,C004,Wide World Logistics,Commercial,WA,West,P002,Analytics Workspace,Analytics,Platform,T03,Pacific Northwest,West,1,3400,2100,3400,1300
+1010,2026-02-26,2026-03-02,2026-03-03,C005,Adventure Works Gov,Government,CO,West,P005,AI Readiness Kit,Analytics,AI,T04,Mountain,West,1,5200,3100,5200,2100
+1011,2026-03-04,2026-03-08,2026-03-09,C001,Northwind Health,Enterprise,VA,East,P004,Monitoring Pack,Operations,Observability,T01,Mid-Atlantic,East,7,900,420,6300,3360
+1012,2026-03-09,2026-03-13,2026-03-14,C002,Contoso Defense,Government,MD,East,P001,Secure Gateway,Security,Network,T01,Mid-Atlantic,East,3,1200,760,3600,1320
+1013,2026-03-12,2026-03-16,2026-03-17,C003,Fabrikam Energy,Enterprise,TX,Central,P002,Analytics Workspace,Analytics,Platform,T02,South Central,Central,2,3400,2100,6800,2600
+1014,2026-03-17,2026-03-21,2026-03-22,C004,Wide World Logistics,Commercial,WA,West,P003,Data Gateway,Integration,Connectivity,T03,Pacific Northwest,West,2,1800,950,3600,1700
+1015,2026-03-25,2026-03-28,2026-03-29,C005,Adventure Works Gov,Government,CO,West,P004,Monitoring Pack,Operations,Observability,T04,Mountain,West,4,900,420,3600,1920
+

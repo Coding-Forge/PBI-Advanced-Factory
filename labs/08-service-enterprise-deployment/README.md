@@ -4,6 +4,26 @@
 
 These labs cover Service deployment, refresh, gateways, shared semantic models, thin reports, Apps, optional App audiences, optional deployment pipelines, and endorsement governance.
 
+## Novice-friendly how-to guide
+
+### Publish a report
+
+1. Open the PBIP-authored report in Power BI Desktop.
+2. Sign in with the account approved for the training workspace.
+3. Select **Home > Publish**.
+4. Choose the target workspace.
+5. Wait for publishing to complete.
+6. Open the report in the Power BI Service.
+7. Confirm the report and semantic model are both present.
+
+### Review refresh settings
+
+1. In the Power BI Service, open the workspace.
+2. Find the semantic model.
+3. Open **Settings**.
+4. Review data source credentials, gateway or cloud connection, and scheduled refresh.
+5. Document anything that cannot be configured in the training tenant.
+
 ## Azure Government readiness
 
 Core workspaces, publishing, refresh, and Apps are generally **Gov-ready**, subject to tenant policy and licensing. App audiences, deployment pipelines, gateways, and cloud connections are **Verify for Gov**.

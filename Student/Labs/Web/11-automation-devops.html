@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 11 - Automation and DevOps</title>
+  <link rel="stylesheet" href="styles/manual-print.css" media="print">
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <script src="scripts/delivery-brand.js" defer></script>
+  <style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.55; }
+a { color: var(--cp-link); }
+button, input { font: inherit; }
+.shell { max-width: 1120px; margin: auto; padding: 24px; }
+.topnav, .bottomnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.topnav a, .bottomnav a { font-weight: 700; text-decoration: none; }
+.crumb, .small, .meta { color: var(--cp-text-muted); }
+header { padding: 32px 0 28px; border-block: 1px solid var(--cp-border); }
+.eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+h1 { max-width: 860px; margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.06; letter-spacing: 0; }
+h2 { margin: 0 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: 0; }
+.lede { max-width: 780px; color: var(--cp-text-muted); font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9rem; }
+.start { display: inline-flex; align-items: center; margin-top: 24px; padding: 12px 18px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 0.625rem; text-decoration: none; font-weight: 800; }
+.start:hover { background: var(--cp-accent-hover); }
+main { padding: 30px 0; }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.lab-card, .panel, .urlcard, .checklist, .task-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.lab-card { display: flex; flex-direction: column; min-height: 250px; padding: 20px; border-top: 4px solid var(--cp-accent); text-decoration: none; color: var(--cp-text); }
+.lab-card:hover { border-color: var(--cp-border-strong); transform: translateY(-2px); }
+.number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.lab-card h3 { margin: 16px 0 8px; }
+.lab-card p, .task-card p, .panel p { color: var(--cp-text-muted); }
+.outcome { margin-top: auto; padding-top: 18px; color: var(--cp-accent); font-weight: 700; }
+.requirements, .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.panel { padding: 20px; }
+.panel ul { margin: 8px 0 0; padding-left: 20px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; }
+article { min-width: 0; }
+aside { position: sticky; top: 18px; }
+section { margin: 0 0 30px; }
+.task-list { display: grid; gap: 14px; }
+.task-card { padding: 18px; }
+.task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
+.lab-sequence { display: grid; gap: 14px; }
+.column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+.column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
+.column-table code { font-family: Consolas, "Courier New", Courier, monospace; }
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
+.callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
+.callout.success { border-left-color: var(--cp-success); }
+.urls { display: grid; gap: 12px; }
+.urlcard { padding: 15px; }
+.urlcard strong { display: block; margin-bottom: 6px; }
+.code { display: block; overflow: auto; padding: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 0.625rem; font: 12px/1.45 Consolas, "Courier New", Courier, monospace; white-space: nowrap; }
+pre.code { white-space: pre; }
+.answer-key { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); overflow: hidden; }
+.answer-key summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--cp-accent); background: var(--cp-surface-soft); }
+.answer-key__body { padding: 18px; }
+.answer-key__body p { color: var(--cp-text-muted); }
+.copy { margin-top: 9px; padding: 7px 11px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); cursor: pointer; }
+.copy:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.checklist { padding: 18px; }
+.checklist label { display: flex; gap: 9px; align-items: flex-start; margin: 10px 0; }
+.checklist input { margin-top: 5px; accent-color: var(--cp-accent); }
+.progress { height: 7px; background: var(--cp-surface-soft); border-radius: 0.625rem; overflow: hidden; }
+.bar { height: 100%; width: 0; background: var(--cp-accent); transition: width 0.2s; }
+.bottomnav { border-top: 1px solid var(--cp-border); padding: 22px 0 34px; }
+footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 0.85rem; }
+@media (max-width: 840px) { .roadmap, .requirements, .track-grid, .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } .shell { padding: 16px; } }
+@media print { aside, .topnav, .bottomnav, .copy { display: none !important; } .layout { display: block !important; } .lab-card, .panel, .urlcard, .checklist, .task-card { box-shadow: none !important; break-inside: avoid-page; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topnav"><a href="10-premium-fabric-capacity.html">Previous</a><span class="crumb">Lab 11 of 12</span><a href="12-capstone.html">Next</a></nav>
+    <header>
+      <div class="eyebrow">Lab 11 - PBIP lifecycle</div>
+      <h1>Automation and DevOps</h1>
+      <p class="lede">Use PBIP and git as the source-control foundation, then review external tools, APIs, service principals, Fabric Git integration, and conceptual CI/CD.</p>
+      <div class="meta"><span>DevOps</span><span>Deliverable: Deployment checklist</span><span>PBIP-first</span></div>
+    </header>
+    <main class="layout">
+      <article>
+        <section>
+          <h2>What you will produce</h2>
+          <div class="panel"><ul><li>PBIP source review</li>
+<li>Git workflow</li>
+<li>Automation validation</li>
+<li>Deployment checklist</li></ul></div>
+        </section>
+        
+        <section>
+          <h2>Walkthrough tasks</h2>
+          <div class="task-list"><div class="task-card">
+  <h3>Review PBIP structure</h3>
+  <ul>
+    <li>Inspect report and semantic model source files.</li>
+<li>Confirm PBIX is not the source of record.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Practice git workflow</h3>
+  <ul>
+    <li>Create a branch, make a small change, review status/diff, and commit.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review external tools</h3>
+  <ul>
+    <li>Tabular Editor and ALM Toolkit are Verify for Gov.</li>
+<li>Document XMLA and workstation policy needs.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review automation options</h3>
+  <ul>
+    <li>REST APIs, PowerShell, service principals, Azure DevOps, and GitHub Actions require endpoint and policy validation.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Complete deployment checklist</h3>
+  <ul>
+    <li>Document source, security, refresh, environment config, automation validation, and release evidence.</li>
+  </ul>
+</div></div>
+        </section>
+        <section>
+  <h2>Module lab sequence</h2>
+  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
+  <div class="lab-sequence"><div class="task-card">
+  <h3>Lab 1: PBIP file structure <span class="tag">Core or module-dependent</span></h3>
+  <p>Understand what gets checked into source control.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 2: Source control workflow <span class="tag">Core or module-dependent</span></h3>
+  <p>Track and review Power BI changes with git.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 3: Tabular Editor workflow where available <span class="tag">Verify for Gov</span></h3>
+  <p>See the lab README for detailed instructions.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 4: ALM Toolkit model comparison where available <span class="tag">Verify for Gov</span></h3>
+  <p>See the lab README for detailed instructions.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 5: Conceptual CI/CD pipeline for Azure DevOps <span class="tag">Core or module-dependent</span></h3>
+  <p>Design a deployment pipeline pattern.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 6: Conceptual CI/CD pipeline for GitHub Actions <span class="tag">Core or module-dependent</span></h3>
+  <p>Design a GitHub Actions deployment pattern.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 7: Deployment checklist <span class="tag">Core or module-dependent</span></h3>
+  <p>Validate readiness before deployment.</p>
+</div></div>
+</section>
+        <section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Work through each lab step</h3><ol><li>Start from the stated starter PBIP or completed prior module solution.</li><li>Create or modify one object at a time using the exact names in the lab.</li><li>Save after each major change.</li><li>Validate the result in a simple visual, Service page, checklist, or evidence table before moving on.</li></ol></div>
+    <div class="task-card"><h3>Document validation</h3><ol><li>Record the feature or setting being tested.</li><li>Record expected behavior before testing.</li><li>Capture actual behavior after testing.</li><li>Mark tenant-dependent features as Verify for Gov if they cannot be validated hands-on.</li></ol></div>
+  </div>
+</section>
+        <section><h2>Implementation reference table</h2><div class="task-card">
+<table class="column-table"><thead><tr><th>Artifact</th><th>Action</th><th>Gov status</th><th>Evidence</th></tr></thead><tbody>
+<tr><td>PBIP source</td><td>Keep report/model source in git</td><td>Gov-ready</td><td>Commit ID and changed files.</td></tr>
+<tr><td>PBIX output</td><td>Generate only when needed</td><td>Gov-ready</td><td>Output artifact note.</td></tr>
+<tr><td>Pull request</td><td>Review model, report, DAX, RLS, sources</td><td>Gov-ready</td><td>Review notes.</td></tr>
+<tr><td>External tools</td><td>Use Tabular Editor/ALM Toolkit only if approved</td><td>Verify for Gov</td><td>Policy/XMLA validation.</td></tr>
+<tr><td>Automation</td><td>REST API, PowerShell, service principal, CI/CD</td><td>Verify for Gov</td><td>Endpoint, identity, and permission notes.</td></tr>
+<tr><td>Fabric Git</td><td>Use only if workspace Git is available</td><td>Commercial-focused / Verify for Gov</td><td>Workspace Git validation.</td></tr>
+</tbody></table></div></section>
+        <section>
+  <h2>Detailed step-by-step procedure</h2>
+  <ol class="steps">
+    <li><strong>Open the repository.</strong><p>Confirm the Power BI work is being done in PBIP format and that PBIX is not the source of record.</p></li>
+    <li><strong>Inspect PBIP structure.</strong><p>Review report and semantic model folders. Identify files that represent report definitions, model metadata, relationships, measures, and data sources.</p></li>
+    <li><strong>Practice a git workflow.</strong><p>Create a feature branch, make a small metadata or report change, run <code>git status</code>, review the changed files, and commit with a clear message.</p></li>
+    <li><strong>Discuss pull request review.</strong><p>Identify what reviewers should check: model changes, measures, data sources, parameters, RLS, report pages, and unintended generated changes.</p></li>
+    <li><strong>Review Tabular Editor and ALM Toolkit.</strong><p>If approved, demonstrate model inspection or comparison. If not approved, document required XMLA, workstation, and tenant validations.</p></li>
+    <li><strong>Review REST API and PowerShell options.</strong><p>Identify target workspace, cloud endpoint, permissions, deployment operations, and tenant settings. Keep hands-on automation optional until validated.</p></li>
+    <li><strong>Review service principal requirements.</strong><p>Document app registration, admin setting approval, security group scoping, workspace role, and secret/certificate storage.</p></li>
+    <li><strong>Review Fabric Git integration.</strong><p>If available, discuss workspace sync. If unavailable, use local PBIP plus git as the Gov-safe path.</p></li>
+    <li><strong>Review CI/CD concepts.</strong><p>Walk through the Azure DevOps and GitHub Actions conceptual pipelines. Identify validation, authentication, deployment, smoke test, and evidence stages.</p></li>
+    <li><strong>Complete deployment checklist.</strong><p>Record source control, model/report validation, environment configuration, automation validation, Azure Government validation, and release evidence.</p></li>
+  </ol>
+</section>
+        
+        <section>
+          <h2>Azure Government note</h2>
+          <div class="callout">Use the Gov-ready path by default. Features marked Verify for Gov or Commercial-focused require tenant, licensing, capacity, network, identity, or policy validation before hands-on delivery.</div>
+        </section>
+      </article>
+      <aside>
+        <div class="checklist" data-progress="lab11">
+          <h2>Completion check</h2>
+          <div class="progress"><div class="bar"></div></div>
+          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <label><input type="checkbox">PBIP structure reviewed</label>
+<label><input type="checkbox">Git workflow practiced</label>
+<label><input type="checkbox">External tools labeled</label>
+<label><input type="checkbox">API/service principal validation documented</label>
+<label><input type="checkbox">CI/CD path selected</label>
+<label><input type="checkbox">Deployment checklist completed</label>
+        </div>
+      </aside>
+    </main>
+    <nav class="bottomnav"><a href="10-premium-fabric-capacity.html">Previous</a><a href="12-capstone.html">Next</a></nav>
+    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+  </div>
+  <script src="scripts/lab-progress.js"></script>
+</body>
+</html>

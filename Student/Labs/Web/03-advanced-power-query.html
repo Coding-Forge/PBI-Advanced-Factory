@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 03 - Advanced Power Query</title>
+  <link rel="stylesheet" href="styles/manual-print.css" media="print">
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <script src="scripts/delivery-brand.js" defer></script>
+  <style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.55; }
+a { color: var(--cp-link); }
+button, input { font: inherit; }
+.shell { max-width: 1120px; margin: auto; padding: 24px; }
+.topnav, .bottomnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.topnav a, .bottomnav a { font-weight: 700; text-decoration: none; }
+.crumb, .small, .meta { color: var(--cp-text-muted); }
+header { padding: 32px 0 28px; border-block: 1px solid var(--cp-border); }
+.eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+h1 { max-width: 860px; margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.06; letter-spacing: 0; }
+h2 { margin: 0 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: 0; }
+.lede { max-width: 780px; color: var(--cp-text-muted); font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9rem; }
+.start { display: inline-flex; align-items: center; margin-top: 24px; padding: 12px 18px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 0.625rem; text-decoration: none; font-weight: 800; }
+.start:hover { background: var(--cp-accent-hover); }
+main { padding: 30px 0; }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.lab-card, .panel, .urlcard, .checklist, .task-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.lab-card { display: flex; flex-direction: column; min-height: 250px; padding: 20px; border-top: 4px solid var(--cp-accent); text-decoration: none; color: var(--cp-text); }
+.lab-card:hover { border-color: var(--cp-border-strong); transform: translateY(-2px); }
+.number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.lab-card h3 { margin: 16px 0 8px; }
+.lab-card p, .task-card p, .panel p { color: var(--cp-text-muted); }
+.outcome { margin-top: auto; padding-top: 18px; color: var(--cp-accent); font-weight: 700; }
+.requirements, .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.panel { padding: 20px; }
+.panel ul { margin: 8px 0 0; padding-left: 20px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; }
+article { min-width: 0; }
+aside { position: sticky; top: 18px; }
+section { margin: 0 0 30px; }
+.task-list { display: grid; gap: 14px; }
+.task-card { padding: 18px; }
+.task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
+.lab-sequence { display: grid; gap: 14px; }
+.column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+.column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
+.column-table code { font-family: Consolas, "Courier New", Courier, monospace; }
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
+.callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
+.callout.success { border-left-color: var(--cp-success); }
+.urls { display: grid; gap: 12px; }
+.urlcard { padding: 15px; }
+.urlcard strong { display: block; margin-bottom: 6px; }
+.code { display: block; overflow: auto; padding: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 0.625rem; font: 12px/1.45 Consolas, "Courier New", Courier, monospace; white-space: nowrap; }
+pre.code { white-space: pre; }
+.answer-key { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); overflow: hidden; }
+.answer-key summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--cp-accent); background: var(--cp-surface-soft); }
+.answer-key__body { padding: 18px; }
+.answer-key__body p { color: var(--cp-text-muted); }
+.copy { margin-top: 9px; padding: 7px 11px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); cursor: pointer; }
+.copy:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.checklist { padding: 18px; }
+.checklist label { display: flex; gap: 9px; align-items: flex-start; margin: 10px 0; }
+.checklist input { margin-top: 5px; accent-color: var(--cp-accent); }
+.progress { height: 7px; background: var(--cp-surface-soft); border-radius: 0.625rem; overflow: hidden; }
+.bar { height: 100%; width: 0; background: var(--cp-accent); transition: width 0.2s; }
+.bottomnav { border-top: 1px solid var(--cp-border); padding: 22px 0 34px; }
+footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 0.85rem; }
+@media (max-width: 840px) { .roadmap, .requirements, .track-grid, .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } .shell { padding: 16px; } }
+@media print { aside, .topnav, .bottomnav, .copy { display: none !important; } .layout { display: block !important; } .lab-card, .panel, .urlcard, .checklist, .task-card { box-shadow: none !important; break-inside: avoid-page; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topnav"><a href="02-advanced-dax.html">Previous</a><span class="crumb">Lab 03 of 12</span><a href="04-report-design-ux.html">Next</a></nav>
+    <header>
+      <div class="eyebrow">Lab 3 - Data shaping</div>
+      <h1>Advanced Power Query</h1>
+      <p class="lede">Create staged, reusable Power Query transformations using raw GitHub CSVs, parameters, custom functions, data quality checks, and incremental refresh preparation.</p>
+      <div class="meta"><span>Advanced authoring</span><span>Deliverable: Reusable Power Query pipeline</span><span>PBIP-first</span></div>
+    </header>
+    <main class="layout">
+      <article>
+        <section>
+          <h2>What you will produce</h2>
+          <div class="panel"><ul><li>Staged queries</li>
+<li>Web connector sources</li>
+<li>Custom function</li>
+<li>Data quality review</li></ul></div>
+        </section>
+        <section>
+  <h2>Source files</h2>
+  <div class="urls">
+    <div class="urlcard"><strong>orders-2026-01.csv</strong><code class="code" id="u1">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-01.csv</code><button class="copy" data-copy="u1">Copy URL</button></div>
+    <div class="urlcard"><strong>orders-2026-02.csv</strong><code class="code" id="u2">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-02.csv</code><button class="copy" data-copy="u2">Copy URL</button></div>
+    <div class="urlcard"><strong>orders-2026-03.csv</strong><code class="code" id="u3">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-03.csv</code><button class="copy" data-copy="u3">Copy URL</button></div>
+    <div class="urlcard"><strong>product-category-map.csv</strong><code class="code" id="u4">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/reference/product-category-map.csv</code><button class="copy" data-copy="u4">Copy URL</button></div>
+  </div>
+</section>
+        <section>
+          <h2>Walkthrough tasks</h2>
+          <div class="task-list"><div class="task-card">
+  <h3>Create Web sources</h3>
+  <ul>
+    <li>Use the monthly order raw URLs with Get data &gt; Web.</li>
+<li>Name raw queries by source month.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Append and stage</h3>
+  <ul>
+    <li>Append monthly files into stg_OrdersCombined.</li>
+<li>Preserve source file lineage and disable load for staging queries.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Clean and validate</h3>
+  <ul>
+    <li>Apply explicit types.</li>
+<li>Create error review logic for bad dates and quantities.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Add parameters and functions</h3>
+  <ul>
+    <li>Create RawDataBaseUrl.</li>
+<li>Create fn_CleanText for reusable null-safe text cleanup.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Prepare refresh concepts</h3>
+  <ul>
+    <li>Create RangeStart and RangeEnd parameters conceptually or hands-on.</li>
+<li>Mark Service incremental refresh as Verify for Gov.</li>
+  </ul>
+</div></div>
+        </section>
+        <section>
+  <h2>Module lab sequence</h2>
+  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
+  <div class="lab-sequence"><div class="task-card">
+  <h3>Lab 1: Staged query architecture <span class="tag">Core or module-dependent</span></h3>
+  <p>Create maintainable query layers.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 2: Folder combine <span class="tag">Core or module-dependent</span></h3>
+  <p>Combine monthly files safely.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 3: Parameters and source switching <span class="tag">Core or module-dependent</span></h3>
+  <p>Use parameters to avoid hard-coded local paths.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 4: Custom functions <span class="tag">Core or module-dependent</span></h3>
+  <p>Encapsulate reusable cleanup logic.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 5: Data quality and error handling <span class="tag">Core or module-dependent</span></h3>
+  <p>Detect and handle invalid source rows.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 6: Query folding <span class="tag">Gov-ready</span></h3>
+  <p>Understand and validate folding behavior.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 7: Incremental refresh preparation <span class="tag">Verify for Gov</span></h3>
+  <p>Prepare a fact query for incremental refresh.</p>
+</div></div>
+</section>
+        <section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Create a Power Query parameter</h3><ol><li>Open <strong>Transform data</strong> to launch Power Query.</li><li>Select <strong>Manage Parameters &gt; New Parameter</strong>.</li><li>Enter the exact parameter name, data type, and current value from the lab.</li><li>Select <strong>OK</strong> and use the parameter in source steps instead of hard-coded paths.</li></ol></div>
+    <div class="task-card"><h3>Append queries</h3><ol><li>In Power Query, select <strong>Home &gt; Append Queries &gt; Append Queries as New</strong>.</li><li>Choose <strong>Three or more tables</strong>.</li><li>Add each raw monthly query in order.</li><li>Name the result <code>stg_OrdersCombined</code>.</li><li>Check that columns line up and data types are consistent.</li></ol></div>
+    <div class="task-card"><h3>Disable load for staging queries</h3><ol><li>Right-click each raw or staging query.</li><li>Clear <strong>Enable load</strong>.</li><li>Leave final model-ready queries enabled.</li><li>Select <strong>Close &amp; Apply</strong> when the query set is ready.</li></ol></div>
+  </div>
+</section>
+        <section><h2>Implementation reference table</h2><div class="task-card">
+<table class="column-table"><thead><tr><th>Query</th><th>Source</th><th>Load enabled?</th><th>Required output</th></tr></thead><tbody>
+<tr><td><code>raw_Orders_2026_01</code></td><td><code>orders-2026-01.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>.</td></tr>
+<tr><td><code>raw_Orders_2026_02</code></td><td><code>orders-2026-02.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>.</td></tr>
+<tr><td><code>raw_Orders_2026_03</code></td><td><code>orders-2026-03.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>; contains intentional errors.</td></tr>
+<tr><td><code>stg_OrdersCombined</code></td><td>Append raw order queries</td><td>No</td><td>Combined rows with consistent columns.</td></tr>
+<tr><td><code>fact_Orders</code></td><td>Reference staging query</td><td>Yes</td><td>Typed columns: <code>OrderId</code>, <code>OrderDate</code>, <code>CustomerName</code>, <code>ProductCode</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>SalesChannel</code>, <code>SourceFile</code>.</td></tr>
+<tr><td><code>dim_ProductCategory</code></td><td><code>product-category-map.csv</code> Web URL</td><td>Yes</td><td><code>ProductCode</code>, <code>ProductName</code>, <code>ProductCategory</code>, <code>ProductSubcategory</code>.</td></tr>
+<tr><td><code>fn_CleanText</code></td><td>Blank query function</td><td>No</td><td>Null-safe trim/clean/proper text function.</td></tr>
+</tbody></table></div></section>
+        <section>
+  <h2>Detailed step-by-step procedure</h2>
+  <ol class="steps">
+    <li><strong>Open the PBIP project and Power Query.</strong><p>Open the current PBIP solution. Select <b>Transform data</b> to open Power Query Editor.</p></li>
+    <li><strong>Create a raw data base parameter.</strong><p>Create a text parameter named <code>RawDataBaseUrl</code> with value <code>https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/</code>. This makes the Web source pattern easier to maintain.</p></li>
+    <li><strong>Load monthly order files.</strong><p>Use <b>New Source > Web</b> for each monthly order CSV. Name the raw queries <code>raw_Orders_2026_01</code>, <code>raw_Orders_2026_02</code>, and <code>raw_Orders_2026_03</code>.</p></li>
+    <li><strong>Add source lineage.</strong><p>In each raw monthly query, add a custom column named SourceFile with the file name, such as <code>orders-2026-01.csv</code>. This helps identify which file produced each row.</p></li>
+    <li><strong>Append the monthly queries.</strong><p>Use <b>Append Queries as New</b> and append the three monthly order queries. Rename the result <code>stg_OrdersCombined</code>.</p></li>
+    <li><strong>Create the final fact query.</strong><p>Reference <code>stg_OrdersCombined</code> and name the new query <code>fact_Orders</code>. Apply explicit data types for OrderId, OrderDate, ProductCode, Quantity, UnitPrice, and SalesChannel.</p></li>
+    <li><strong>Create a cleanup function.</strong><p>Create <code>fn_CleanText</code> to trim and clean nullable text values. Invoke it on CustomerName and other text columns where whitespace or inconsistent capitalization exists.</p></li>
+    <li><strong>Identify bad data.</strong><p>Use column quality/profile and type-conversion errors to find the intentional bad date and bad quantity in the March file. Create an error review query before removing or replacing rows.</p></li>
+    <li><strong>Load reference data.</strong><p>Use the Web connector for <code>product-category-map.csv</code>. Merge it into <code>fact_Orders</code> on ProductCode or keep it as a dimension/reference table, depending on the lab design.</p></li>
+    <li><strong>Prepare for incremental refresh.</strong><p>Create DateTime parameters named <code>RangeStart</code> and <code>RangeEnd</code>. Filter the final fact query on OrderDate using those parameters. Document Service-side incremental refresh as Verify for Gov.</p></li>
+  </ol>
+</section>
+        <section>
+  <h2>Answer key</h2>
+  <details class="answer-key">
+    <summary>Show Power Query M patterns</summary>
+    <div class="answer-key__body">
+      <p>These snippets show the intended M patterns. Your generated step names may differ depending on how you clicked through Power Query.</p>
+<pre class="code"><code>// Parameter value
+RawDataBaseUrl = "https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/"
+
+// Example Web source pattern
+Source =
+    Csv.Document(
+        Web.Contents(RawDataBaseUrl &amp; "monthly-orders/orders-2026-01.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    )
+
+PromotedHeaders =
+    Table.PromoteHeaders(Source, [PromoteAllScalars = true])
+
+WithSourceFile =
+    Table.AddColumn(
+        PromotedHeaders,
+        "SourceFile",
+        each "orders-2026-01.csv",
+        type text
+    )
+
+// Append pattern
+stg_OrdersCombined =
+    Table.Combine({
+        raw_Orders_2026_01,
+        raw_Orders_2026_02,
+        raw_Orders_2026_03
+    })
+
+// Text cleanup function
+(inputText as nullable text) as nullable text =&gt;
+let
+    Result =
+        if inputText = null then
+            null
+        else
+            Text.Proper(Text.Trim(Text.Clean(inputText)))
+in
+    Result
+
+// Final type pattern
+TypedOrders =
+    Table.TransformColumnTypes(
+        stg_OrdersCombined,
+        {
+            {"OrderId", Int64.Type},
+            {"OrderDate", type date},
+            {"CustomerName", type text},
+            {"ProductCode", type text},
+            {"Quantity", Int64.Type},
+            {"UnitPrice", Currency.Type},
+            {"SalesChannel", type text},
+            {"SourceFile", type text}
+        }
+    )
+
+// Incremental refresh filter pattern
+FilteredRows =
+    Table.SelectRows(
+        TypedOrders,
+        each [OrderDate] &gt;= Date.From(RangeStart)
+            and [OrderDate] &lt; Date.From(RangeEnd)
+    )</code></pre>
+    </div>
+  </details>
+</section>
+        <section>
+          <h2>Azure Government note</h2>
+          <div class="callout">Use the Gov-ready path by default. Features marked Verify for Gov or Commercial-focused require tenant, licensing, capacity, network, identity, or policy validation before hands-on delivery.</div>
+        </section>
+      </article>
+      <aside>
+        <div class="checklist" data-progress="lab03">
+          <h2>Completion check</h2>
+          <div class="progress"><div class="bar"></div></div>
+          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <label><input type="checkbox">Web URLs loaded</label>
+<label><input type="checkbox">Monthly queries appended</label>
+<label><input type="checkbox">Explicit types applied</label>
+<label><input type="checkbox">Data quality issues found</label>
+<label><input type="checkbox">Custom function created</label>
+<label><input type="checkbox">Incremental refresh notes captured</label>
+        </div>
+      </aside>
+    </main>
+    <nav class="bottomnav"><a href="02-advanced-dax.html">Previous</a><a href="04-report-design-ux.html">Next</a></nav>
+    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+  </div>
+  <script src="scripts/lab-progress.js"></script>
+</body>
+</html>

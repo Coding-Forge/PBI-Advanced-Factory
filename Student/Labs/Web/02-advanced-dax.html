@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 02 - Advanced DAX</title>
+  <link rel="stylesheet" href="styles/manual-print.css" media="print">
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <script src="scripts/delivery-brand.js" defer></script>
+  <style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.55; }
+a { color: var(--cp-link); }
+button, input { font: inherit; }
+.shell { max-width: 1120px; margin: auto; padding: 24px; }
+.topnav, .bottomnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.topnav a, .bottomnav a { font-weight: 700; text-decoration: none; }
+.crumb, .small, .meta { color: var(--cp-text-muted); }
+header { padding: 32px 0 28px; border-block: 1px solid var(--cp-border); }
+.eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+h1 { max-width: 860px; margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.06; letter-spacing: 0; }
+h2 { margin: 0 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: 0; }
+.lede { max-width: 780px; color: var(--cp-text-muted); font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9rem; }
+.start { display: inline-flex; align-items: center; margin-top: 24px; padding: 12px 18px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 0.625rem; text-decoration: none; font-weight: 800; }
+.start:hover { background: var(--cp-accent-hover); }
+main { padding: 30px 0; }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.lab-card, .panel, .urlcard, .checklist, .task-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.lab-card { display: flex; flex-direction: column; min-height: 250px; padding: 20px; border-top: 4px solid var(--cp-accent); text-decoration: none; color: var(--cp-text); }
+.lab-card:hover { border-color: var(--cp-border-strong); transform: translateY(-2px); }
+.number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.lab-card h3 { margin: 16px 0 8px; }
+.lab-card p, .task-card p, .panel p { color: var(--cp-text-muted); }
+.outcome { margin-top: auto; padding-top: 18px; color: var(--cp-accent); font-weight: 700; }
+.requirements, .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.panel { padding: 20px; }
+.panel ul { margin: 8px 0 0; padding-left: 20px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; }
+article { min-width: 0; }
+aside { position: sticky; top: 18px; }
+section { margin: 0 0 30px; }
+.task-list { display: grid; gap: 14px; }
+.task-card { padding: 18px; }
+.task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
+.lab-sequence { display: grid; gap: 14px; }
+.column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+.column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
+.column-table code { font-family: Consolas, "Courier New", Courier, monospace; }
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
+.callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
+.callout.success { border-left-color: var(--cp-success); }
+.urls { display: grid; gap: 12px; }
+.urlcard { padding: 15px; }
+.urlcard strong { display: block; margin-bottom: 6px; }
+.code { display: block; overflow: auto; padding: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 0.625rem; font: 12px/1.45 Consolas, "Courier New", Courier, monospace; white-space: nowrap; }
+pre.code { white-space: pre; }
+.answer-key { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); overflow: hidden; }
+.answer-key summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--cp-accent); background: var(--cp-surface-soft); }
+.answer-key__body { padding: 18px; }
+.answer-key__body p { color: var(--cp-text-muted); }
+.copy { margin-top: 9px; padding: 7px 11px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); cursor: pointer; }
+.copy:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.checklist { padding: 18px; }
+.checklist label { display: flex; gap: 9px; align-items: flex-start; margin: 10px 0; }
+.checklist input { margin-top: 5px; accent-color: var(--cp-accent); }
+.progress { height: 7px; background: var(--cp-surface-soft); border-radius: 0.625rem; overflow: hidden; }
+.bar { height: 100%; width: 0; background: var(--cp-accent); transition: width 0.2s; }
+.bottomnav { border-top: 1px solid var(--cp-border); padding: 22px 0 34px; }
+footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 0.85rem; }
+@media (max-width: 840px) { .roadmap, .requirements, .track-grid, .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } .shell { padding: 16px; } }
+@media print { aside, .topnav, .bottomnav, .copy { display: none !important; } .layout { display: block !important; } .lab-card, .panel, .urlcard, .checklist, .task-card { box-shadow: none !important; break-inside: avoid-page; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topnav"><a href="01-advanced-semantic-modeling.html">Previous</a><span class="crumb">Lab 02 of 12</span><a href="03-advanced-power-query.html">Next</a></nav>
+    <header>
+      <div class="eyebrow">Lab 2 - Measures and context</div>
+      <h1>Advanced DAX</h1>
+      <p class="lede">Build a maintainable DAX layer that demonstrates context transition, CALCULATE, time intelligence, semi-additive logic, ranking, dynamic titles, and optimization.</p>
+      <div class="meta"><span>Advanced authoring</span><span>Deliverable: Trusted measure layer</span><span>PBIP-first</span></div>
+    </header>
+    <main class="layout">
+      <article>
+        <section>
+          <h2>What you will produce</h2>
+          <div class="panel"><ul><li>Base measures</li>
+<li>Advanced time intelligence</li>
+<li>Calculation groups</li>
+<li>Ranking and Top N</li>
+<li>Dynamic titles and measure switching</li></ul></div>
+        </section>
+        
+        <section>
+          <h2>Walkthrough tasks</h2>
+          <div class="task-list"><div class="task-card">
+  <h3>Create base measures</h3>
+  <ul>
+    <li>Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target, and variance measures.</li>
+<li>Format measures before building derived logic.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Explore context</h3>
+  <ul>
+    <li>Use visuals and slicers to observe filter context.</li>
+<li>Use calculated-column examples only to explain row context.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Use CALCULATE patterns</h3>
+  <ul>
+    <li>Create filter removal and KEEPFILTERS examples.</li>
+<li>Validate totals at customer, product, and date grains.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Add time and ranking patterns</h3>
+  <ul>
+    <li>Create YTD, prior year, YoY, rolling period, rank, and Top N measures.</li>
+<li>Use ALLSELECTED where slicer-aware ranking is required.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review calculation groups</h3>
+  <ul>
+    <li>Use native Power BI Desktop calculation group authoring when available.</li>
+<li>Review TMDL View or Tabular Editor paths only when those workflows are validated.</li>
+<li>Compare calculation groups to separate time-intelligence measures when tooling is blocked.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Optimize and document</h3>
+  <ul>
+    <li>Use variables and measure branching.</li>
+<li>Keep DAX Studio optional and Verify for Gov.</li>
+  </ul>
+</div></div>
+        </section>
+        <section>
+  <h2>Module lab sequence</h2>
+  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
+  <div class="lab-sequence"><div class="task-card">
+  <h3>Lab 1: Row context vs. filter context <span class="tag">Core or module-dependent</span></h3>
+  <p>Diagnose why measures evaluate differently in different visuals.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 2: Context transition and `CALCULATE` <span class="tag">Core or module-dependent</span></h3>
+  <p>Use `CALCULATE` to intentionally modify filter context.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 3: Advanced time intelligence <span class="tag">Core or module-dependent</span></h3>
+  <p>Create reusable time-intelligence measures.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 4: Semi-additive measures <span class="tag">Core or module-dependent</span></h3>
+  <p>Understand measures that should not be summed across time.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 5: Dynamic Top N and ranking <span class="tag">Core or module-dependent</span></h3>
+  <p>Rank customers and filter visuals to a dynamic Top N view.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 6: Dynamic titles and measure switching <span class="tag">Core or module-dependent</span></h3>
+  <p>Make report text and metrics respond to user selections.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 7: Calculation groups for reusable time intelligence <span class="tag">Verify for Gov</span></h3>
+  <p>Reduce repeated time-intelligence measures using a calculation group.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 8: DAX optimization <span class="tag">Verify for Gov</span></h3>
+  <p>Improve readability and reduce repeated calculations.</p>
+</div></div>
+</section>
+        <section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Create a measure</h3><ol><li>In Report or Model view, select the table that should store the measure.</li><li>Select <strong>Modeling &gt; New measure</strong>.</li><li>Type the measure name, equals sign, and DAX expression, such as <code>Sales Amount = SUM(FactSales[SalesAmount])</code>.</li><li>Press Enter and set formatting in the Measure tools ribbon.</li><li>Test the measure in a simple card or table before building derived measures.</li></ol></div>
+    <div class="task-card"><h3>Build a DAX test visual</h3><ol><li>Add a table or matrix visual.</li><li>Add one dimension field, such as <code>DimCustomer[CustomerName]</code>.</li><li>Add the measure being tested.</li><li>Add slicers for date, territory, or product category.</li><li>Change slicer selections and observe whether totals respond as expected.</li></ol></div>
+    <div class="task-card"><h3>Use CALCULATE safely</h3><ol><li>Start from a working base measure.</li><li>Create a new measure with <code>CALCULATE([Base Measure], filter expression)</code>.</li><li>Use <code>REMOVEFILTERS</code> when you intentionally want to ignore a dimension.</li><li>Use <code>KEEPFILTERS</code> when you want to narrow existing filters instead of replacing them.</li><li>Compare the result against the base measure in the same visual.</li></ol></div>
+    <div class="task-card"><h3>Create a calculation group</h3><ol><li>Confirm base measures such as <code>[Sales Amount]</code> and <code>[Gross Margin]</code> work first.</li><li>Open <strong>Model view</strong> in Power BI Desktop.</li><li>Select <strong>Calculation group</strong> from the ribbon.</li><li>If prompted, enable <strong>Discourage implicit measures</strong>.</li><li>Rename the calculation group table to <code>Time Intelligence</code> and the calculation group column to <code>Time Calculation</code>.</li><li>Rename the first calculation item to <code>Current</code> and set its expression to <code>SELECTEDMEASURE()</code>.</li><li>Add more calculation items from <strong>Model Explorer</strong>, then test the group with a date field and base measure.</li></ol></div>
+    <div class="task-card"><h3>Review TMDL or external-tool paths</h3><ol><li>Use <strong>TMDL View</strong> only when the Desktop/PBIP workflow is validated.</li><li>Use Tabular Editor only when external tools are approved.</li><li>Document which path was used and whether it is allowed in the target environment.</li><li>If no calculation group authoring path is validated, use separate DAX measures as the fallback.</li></ol></div>
+  </div>
+</section>
+        <section><h2>Implementation reference table</h2><div class="task-card">
+<table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
+<tr><td>Base measure</td><td><code>Sales Amount</code></td><td><code>SUM(FactSales[SalesAmount])</code></td><td>Totals by customer/product.</td></tr>
+<tr><td>Base measure</td><td><code>Quantity</code></td><td><code>SUM(FactSales[Quantity])</code></td><td>Totals by product.</td></tr>
+<tr><td>Base measure</td><td><code>Gross Margin</code></td><td><code>SUM(FactSales[GrossMargin])</code></td><td>Totals by territory.</td></tr>
+<tr><td>Derived measure</td><td><code>Gross Margin %</code></td><td><code>DIVIDE([Gross Margin], [Sales Amount])</code></td><td>Formatted as percentage.</td></tr>
+<tr><td>Target measure</td><td><code>Target Sales Amount</code></td><td><code>SUM(FactTargets[TargetSalesAmount])</code></td><td>Totals by month/category.</td></tr>
+<tr><td>Variance measures</td><td><code>Sales Variance</code>, <code>Sales Variance %</code></td><td>Actual minus target; percent uses <code>DIVIDE</code></td><td>No divide-by-zero errors.</td></tr>
+<tr><td>Time measures</td><td><code>Sales YTD</code>, <code>Sales Prior Year</code>, <code>Sales YoY</code></td><td>Use <code>DimOrderDate[Date]</code></td><td>Validate by month.</td></tr>
+<tr><td>Ranking measure</td><td><code>Customer Sales Rank</code></td><td><code>RANKX</code> over <code>DimCustomer[CustomerName]</code></td><td>Rank respects slicers.</td></tr>
+</tbody></table></div></section>
+        <section>
+  <h2>Detailed step-by-step procedure</h2>
+  <ol class="steps">
+    <li><strong>Open the PBIP model from Lab 1.</strong><p>Confirm the model has FactSales, dimensions, date tables, targets, and segment tables. Do not start DAX work until the relationships are correct.</p></li>
+    <li><strong>Create a measure table.</strong><p>In Power BI Desktop, create or choose a table to hold measures. Name measures consistently and place them in display folders if your model supports it.</p></li>
+    <li><strong>Create base measures first.</strong><p>Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target Sales Amount, Sales Variance, and Sales Variance %. Use simple aggregations and <code>DIVIDE</code> for percentages.</p></li>
+    <li><strong>Test filter context.</strong><p>Add a matrix with CustomerName on rows and ProductCategory on columns. Add Sales Amount and Gross Margin %. Add slicers for TerritoryRegion and Year. Observe how the same measure changes under different filters.</p></li>
+    <li><strong>Build CALCULATE examples.</strong><p>Create a measure that removes product filters and a product share measure that divides current sales by all-product sales. Then create a measure that uses <code>KEEPFILTERS</code> for a selected customer type.</p></li>
+    <li><strong>Create time intelligence.</strong><p>Using the Order Date table, create YTD, prior-year, year-over-year, year-over-year percent, and rolling-period measures. Validate each measure in a month-level visual.</p></li>
+    <li><strong>Add ranking and Top N.</strong><p>Create a Customer Sales Rank measure with <code>RANKX</code>. Add a flag for Top 5 customers and use it as a visual filter on a bar chart.</p></li>
+    <li><strong>Review calculation groups.</strong><p>This optional lab is marked <strong>Verify for Gov</strong>. If the target Power BI Desktop version supports native calculation group authoring, use <b>Model view > Calculation group</b>, enable <b>Discourage implicit measures</b> if prompted, and create a <code>Time Intelligence</code> calculation group with Current, Prior Year, YoY Change, and YoY Change % items. If TMDL View, Tabular Editor, XMLA, or CI/CD workflows are validated, review those authoring paths too. If no authoring path is validated, compare the design to creating separate DAX measures for each metric/time combination.</p></li>
+    <li><strong>Add dynamic report text or metric switching.</strong><p>Create a dynamic title with <code>SELECTEDVALUE</code>. Optionally create a disconnected metric selector table and a <code>SWITCH</code> measure to display a selected metric.</p></li>
+    <li><strong>Refactor for readability.</strong><p>Use variables for repeated logic. Branch from base measures instead of duplicating calculations. Add formatting and descriptions where appropriate.</p></li>
+    <li><strong>Validate and document.</strong><p>Check totals at the customer, product, territory, and date levels. If using DAX Studio or other tools, mark them Verify for Gov unless the customer environment has been validated.</p></li>
+  </ol>
+</section>
+        <section>
+  <h2>Answer key</h2>
+  <details class="answer-key">
+    <summary>Show DAX formulas</summary>
+    <div class="answer-key__body">
+      <p>Try to create the measures first. Open this section if you get stuck or want to compare your answer.</p>
+<pre class="code"><code>Sales Amount =
+SUM ( FactSales[SalesAmount] )
+
+Quantity =
+SUM ( FactSales[Quantity] )
+
+Gross Margin =
+SUM ( FactSales[GrossMargin] )
+
+Gross Margin % =
+DIVIDE ( [Gross Margin], [Sales Amount] )
+
+Target Sales Amount =
+SUM ( FactTargets[TargetSalesAmount] )
+
+Sales Variance =
+[Sales Amount] - [Target Sales Amount]
+
+Sales Variance % =
+DIVIDE ( [Sales Variance], [Target Sales Amount] )
+
+Sales All Products =
+CALCULATE (
+    [Sales Amount],
+    REMOVEFILTERS ( DimProduct )
+)
+
+Product Sales Share =
+DIVIDE ( [Sales Amount], [Sales All Products] )
+
+Enterprise Customer Sales =
+CALCULATE (
+    [Sales Amount],
+    KEEPFILTERS ( DimCustomer[CustomerType] = "Enterprise" )
+)
+
+Sales YTD =
+TOTALYTD (
+    [Sales Amount],
+    DimOrderDate[Date]
+)
+
+Sales Prior Year =
+CALCULATE (
+    [Sales Amount],
+    SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+)
+
+Sales YoY =
+[Sales Amount] - [Sales Prior Year]
+
+Sales YoY % =
+DIVIDE ( [Sales YoY], [Sales Prior Year] )
+
+Sales Rolling 90 Days =
+VAR LastVisibleDate =
+    MAX ( DimOrderDate[Date] )
+RETURN
+    CALCULATE (
+        [Sales Amount],
+        DATESINPERIOD ( DimOrderDate[Date], LastVisibleDate, -90, DAY )
+    )
+
+Customer Sales Rank =
+RANKX (
+    ALLSELECTED ( DimCustomer[CustomerName] ),
+    [Sales Amount],
+    ,
+    DESC,
+    DENSE
+)
+
+Is Top 5 Customer =
+IF ( [Customer Sales Rank] &lt;= 5, 1, 0 )
+
+Sales Title =
+VAR SelectedRegion =
+    SELECTEDVALUE ( DimTerritory[TerritoryRegion], "All Regions" )
+RETURN
+    "Sales Performance - " &amp; SelectedRegion</code></pre>
+    </div>
+  </details>
+</section>
+        <section>
+          <h2>Azure Government note</h2>
+          <div class="callout">Use the Gov-ready path by default. Features marked Verify for Gov or Commercial-focused require tenant, licensing, capacity, network, identity, or policy validation before hands-on delivery.</div>
+        </section>
+      </article>
+      <aside>
+        <div class="checklist" data-progress="lab02">
+          <h2>Completion check</h2>
+          <div class="progress"><div class="bar"></div></div>
+          <p class="small"><span class="count">0</span> of 7 complete</p>
+          <label><input type="checkbox">Base measures created</label>
+<label><input type="checkbox">CALCULATE examples validated</label>
+<label><input type="checkbox">Time intelligence works by month</label>
+<label><input type="checkbox">Calculation groups implemented or reviewed</label>
+<label><input type="checkbox">Ranking/Top N works</label>
+<label><input type="checkbox">Dynamic title or metric switch created</label>
+<label><input type="checkbox">External tooling marked Verify for Gov</label>
+        </div>
+      </aside>
+    </main>
+    <nav class="bottomnav"><a href="01-advanced-semantic-modeling.html">Previous</a><a href="03-advanced-power-query.html">Next</a></nav>
+    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+  </div>
+  <script src="scripts/lab-progress.js"></script>
+</body>
+</html>

@@ -17,6 +17,7 @@ Learners should understand basic report visuals, slicers, filters, formatting, a
 - Add report page tooltips for contextual explanations.
 - Use bookmarks and buttons for guided navigation.
 - Build dynamic navigation patterns.
+- Use field parameters for guided report exploration.
 - Apply conditional formatting intentionally.
 - Create and validate mobile layouts.
 - Review accessibility.
@@ -29,8 +30,8 @@ Learners should understand basic report visuals, slicers, filters, formatting, a
 3. Add drillthrough from summary visuals to detail pages.
 4. Add report page tooltips.
 5. Build bookmark and button interactions.
-6. Add dynamic navigation and conditional formatting.
-7. Create a mobile layout.
+6. Add dynamic navigation and field parameters.
+7. Add conditional formatting and create a mobile layout.
 8. Run accessibility review.
 9. Discuss personalized visuals and AI visuals as tenant-dependent.
 
@@ -39,6 +40,7 @@ Learners should understand basic report visuals, slicers, filters, formatting, a
 | Feature | Status | Instructor note |
 |---|---|---|
 | Drillthrough, tooltips, bookmarks, buttons | Gov-ready | Required core path. |
+| Field parameters | Gov-ready | Validate Desktop and Service parity before delivery. |
 | Conditional formatting | Gov-ready | Required core path. |
 | Mobile layout | Gov-ready | Validate mobile app and customer device policy. |
 | Personalized visuals | Verify for Gov | Do not require unless Service feature and tenant setting are validated. |
@@ -65,6 +67,7 @@ Learners should understand basic report visuals, slicers, filters, formatting, a
 | Drillthrough does not appear | Drillthrough field is missing from the target page | Add the correct drillthrough field and test from a matching visual. |
 | Tooltip page does not show | Page size or tooltip setting is not configured | Set page information to tooltip and assign the tooltip page to the visual. |
 | Bookmark changes too much | Bookmark captures data, display, or current page unintentionally | Edit bookmark options to capture only intended behavior. |
+| Field parameter does not switch the visual | Generated parameter field was not added to the correct visual well | Add the parameter field to Values, Axis, or Rows depending on the visual goal. |
 | Mobile layout is unreadable | Desktop layout was not optimized for mobile | Build a separate mobile layout with fewer visuals and larger touch targets. |
 | Conditional formatting distracts users | Too many colors or unclear thresholds | Use a limited palette and document business meaning. |
 

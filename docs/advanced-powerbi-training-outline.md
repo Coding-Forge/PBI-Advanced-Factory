@@ -48,7 +48,7 @@ The workshop should be organized around three learning tracks:
 |---|---|---|
 | Star schema, relationships, DAX measures | Gov-ready | Core Desktop modeling concepts. |
 | Composite models and DirectQuery | Gov-ready | Data source support and gateway configuration still need tenant validation. |
-| Calculation groups | Verify for Gov | Often depends on authoring tools and XMLA/Tabular Editor usage. |
+| Calculation groups | Verify for Gov | Native Desktop authoring depends on Desktop version; validate TMDL, XMLA, external tools, and capacity/workstation policy as needed. |
 | Field parameters | Gov-ready | Confirm Desktop and Service version parity for the customer tenant. |
 | Hybrid tables and advanced incremental refresh | Verify for Gov | Licensing, capacity, and cloud support should be validated. |
 | Large semantic models | Verify for Gov | Requires Premium, PPU, or Fabric capacity capabilities depending on tenant. |
@@ -58,8 +58,6 @@ The workshop should be organized around three learning tracks:
 - Build a star schema from a flat sales dataset.
 - Refactor a weak model into fact and dimension tables.
 - Add role-playing date dimensions.
-- Create calculation groups for time intelligence.
-- Configure field parameters for dynamic report exploration.
 - Compare Import, DirectQuery, and composite model behavior.
 
 ## Module 2: Advanced DAX
@@ -466,10 +464,10 @@ Build an advanced Power BI solution for a fictional enterprise business domain, 
 
 | Area | Advanced features | Gov delivery note |
 |---|---|---|
-| Modeling | Star schema, composite models, aggregations, calculation groups, field parameters | Most are Gov-ready or tenant-dependent; validate calculation groups/tooling and hybrid models. |
-| DAX | Context transition, advanced `CALCULATE`, time intelligence, dynamic measures | Gov-ready. |
+| Modeling | Star schema, relationships, role-playing dimensions, bridge tables, composite models, aggregations | Most are Gov-ready or tenant-dependent; validate composite/hybrid model choices. |
+| DAX | Context transition, advanced `CALCULATE`, time intelligence, calculation groups, dynamic measures | Core DAX is Gov-ready; validate Desktop calculation group authoring, TMDL, XMLA, or external-tool paths. |
 | Power Query | Query folding, parameters, custom functions, incremental refresh | Mostly Gov-ready; validate dataflows and incremental refresh licensing. |
-| Reporting | Bookmarks, drillthrough, tooltip pages, dynamic UX, mobile layouts | Gov-ready; validate personalized visuals and AI visuals. |
+| Reporting | Bookmarks, drillthrough, tooltip pages, field parameters, dynamic UX, mobile layouts | Gov-ready; validate personalized visuals and AI visuals. |
 | Performance | Performance Analyzer, DAX Studio, VertiPaq optimization, aggregations | Desktop capabilities are Gov-ready; Service model access may require validation. |
 | Service | Workspaces, Apps, certified semantic models, gateways, deployment pipelines | Core features Gov-ready; deployment pipelines and App audiences should be validated. |
 | Security | Dynamic RLS, OLS, sensitivity labels, tenant governance | RLS Gov-ready; OLS, labels, and Purview integration require validation. |

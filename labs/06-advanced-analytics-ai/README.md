@@ -4,6 +4,25 @@
 
 These labs introduce advanced analytical features while preserving a Gov-ready path that does not depend on AI services or unvalidated tenant features.
 
+## Novice-friendly how-to guide
+
+### Create a what-if parameter
+
+1. Select **Modeling > New parameter > Numeric range**.
+2. Name it `Margin Adjustment %`.
+3. Enter the minimum, maximum, and increment values from the lab.
+4. Keep the generated slicer.
+5. Use the generated parameter measure in an adjusted-margin DAX measure.
+6. Change the slicer value and confirm visuals update.
+
+### Use advanced visuals safely
+
+1. Confirm the visual is available in the target tenant.
+2. Add the visual to a practice page first.
+3. Add the measure to analyze.
+4. Add the dimensions that may explain the result.
+5. Document what the visual suggests and what still needs human validation.
+
 ## Azure Government readiness
 
 The what-if parameter lab is **Gov-ready**. Decomposition tree, forecasting, anomaly detection, key influencers, Python/R visuals, Azure ML integration, and Copilot are **Verify for Gov** or **Commercial-focused**.

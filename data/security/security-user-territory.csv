@@ -1,0 +1,10 @@
+UserPrincipalName,DisplayName,TerritoryKey,TerritoryName,AccessLevel
+alex.manager@contoso.example,Alex Manager,T01,Mid-Atlantic,Regional
+alex.manager@contoso.example,Alex Manager,T02,South Central,Regional
+casey.lead@contoso.example,Casey Lead,T03,Pacific Northwest,Regional
+devon.director@contoso.example,Devon Director,T01,Mid-Atlantic,Executive
+devon.director@contoso.example,Devon Director,T02,South Central,Executive
+devon.director@contoso.example,Devon Director,T03,Pacific Northwest,Executive
+devon.director@contoso.example,Devon Director,T04,Mountain,Executive
+jordan.rep@contoso.example,Jordan Rep,T04,Mountain,Regional
+

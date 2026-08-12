@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 01 - Advanced Semantic Modeling</title>
+  <link rel="stylesheet" href="styles/manual-print.css" media="print">
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <script src="scripts/delivery-brand.js" defer></script>
+  <style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.55; }
+a { color: var(--cp-link); }
+button, input { font: inherit; }
+.shell { max-width: 1120px; margin: auto; padding: 24px; }
+.topnav, .bottomnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.topnav a, .bottomnav a { font-weight: 700; text-decoration: none; }
+.crumb, .small, .meta { color: var(--cp-text-muted); }
+header { padding: 32px 0 28px; border-block: 1px solid var(--cp-border); }
+.eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+h1 { max-width: 860px; margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.06; letter-spacing: 0; }
+h2 { margin: 0 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: 0; }
+.lede { max-width: 780px; color: var(--cp-text-muted); font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9rem; }
+.start { display: inline-flex; align-items: center; margin-top: 24px; padding: 12px 18px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 0.625rem; text-decoration: none; font-weight: 800; }
+.start:hover { background: var(--cp-accent-hover); }
+main { padding: 30px 0; }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.lab-card, .panel, .urlcard, .checklist, .task-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.lab-card { display: flex; flex-direction: column; min-height: 250px; padding: 20px; border-top: 4px solid var(--cp-accent); text-decoration: none; color: var(--cp-text); }
+.lab-card:hover { border-color: var(--cp-border-strong); transform: translateY(-2px); }
+.number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.lab-card h3 { margin: 16px 0 8px; }
+.lab-card p, .task-card p, .panel p { color: var(--cp-text-muted); }
+.outcome { margin-top: auto; padding-top: 18px; color: var(--cp-accent); font-weight: 700; }
+.requirements, .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.panel { padding: 20px; }
+.panel ul { margin: 8px 0 0; padding-left: 20px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; }
+article { min-width: 0; }
+aside { position: sticky; top: 18px; }
+section { margin: 0 0 30px; }
+.task-list { display: grid; gap: 14px; }
+.task-card { padding: 18px; }
+.task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
+.lab-sequence { display: grid; gap: 14px; }
+.column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+.column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
+.column-table code { font-family: Consolas, "Courier New", Courier, monospace; }
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
+.callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
+.callout.success { border-left-color: var(--cp-success); }
+.urls { display: grid; gap: 12px; }
+.urlcard { padding: 15px; }
+.urlcard strong { display: block; margin-bottom: 6px; }
+.code { display: block; overflow: auto; padding: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 0.625rem; font: 12px/1.45 Consolas, "Courier New", Courier, monospace; white-space: nowrap; }
+pre.code { white-space: pre; }
+.answer-key { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); overflow: hidden; }
+.answer-key summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--cp-accent); background: var(--cp-surface-soft); }
+.answer-key__body { padding: 18px; }
+.answer-key__body p { color: var(--cp-text-muted); }
+.copy { margin-top: 9px; padding: 7px 11px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); cursor: pointer; }
+.copy:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.checklist { padding: 18px; }
+.checklist label { display: flex; gap: 9px; align-items: flex-start; margin: 10px 0; }
+.checklist input { margin-top: 5px; accent-color: var(--cp-accent); }
+.progress { height: 7px; background: var(--cp-surface-soft); border-radius: 0.625rem; overflow: hidden; }
+.bar { height: 100%; width: 0; background: var(--cp-accent); transition: width 0.2s; }
+.bottomnav { border-top: 1px solid var(--cp-border); padding: 22px 0 34px; }
+footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 0.85rem; }
+@media (max-width: 840px) { .roadmap, .requirements, .track-grid, .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } .shell { padding: 16px; } }
+@media print { aside, .topnav, .bottomnav, .copy { display: none !important; } .layout { display: block !important; } .lab-card, .panel, .urlcard, .checklist, .task-card { box-shadow: none !important; break-inside: avoid-page; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topnav"><a href="index.html">Course home</a><span class="crumb">Lab 01 of 12</span><a href="02-advanced-dax.html">Next</a></nav>
+    <header>
+      <div class="eyebrow">Lab 1 - Semantic model foundation</div>
+      <h1>Advanced Semantic Modeling</h1>
+      <p class="lede">Build the reusable model foundation: facts, dimensions, relationships, role-playing dates, bridge tables, and Gov-aware optional modeling features.</p>
+      <div class="meta"><span>Advanced authoring</span><span>Deliverable: PBIP semantic model plan</span><span>PBIP-first</span></div>
+    </header>
+    <main class="layout">
+      <article>
+        <section>
+          <h2>What you will produce</h2>
+          <div class="panel"><ul><li>Star schema design</li>
+<li>Role-playing date strategy</li>
+<li>Customer segment bridge pattern</li>
+<li>Gov notes for composite models</li></ul></div>
+        </section>
+        <section>
+  <h2>Source files</h2>
+  <div class="urls">
+    <div class="urlcard"><strong>sales-flat.csv</strong><code class="code" id="u1">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/sales-flat.csv</code><button class="copy" data-copy="u1">Copy URL</button></div>
+    <div class="urlcard"><strong>customer-segments.csv</strong><code class="code" id="u2">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/customer-segments.csv</code><button class="copy" data-copy="u2">Copy URL</button></div>
+    <div class="urlcard"><strong>targets.csv</strong><code class="code" id="u3">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/targets.csv</code><button class="copy" data-copy="u3">Copy URL</button></div>
+  </div>
+</section>
+        <section>
+          <h2>Walkthrough tasks</h2>
+          <div class="task-list"><div class="task-card">
+  <h3>Connect to the raw CSV sources</h3>
+  <ul>
+    <li>Use Get data &gt; Web for sales-flat, customer-segments, and targets.</li>
+<li>Create clearly named staging queries.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Refactor into a star schema</h3>
+  <ul>
+    <li>Create FactSales, role-playing date tables, customer, product, territory, and target tables.</li>
+<li>Use the approved Power Query or DAX date table pattern, remove duplicates from dimensions, and disable load for intermediate queries.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Configure relationships</h3>
+  <ul>
+    <li>Create one-to-many relationships into facts.</li>
+<li>Keep single-direction filtering unless a lab step explicitly justifies otherwise.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Add role-playing dates and bridge table</h3>
+  <ul>
+    <li>Support Order Date and Ship Date analysis.</li>
+<li>Use customer-segments as BridgeCustomerSegment with DimSegment.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Document optional modeling features</h3>
+  <ul>
+    <li>Mark composite models, DirectQuery choices, hybrid tables, and large models as Verify for Gov unless validated.</li>
+<li>Use Module 2 for calculation groups and Module 4 for field parameters.</li>
+  </ul>
+</div></div>
+        </section>
+        <section>
+  <h2>Module lab sequence</h2>
+  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
+  <div class="lab-sequence"><div class="task-card">
+  <h3>Lab 1: Star schema refactor <span class="tag">Core or module-dependent</span></h3>
+  <p>Convert a flat sales export into a dimensional model.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 2: Role-playing dimensions <span class="tag">Core or module-dependent</span></h3>
+  <p>Support analysis by order date and ship date.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 3: Bridge table pattern <span class="tag">Core or module-dependent</span></h3>
+  <p>Model customers that can belong to multiple segments.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 4: Composite model or DirectQuery comparison <span class="tag">Verify for Gov</span></h3>
+  <p>Compare Import, DirectQuery, Dual, and composite model design choices.</p>
+</div></div>
+</section>
+        <section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Create a relationship in Model view</h3><ol><li>Select <strong>Model view</strong> on the left rail.</li><li>Drag the primary-key column from the dimension table to the matching foreign-key column on the fact table.</li><li>In the relationship dialog, confirm cardinality is <strong>One to many</strong>, cross-filter direction is <strong>Single</strong>, and <strong>Make this relationship active</strong> is checked.</li><li>Select <strong>Save</strong>, then verify the relationship line points from the dimension to the fact.</li></ol></div>
+    <div class="task-card"><h3>Evaluate composite model choices</h3><ol><li>Start from the business need: freshness, performance, source load, and security.</li><li>Identify tables that should stay Import for performance.</li><li>Identify tables that might require DirectQuery for freshness.</li><li>Document gateway, connector, tenant, and source limitations before changing storage mode.</li></ol></div>
+  </div>
+</section>
+        
+        <section>
+  <h2>Detailed step-by-step procedure</h2>
+  <ol class="steps">
+    <li><strong>Create or open the PBIP project.</strong><p>Open Power BI Desktop. If you are continuing the workshop solution, open the PBIP project in <code>pbi-local\</code>. If this is your first hands-on step, create a new blank report and save it as a Power BI project before importing data.</p></li>
+    <li><strong>Connect to the sales flat file.</strong><p>Select <b>Home > Get data > Web</b>. Paste the <code>sales-flat.csv</code> raw URL from the Source files section. Use Anonymous authentication for the public GitHub source, then choose <b>Transform data</b>.</p></li>
+    <li><strong>Name the raw query.</strong><p>In Power Query, rename the query to <code>raw_SalesFlat</code>. Do not do all modeling work directly in this raw query; keep it as your source reference.</p></li>
+    <li><strong>Create the sales fact query.</strong><p>Right-click <code>raw_SalesFlat</code> and choose <b>Reference</b>. Rename the new query <code>FactSales</code>. Use this exact column list so relationship keys and later DAX measures are not missed.</p>
+      <table class="column-table">
+        <thead><tr><th>Column</th><th>Action</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td><code>SalesOrderLineKey</code></td><td>Keep</td><td>Unique transaction line identifier.</td></tr>
+          <tr><td><code>OrderDate</code></td><td>Keep</td><td>Relationship to <code>DimOrderDate</code>.</td></tr>
+          <tr><td><code>ShipDate</code></td><td>Keep</td><td>Relationship to <code>DimShipDate</code>.</td></tr>
+          <tr><td><code>InvoiceDate</code></td><td>Keep</td><td>Optional invoice-date analysis.</td></tr>
+          <tr><td><code>CustomerKey</code></td><td>Keep</td><td>Relationship to <code>DimCustomer</code>.</td></tr>
+          <tr><td><code>ProductKey</code></td><td>Keep</td><td>Relationship to <code>DimProduct</code>.</td></tr>
+          <tr><td><code>TerritoryKey</code></td><td>Keep</td><td>Relationship to <code>DimTerritory</code>.</td></tr>
+          <tr><td><code>Quantity</code></td><td>Keep</td><td>Additive quantity measure source.</td></tr>
+          <tr><td><code>UnitPrice</code></td><td>Keep</td><td>Validation and derived price metrics.</td></tr>
+          <tr><td><code>UnitCost</code></td><td>Keep</td><td>Validation and derived cost/margin metrics.</td></tr>
+          <tr><td><code>SalesAmount</code></td><td>Keep</td><td>Core sales measure source.</td></tr>
+          <tr><td><code>GrossMargin</code></td><td>Keep</td><td>Core gross margin measure source.</td></tr>
+          <tr><td><code>CustomerName</code>, <code>CustomerType</code>, <code>CustomerState</code>, <code>CustomerRegion</code></td><td>Remove from <code>FactSales</code></td><td>These belong in <code>DimCustomer</code>.</td></tr>
+          <tr><td><code>ProductName</code>, <code>ProductCategory</code>, <code>ProductSubcategory</code></td><td>Remove from <code>FactSales</code></td><td>These belong in <code>DimProduct</code>.</td></tr>
+          <tr><td><code>TerritoryName</code>, <code>TerritoryRegion</code></td><td>Remove from <code>FactSales</code></td><td>These belong in <code>DimTerritory</code>.</td></tr>
+        </tbody>
+      </table>
+    </li>
+    <li><strong>Create customer, product, and territory dimensions.</strong><p>Reference <code>raw_SalesFlat</code> three more times. Use the exact column lists below, then remove duplicate rows from each dimension query.</p>
+      <table class="column-table">
+        <thead><tr><th>Query</th><th>Columns to keep</th><th>Columns to remove</th></tr></thead>
+        <tbody>
+          <tr><td><code>DimCustomer</code></td><td><code>CustomerKey</code>, <code>CustomerName</code>, <code>CustomerType</code>, <code>CustomerState</code>, <code>CustomerRegion</code></td><td>All sales, date, product, and territory columns.</td></tr>
+          <tr><td><code>DimProduct</code></td><td><code>ProductKey</code>, <code>ProductName</code>, <code>ProductCategory</code>, <code>ProductSubcategory</code></td><td>All sales, date, customer, and territory columns.</td></tr>
+          <tr><td><code>DimProductCategory</code></td><td><code>ProductCategory</code></td><td><code>SalesOrderLineKey</code>, <code>OrderDate</code>, <code>ShipDate</code>, <code>InvoiceDate</code>, <code>CustomerKey</code>, <code>CustomerName</code>, <code>CustomerType</code>, <code>CustomerState</code>, <code>CustomerRegion</code>, <code>ProductKey</code>, <code>ProductName</code>, <code>ProductSubcategory</code>, <code>TerritoryKey</code>, <code>TerritoryName</code>, <code>TerritoryRegion</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>UnitCost</code>, <code>SalesAmount</code>, <code>GrossMargin</code>. Remove duplicate rows so each category appears once.</td></tr>
+          <tr><td><code>DimTerritory</code></td><td><code>TerritoryKey</code>, <code>TerritoryName</code>, <code>TerritoryRegion</code></td><td>All sales, date, customer, and product columns.</td></tr>
+        </tbody>
+      </table>
+    </li>
+    <li><strong>Create the product category lookup.</strong><p><code>FactTargets</code> is stored at product-category grain, while <code>DimProduct</code> is stored at product grain. Do not relate <code>DimProduct[ProductCategory]</code> directly to <code>FactTargets[ProductCategory]</code> if Power BI detects many-to-many cardinality. Instead, reference <code>DimProduct</code>, rename the query <code>DimProductCategory</code>, remove <code>ProductKey</code>, <code>ProductName</code>, and <code>ProductSubcategory</code>, keep <code>ProductCategory</code> as the only remaining column, remove duplicate rows from <code>ProductCategory</code>, and load it as a small lookup dimension.</p></li>
+    <li><strong>Create date role tables.</strong><p>Create date tables for at least Order Date and Ship Date. For a beginner-friendly path, duplicate or reference a completed date table into <code>DimOrderDate</code> and <code>DimShipDate</code>. Use one of the approved patterns below.</p>
+      <details>
+        <summary>Answer key / suggested date table patterns</summary>
+        <p><strong>Use Power Query</strong> when the date table should be reusable across reports, parameterized by start/end date, aligned to a configurable fiscal year, or enriched with holidays before load. Create a blank query named <code>fn_DimDate</code> and paste this function in Advanced Editor.</p>
+        <pre class="code"><code>let
+    fn_DimDate =
+        (
+            StartDate as date,
+            EndDate as date,
+            optional FiscalYearStartMonth as nullable number,
+            optional Holidays as nullable table
+        ) as table =&gt;
+        let
+            FiscalStartMonth = if FiscalYearStartMonth = null then 7 else FiscalYearStartMonth,
+            _ValidateFiscalMonth =
+                if FiscalStartMonth &lt; 1 or FiscalStartMonth &gt; 12 then
+                    error "FiscalYearStartMonth must be a number from 1 through 12."
+                else
+                    FiscalStartMonth,
+            DayCount = Duration.Days(EndDate - StartDate) + 1,
+            Source =
+                if DayCount &lt; 1 then
+                    error "EndDate must be on or after StartDate."
+                else
+                    List.Dates(StartDate, DayCount, #duration(1, 0, 0, 0)),
+            Dates = Table.FromList(Source, Splitter.SplitByNothing(), {"Date"}),
+            ChangedType = Table.TransformColumnTypes(Dates, {{"Date", type date}}),
+            AddYearMonthDay = Table.AddColumn(ChangedType, "YearMonthDay", each Date.Year([Date]) * 10000 + Date.Month([Date]) * 100 + Date.Day([Date]), Int64.Type),
+            AddYearMonth = Table.AddColumn(AddYearMonthDay, "YearMonth", each Date.Year([Date]) * 100 + Date.Month([Date]), Int64.Type),
+            AddYear = Table.AddColumn(AddYearMonth, "Year", each Date.Year([Date]), Int64.Type),
+            AddQuarter = Table.AddColumn(AddYear, "Quarter", each Date.QuarterOfYear([Date]), Int64.Type),
+            AddMonth = Table.AddColumn(AddQuarter, "Month", each Date.Month([Date]), Int64.Type),
+            AddDay = Table.AddColumn(AddMonth, "Day", each Date.Day([Date]), Int64.Type),
+            AddWeek = Table.AddColumn(AddDay, "Week", each let WeekStart = Date.StartOfWeek([Date], Day.Monday) in Date.Year(WeekStart) * 10000 + Date.Month(WeekStart) * 100 + Date.Day(WeekStart), Int64.Type),
+            AddWeekNumber = Table.AddColumn(AddWeek, "WeekNumber", each Date.WeekOfYear([Date], Day.Monday), Int64.Type),
+            AddYearWeekNumber = Table.AddColumn(AddWeekNumber, "YearWeekNumber", each Date.Year([Date]) * 100 + Date.WeekOfYear([Date], Day.Monday), Int64.Type),
+            AddMonthName = Table.AddColumn(AddYearWeekNumber, "MonthName", each Date.ToText([Date], "MMMM", "en-US"), type text),
+            AddMonthShortName = Table.AddColumn(AddMonthName, "MonthShortName", each Date.ToText([Date], "MMM", "en-US"), type text),
+            AddYearMonthName = Table.AddColumn(AddMonthShortName, "YearMonthName", each Date.ToText([Date], "yyyy-MMM", "en-US"), type text),
+            AddQuarterName = Table.AddColumn(AddYearMonthName, "QuarterName", each "Q" &amp; Text.From([Quarter], "en-US"), type text),
+            AddYearQuarter = Table.AddColumn(AddQuarterName, "YearQuarter", each Text.From([Year], "en-US") &amp; "-Q" &amp; Text.From([Quarter], "en-US"), type text),
+            AddWeekdayName = Table.AddColumn(AddYearQuarter, "WeekdayName", each Date.ToText([Date], "dddd", "en-US"), type text),
+            AddWeekdayShortName = Table.AddColumn(AddWeekdayName, "WeekdayShortName", each Date.ToText([Date], "ddd", "en-US"), type text),
+            AddDayOfWeekNumber = Table.AddColumn(AddWeekdayShortName, "DayOfWeekNumber", each Date.DayOfWeek([Date], Day.Monday) + 1, Int64.Type),
+            AddIsWeekend = Table.AddColumn(AddDayOfWeekNumber, "IsWeekend", each [DayOfWeekNumber] &gt;= 6, type logical),
+            AddFiscalYearNumber = Table.AddColumn(AddIsWeekend, "FiscalYearNumber", each if Date.Month([Date]) &gt;= FiscalStartMonth then Date.Year([Date]) + 1 else Date.Year([Date]), Int64.Type),
+            AddFiscalYear = Table.AddColumn(AddFiscalYearNumber, "FiscalYear", each "FY" &amp; Text.From([FiscalYearNumber], "en-US"), type text),
+            AddFiscalQuarter = Table.AddColumn(AddFiscalYear, "FiscalQuarter", each Number.IntegerDivide(Number.Mod(Date.Month([Date]) - FiscalStartMonth + 12, 12), 3) + 1, Int64.Type),
+            AddFiscalPeriod = Table.AddColumn(AddFiscalQuarter, "FiscalPeriod", each [FiscalYear] &amp; "-Q" &amp; Text.From([FiscalQuarter], "en-US"), type text),
+            AddFiscalYearQuarterNumber = Table.AddColumn(AddFiscalPeriod, "FiscalYearQuarterNumber", each [FiscalYearNumber] * 10 + [FiscalQuarter], Int64.Type),
+            HolidaySource =
+                if Holidays = null then
+                    #table(type table [Date = date, HolidayName = text], {})
+                else
+                    Table.TransformColumnTypes(Holidays, {{"Date", type date}, {"HolidayName", type text}}),
+            MergeHolidays = Table.NestedJoin(AddFiscalYearQuarterNumber, {"Date"}, HolidaySource, {"Date"}, "Holiday", JoinKind.LeftOuter),
+            ExpandHolidays = Table.ExpandTableColumn(MergeHolidays, "Holiday", {"HolidayName"}, {"HolidayName"}),
+            AddIsHoliday = Table.AddColumn(ExpandHolidays, "IsHoliday", each [HolidayName] &lt;&gt; null, type logical),
+            AddIsBusinessDay = Table.AddColumn(AddIsHoliday, "IsBusinessDay", each not [IsWeekend] and not [IsHoliday], type logical)
+        in
+            AddIsBusinessDay
+in
+    fn_DimDate</code></pre>
+        <p>Example lab query:</p>
+        <pre class="code"><code>let
+    Source = fn_DimDate(#date(2023, 1, 1), #date(2029, 12, 31), 7, null)
+in
+    Source</code></pre>
+        <p><strong>Use DAX</strong> when you need a quick model-local date table. This calculated table starts on January 1 three years before the current year and ends on December 31 three years after the current year.</p>
+        <pre class="code"><code>DimDate =
+VAR CurrentYear = YEAR ( TODAY () )
+VAR StartDate = DATE ( CurrentYear - 3, 1, 1 )
+VAR EndDate = DATE ( CurrentYear + 3, 12, 31 )
+RETURN
+    ADDCOLUMNS (
+        CALENDAR ( StartDate, EndDate ),
+        "YearMonthDay", YEAR ( [Date] ) * 10000 + MONTH ( [Date] ) * 100 + DAY ( [Date] ),
+        "YearMonth", YEAR ( [Date] ) * 100 + MONTH ( [Date] ),
+        "Year", YEAR ( [Date] ),
+        "Quarter", QUARTER ( [Date] ),
+        "MonthNumber", MONTH ( [Date] ),
+        "Day", DAY ( [Date] ),
+        "Week",
+            VAR WeekStart = [Date] - WEEKDAY ( [Date], 2 ) + 1
+            RETURN YEAR ( WeekStart ) * 10000 + MONTH ( WeekStart ) * 100 + DAY ( WeekStart ),
+        "WeekNumber", WEEKNUM ( [Date], 2 ),
+        "YearWeekNumber", YEAR ( [Date] ) * 100 + WEEKNUM ( [Date], 2 ),
+        "MonthName", FORMAT ( [Date], "MMMM" ),
+        "WeekdayName", FORMAT ( [Date], "dddd" )
+    )</code></pre>
+        <p>After creating either pattern, mark the table as a date table using the <code>Date</code> column. The Power Query function returns numeric attributes for year-month-day, year-month, year, quarter, month, day, week, week number, year-week number, weekday number, and fiscal sort keys; text attributes for month, short month, year-month, quarter, weekday, short weekday, fiscal year, and fiscal period; and holiday/business-day attributes when supplied.</p>
+        <div class="callout"><strong>Side note:</strong> Larger enterprise date dimensions often add period boundary dates, refresh-relative offsets, current-period flags, and ISO week attributes. Keep those optional in Lab 1 because they depend on business calendar rules, refresh timing, and whether the organization uses ISO week calendars.</div>
+      </details>
+    </li>
+    <li><strong>Load targets and customer segments.</strong><p>Use <b>Get data > Web</b> for <code>targets.csv</code> and <code>customer-segments.csv</code>. Use these exact column lists.</p>
+      <table class="column-table">
+        <thead><tr><th>Query</th><th>Columns to keep</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>FactTargets</code></td><td><code>TargetMonth</code>, <code>TerritoryKey</code>, <code>ProductCategory</code>, <code>TargetSalesAmount</code></td><td>Monthly target fact table.</td></tr>
+          <tr><td><code>BridgeCustomerSegment</code></td><td><code>CustomerKey</code>, <code>Segment</code></td><td>Bridge table that maps customers to one or more segments.</td></tr>
+          <tr><td><code>DimSegment</code></td><td><code>Segment</code></td><td>Create this as a distinct list from <code>BridgeCustomerSegment[Segment]</code>.</td></tr>
+        </tbody>
+      </table>
+    </li>
+    <li><strong>Close and apply.</strong><p>Confirm data types before loading. Dates should be Date, quantities should be whole numbers, currency/amount columns should be decimal or fixed decimal, and keys should be text unless you intentionally model them otherwise.</p></li>
+    <li><strong>Create relationships in Model view.</strong><p>Use the relationship setup reference below to create each relationship explicitly. The core lab path uses one-to-many cardinality and single-direction filtering from dimensions into facts or bridge tables.</p>
+      <table class="column-table">
+        <thead><tr><th>From table</th><th>From column</th><th>Key role</th><th>To table</th><th>To column</th><th>Key role</th><th>Cardinality</th><th>Cross-filter direction</th><th>Active?</th></tr></thead>
+        <tbody>
+          <tr><td><code>DimCustomer</code></td><td><code>CustomerKey</code></td><td>PK</td><td><code>FactSales</code></td><td><code>CustomerKey</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimProduct</code></td><td><code>ProductKey</code></td><td>PK</td><td><code>FactSales</code></td><td><code>ProductKey</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimTerritory</code></td><td><code>TerritoryKey</code></td><td>PK</td><td><code>FactSales</code></td><td><code>TerritoryKey</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimOrderDate</code></td><td><code>Date</code></td><td>PK</td><td><code>FactSales</code></td><td><code>OrderDate</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimShipDate</code></td><td><code>Date</code></td><td>PK</td><td><code>FactSales</code></td><td><code>ShipDate</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimTerritory</code></td><td><code>TerritoryKey</code></td><td>PK</td><td><code>FactTargets</code></td><td><code>TerritoryKey</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimProductCategory</code></td><td><code>ProductCategory</code></td><td>PK</td><td><code>DimProduct</code></td><td><code>ProductCategory</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimProductCategory</code></td><td><code>ProductCategory</code></td><td>PK</td><td><code>FactTargets</code></td><td><code>ProductCategory</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimSegment</code></td><td><code>Segment</code></td><td>PK</td><td><code>BridgeCustomerSegment</code></td><td><code>Segment</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+          <tr><td><code>DimCustomer</code></td><td><code>CustomerKey</code></td><td>PK</td><td><code>BridgeCustomerSegment</code></td><td><code>CustomerKey</code></td><td>FK</td><td>One-to-many</td><td>Single</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Crow's-foot model view:</strong></p>
+      <pre class="code"><code>DimCustomer  ||--o{  FactSales              : CustomerKey
+DimProduct   ||--o{  FactSales              : ProductKey
+DimTerritory ||--o{  FactSales              : TerritoryKey
+DimOrderDate ||--o{  FactSales              : OrderDate
+DimShipDate  ||--o{  FactSales              : ShipDate
+
+DimTerritory ||--o{  FactTargets            : TerritoryKey
+DimProductCategory ||--o{  DimProduct       : ProductCategory
+DimProductCategory ||--o{  FactTargets      : ProductCategory
+
+DimCustomer  ||--o{  BridgeCustomerSegment  : CustomerKey
+DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
+      <div class="callout"><strong>Bridge-table note:</strong> Keep relationships single-direction for the core lab. If a segment slicer must directly filter sales, discuss the ambiguity and performance tradeoffs before using bidirectional filtering, or use an intentional DAX pattern such as <code>TREATAS</code>.</div>
+    </li>
+    <li><strong>Validate the model.</strong><p>Create a simple table or matrix with CustomerName, ProductCategory, TerritoryRegion, and SalesAmount. Filter by date and segment to confirm the relationships behave as expected.</p></li>
+    <li><strong>Review composite model or DirectQuery choices.</strong><p>This optional lab is marked <strong>Verify for Gov</strong>. Identify which tables are good Import candidates, which sources might require DirectQuery, where Dual dimensions could help, and what gateway, tenant, source, and performance tradeoffs must be validated before using the pattern hands-on.</p></li>
+  </ol>
+</section>
+        
+        <section>
+          <h2>Azure Government note</h2>
+          <div class="callout">Use the Gov-ready path by default. Features marked Verify for Gov or Commercial-focused require tenant, licensing, capacity, network, identity, or policy validation before hands-on delivery.</div>
+        </section>
+      </article>
+      <aside>
+        <div class="checklist" data-progress="lab01">
+          <h2>Completion check</h2>
+          <div class="progress"><div class="bar"></div></div>
+          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <label><input type="checkbox">Raw CSVs imported with Web connector</label>
+<label><input type="checkbox">Fact and dimension tables created</label>
+<label><input type="checkbox">Relationships validate as one-to-many where expected</label>
+<label><input type="checkbox">Role-playing dates work</label>
+<label><input type="checkbox">Bridge table filters customer segment analysis</label>
+<label><input type="checkbox">Gov notes documented</label>
+        </div>
+      </aside>
+    </main>
+    <nav class="bottomnav"><a href="index.html">Course home</a><a href="02-advanced-dax.html">Next</a></nav>
+    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+  </div>
+  <script src="scripts/lab-progress.js"></script>
+</body>
+</html>

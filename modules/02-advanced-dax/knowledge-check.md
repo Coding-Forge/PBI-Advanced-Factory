@@ -14,6 +14,7 @@
 10. Why might `ALLSELECTED` be better than `ALL` in a ranking measure?
 11. What is a disconnected table used for in a measure-switching pattern?
 12. Why is DAX Studio marked **Verify for Gov**?
+13. What problem do calculation groups solve, and why are they marked **Verify for Gov**?
 
 ## Answer key
 
@@ -29,4 +30,5 @@
 10. `ALLSELECTED` can preserve user selections outside the visual while ranking items inside the selected context.
 11. A disconnected table can capture a user selection that drives DAX logic without directly filtering the model.
 12. DAX Studio is a local external tool, but customer workstation policy, tenant connectivity, XMLA endpoint settings, and Service access can vary in Azure Government.
+13. Calculation groups centralize repeated calculation logic, such as current period, prior period, and year-over-year calculations. They are **Verify for Gov** because native authoring depends on Desktop version, and TMDL/XMLA workflows, external tools, capacity behavior, and workstation policy can vary.
 

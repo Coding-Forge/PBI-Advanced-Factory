@@ -16,8 +16,31 @@ Build report and semantic model artifacts as PBIP projects. PBIP is the source-c
 
 | File | Description |
 |---|---|
-| `data\security-user-territory.csv` | Synthetic dynamic RLS user-to-territory mapping. |
-| `data\security-role-matrix.csv` | Expected access by persona and role. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-user-territory.csv` | Synthetic dynamic RLS user-to-territory mapping. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-role-matrix.csv` | Expected access by persona and role. |
+
+Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub URL.
+
+## Novice-friendly how-to guide
+
+### Create a static RLS role
+
+1. Select **Modeling > Manage roles**.
+2. Select **New**.
+3. Name the role `East Region`.
+4. Select `DimTerritory`.
+5. Enter a filter such as `[TerritoryRegion] = "East"`.
+6. Save the role.
+7. Select **Modeling > View as** to test it.
+
+### Create a dynamic RLS role
+
+1. Load `security-user-territory.csv`.
+2. Relate the security table to `DimTerritory` using `TerritoryKey`.
+3. Select **Modeling > Manage roles**.
+4. Create a role named `Dynamic Territory Security`.
+5. Filter the security table with `[UserPrincipalName] = USERPRINCIPALNAME()`.
+6. Use **View as** with sample UPN values from the mapping table.
 
 ## Lab 1: Static RLS
 
@@ -41,7 +64,7 @@ The role limits data to the selected region.
 
 ### Tasks
 
-1. Import `security-user-territory.csv`.
+1. Import `security-user-territory.csv` from its raw GitHub URL using the Web connector.
 2. Relate the security table to `DimTerritory` using `TerritoryKey`.
 3. Create a role named `Dynamic Territory Security`.
 4. Add this filter to the security table:

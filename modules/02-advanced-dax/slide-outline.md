@@ -48,21 +48,29 @@
 - Last non-blank concept
 - Snapshot facts
 
-## 8. Ranking and Top N
+## 8. Calculation groups
+
+- Why repeated time-intelligence measures are hard to maintain
+- Calculation item concept
+- `SELECTEDMEASURE()`
+- External tooling and XMLA considerations
+- Gov validation requirements
+
+## 9. Ranking and Top N
 
 - `RANKX`
 - `ALL` vs. `ALLSELECTED`
 - Top N plus "Other" concept
 - Visual-level filters
 
-## 9. Dynamic report logic
+## 10. Dynamic report logic
 
 - Dynamic titles
 - Selected values
 - Disconnected tables
 - Measure switching
 
-## 10. Debugging and optimization
+## 11. Debugging and optimization
 
 - Variables
 - Reducing repeated calculations
@@ -70,13 +78,13 @@
 - Performance Analyzer
 - DAX Studio as optional validated tooling
 
-## 11. Azure Government considerations
+## 12. Azure Government considerations
 
 - Core DAX is Gov-ready.
 - External tools are policy-dependent.
 - Service model diagnostics require tenant and XMLA validation.
 
-## 12. Knowledge check and lab review
+## 13. Knowledge check and lab review
 
 - Common mistakes
 - Validation strategies

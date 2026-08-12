@@ -2,7 +2,7 @@
 
 ## Module summary
 
-This module teaches learners how to design semantic models that are scalable, reusable, secure, and performant. The module starts with dimensional modeling fundamentals and then moves into advanced Power BI modeling features such as role-playing dimensions, bridge tables, composite models, calculation groups, and field parameters.
+This module teaches learners how to design semantic models that are scalable, reusable, secure, and performant. The module starts with dimensional modeling fundamentals and then moves into modeling features such as role-playing dimensions, bridge tables, date dimensions, and composite model design choices.
 
 ## Learning objectives
 
@@ -14,8 +14,6 @@ By the end of this module, learners will be able to:
 - Model role-playing dimensions such as order date, ship date, and invoice date.
 - Use bridge tables to solve many-to-many analysis requirements.
 - Describe when composite models, DirectQuery, Dual mode, and hybrid tables are appropriate.
-- Explain how calculation groups reduce duplicated time-intelligence measures.
-- Use field parameters to provide controlled report-level flexibility.
 - Identify Azure Government considerations for advanced modeling features.
 
 ## Feature availability
@@ -29,8 +27,6 @@ By the end of this module, learners will be able to:
 | Composite models | Verify for Gov | Validate source, gateway, Service, and tenant requirements. |
 | DirectQuery and Dual mode | Verify for Gov | Depends on connector, gateway, network, and source system support. |
 | Hybrid tables | Verify for Gov | Validate licensing, capacity, incremental refresh, and cloud support. |
-| Calculation groups | Verify for Gov | Requires compatible tooling such as Tabular Editor or XMLA workflows. |
-| Field parameters | Gov-ready | Validate Desktop and Service parity in the customer tenant. |
 | Large semantic models | Verify for Gov | Requires compatible capacity and tenant settings. |
 
 ## Module artifacts

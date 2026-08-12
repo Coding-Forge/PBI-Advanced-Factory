@@ -18,7 +18,6 @@ Learners should already understand tables, relationships, basic measures, slicer
 - Implement role-playing date analysis.
 - Use a bridge table for many-to-many analysis.
 - Compare Import, DirectQuery, Dual, and composite model patterns.
-- Explain calculation groups and field parameters.
 - Identify Gov-ready, Verify for Gov, and Commercial-focused modeling capabilities.
 
 ## Delivery flow
@@ -27,11 +26,10 @@ Learners should already understand tables, relationships, basic measures, slicer
 2. Show the flat source data and ask learners what will become facts and dimensions.
 3. Introduce the target star schema.
 4. Build relationships and discuss cardinality/filter direction.
-5. Add role-playing date analysis.
+5. Add role-playing date analysis and show both approved date table creation patterns: reusable Power Query function and quick DAX `CALENDAR` table.
 6. Introduce bridge tables for multi-valued customer segments.
 7. Discuss composite model tradeoffs conceptually before using tenant-dependent features.
-8. Demonstrate calculation groups and field parameters where available.
-9. Close with Gov validation and model-review checklist.
+8. Close with Gov validation and model-review checklist.
 
 ## Feature availability
 
@@ -41,8 +39,6 @@ Learners should already understand tables, relationships, basic measures, slicer
 | Role-playing dimensions | Gov-ready | Use duplicated date tables for the safest learner path. |
 | Bridge tables | Gov-ready | Required for all deliveries. |
 | Composite models | Verify for Gov | Provide conceptual walkthrough if source or tenant support is unavailable. |
-| Calculation groups | Verify for Gov | If Tabular Editor/XMLA is blocked, teach conceptually and show screenshots or completed examples. |
-| Field parameters | Gov-ready | Validate Service behavior before delivery. |
 | Hybrid tables | Verify for Gov | Mention conceptually; do not require unless tenant is validated. |
 | Large semantic models | Verify for Gov | Position as architecture/admin topic, not required hands-on step. |
 
@@ -50,15 +46,18 @@ Learners should already understand tables, relationships, basic measures, slicer
 
 - Power BI Desktop installed.
 - Access to the lab CSV files under `labs\01-advanced-semantic-modeling\data`.
-- Optional: Tabular Editor for calculation group demonstration.
 - Optional: SQL source or other DirectQuery-capable source for composite model demonstration.
-- Optional: Power BI Service workspace for publishing and validating field parameters.
 
 ## Lab facilitation notes
 
 - Keep the core lab path Import-mode and file-based so it works for commercial and Azure Government learners.
-- Treat composite models, calculation groups, hybrid tables, and large semantic models as validation-dependent.
-- If learners cannot use external tools, explain calculation groups using the provided conceptual steps and expected model behavior.
+- Position the Power Query date function as the preferred reusable enterprise pattern because it supports parameters, fiscal periods, and optional holidays before load.
+- Position the DAX `CALENDAR` table as a fast report-local pattern for prototypes or smaller reports.
+- Treat period boundary dates, refresh-relative offsets, current-period flags, and ISO week attributes as optional extensions because they depend on business calendar rules and refresh behavior.
+- Use the relationship setup table and crow's-foot visual when learners create relationships in Model view; it makes PK/FK roles, cardinality, and filter direction explicit.
+- Teach `DimProductCategory` as a small lookup dimension between product-level `DimProduct` and category-level `FactTargets`; this prevents Power BI from creating a many-to-many relationship on `ProductCategory`.
+- Treat composite models, hybrid tables, and large semantic models as validation-dependent.
+- Point learners to Module 2 for calculation groups and Module 4 for field parameters.
 - Reinforce that bi-directional filters are not a shortcut for unclear model design.
 
 ## Common issues and fixes
@@ -66,9 +65,9 @@ Learners should already understand tables, relationships, basic measures, slicer
 | Issue | Likely cause | Fix |
 |---|---|---|
 | Measures return duplicated totals | Many-to-many relationship or non-unique dimension key | Check dimension uniqueness and bridge-table design. |
+| Product category target relationship becomes many-to-many | `DimProduct[ProductCategory]` repeats for multiple products | Create `DimProductCategory` as a distinct product-category lookup and relate it to both `DimProduct` and `FactTargets`. |
 | Date slicer affects the wrong metric | Active relationship is tied to the wrong date role | Use role-playing date table or `USERELATIONSHIP` pattern. |
-| Field parameter does not work in Service | Tenant or Desktop/Service parity issue | Validate feature availability and update Desktop. |
-| Calculation group cannot be created | External tool/XMLA blocked | Use conceptual path or local-only demonstration. |
+| Date table lacks fiscal or holiday attributes | Only a minimal calendar table was created | Use the Lab 1 `fn_DimDate` Power Query pattern and set the fiscal-year start month. |
 | DirectQuery model performs poorly | Source latency, unsupported folding, or too many visual queries | Reduce visuals, aggregate, or use Import/Dual where appropriate. |
 
 ## Discussion prompts
@@ -80,12 +79,11 @@ Learners should already understand tables, relationships, basic measures, slicer
 
 ## Gov delivery notes
 
-The required lab path uses Power BI Desktop and local CSV files. This keeps the core module Gov-ready. Mark the optional composite model, calculation group, hybrid table, and large-model topics as **Verify for Gov** unless validated in the customer environment.
+The required lab path uses Power BI Desktop and local CSV files. This keeps the core module Gov-ready. Mark optional composite model, hybrid table, and large-model topics as **Verify for Gov** unless validated in the customer environment.
 
 ## Commercial-enhanced options
 
 - Demonstrate DirectQuery against a cloud data warehouse.
 - Demonstrate composite models with Dual-mode dimensions.
-- Create calculation groups using Tabular Editor.
 - Publish to a Premium/Fabric workspace and discuss large semantic model settings.
 

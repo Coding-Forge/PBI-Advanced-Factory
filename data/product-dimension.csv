@@ -1,0 +1,7 @@
+ProductKey,ProductName,ProductCategory,ProductSubcategory
+P001,Secure Gateway,Security,Network
+P002,Analytics Workspace,Analytics,Platform
+P003,Data Gateway,Integration,Connectivity
+P004,Monitoring Pack,Operations,Observability
+P005,AI Readiness Kit,Analytics,AI
+

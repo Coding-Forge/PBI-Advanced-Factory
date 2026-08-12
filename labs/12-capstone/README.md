@@ -14,6 +14,23 @@ The customer audience includes commercial and Azure Government stakeholders. The
 
 All Power BI development must be performed as PBIP projects. PBIP is the source-controlled format for this workshop. PBIX files can be generated from PBIP later if a packaged file is needed, but PBIX is not the source of record.
 
+## Novice-friendly how-to guide
+
+### Work through the capstone safely
+
+1. Start from the capstone starter PBIP or the completed solution from the previous module.
+2. Complete one capability at a time: model, DAX, report UX, security, deployment, governance, and monitoring.
+3. Save after each major milestone.
+4. Validate each capability with the rubric before moving to the next one.
+5. Record evidence as you go instead of waiting until the end.
+
+### Package capstone evidence
+
+1. Include the PBIP source project.
+2. Include screenshots or notes for model relationships, report pages, RLS tests, refresh/deployment settings, and governance decisions.
+3. Complete the validation rubric.
+4. Mark optional unvalidated features as **Verify for Gov** or conceptual-only.
+
 ## Required Gov-ready learner path
 
 1. Build an optimized semantic model using star schema principles.

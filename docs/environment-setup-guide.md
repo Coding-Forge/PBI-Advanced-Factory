@@ -8,6 +8,7 @@ Use this guide to prepare a delivery environment for the Power BI Advanced Facto
 - Git
 - Modern browser supported by Power BI Service
 - Text editor or IDE for markdown and PBIP source review
+- Internet access to `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/` for Web connector CSV labs
 
 ## Optional local software
 
@@ -25,7 +26,7 @@ Validate customer policy before using:
 1. Clone or copy the workshop repository.
 2. Confirm the correct path.
 3. Confirm module and lab folders are present.
-4. Confirm synthetic data files are present.
+4. Confirm synthetic data files are present under `data\`.
 5. Confirm PBIP starter files when they are created.
 
 ## Optional Service setup

@@ -51,20 +51,7 @@
 - Hybrid table concept
 - Gov validation requirements
 
-## 8. Calculation groups
-
-- Why repeated time-intelligence measures are hard to maintain
-- Calculation item concept
-- External tooling and XMLA considerations
-- Gov validation requirements
-
-## 9. Field parameters
-
-- Dynamic report exploration
-- Controlled flexibility
-- When to use field parameters vs. disconnected tables
-
-## 10. Large semantic model considerations
+## 8. Large semantic model considerations
 
 - Cardinality reduction
 - Aggregations
@@ -72,14 +59,14 @@
 - Capacity and tenant settings
 - Gov validation requirements
 
-## 11. Module lab walkthrough
+## 9. Module lab walkthrough
 
 - Data overview
 - Target model
 - Validation checks
 - Optional commercial-enhanced path
 
-## 12. Knowledge check and discussion
+## 10. Knowledge check and discussion
 
 - Design tradeoffs
 - Gov readiness

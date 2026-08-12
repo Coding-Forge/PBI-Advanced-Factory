@@ -2,12 +2,28 @@
 
 This lab manual links to every module lab and identifies whether the lab is required, optional, or validation-dependent for Azure Government delivery.
 
+## HTML lab site
+
+The student-facing HTML lab experience is available at:
+
+```text
+Student\Labs\Web\index.html
+```
+
+Each HTML page includes a persistent completion checklist backed by browser `localStorage`. Customer branding is controlled by:
+
+```text
+Student\Labs\Web\scripts\delivery-config.js
+```
+
+See `Student\Labs\Web\BRANDING.md` for branding instructions.
+
 | Lab | Required path | Gov note |
 |---|---|---|
-| [Module 1: Advanced Semantic Modeling](..\labs\01-advanced-semantic-modeling\README.md) | Required | Core path is Gov-ready; calculation groups/composite/hybrid/large models are Verify for Gov. |
-| [Module 2: Advanced DAX](..\labs\02-advanced-dax\README.md) | Required | Core DAX is Gov-ready; DAX Studio is Verify for Gov. |
+| [Module 1: Advanced Semantic Modeling](..\labs\01-advanced-semantic-modeling\README.md) | Required | Core path is Gov-ready; composite/DirectQuery/hybrid/large models are Verify for Gov. |
+| [Module 2: Advanced DAX](..\labs\02-advanced-dax\README.md) | Required | Core DAX is Gov-ready; calculation groups and DAX Studio are Verify for Gov. |
 | [Module 3: Advanced Power Query](..\labs\03-advanced-power-query\README.md) | Required | File-based path is Gov-ready; connectors/dataflows/incremental refresh are Verify for Gov. |
-| [Module 4: Report Design UX](..\labs\04-report-design-ux\README.md) | Required | Core UX is Gov-ready; personalized/AI visuals are Verify for Gov. |
+| [Module 4: Report Design UX](..\labs\04-report-design-ux\README.md) | Required | Core UX and field parameters are Gov-ready; personalized/AI visuals are Verify for Gov. |
 | [Module 5: Performance Optimization](..\labs\05-performance-optimization\README.md) | Required | Desktop path is Gov-ready; DAX Studio/capacity metrics are Verify for Gov. |
 | [Module 6: Advanced Analytics AI](..\labs\06-advanced-analytics-ai\README.md) | Required with optional extensions | What-if parameters are Gov-ready; AI features are Verify for Gov or Commercial-focused. |
 | [Module 7: Security Design](..\labs\07-security-design\README.md) | Required | RLS is Gov-ready; OLS/Purview/labels/B2B are Verify for Gov. |

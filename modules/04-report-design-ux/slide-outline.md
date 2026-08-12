@@ -48,21 +48,28 @@
 - Conditional navigation concepts
 - Navigation labels
 
-## 8. Conditional formatting
+## 8. Field parameters
+
+- Metric switching
+- Dimension switching
+- Slicer-driven exploration
+- Controlled flexibility vs. duplicated pages
+
+## 9. Conditional formatting
 
 - Business thresholds
 - Color meaning
 - Icon and data bar usage
 - Avoiding over-formatting
 
-## 9. Mobile layout
+## 10. Mobile layout
 
 - Mobile-specific design
 - Touch targets
 - Visual prioritization
 - Validation
 
-## 10. Accessibility
+## 11. Accessibility
 
 - Alt text
 - Tab order
@@ -70,13 +77,13 @@
 - Keyboard navigation
 - Clear visual titles
 
-## 11. Azure Government considerations
+## 12. Azure Government considerations
 
 - Core report interactions are Gov-ready.
 - Mobile depends on customer policy.
 - Personalized visuals and AI visuals need validation.
 
-## 12. Lab review
+## 13. Lab review
 
 - UX validation checklist
 - Screenshot capture

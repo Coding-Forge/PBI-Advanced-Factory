@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 10 - Premium, Fabric, and Capacity</title>
+  <link rel="stylesheet" href="styles/manual-print.css" media="print">
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <script src="scripts/delivery-brand.js" defer></script>
+  <style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.55; }
+a { color: var(--cp-link); }
+button, input { font: inherit; }
+.shell { max-width: 1120px; margin: auto; padding: 24px; }
+.topnav, .bottomnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.topnav a, .bottomnav a { font-weight: 700; text-decoration: none; }
+.crumb, .small, .meta { color: var(--cp-text-muted); }
+header { padding: 32px 0 28px; border-block: 1px solid var(--cp-border); }
+.eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+h1 { max-width: 860px; margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.06; letter-spacing: 0; }
+h2 { margin: 0 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: 0; }
+.lede { max-width: 780px; color: var(--cp-text-muted); font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9rem; }
+.start { display: inline-flex; align-items: center; margin-top: 24px; padding: 12px 18px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 0.625rem; text-decoration: none; font-weight: 800; }
+.start:hover { background: var(--cp-accent-hover); }
+main { padding: 30px 0; }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.lab-card, .panel, .urlcard, .checklist, .task-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.lab-card { display: flex; flex-direction: column; min-height: 250px; padding: 20px; border-top: 4px solid var(--cp-accent); text-decoration: none; color: var(--cp-text); }
+.lab-card:hover { border-color: var(--cp-border-strong); transform: translateY(-2px); }
+.number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.lab-card h3 { margin: 16px 0 8px; }
+.lab-card p, .task-card p, .panel p { color: var(--cp-text-muted); }
+.outcome { margin-top: auto; padding-top: 18px; color: var(--cp-accent); font-weight: 700; }
+.requirements, .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.panel { padding: 20px; }
+.panel ul { margin: 8px 0 0; padding-left: 20px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; }
+article { min-width: 0; }
+aside { position: sticky; top: 18px; }
+section { margin: 0 0 30px; }
+.task-list { display: grid; gap: 14px; }
+.task-card { padding: 18px; }
+.task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
+.lab-sequence { display: grid; gap: 14px; }
+.column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+.column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
+.column-table code { font-family: Consolas, "Courier New", Courier, monospace; }
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
+.callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
+.callout.success { border-left-color: var(--cp-success); }
+.urls { display: grid; gap: 12px; }
+.urlcard { padding: 15px; }
+.urlcard strong { display: block; margin-bottom: 6px; }
+.code { display: block; overflow: auto; padding: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 0.625rem; font: 12px/1.45 Consolas, "Courier New", Courier, monospace; white-space: nowrap; }
+pre.code { white-space: pre; }
+.answer-key { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); overflow: hidden; }
+.answer-key summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--cp-accent); background: var(--cp-surface-soft); }
+.answer-key__body { padding: 18px; }
+.answer-key__body p { color: var(--cp-text-muted); }
+.copy { margin-top: 9px; padding: 7px 11px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); cursor: pointer; }
+.copy:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.checklist { padding: 18px; }
+.checklist label { display: flex; gap: 9px; align-items: flex-start; margin: 10px 0; }
+.checklist input { margin-top: 5px; accent-color: var(--cp-accent); }
+.progress { height: 7px; background: var(--cp-surface-soft); border-radius: 0.625rem; overflow: hidden; }
+.bar { height: 100%; width: 0; background: var(--cp-accent); transition: width 0.2s; }
+.bottomnav { border-top: 1px solid var(--cp-border); padding: 22px 0 34px; }
+footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 0.85rem; }
+@media (max-width: 840px) { .roadmap, .requirements, .track-grid, .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } .shell { padding: 16px; } }
+@media print { aside, .topnav, .bottomnav, .copy { display: none !important; } .layout { display: block !important; } .lab-card, .panel, .urlcard, .checklist, .task-card { box-shadow: none !important; break-inside: avoid-page; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topnav"><a href="09-monitoring-governance.html">Previous</a><span class="crumb">Lab 10 of 12</span><a href="11-automation-devops.html">Next</a></nav>
+    <header>
+      <div class="eyebrow">Lab 10 - Architecture decisions</div>
+      <h1>Premium, Fabric, and Capacity</h1>
+      <p class="lede">Compare Pro, PPU, Premium, and Fabric capacity and evaluate XMLA, paginated reports, Direct Lake, OneLake, Semantic Link, capacity metrics, and Gov-safe alternatives.</p>
+      <div class="meta"><span>Architecture</span><span>Deliverable: Capacity architecture recommendation</span><span>PBIP-first</span></div>
+    </header>
+    <main class="layout">
+      <article>
+        <section>
+          <h2>What you will produce</h2>
+          <div class="panel"><ul><li>Capacity comparison</li>
+<li>Feature validation notes</li>
+<li>Gov-safe architecture</li>
+<li>Capacity metrics concepts</li></ul></div>
+        </section>
+        
+        <section>
+          <h2>Walkthrough tasks</h2>
+          <div class="task-list"><div class="task-card">
+  <h3>Define workload requirements</h3>
+  <ul>
+    <li>Document user scale, model size, refresh, latency, governance, and integration needs.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Compare options</h3>
+  <ul>
+    <li>Compare Pro, PPU, Premium, and Fabric capacity.</li>
+<li>Identify which capabilities require validation.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review optional hands-on features</h3>
+  <ul>
+    <li>XMLA, paginated reports, large models, and capacity metrics are Verify for Gov.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review Fabric concepts</h3>
+  <ul>
+    <li>Direct Lake, OneLake, Lakehouse, Warehouse, Semantic Link, and autoscale are Commercial-focused / Verify for Gov.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Choose fallback</h3>
+  <ul>
+    <li>Document Import-mode, aggregations, incremental refresh, and manual monitoring alternatives.</li>
+  </ul>
+</div></div>
+        </section>
+        <section>
+  <h2>Module lab sequence</h2>
+  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
+  <div class="lab-sequence"><div class="task-card">
+  <h3>Lab 1: Licensing and capacity comparison <span class="tag">Core or module-dependent</span></h3>
+  <p>Choose architecture options based on workload requirements.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 2: XMLA endpoint connection where available <span class="tag">Verify for Gov</span></h3>
+  <p>See the lab README for detailed instructions.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 3: Paginated report where available <span class="tag">Verify for Gov</span></h3>
+  <p>See the lab README for detailed instructions.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 4: Large semantic model settings where available <span class="tag">Verify for Gov</span></h3>
+  <p>See the lab README for detailed instructions.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 5: Capacity metrics and throttling concepts <span class="tag">Verify for Gov</span></h3>
+  <p>See the lab README for detailed instructions.</p>
+</div></div>
+</section>
+        <section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Work through each lab step</h3><ol><li>Start from the stated starter PBIP or completed prior module solution.</li><li>Create or modify one object at a time using the exact names in the lab.</li><li>Save after each major change.</li><li>Validate the result in a simple visual, Service page, checklist, or evidence table before moving on.</li></ol></div>
+    <div class="task-card"><h3>Document validation</h3><ol><li>Record the feature or setting being tested.</li><li>Record expected behavior before testing.</li><li>Capture actual behavior after testing.</li><li>Mark tenant-dependent features as Verify for Gov if they cannot be validated hands-on.</li></ol></div>
+  </div>
+</section>
+        <section><h2>Implementation reference table</h2><div class="task-card">
+<table class="column-table"><thead><tr><th>Requirement</th><th>Option</th><th>Gov status</th><th>Fallback</th></tr></thead><tbody>
+<tr><td>Standard sharing</td><td>Power BI Pro</td><td>Validate tenant/license</td><td>Instructor demo if no license.</td></tr>
+<tr><td>Premium-like user features</td><td>PPU</td><td>Verify for Gov</td><td>Pro-compatible path.</td></tr>
+<tr><td>Enterprise scale</td><td>Premium capacity</td><td>Verify for Gov</td><td>Import model plus documented scale plan.</td></tr>
+<tr><td>Fabric workloads</td><td>Fabric capacity</td><td>Commercial-focused / Verify for Gov</td><td>Approved source plus Import model.</td></tr>
+<tr><td>Lake-native model</td><td>Direct Lake</td><td>Commercial-focused / Verify for Gov</td><td>Import with refresh/aggregations.</td></tr>
+<tr><td>Capacity health</td><td>Capacity metrics app</td><td>Verify for Gov</td><td>Usage, refresh, Performance Analyzer.</td></tr>
+</tbody></table></div></section>
+        <section>
+  <h2>Detailed step-by-step procedure</h2>
+  <ol class="steps">
+    <li><strong>Define the workload.</strong><p>Write down users, model size, refresh frequency, latency needs, governance requirements, data residency needs, and integration requirements.</p></li>
+    <li><strong>Compare licensing options.</strong><p>Use the comparison table to evaluate Pro, PPU, Premium capacity, and Fabric capacity. Identify which options satisfy the workload requirements.</p></li>
+    <li><strong>Review large model needs.</strong><p>Decide whether model size, memory, refresh, or XMLA workflows require capacity-dependent settings. Mark these Verify for Gov until validated.</p></li>
+    <li><strong>Review XMLA endpoint.</strong><p>If available, connect with an approved tool and inspect metadata. If unavailable, document use cases such as ALM, external tools, and write operations.</p></li>
+    <li><strong>Review paginated report fit.</strong><p>Identify whether pixel-perfect export, invoices, statements, or operational reports justify paginated reports. Validate cloud and licensing before hands-on work.</p></li>
+    <li><strong>Review Fabric architecture.</strong><p>Explain Direct Lake, OneLake, Lakehouse, Warehouse, and Semantic Link. Treat them as Commercial-focused / Verify for Gov unless confirmed.</p></li>
+    <li><strong>Choose a Gov-safe fallback.</strong><p>Use Import mode, aggregations, incremental refresh where validated, and standard Service monitoring when Fabric features are unavailable.</p></li>
+    <li><strong>Review capacity metrics.</strong><p>If available, inspect interactive and background workloads, refresh pressure, and throttling signals. If not available, discuss expected symptoms and actions.</p></li>
+    <li><strong>Document architecture recommendation.</strong><p>Record selected option, assumptions, validation requirements, fallback path, and risks.</p></li>
+    <li><strong>Review with stakeholders.</strong><p>Confirm that the proposed architecture aligns with licensing, security, data residency, operations, and budget constraints.</p></li>
+  </ol>
+</section>
+        
+        <section>
+          <h2>Azure Government note</h2>
+          <div class="callout">Use the Gov-ready path by default. Features marked Verify for Gov or Commercial-focused require tenant, licensing, capacity, network, identity, or policy validation before hands-on delivery.</div>
+        </section>
+      </article>
+      <aside>
+        <div class="checklist" data-progress="lab10">
+          <h2>Completion check</h2>
+          <div class="progress"><div class="bar"></div></div>
+          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <label><input type="checkbox">Workload documented</label>
+<label><input type="checkbox">Capacity options compared</label>
+<label><input type="checkbox">XMLA/paginated/large model notes captured</label>
+<label><input type="checkbox">Fabric features labeled</label>
+<label><input type="checkbox">Capacity metrics discussed</label>
+<label><input type="checkbox">Gov-safe architecture selected</label>
+        </div>
+      </aside>
+    </main>
+    <nav class="bottomnav"><a href="09-monitoring-governance.html">Previous</a><a href="11-automation-devops.html">Next</a></nav>
+    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+  </div>
+  <script src="scripts/lab-progress.js"></script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 07 - Security Design</title>
+  <link rel="stylesheet" href="styles/manual-print.css" media="print">
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <script src="scripts/delivery-brand.js" defer></script>
+  <style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.55; }
+a { color: var(--cp-link); }
+button, input { font: inherit; }
+.shell { max-width: 1120px; margin: auto; padding: 24px; }
+.topnav, .bottomnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.topnav a, .bottomnav a { font-weight: 700; text-decoration: none; }
+.crumb, .small, .meta { color: var(--cp-text-muted); }
+header { padding: 32px 0 28px; border-block: 1px solid var(--cp-border); }
+.eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+h1 { max-width: 860px; margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.06; letter-spacing: 0; }
+h2 { margin: 0 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: 0; }
+.lede { max-width: 780px; color: var(--cp-text-muted); font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9rem; }
+.start { display: inline-flex; align-items: center; margin-top: 24px; padding: 12px 18px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 0.625rem; text-decoration: none; font-weight: 800; }
+.start:hover { background: var(--cp-accent-hover); }
+main { padding: 30px 0; }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.lab-card, .panel, .urlcard, .checklist, .task-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.lab-card { display: flex; flex-direction: column; min-height: 250px; padding: 20px; border-top: 4px solid var(--cp-accent); text-decoration: none; color: var(--cp-text); }
+.lab-card:hover { border-color: var(--cp-border-strong); transform: translateY(-2px); }
+.number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.lab-card h3 { margin: 16px 0 8px; }
+.lab-card p, .task-card p, .panel p { color: var(--cp-text-muted); }
+.outcome { margin-top: auto; padding-top: 18px; color: var(--cp-accent); font-weight: 700; }
+.requirements, .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.panel { padding: 20px; }
+.panel ul { margin: 8px 0 0; padding-left: 20px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; }
+article { min-width: 0; }
+aside { position: sticky; top: 18px; }
+section { margin: 0 0 30px; }
+.task-list { display: grid; gap: 14px; }
+.task-card { padding: 18px; }
+.task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
+.lab-sequence { display: grid; gap: 14px; }
+.column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+.column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
+.column-table code { font-family: Consolas, "Courier New", Courier, monospace; }
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
+.callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
+.callout.success { border-left-color: var(--cp-success); }
+.urls { display: grid; gap: 12px; }
+.urlcard { padding: 15px; }
+.urlcard strong { display: block; margin-bottom: 6px; }
+.code { display: block; overflow: auto; padding: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 0.625rem; font: 12px/1.45 Consolas, "Courier New", Courier, monospace; white-space: nowrap; }
+pre.code { white-space: pre; }
+.answer-key { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); overflow: hidden; }
+.answer-key summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--cp-accent); background: var(--cp-surface-soft); }
+.answer-key__body { padding: 18px; }
+.answer-key__body p { color: var(--cp-text-muted); }
+.copy { margin-top: 9px; padding: 7px 11px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); cursor: pointer; }
+.copy:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.checklist { padding: 18px; }
+.checklist label { display: flex; gap: 9px; align-items: flex-start; margin: 10px 0; }
+.checklist input { margin-top: 5px; accent-color: var(--cp-accent); }
+.progress { height: 7px; background: var(--cp-surface-soft); border-radius: 0.625rem; overflow: hidden; }
+.bar { height: 100%; width: 0; background: var(--cp-accent); transition: width 0.2s; }
+.bottomnav { border-top: 1px solid var(--cp-border); padding: 22px 0 34px; }
+footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 0.85rem; }
+@media (max-width: 840px) { .roadmap, .requirements, .track-grid, .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } .shell { padding: 16px; } }
+@media print { aside, .topnav, .bottomnav, .copy { display: none !important; } .layout { display: block !important; } .lab-card, .panel, .urlcard, .checklist, .task-card { box-shadow: none !important; break-inside: avoid-page; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topnav"><a href="06-advanced-analytics-ai.html">Previous</a><span class="crumb">Lab 07 of 12</span><a href="08-service-enterprise-deployment.html">Next</a></nav>
+    <header>
+      <div class="eyebrow">Lab 7 - RLS and governance</div>
+      <h1>Security Design</h1>
+      <p class="lede">Configure static and dynamic RLS, test roles, review Build permission, and document OLS, Purview, labels, external sharing, and B2B validation needs.</p>
+      <div class="meta"><span>Governance</span><span>Deliverable: Security test evidence</span><span>PBIP-first</span></div>
+    </header>
+    <main class="layout">
+      <article>
+        <section>
+          <h2>What you will produce</h2>
+          <div class="panel"><ul><li>Static RLS</li>
+<li>Dynamic RLS</li>
+<li>Role testing evidence</li>
+<li>Security review checklist</li></ul></div>
+        </section>
+        <section>
+  <h2>Source files</h2>
+  <div class="urls">
+    <div class="urlcard"><strong>security-user-territory.csv</strong><code class="code" id="u1">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-user-territory.csv</code><button class="copy" data-copy="u1">Copy URL</button></div>
+    <div class="urlcard"><strong>security-role-matrix.csv</strong><code class="code" id="u2">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-role-matrix.csv</code><button class="copy" data-copy="u2">Copy URL</button></div>
+  </div>
+</section>
+        <section>
+          <h2>Walkthrough tasks</h2>
+          <div class="task-list"><div class="task-card">
+  <h3>Load security mapping</h3>
+  <ul>
+    <li>Use Get data &gt; Web for security-user-territory and security-role-matrix.</li>
+<li>Relate mapping data to DimTerritory.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Create RLS roles</h3>
+  <ul>
+    <li>Create static region role.</li>
+<li>Create dynamic territory role with USERPRINCIPALNAME().</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Test roles</h3>
+  <ul>
+    <li>Test in Desktop using View as.</li>
+<li>Test in Service where available.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review Build permission</h3>
+  <ul>
+    <li>Document who can build thin reports or Analyze in Excel.</li>
+<li>Separate content access from data access.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Document optional controls</h3>
+  <ul>
+    <li>Mark OLS, labels, Purview, external sharing, and B2B as Verify for Gov.</li>
+  </ul>
+</div></div>
+        </section>
+        <section>
+  <h2>Module lab sequence</h2>
+  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
+  <div class="lab-sequence"><div class="task-card">
+  <h3>Lab 1: Static RLS <span class="tag">Core or module-dependent</span></h3>
+  <p>Create a role that filters data to one territory or region.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 2: Dynamic RLS <span class="tag">Core or module-dependent</span></h3>
+  <p>Create user-specific access using a security mapping table.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 3: Testing roles in Desktop and Service <span class="tag">Core or module-dependent</span></h3>
+  <p>Validate security before production.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 4: Build permission behavior <span class="tag">Core or module-dependent</span></h3>
+  <p>Understand downstream semantic model access.</p>
+</div></div>
+</section>
+        <section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Create a static RLS role</h3><ol><li>Select <strong>Modeling &gt; Manage roles</strong>.</li><li>Select <strong>New</strong> and name the role <code>East Region</code>.</li><li>Select the territory table.</li><li>Add a filter such as <code>[TerritoryRegion] = "East"</code>.</li><li>Save the role and test it with <strong>View as</strong>.</li></ol></div>
+    <div class="task-card"><h3>Create a dynamic RLS role</h3><ol><li>Load the security mapping table.</li><li>Create the relationship from the security table to the secured dimension.</li><li>Open <strong>Manage roles</strong> and create <code>Dynamic Territory Security</code>.</li><li>Filter the security table with <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>.</li><li>Use <strong>View as</strong> with sample UPNs to confirm access.</li></ol></div>
+    <div class="task-card"><h3>Test roles</h3><ol><li>Select <strong>Modeling &gt; View as</strong>.</li><li>Choose the role to test.</li><li>For dynamic RLS, enter a sample user principal name.</li><li>Record what data is visible and compare it to the expected mapping table.</li></ol></div>
+  </div>
+</section>
+        <section><h2>Implementation reference table</h2><div class="task-card">
+<table class="column-table"><thead><tr><th>Security item</th><th>Exact name</th><th>Configuration</th><th>Validation</th></tr></thead><tbody>
+<tr><td>Mapping table</td><td><code>SecurityUserTerritory</code></td><td><code>UserPrincipalName</code>, <code>DisplayName</code>, <code>TerritoryKey</code>, <code>TerritoryName</code>, <code>AccessLevel</code></td><td>Rows loaded from Web URL.</td></tr>
+<tr><td>Role matrix</td><td><code>SecurityRoleMatrix</code></td><td>Persona/access documentation table</td><td>Used as documentation, not filtering.</td></tr>
+<tr><td>Relationship</td><td>Security to territory</td><td><code>SecurityUserTerritory[TerritoryKey]</code> to <code>DimTerritory[TerritoryKey]</code></td><td>Territory filters sales.</td></tr>
+<tr><td>Static role</td><td><code>East Region</code></td><td>Filter <code>DimTerritory</code> to East region or keys</td><td>Only East data visible.</td></tr>
+<tr><td>Dynamic role</td><td><code>Dynamic Territory Security</code></td><td><code>[UserPrincipalName] = USERPRINCIPALNAME()</code></td><td>Mapped UPN sees expected territories.</td></tr>
+</tbody></table></div></section>
+        <section>
+  <h2>Detailed step-by-step procedure</h2>
+  <ol class="steps">
+    <li><strong>Open the PBIP model.</strong><p>Confirm DimTerritory and FactSales exist and that territory filters flow to sales.</p></li>
+    <li><strong>Load security mapping files.</strong><p>Use <b>Get data > Web</b> for security-user-territory and security-role-matrix. Rename the mapping table <code>SecurityUserTerritory</code>.</p></li>
+    <li><strong>Create relationships.</strong><p>Relate SecurityUserTerritory[TerritoryKey] to DimTerritory[TerritoryKey]. Validate that filtering a territory filters sales.</p></li>
+    <li><strong>Create static RLS.</strong><p>Open <b>Modeling > Manage roles</b>. Create a role named East Region and filter DimTerritory to the East region or the matching territory keys.</p></li>
+    <li><strong>Create dynamic RLS.</strong><p>Create a role named Dynamic Territory Security. Filter SecurityUserTerritory with <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>.</p></li>
+    <li><strong>Test in Desktop.</strong><p>Use <b>View as</b>. Test the static role, then test the dynamic role by entering a synthetic UPN from the mapping file. Verify that only mapped territories are visible.</p></li>
+    <li><strong>Document expected access.</strong><p>Use security-role-matrix to record which personas should see which territories and whether Build permission is intended.</p></li>
+    <li><strong>Test in Service where available.</strong><p>Publish to a training workspace, assign users or groups to roles, and test as role. If Service access is unavailable, document this as a validation gap.</p></li>
+    <li><strong>Review Build permission.</strong><p>Explain who can build thin reports or Analyze in Excel from the semantic model. Document the risk of granting Build too broadly.</p></li>
+    <li><strong>Review optional controls.</strong><p>Keep OLS, sensitivity labels, Purview, external sharing, and B2B as Verify for Gov unless validated in the customer tenant.</p></li>
+  </ol>
+</section>
+        <section>
+  <h2>Answer key</h2>
+  <details class="answer-key">
+    <summary>Show RLS filter expressions</summary>
+    <div class="answer-key__body">
+      <p>Use these expressions in Manage roles. Exact table names must match your model.</p>
+<pre class="code"><code>// Static role option on DimTerritory
+DimTerritory[TerritoryRegion] = "East"
+
+// Static role option by territory keys
+DimTerritory[TerritoryKey] IN { "T01" }
+
+// Dynamic role filter on SecurityUserTerritory
+SecurityUserTerritory[UserPrincipalName] = USERPRINCIPALNAME()
+
+// Useful test UPNs
+alex.manager@contoso.example     // T01, T02
+casey.lead@contoso.example       // T03
+devon.director@contoso.example   // T01, T02, T03, T04
+jordan.rep@contoso.example       // T04</code></pre>
+    </div>
+  </details>
+</section>
+        <section>
+          <h2>Azure Government note</h2>
+          <div class="callout">Use the Gov-ready path by default. Features marked Verify for Gov or Commercial-focused require tenant, licensing, capacity, network, identity, or policy validation before hands-on delivery.</div>
+        </section>
+      </article>
+      <aside>
+        <div class="checklist" data-progress="lab07">
+          <h2>Completion check</h2>
+          <div class="progress"><div class="bar"></div></div>
+          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <label><input type="checkbox">Security data loaded</label>
+<label><input type="checkbox">Static RLS created</label>
+<label><input type="checkbox">Dynamic RLS created</label>
+<label><input type="checkbox">Desktop role test documented</label>
+<label><input type="checkbox">Build permission reviewed</label>
+<label><input type="checkbox">Gov validation notes captured</label>
+        </div>
+      </aside>
+    </main>
+    <nav class="bottomnav"><a href="06-advanced-analytics-ai.html">Previous</a><a href="08-service-enterprise-deployment.html">Next</a></nav>
+    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+  </div>
+  <script src="scripts/lab-progress.js"></script>
+</body>
+</html>

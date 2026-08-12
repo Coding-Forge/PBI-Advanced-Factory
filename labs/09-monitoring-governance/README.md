@@ -4,6 +4,24 @@
 
 These labs teach operational monitoring and governance practices for deployed Power BI content.
 
+## Novice-friendly how-to guide
+
+### Review usage metrics
+
+1. Open the report in the Power BI Service.
+2. Look for the usage metrics option if it is available in the tenant.
+3. Review views, viewers, and recent activity.
+4. Record what the report owner should monitor.
+5. If usage metrics are unavailable, document the tenant, license, or permission blocker.
+
+### Review refresh history
+
+1. Open the workspace.
+2. Select the semantic model.
+3. Open refresh history or settings.
+4. Record recent success/failure status.
+5. For failures, capture the error summary and likely next action.
+
 ## Azure Government readiness
 
 Usage metrics and refresh history are generally **Gov-ready**, subject to permissions and tenant policy. Activity logs, audit logs, admin monitoring workspace, capacity metrics, Purview, and DLP are **Verify for Gov**.

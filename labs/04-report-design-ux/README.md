@@ -4,6 +4,35 @@
 
 These labs guide learners through building an interactive report experience using the semantic model and measures created in earlier modules.
 
+## Novice-friendly how-to guide
+
+### Create a drillthrough page
+
+1. Add a new report page.
+2. Rename it `Customer Detail`.
+3. In the Visualizations pane, find the **Drill-through** field well.
+4. Drag `DimCustomer[CustomerName]` into the drill-through field well.
+5. Add customer KPI cards and a transaction table.
+6. Add a Back button from **Insert > Buttons > Navigator > Back**.
+7. Test from a summary page by right-clicking a customer value and choosing the drillthrough page.
+
+### Create a tooltip page
+
+1. Add a new report page.
+2. Open page formatting and set the page type to **Tooltip**.
+3. Add compact KPI or trend visuals.
+4. Select the visual that should use the tooltip.
+5. In the visual formatting settings, assign the tooltip page.
+
+### Create a field parameter
+
+1. Select **Modeling > New parameter > Fields**.
+2. Name the parameter `Metric Parameter`.
+3. Select measures such as `[Sales Amount]`, `[Gross Margin]`, `[Gross Margin %]`, and `[Quantity]`.
+4. Keep **Add slicer to this page** selected and choose **Create**.
+5. Add the generated parameter field to a visual's values well.
+6. Use the slicer to switch which measure the visual displays.
+
 ## Azure Government readiness
 
 The required labs are **Gov-ready** because they use core Power BI Desktop report features. Personalized visuals are **Verify for Gov**. AI visuals are **Verify for Gov / Commercial-focused** and should not be required in Gov delivery unless validated.
@@ -81,7 +110,36 @@ Users can reveal and hide guided content without leaving the page.
 
 Users can move through the report without relying only on page tabs.
 
-## Lab 5: Conditional formatting
+## Lab 5: Field parameters for guided exploration
+
+**Objective:** Let report users switch between business metrics and dimensions without duplicating report pages.
+
+### Tasks
+
+1. Confirm measures for Sales Amount, Gross Margin, Gross Margin %, and Quantity exist.
+2. Create a measure field parameter named `Metric Parameter`.
+3. Add the field parameter to a slicer.
+4. Use the selected parameter in a visual.
+5. Optional: create a dimension field parameter named `Dimension Parameter` for Product Category, Territory, and Customer Segment.
+
+### How-to guide
+
+1. In Power BI Desktop, select **Modeling > New parameter > Fields**.
+2. Name the parameter `Metric Parameter`.
+3. Select `[Sales Amount]`, `[Gross Margin]`, `[Gross Margin %]`, and `[Quantity]`.
+4. Keep **Add slicer to this page** selected and select **Create**.
+5. Rename the generated slicer title to `Select Metric`.
+6. Add a bar chart, line chart, or matrix to the page.
+7. Drag the generated `Metric Parameter` field into the visual values well.
+8. Use the slicer to switch which measure appears in the visual.
+9. To create a dimension switcher, repeat **Modeling > New parameter > Fields**, name it `Dimension Parameter`, and select fields such as `DimProductCategory[ProductCategory]`, `DimTerritory[TerritoryRegion]`, and `DimSegment[Segment]`.
+10. Add the generated `Dimension Parameter` field to the axis or rows area of a visual.
+
+### Expected result
+
+Learners can provide controlled self-service flexibility without creating duplicate report pages.
+
+## Lab 6: Conditional formatting
 
 **Objective:** Use visual formatting to highlight business meaning.
 
@@ -96,7 +154,7 @@ Users can move through the report without relying only on page tabs.
 
 Formatting highlights exceptions without overwhelming the report.
 
-## Lab 6: Mobile layout
+## Lab 7: Mobile layout
 
 **Objective:** Create a mobile-optimized report view.
 
@@ -112,7 +170,7 @@ Formatting highlights exceptions without overwhelming the report.
 
 The report has a readable mobile experience with prioritized content.
 
-## Lab 7: Accessibility review
+## Lab 8: Accessibility review
 
 **Objective:** Validate the report for accessibility and usability.
 
@@ -147,6 +205,7 @@ Discuss or demonstrate AI visuals only after validation.
 - [ ] Tooltip page is configured and assigned.
 - [ ] Bookmarks capture only intended behavior.
 - [ ] Navigation buttons are consistent.
+- [ ] Field parameter switches the intended measures or dimensions.
 - [ ] Conditional formatting has documented thresholds.
 - [ ] Mobile layout is readable.
 - [ ] Accessibility review is complete.

@@ -27,8 +27,10 @@ Save report and model work as PBIP projects. PBIP is the source-controlled forma
 
 | File | Purpose |
 |---|---|
-| `security-user-territory.csv` | Maps synthetic user principal names to territory keys. |
-| `security-role-matrix.csv` | Documents intended access by persona and role. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-user-territory.csv` | Maps synthetic user principal names to territory keys. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-role-matrix.csv` | Documents intended access by persona and role. |
+
+Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub URL.
 
 ## Tasks
 

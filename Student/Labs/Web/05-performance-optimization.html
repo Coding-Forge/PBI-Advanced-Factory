@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 05 - Performance Optimization</title>
+  <link rel="stylesheet" href="styles/manual-print.css" media="print">
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+  <script src="scripts/delivery-brand.js" defer></script>
+  <style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.55; }
+a { color: var(--cp-link); }
+button, input { font: inherit; }
+.shell { max-width: 1120px; margin: auto; padding: 24px; }
+.topnav, .bottomnav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.topnav a, .bottomnav a { font-weight: 700; text-decoration: none; }
+.crumb, .small, .meta { color: var(--cp-text-muted); }
+header { padding: 32px 0 28px; border-block: 1px solid var(--cp-border); }
+.eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+h1 { max-width: 860px; margin: 8px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.06; letter-spacing: 0; }
+h2 { margin: 0 0 12px; font-size: 1.45rem; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: 0; }
+.lede { max-width: 780px; color: var(--cp-text-muted); font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; font-size: 0.9rem; }
+.start { display: inline-flex; align-items: center; margin-top: 24px; padding: 12px 18px; background: var(--cp-accent); color: var(--cp-accent-fg); border-radius: 0.625rem; text-decoration: none; font-weight: 800; }
+.start:hover { background: var(--cp-accent-hover); }
+main { padding: 30px 0; }
+.roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.lab-card, .panel, .urlcard, .checklist, .task-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.lab-card { display: flex; flex-direction: column; min-height: 250px; padding: 20px; border-top: 4px solid var(--cp-accent); text-decoration: none; color: var(--cp-text); }
+.lab-card:hover { border-color: var(--cp-border-strong); transform: translateY(-2px); }
+.number { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.lab-card h3 { margin: 16px 0 8px; }
+.lab-card p, .task-card p, .panel p { color: var(--cp-text-muted); }
+.outcome { margin-top: auto; padding-top: 18px; color: var(--cp-accent); font-weight: 700; }
+.requirements, .track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.panel { padding: 20px; }
+.panel ul { margin: 8px 0 0; padding-left: 20px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 28px; align-items: start; }
+article { min-width: 0; }
+aside { position: sticky; top: 18px; }
+section { margin: 0 0 30px; }
+.task-list { display: grid; gap: 14px; }
+.task-card { padding: 18px; }
+.task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
+.lab-sequence { display: grid; gap: 14px; }
+.column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+.column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
+.column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
+.column-table code { font-family: Consolas, "Courier New", Courier, monospace; }
+.steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: 16px; }
+.steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
+.steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
+.steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
+.callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
+.callout.success { border-left-color: var(--cp-success); }
+.urls { display: grid; gap: 12px; }
+.urlcard { padding: 15px; }
+.urlcard strong { display: block; margin-bottom: 6px; }
+.code { display: block; overflow: auto; padding: 10px; background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 0.625rem; font: 12px/1.45 Consolas, "Courier New", Courier, monospace; white-space: nowrap; }
+pre.code { white-space: pre; }
+.answer-key { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); overflow: hidden; }
+.answer-key summary { cursor: pointer; padding: 16px 18px; font-weight: 800; color: var(--cp-accent); background: var(--cp-surface-soft); }
+.answer-key__body { padding: 18px; }
+.answer-key__body p { color: var(--cp-text-muted); }
+.copy { margin-top: 9px; padding: 7px 11px; border: 1px solid var(--cp-border-strong); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); cursor: pointer; }
+.copy:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.checklist { padding: 18px; }
+.checklist label { display: flex; gap: 9px; align-items: flex-start; margin: 10px 0; }
+.checklist input { margin-top: 5px; accent-color: var(--cp-accent); }
+.progress { height: 7px; background: var(--cp-surface-soft); border-radius: 0.625rem; overflow: hidden; }
+.bar { height: 100%; width: 0; background: var(--cp-accent); transition: width 0.2s; }
+.bottomnav { border-top: 1px solid var(--cp-border); padding: 22px 0 34px; }
+footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 0.85rem; }
+@media (max-width: 840px) { .roadmap, .requirements, .track-grid, .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } .shell { padding: 16px; } }
+@media print { aside, .topnav, .bottomnav, .copy { display: none !important; } .layout { display: block !important; } .lab-card, .panel, .urlcard, .checklist, .task-card { box-shadow: none !important; break-inside: avoid-page; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topnav"><a href="04-report-design-ux.html">Previous</a><span class="crumb">Lab 05 of 12</span><a href="06-advanced-analytics-ai.html">Next</a></nav>
+    <header>
+      <div class="eyebrow">Lab 5 - Measure, optimize, validate</div>
+      <h1>Performance Optimization</h1>
+      <p class="lede">Use an evidence-driven workflow to diagnose report, model, DAX, visual, refresh, and capacity performance.</p>
+      <div class="meta"><span>Advanced authoring</span><span>Deliverable: Performance improvement notes</span><span>PBIP-first</span></div>
+    </header>
+    <main class="layout">
+      <article>
+        <section>
+          <h2>What you will produce</h2>
+          <div class="panel"><ul><li>Performance Analyzer baseline</li>
+<li>Model reduction plan</li>
+<li>DAX optimization</li>
+<li>Refresh/capacity notes</li></ul></div>
+        </section>
+        
+        <section>
+          <h2>Walkthrough tasks</h2>
+          <div class="task-list"><div class="task-card">
+  <h3>Capture a baseline</h3>
+  <ul>
+    <li>Use Performance Analyzer.</li>
+<li>Record slow visuals, DAX query time, and render time.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review model size</h3>
+  <ul>
+    <li>Identify unused columns and high-cardinality fields.</li>
+<li>Document date/time and precision improvements.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Optimize DAX and visuals</h3>
+  <ul>
+    <li>Refactor repeated DAX with variables.</li>
+<li>Reduce low-value visuals and unnecessary interactions.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review aggregations</h3>
+  <ul>
+    <li>Define a summary grain.</li>
+<li>Mark DirectQuery/source behavior as Verify for Gov.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Prepare refresh policy</h3>
+  <ul>
+    <li>Review incremental refresh parameters.</li>
+<li>Mark Service policy execution as Verify for Gov.</li>
+  </ul>
+</div></div>
+        </section>
+        <section>
+  <h2>Module lab sequence</h2>
+  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
+  <div class="lab-sequence"><div class="task-card">
+  <h3>Lab 1: Performance Analyzer <span class="tag">Core or module-dependent</span></h3>
+  <p>Measure report performance before optimizing.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 2: Reduce model size and cardinality <span class="tag">Core or module-dependent</span></h3>
+  <p>Identify model fields that increase size or reduce compression.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 3: DAX Studio query timings <span class="tag">Verify for Gov</span></h3>
+  <p>Use optional external tooling for deeper DAX diagnostics.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 4: Visual optimization <span class="tag">Core or module-dependent</span></h3>
+  <p>Reduce page-level overhead.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 5: Aggregation table <span class="tag">Gov-ready</span></h3>
+  <p>Understand how aggregations can speed summary queries.</p>
+</div>
+<div class="task-card">
+  <h3>Lab 6: Incremental refresh policy <span class="tag">Verify for Gov</span></h3>
+  <p>Prepare and review an incremental refresh policy.</p>
+</div></div>
+</section>
+        <section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Use Performance Analyzer</h3><ol><li>Open the report page to test.</li><li>Select <strong>View &gt; Performance Analyzer</strong>.</li><li>Select <strong>Start recording</strong>.</li><li>Refresh visuals or interact with slicers.</li><li>Expand each visual result and record DAX query time, visual display time, and other time.</li></ol></div>
+    <div class="task-card"><h3>Reduce model size</h3><ol><li>Review columns in Data or Model view.</li><li>Identify columns not used in relationships, measures, slicers, or visuals.</li><li>Remove unused columns in Power Query, not just hide them.</li><li>Reduce precision or split DateTime columns only when the report does not need full detail.</li></ol></div>
+    <div class="task-card"><h3>Optimize a measure with variables</h3><ol><li>Copy the original measure to a notes area before changing it.</li><li>Create variables with <code>VAR</code> for repeated expressions.</li><li>Return the final result with <code>RETURN</code>.</li><li>Compare old and new results in the same visual.</li></ol></div>
+  </div>
+</section>
+        <section><h2>Implementation reference table</h2><div class="task-card">
+<table class="column-table"><thead><tr><th>Evidence item</th><th>Where to capture</th><th>What to record</th><th>Outcome</th></tr></thead><tbody>
+<tr><td>Baseline timings</td><td>Performance Analyzer</td><td>Visual name, DAX time, display time, other time</td><td>One optimization candidate selected.</td></tr>
+<tr><td>Visual inventory</td><td>Report page</td><td>Visual count and high-cardinality visuals</td><td>Low-value visuals identified.</td></tr>
+<tr><td>Model review</td><td>Model/Data view</td><td>Unused columns, high-cardinality fields, date/time fields</td><td>Reduction plan documented.</td></tr>
+<tr><td>DAX review</td><td>Measure editor</td><td>Before/after measure logic</td><td>Variables or branching added.</td></tr>
+<tr><td>Refresh review</td><td>Power Query/Service notes</td><td>Partition date, RangeStart, RangeEnd, support status</td><td>Incremental refresh readiness documented.</td></tr>
+</tbody></table></div></section>
+        <section>
+  <h2>Detailed step-by-step procedure</h2>
+  <ol class="steps">
+    <li><strong>Open the current report PBIP.</strong><p>Use the report built in the previous labs. Choose one report page that has several visuals and slicers.</p></li>
+    <li><strong>Capture a baseline.</strong><p>Open <b>View > Performance Analyzer</b>. Start recording, refresh visuals, interact with slicers, and record which visuals have high DAX query time or rendering time.</p></li>
+    <li><strong>Review visual complexity.</strong><p>Count visuals on the page. Identify visuals that duplicate information, use high-cardinality fields, or are not needed for the page objective.</p></li>
+    <li><strong>Review model fields.</strong><p>Inspect fact and dimension tables for unused columns, high-cardinality text, excessive precision, and date/time fields that could be simplified.</p></li>
+    <li><strong>Optimize one DAX measure.</strong><p>Choose a measure with repeated expressions or broad filter removal. Rewrite it using variables and measure branching, then compare results before and after.</p></li>
+    <li><strong>Optimize visuals.</strong><p>Remove or consolidate at least one low-value visual. Disable unnecessary visual interactions if cross-filtering creates extra query load without helping the user.</p></li>
+    <li><strong>Review aggregation design.</strong><p>Define a possible aggregation grain such as Month, Product Category, and Territory. Document whether the detail table would remain Import or DirectQuery.</p></li>
+    <li><strong>Review incremental refresh.</strong><p>Confirm which fact date column would support partitioning. Document RangeStart/RangeEnd requirements and whether Service support is validated.</p></li>
+    <li><strong>Optional external diagnostics.</strong><p>If DAX Studio or VertiPaq Analyzer is approved, connect and compare timings/model size. If not, keep this step conceptual and mark Verify for Gov.</p></li>
+    <li><strong>Document results.</strong><p>Record baseline, change made, after result, tradeoff, and remaining risk. Do not claim improvement without evidence.</p></li>
+  </ol>
+</section>
+        <section>
+  <h2>Answer key</h2>
+  <details class="answer-key">
+    <summary>Show sample DAX optimization pattern</summary>
+    <div class="answer-key__body">
+      <p>Use this as a pattern for simplifying repeated measure logic. Your exact measure may vary.</p>
+<pre class="code"><code>// Less maintainable pattern
+Sales Variance % - Repeated =
+DIVIDE (
+    SUM ( FactSales[SalesAmount] )
+        - SUM ( FactTargets[TargetSalesAmount] ),
+    SUM ( FactTargets[TargetSalesAmount] )
+)
+
+// Preferred measure-branching pattern
+Sales Amount =
+SUM ( FactSales[SalesAmount] )
+
+Target Sales Amount =
+SUM ( FactTargets[TargetSalesAmount] )
+
+Sales Variance =
+[Sales Amount] - [Target Sales Amount]
+
+Sales Variance % =
+VAR VarianceAmount = [Sales Variance]
+VAR TargetAmount = [Target Sales Amount]
+RETURN
+    DIVIDE ( VarianceAmount, TargetAmount )</code></pre>
+    </div>
+  </details>
+</section>
+        <section>
+          <h2>Azure Government note</h2>
+          <div class="callout">Use the Gov-ready path by default. Features marked Verify for Gov or Commercial-focused require tenant, licensing, capacity, network, identity, or policy validation before hands-on delivery.</div>
+        </section>
+      </article>
+      <aside>
+        <div class="checklist" data-progress="lab05">
+          <h2>Completion check</h2>
+          <div class="progress"><div class="bar"></div></div>
+          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <label><input type="checkbox">Baseline captured</label>
+<label><input type="checkbox">Model reduction plan documented</label>
+<label><input type="checkbox">DAX optimized</label>
+<label><input type="checkbox">Visual count reviewed</label>
+<label><input type="checkbox">Aggregation design documented</label>
+<label><input type="checkbox">Gov validation notes captured</label>
+        </div>
+      </aside>
+    </main>
+    <nav class="bottomnav"><a href="04-report-design-ux.html">Previous</a><a href="06-advanced-analytics-ai.html">Next</a></nav>
+    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+  </div>
+  <script src="scripts/lab-progress.js"></script>
+</body>
+</html>

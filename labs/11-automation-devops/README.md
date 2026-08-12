@@ -4,6 +4,25 @@
 
 These labs teach PBIP source control and introduce optional automation patterns for validated environments.
 
+## Novice-friendly how-to guide
+
+### Review PBIP source structure
+
+1. Open the PBIP project folder in File Explorer or VS Code.
+2. Locate the `.pbip` file.
+3. Locate the `.Report` folder and `.SemanticModel` folder.
+4. Open a few JSON or TMDL files as text to understand what is source-controlled.
+5. Do not edit generated files unless the lab explicitly tells you to.
+
+### Practice a basic git workflow
+
+1. Open a terminal at the repo root.
+2. Run `git status`.
+3. Create or switch to the working branch chosen for the lab.
+4. Make a small documented change.
+5. Run `git diff` to review it.
+6. Commit only the intended files.
+
 ## Azure Government readiness
 
 PBIP and local git workflows are **Gov-ready**. Tabular Editor, ALM Toolkit, REST APIs, PowerShell, service principals, XMLA, Fabric Git integration, Azure DevOps, and GitHub Actions are **Verify for Gov** or **Commercial-focused / Verify for Gov**.

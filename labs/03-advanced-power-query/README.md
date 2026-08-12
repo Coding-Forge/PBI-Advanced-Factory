@@ -16,10 +16,40 @@ Build Power BI artifacts as PBIP projects. PBIP is the source-controlled format 
 
 | File or folder | Description |
 |---|---|
-| `data\monthly-orders\orders-2026-01.csv` | January order extract. |
-| `data\monthly-orders\orders-2026-02.csv` | February order extract. |
-| `data\monthly-orders\orders-2026-03.csv` | March order extract with a data quality issue. |
-| `data\reference\product-category-map.csv` | Product category reference table. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-01.csv` | January order extract. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-02.csv` | February order extract. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-03.csv` | March order extract with a data quality issue. |
+| `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/reference/product-category-map.csv` | Product category reference table. |
+
+Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub URL.
+
+## Novice-friendly how-to guide
+
+### Create a Power Query parameter
+
+1. In Power BI Desktop, select **Home > Transform data**.
+2. In Power Query, select **Manage Parameters > New Parameter**.
+3. Enter the exact parameter name from the lab.
+4. Choose the data type, such as Text or Date/Time.
+5. Enter the current value.
+6. Select **OK**.
+7. Use the parameter in source or filter steps instead of hard-coded values.
+
+### Append queries
+
+1. In Power Query, select **Home > Append Queries > Append Queries as New**.
+2. Choose **Three or more tables** when combining several monthly files.
+3. Add each raw monthly query to the append list.
+4. Select **OK**.
+5. Rename the appended query using the lab's exact query name.
+6. Check that column names and data types match.
+
+### Disable load for intermediate queries
+
+1. Right-click each raw or staging query.
+2. Clear **Enable load**.
+3. Leave only final model-ready queries enabled.
+4. Select **Close & Apply** after reviewing query names and data types.
 
 ## Lab 1: Staged query architecture
 
@@ -27,10 +57,10 @@ Build Power BI artifacts as PBIP projects. PBIP is the source-controlled format 
 
 ### Tasks
 
-1. Create a parameter named `SourceFolderPath`.
-2. Connect to the monthly orders folder.
-3. Create a raw folder query named `raw_MonthlyOrderFiles`.
-4. Create a staged query named `stg_OrdersCombined`.
+1. Create a parameter named `RawDataBaseUrl` with value `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/`.
+2. Create Web queries for the three monthly order files using the raw URLs.
+3. Name the raw Web queries `raw_Orders_2026_01`, `raw_Orders_2026_02`, and `raw_Orders_2026_03`.
+4. Append the three raw queries into a staged query named `stg_OrdersCombined`.
 5. Create a final load query named `fact_Orders`.
 6. Disable load for raw and staging queries.
 
@@ -44,12 +74,11 @@ Only the final model-ready query is loaded. Intermediate queries remain availabl
 
 ### Tasks
 
-1. Filter folder contents to `.csv` files.
-2. Filter file names that begin with `orders-`.
-3. Exclude hidden files.
-4. Combine the files.
-5. Add a source file name column for lineage.
-6. Apply explicit data types.
+1. Load each monthly order CSV using the Web connector.
+2. Add a source file name column to each raw query for lineage.
+3. Append the monthly queries.
+4. Confirm all appended queries share the same schema.
+5. Apply explicit data types.
 
 ### Expected result
 

@@ -29,9 +29,10 @@ Save report work as a PBIP project. PBIP is the source-controlled format for thi
 3. Create report page tooltips.
 4. Add bookmarks and buttons.
 5. Add dynamic navigation.
-6. Apply conditional formatting.
-7. Create a mobile layout.
-8. Run an accessibility review.
+6. Add field parameters for guided metric or dimension switching.
+7. Apply conditional formatting.
+8. Create a mobile layout.
+9. Run an accessibility review.
 
 ## Validate your work
 
@@ -42,6 +43,7 @@ Your completed report should include:
 - Detail drillthrough page.
 - Tooltip page.
 - Bookmark-driven guided interaction.
+- Field parameter for metric or dimension switching.
 - Conditional formatting with documented meaning.
 - Mobile layout.
 - Accessibility review notes.

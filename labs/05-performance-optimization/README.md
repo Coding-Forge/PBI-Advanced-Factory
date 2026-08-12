@@ -4,6 +4,26 @@
 
 These labs teach a repeatable performance optimization process across report pages, models, DAX, refresh design, and capacity-aware architecture.
 
+## Novice-friendly how-to guide
+
+### Use Performance Analyzer
+
+1. Open the report page to test.
+2. Select **View > Performance Analyzer**.
+3. Select **Start recording**.
+4. Select **Refresh visuals** or interact with slicers.
+5. Expand each visual result.
+6. Record DAX query time, visual display time, and other time.
+7. Use the slowest visual as the first optimization candidate.
+
+### Optimize a DAX measure with variables
+
+1. Copy the original measure text before editing.
+2. Create variables with `VAR` for repeated expressions.
+3. Return the final result with `RETURN`.
+4. Test the rewritten measure beside the original.
+5. Keep the version that returns the same result with clearer logic.
+
 ## Azure Government readiness
 
 The required Desktop labs are **Gov-ready**. DAX Studio, VertiPaq Analyzer, Service-side incremental refresh, capacity metrics, and some DirectQuery/aggregation scenarios are **Verify for Gov**.
