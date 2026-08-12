@@ -25,6 +25,7 @@ For customer delivery, validate feature availability in the target tenant before
 - [Authoring Standards](docs\authoring-standards.md)
 - [Cross-Cutting Standards](docs\cross-cutting-standards.md)
 - [Delivery Paths](docs\delivery-paths.md)
+- [Three-Day Training Agenda](docs\three-day-training-agenda.md)
 - [Azure Government Readiness Review](docs\azure-government-readiness-review.md)
 - [Instructor Deck](docs\instructor-deck.md)
 - [Learner Workbook](docs\learner-workbook.md)

@@ -83,7 +83,7 @@ expression DimDate =
 
 	annotation PBI_ResultType = Table
 
-/// the base url to the raw data, 
+/// the base url to the raw data,
 expression RawDataBaseUrl = "https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
 	lineageTag: 89d62e84-05ce-45ba-8502-dedc28ca6eef
 
@@ -166,6 +166,24 @@ expression stg_OrdersCombined =
 
 	annotation PBI_ResultType = Table
 
+expression fn_CleanText =
+		// Text cleanup function
+		let
+		    Source = (inputText as nullable text) as nullable text =>
+		let
+		    Result =
+		        if inputText = null then
+		            null
+		        else
+		            Text.Proper(Text.Trim(Text.Clean(inputText)))
+		in
+		    Result
+		in
+		    Source
+	lineageTag: db464a60-0912-4534-976d-96739eae0999
+
+	annotation PBI_ResultType = Function
+
 expression err_OrdersReview =
 		let
 		    Source = stg_OrdersCombined,
@@ -202,22 +220,4 @@ expression err_OrdersReview =
 	lineageTag: 2f95a690-7af3-45b3-841d-3a9ac1a928a9
 
 	annotation PBI_ResultType = Table
-
-expression fn_CleanText =
-		// Text cleanup function
-		let
-		    Source = (inputText as nullable text) as nullable text =>
-		let
-		    Result =
-		        if inputText = null then
-		            null
-		        else
-		            Text.Proper(Text.Trim(Text.Clean(inputText)))
-		in
-		    Result
-		in
-		    Source
-	lineageTag: db464a60-0912-4534-976d-96739eae0999
-
-	annotation PBI_ResultType = Function
 

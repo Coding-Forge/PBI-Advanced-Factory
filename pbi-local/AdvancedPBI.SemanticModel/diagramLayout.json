@@ -164,19 +164,6 @@
         },
         {
           "location": {
-            "x": 2874.3830500146937,
-            "y": 440.17545521758359
-          },
-          "nodeIndex": "err_OrdersReview",
-          "nodeLineageTag": "fe69eac9-9c59-4041-8fa3-21007b0ac1c6",
-          "size": {
-            "height": 272,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
             "x": 2306,
             "y": 482.16056599718229
           },
