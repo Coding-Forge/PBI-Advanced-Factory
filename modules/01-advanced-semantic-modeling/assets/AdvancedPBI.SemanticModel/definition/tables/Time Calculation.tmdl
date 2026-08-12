@@ -1,0 +1,25 @@
+table 'Time Calculation'
+	lineageTag: 41f2c443-2781-4cd9-906a-282cac3c06c9
+
+	calculationGroup
+
+		calculationItem Current = SELECTEDMEASURE()
+
+	column 'Time Calculation'
+		dataType: string
+		lineageTag: 6dd8874a-125c-4a9f-babc-f302dc8c70fe
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: b481e14c-790a-449a-bc32-8f802dcdbae2
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

@@ -1,0 +1,116 @@
+table err_OrdersReview
+	lineageTag: fe69eac9-9c59-4041-8fa3-21007b0ac1c6
+
+	column OrderId
+		dataType: int64
+		formatString: 0
+		lineageTag: 8550cc93-288d-4b92-a352-51b942c638be
+		summarizeBy: count
+		sourceColumn: OrderId
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 40fb1eb3-9ec5-4bc1-a7ac-8ec53db4dee7
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		variation Variation
+			isDefault
+			relationship: c9d3d9d3-c84b-4878-84ff-e83681583b43
+			defaultHierarchy: LocalDateTable_f2d13506-c798-47ce-b8bc-f3d872b81c32.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerName
+		dataType: string
+		lineageTag: 66e025ea-78e1-43d2-890a-673731214035
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCode
+		dataType: string
+		lineageTag: 5d51c7b4-5e25-42fc-98aa-59d69c0cf349
+		summarizeBy: none
+		sourceColumn: ProductCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 4537ba85-4d06-4a24-bb13-f95c7a3457b2
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e50591e-dfcf-44b6-937e-a0165357a2a1
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesChannel
+		dataType: string
+		lineageTag: 0d0b72b6-427c-4b39-b1ac-dfac474a1b05
+		summarizeBy: none
+		sourceColumn: SalesChannel
+
+		annotation SummarizationSetBy = Automatic
+
+	column DataQualityIssue
+		dataType: string
+		lineageTag: 77f23e5d-216a-430f-a2bb-f8a9777471e5
+		summarizeBy: none
+		sourceColumn: DataQualityIssue
+
+		annotation SummarizationSetBy = Automatic
+
+	partition err_OrdersReview = m
+		mode: import
+		source =
+				let
+				    Source = stg_OrdersCombined,
+				    AddedDataQualityIssue =
+				        Table.AddColumn(
+				            Source,
+				            "DataQualityIssue",
+				            each
+				                let
+				                    ParsedOrderDate = try Date.From([OrderDate]) otherwise null,
+				                    ParsedQuantity = try Number.From([Quantity]) otherwise null,
+				                    ParsedUnitPrice = try Number.From([UnitPrice]) otherwise null,
+				                    ProductCodeText = try Text.Trim(Text.From([ProductCode])) otherwise "",
+				                    Issues =
+				                        List.RemoveNulls(
+				                            {
+				                                if ParsedOrderDate = null then "Missing or invalid OrderDate" else null,
+				                                if ParsedQuantity = null or ParsedQuantity <= 0 then "Missing or non-positive Quantity" else null,
+				                                if ParsedUnitPrice = null or ParsedUnitPrice <= 0 then "Missing or non-positive UnitPrice" else null,
+				                                if ProductCodeText = "" then "Missing ProductCode" else null
+				                            }
+				                        )
+				                in
+				                    Text.Combine(Issues, "; "),
+				            type text
+				        ),
+				    ErrorRows =
+				        Table.SelectRows(
+				            AddedDataQualityIssue,
+				            each [DataQualityIssue] <> ""
+				        )
+				in
+				    ErrorRows
+
+	annotation PBI_ResultType = Table
+

@@ -83,3 +83,141 @@ expression DimDate =
 
 	annotation PBI_ResultType = Table
 
+/// the base url to the raw data, 
+expression RawDataBaseUrl = "https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+	lineageTag: 89d62e84-05ce-45ba-8502-dedc28ca6eef
+
+	annotation PBI_ResultType = Text
+
+expression RangeStart = #datetime(2026, 1, 1, 0, 0, 0) meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type datetime]
+	lineageTag: 3a8f41f4-17b7-4337-a51b-37b218e65187
+
+	annotation PBI_ResultType = DateTime
+
+expression RangeEnd = #datetime(2026, 4, 1, 0, 0, 0) meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type datetime]
+	lineageTag: a390fb55-23af-465e-a9f2-608121c7eaf5
+
+	annotation PBI_ResultType = DateTime
+
+expression SourceFolderPath =
+		let
+		    Source = "" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+		in
+		    Source
+	lineageTag: c47e50fb-6db9-4ba9-94b0-c807d36855f4
+
+	annotation PBI_ResultType = Text
+
+expression EnvironmentName =
+		let
+		    Source = "DEV" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+		in
+		    Source
+	lineageTag: 2bc6fabc-16f9-40a5-bcb1-913aca3095ea
+
+	annotation PBI_ResultType = Text
+
+expression orders-2026-01 =
+		let
+		  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-01.csv"), [Delimiter = ",", Columns = 7, QuoteStyle = QuoteStyle.None]),
+		  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"OrderId", type text}, {"OrderDate", type text}, {"CustomerName", type text}, {"ProductCode", type text}, {"Quantity", type text}, {"UnitPrice", type text}, {"SalesChannel", type text}}),
+		  #"Removed bottom rows" = Table.RemoveLastN(#"Changed column type", 1),
+		  #"Added SourceFile" = Table.AddColumn(#"Removed bottom rows", "SourceFile", each "orders-2026-01.csv", type text)
+		in
+		  #"Added SourceFile"
+	lineageTag: 135204a7-0b1a-4ed8-9255-f3a6f9f8511f
+
+	annotation PBI_ResultType = Table
+
+expression orders-2026-02 =
+		let
+		  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-02.csv"), [Delimiter = ",", Columns = 7, QuoteStyle = QuoteStyle.None]),
+		  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"OrderId", type text}, {"OrderDate", type text}, {"CustomerName", type text}, {"ProductCode", type text}, {"Quantity", type text}, {"UnitPrice", type text}, {"SalesChannel", type text}}),
+		  #"Removed bottom rows" = Table.RemoveLastN(#"Changed column type", 1),
+		  #"Added SourceFile" = Table.AddColumn(#"Removed bottom rows", "SourceFile", each "orders-2026-02.csv", type text)
+		in
+		  #"Added SourceFile"
+	lineageTag: 6a07a8da-533a-4d26-8014-3f72701436d3
+
+	annotation PBI_ResultType = Table
+
+expression orders-2026-03 =
+		let
+		  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-03.csv"), [Delimiter = ",", Columns = 7, QuoteStyle = QuoteStyle.None]),
+		  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"OrderId", Int64.Type}, {"OrderDate", type text}, {"CustomerName", type text}, {"ProductCode", type text}, {"Quantity", type text}, {"UnitPrice", Int64.Type}, {"SalesChannel", type text}}),
+		  #"Removed bottom rows" = Table.RemoveLastN(#"Changed column type", 1),
+		  #"Added SourceFile" = Table.AddColumn(#"Removed bottom rows", "SourceFile", each "orders-2026-03.csv", type text)
+		in
+		  #"Added SourceFile"
+	lineageTag: 43f9d7ea-6158-44a4-9863-250fd667cb4b
+
+	annotation PBI_ResultType = Table
+
+expression stg_OrdersCombined =
+		let
+		  Source = Table.Combine({#"orders-2026-01", #"orders-2026-02", #"orders-2026-03"}),
+		  #"Changed column type" = Table.TransformColumnTypes(Source, {{"OrderId", type text}, {"OrderDate", type text}, {"CustomerName", type text}, {"ProductCode", type text}, {"Quantity", type text}, {"UnitPrice", type text}, {"SalesChannel", type text}, {"SourceFile", type text}})
+		in
+		  #"Changed column type"
+	lineageTag: 4c6ab247-e357-48a9-8c76-3b9eca814b27
+
+	annotation PBI_ResultType = Table
+
+expression err_OrdersReview =
+		let
+		    Source = stg_OrdersCombined,
+		    AddedDataQualityIssue =
+		        Table.AddColumn(
+		            Source,
+		            "DataQualityIssue",
+		            each
+		                let
+		                    ParsedOrderDate = try Date.From([OrderDate]) otherwise null,
+		                    ParsedQuantity = try Number.From([Quantity]) otherwise null,
+		                    ParsedUnitPrice = try Number.From([UnitPrice]) otherwise null,
+		                    ProductCodeText = try Text.Trim(Text.From([ProductCode])) otherwise "",
+		                    Issues =
+		                        List.RemoveNulls(
+		                            {
+		                                if ParsedOrderDate = null then "Missing or invalid OrderDate" else null,
+		                                if ParsedQuantity = null or ParsedQuantity <= 0 then "Missing or non-positive Quantity" else null,
+		                                if ParsedUnitPrice = null or ParsedUnitPrice <= 0 then "Missing or non-positive UnitPrice" else null,
+		                                if ProductCodeText = "" then "Missing ProductCode" else null
+		                            }
+		                        )
+		                in
+		                    Text.Combine(Issues, "; "),
+		            type text
+		        ),
+		    ErrorRows =
+		        Table.SelectRows(
+		            AddedDataQualityIssue,
+		            each [DataQualityIssue] <> ""
+		        )
+		in
+		    ErrorRows
+	lineageTag: 2f95a690-7af3-45b3-841d-3a9ac1a928a9
+
+	annotation PBI_ResultType = Table
+
+expression fn_CleanText =
+		// Text cleanup function
+		let
+		    Source = (inputText as nullable text) as nullable text =>
+		let
+		    Result =
+		        if inputText = null then
+		            null
+		        else
+		            Text.Proper(Text.Trim(Text.Clean(inputText)))
+		in
+		    Result
+		in
+		    Source
+	lineageTag: db464a60-0912-4534-976d-96739eae0999
+
+	annotation PBI_ResultType = Function
+

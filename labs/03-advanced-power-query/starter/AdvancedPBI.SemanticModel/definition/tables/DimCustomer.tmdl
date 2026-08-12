@@ -1,4 +1,4 @@
-table DimCustomers
+table DimCustomer
 	lineageTag: f118beae-17ea-4d2d-9673-2addd7dd0683
 
 	column CustomerKey
@@ -41,7 +41,7 @@ table DimCustomers
 
 		annotation SummarizationSetBy = Automatic
 
-	partition DimCustomers = m
+	partition DimCustomer = m
 		mode: import
 		source =
 				let
@@ -50,6 +50,8 @@ table DimCustomers
 				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"CustomerKey", "CustomerName", "CustomerType", "CustomerState", "CustomerRegion"})
 				in
 				  #"Removed duplicates"
+
+	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

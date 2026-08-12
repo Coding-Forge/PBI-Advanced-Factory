@@ -380,6 +380,67 @@ VAR SelectedRegion =
     SELECTEDVALUE ( DimTerritory[TerritoryRegion], "All Regions" )
 RETURN
     "Sales Performance - " &amp; SelectedRegion</code></pre>
+      <h3>Calculation group answer key</h3>
+      <p>Use these formulas for the <code>Time Calculation</code> calculation items. Each item uses <code>SELECTEDMEASURE()</code> so the same logic can apply to multiple explicit base measures.</p>
+<pre class="code"><code>// Current
+SELECTEDMEASURE()
+
+// MTD
+CALCULATE (
+    SELECTEDMEASURE(),
+    DATESMTD ( DimOrderDate[Date] )
+)
+
+// QTD
+CALCULATE (
+    SELECTEDMEASURE(),
+    DATESQTD ( DimOrderDate[Date] )
+)
+
+// YTD
+CALCULATE (
+    SELECTEDMEASURE(),
+    DATESYTD ( DimOrderDate[Date] )
+)
+
+// Fiscal YTD
+CALCULATE (
+    SELECTEDMEASURE(),
+    DATESYTD ( DimOrderDate[Date], "6/30" )
+)
+
+// Prior Year
+CALCULATE (
+    SELECTEDMEASURE(),
+    SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+)
+
+// YoY Change
+VAR PriorYearValue =
+    CALCULATE (
+        SELECTEDMEASURE(),
+        SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+    )
+RETURN
+    SELECTEDMEASURE() - PriorYearValue
+
+// YoY Change %
+VAR PriorYearValue =
+    CALCULATE (
+        SELECTEDMEASURE(),
+        SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+    )
+RETURN
+    DIVIDE ( SELECTEDMEASURE() - PriorYearValue, PriorYearValue )
+
+// Rolling 90 Days
+VAR LastVisibleDate =
+    MAX ( DimOrderDate[Date] )
+RETURN
+    CALCULATE (
+        SELECTEDMEASURE(),
+        DATESINPERIOD ( DimOrderDate[Date], LastVisibleDate, -90, DAY )
+    )</code></pre>
     </div>
   </details>
 </section>

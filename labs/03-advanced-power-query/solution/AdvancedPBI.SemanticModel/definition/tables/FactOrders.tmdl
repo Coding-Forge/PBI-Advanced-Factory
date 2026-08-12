@@ -1,0 +1,80 @@
+table FactOrders
+	lineageTag: 41fef903-c04a-486e-9250-a7d037b3123e
+
+	column OrderId
+		dataType: int64
+		formatString: 0
+		lineageTag: 09a06b68-bbcf-4c9c-b239-5371061060b3
+		summarizeBy: count
+		sourceColumn: OrderId
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ad53e5a1-5c95-4c01-8e53-daace55179ab
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		variation Variation
+			isDefault
+			relationship: 3d2891f9-0b2d-4443-81f1-a31af39f604f
+			defaultHierarchy: LocalDateTable_35731b34-cb56-4998-ba94-589bde342bb3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerName
+		dataType: string
+		lineageTag: b7cf7816-87df-478f-8ce4-6881ccc3662d
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCode
+		dataType: string
+		lineageTag: 23fa9086-f4dd-4b99-b842-2e14d723a75f
+		summarizeBy: none
+		sourceColumn: ProductCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 3710e511-424c-4e86-9791-e93fd103d27d
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: int64
+		formatString: 0
+		lineageTag: c6a524f7-e560-4ffd-9450-3235c84108e6
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesChannel
+		dataType: string
+		lineageTag: 83eb5e88-f21b-49df-a362-a1dadba30996
+		summarizeBy: none
+		sourceColumn: SalesChannel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactOrders = m
+		mode: import
+		source =
+				let
+				  Source = stg_OrdersCombined
+				in
+				  Source
+
+	annotation PBI_ResultType = Table
+

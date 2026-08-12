@@ -193,7 +193,8 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <div class="task-card">
   <h3>Add parameters and functions</h3>
   <ul>
-    <li>Create RawDataBaseUrl.</li>
+    <li>Create RawDataBaseUrl, SourceFolderPath, EnvironmentName, RangeStart, and RangeEnd.</li>
+<li>Keep SourceFolderPath blank unless using an offline/folder delivery path.</li>
 <li>Create fn_CleanText for reusable null-safe text cleanup.</li>
   </ul>
 </div>
@@ -240,18 +241,27 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
-    <div class="task-card"><h3>Create a Power Query parameter</h3><ol><li>Open <strong>Transform data</strong> to launch Power Query.</li><li>Select <strong>Manage Parameters &gt; New Parameter</strong>.</li><li>Enter the exact parameter name, data type, and current value from the lab.</li><li>Select <strong>OK</strong> and use the parameter in source steps instead of hard-coded paths.</li></ol></div>
+    <div class="task-card"><h3>Create Power Query parameters</h3><ol><li>Open <strong>Transform data</strong> to launch Power Query.</li><li>Select <strong>Manage Parameters &gt; New Parameter</strong>.</li><li>Create <code>RawDataBaseUrl</code>, <code>SourceFolderPath</code>, <code>EnvironmentName</code>, <code>RangeStart</code>, and <code>RangeEnd</code>.</li><li>Keep <code>SourceFolderPath</code> blank unless using the optional offline/folder delivery path.</li><li>Select <strong>OK</strong> and use required parameters in source or filter steps instead of hard-coded values.</li></ol></div>
     <div class="task-card"><h3>Append queries</h3><ol><li>In Power Query, select <strong>Home &gt; Append Queries &gt; Append Queries as New</strong>.</li><li>Choose <strong>Three or more tables</strong>.</li><li>Add each raw monthly query in order.</li><li>Name the result <code>stg_OrdersCombined</code>.</li><li>Check that columns line up and data types are consistent.</li></ol></div>
     <div class="task-card"><h3>Disable load for staging queries</h3><ol><li>Right-click each raw or staging query.</li><li>Clear <strong>Enable load</strong>.</li><li>Leave final model-ready queries enabled.</li><li>Select <strong>Close &amp; Apply</strong> when the query set is ready.</li></ol></div>
   </div>
 </section>
         <section><h2>Implementation reference table</h2><div class="task-card">
+<h3>Module parameter reference</h3>
+<table class="column-table"><thead><tr><th>Parameter</th><th>Type</th><th>Suggested value</th><th>Used in core Web path?</th><th>Purpose</th></tr></thead><tbody>
+<tr><td><code>RawDataBaseUrl</code></td><td>Text</td><td><code>https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/</code></td><td>Yes</td><td>Base path for raw GitHub CSV files.</td></tr>
+<tr><td><code>SourceFolderPath</code></td><td>Text</td><td>Blank, or a local folder path for offline delivery</td><td>No</td><td>Optional folder connector placeholder for instructor/offline scenarios.</td></tr>
+<tr><td><code>EnvironmentName</code></td><td>Text or List</td><td><code>Dev</code></td><td>Yes, as documentation/concept</td><td>Introduces Dev/Test/Prod source switching without changing the required Web-source path.</td></tr>
+<tr><td><code>RangeStart</code></td><td>Date/Time</td><td><code>2026-01-01 00:00:00</code></td><td>Yes, for incremental refresh prep</td><td>Lower bound for incremental refresh filtering.</td></tr>
+<tr><td><code>RangeEnd</code></td><td>Date/Time</td><td><code>2026-04-01 00:00:00</code></td><td>Yes, for incremental refresh prep</td><td>Upper bound for incremental refresh filtering.</td></tr>
+</tbody></table>
 <table class="column-table"><thead><tr><th>Query</th><th>Source</th><th>Load enabled?</th><th>Required output</th></tr></thead><tbody>
 <tr><td><code>raw_Orders_2026_01</code></td><td><code>orders-2026-01.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>.</td></tr>
 <tr><td><code>raw_Orders_2026_02</code></td><td><code>orders-2026-02.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>.</td></tr>
 <tr><td><code>raw_Orders_2026_03</code></td><td><code>orders-2026-03.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>; contains intentional errors.</td></tr>
 <tr><td><code>stg_OrdersCombined</code></td><td>Append raw order queries</td><td>No</td><td>Combined rows with consistent columns.</td></tr>
-<tr><td><code>fact_Orders</code></td><td>Reference staging query</td><td>Yes</td><td>Typed columns: <code>OrderId</code>, <code>OrderDate</code>, <code>CustomerName</code>, <code>ProductCode</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>SalesChannel</code>, <code>SourceFile</code>.</td></tr>
+<tr><td><code>FactOrders</code></td><td>Reference staging query</td><td>Yes</td><td>Typed, valid order rows: <code>OrderId</code>, <code>OrderDate</code>, <code>CustomerName</code>, <code>ProductCode</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>SalesChannel</code>, <code>SourceFile</code>.</td></tr>
+<tr><td><code>err_OrdersReview</code></td><td>Reference staging query</td><td>No</td><td>Rows with a populated <code>DataQualityIssue</code> reason for review.</td></tr>
 <tr><td><code>dim_ProductCategory</code></td><td><code>product-category-map.csv</code> Web URL</td><td>Yes</td><td><code>ProductCode</code>, <code>ProductName</code>, <code>ProductCategory</code>, <code>ProductSubcategory</code>.</td></tr>
 <tr><td><code>fn_CleanText</code></td><td>Blank query function</td><td>No</td><td>Null-safe trim/clean/proper text function.</td></tr>
 </tbody></table></div></section>
@@ -259,15 +269,15 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
     <li><strong>Open the PBIP project and Power Query.</strong><p>Open the current PBIP solution. Select <b>Transform data</b> to open Power Query Editor.</p></li>
-    <li><strong>Create a raw data base parameter.</strong><p>Create a text parameter named <code>RawDataBaseUrl</code> with value <code>https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/</code>. This makes the Web source pattern easier to maintain.</p></li>
+    <li><strong>Create module parameters.</strong><p>Create five Power Query parameters: <code>RawDataBaseUrl</code> as Text with value <code>https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/</code>; <code>SourceFolderPath</code> as Text and leave it blank unless using an offline folder path; <code>EnvironmentName</code> as Text or List with current value <code>Dev</code>; <code>RangeStart</code> as Date/Time with value <code>2026-01-01 00:00:00</code>; and <code>RangeEnd</code> as Date/Time with value <code>2026-04-01 00:00:00</code>.</p></li>
     <li><strong>Load monthly order files.</strong><p>Use <b>New Source > Web</b> for each monthly order CSV. Name the raw queries <code>raw_Orders_2026_01</code>, <code>raw_Orders_2026_02</code>, and <code>raw_Orders_2026_03</code>.</p></li>
     <li><strong>Add source lineage.</strong><p>In each raw monthly query, add a custom column named SourceFile with the file name, such as <code>orders-2026-01.csv</code>. This helps identify which file produced each row.</p></li>
     <li><strong>Append the monthly queries.</strong><p>Use <b>Append Queries as New</b> and append the three monthly order queries. Rename the result <code>stg_OrdersCombined</code>.</p></li>
-    <li><strong>Create the final fact query.</strong><p>Reference <code>stg_OrdersCombined</code> and name the new query <code>fact_Orders</code>. Apply explicit data types for OrderId, OrderDate, ProductCode, Quantity, UnitPrice, and SalesChannel.</p></li>
-    <li><strong>Create a cleanup function.</strong><p>Create <code>fn_CleanText</code> to trim and clean nullable text values. Invoke it on CustomerName and other text columns where whitespace or inconsistent capitalization exists.</p></li>
-    <li><strong>Identify bad data.</strong><p>Use column quality/profile and type-conversion errors to find the intentional bad date and bad quantity in the March file. Create an error review query before removing or replacing rows.</p></li>
-    <li><strong>Load reference data.</strong><p>Use the Web connector for <code>product-category-map.csv</code>. Merge it into <code>fact_Orders</code> on ProductCode or keep it as a dimension/reference table, depending on the lab design.</p></li>
-    <li><strong>Prepare for incremental refresh.</strong><p>Create DateTime parameters named <code>RangeStart</code> and <code>RangeEnd</code>. Filter the final fact query on OrderDate using those parameters. Document Service-side incremental refresh as Verify for Gov.</p></li>
+    <li><strong>Create the final fact query.</strong><p>Reference <code>stg_OrdersCombined</code> and name the new query <code>FactOrders</code>. Use the validation pattern to keep only rows with no data quality issue, then apply explicit data types for OrderId, OrderDate, ProductCode, Quantity, UnitPrice, and SalesChannel.</p></li>
+    <li><strong>Create and invoke a cleanup function.</strong><p>Create <code>fn_CleanText</code> to trim and clean nullable text values. Invoke it on <code>CustomerName</code> and <code>SalesChannel</code> in <code>FactOrders</code>, and on <code>ProductName</code>, <code>ProductCategory</code>, and <code>ProductSubcategory</code> in the product reference query.</p></li>
+    <li><strong>Identify bad data.</strong><p>Use column quality/profile and safe parsing logic to find the intentional bad date and bad quantity in the March file. Create <code>err_OrdersReview</code> as a disabled-load reference query before removing invalid rows from <code>FactOrders</code>.</p></li>
+    <li><strong>Load reference data.</strong><p>Use the Web connector for <code>product-category-map.csv</code>. Merge it into <code>FactOrders</code> on ProductCode or keep it as a dimension/reference table, depending on the lab design.</p></li>
+    <li><strong>Prepare for incremental refresh.</strong><p>Use the existing Date/Time parameters <code>RangeStart</code> and <code>RangeEnd</code>. Filter the final fact query on OrderDate using those parameters. Document Service-side incremental refresh as Verify for Gov.</p></li>
   </ol>
 </section>
         <section>
@@ -278,6 +288,16 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <p>These snippets show the intended M patterns. Your generated step names may differ depending on how you clicked through Power Query.</p>
 <pre class="code"><code>// Parameter value
 RawDataBaseUrl = "https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/"
+
+// Optional offline/folder delivery placeholder
+SourceFolderPath = ""
+
+// Environment documentation/concept parameter
+EnvironmentName = "Dev"
+
+// Incremental refresh preparation parameters
+RangeStart = #datetime(2026, 1, 1, 0, 0, 0)
+RangeEnd = #datetime(2026, 4, 1, 0, 0, 0)
 
 // Example Web source pattern
 Source =
@@ -316,10 +336,76 @@ let
 in
     Result
 
+// Error review query pattern
+err_OrdersReview =
+    let
+        Source = stg_OrdersCombined,
+        AddedDataQualityIssue =
+            Table.AddColumn(
+                Source,
+                "DataQualityIssue",
+                each
+                    let
+                        ParsedOrderDate = try Date.From([OrderDate]) otherwise null,
+                        ParsedQuantity = try Number.From([Quantity]) otherwise null,
+                        ParsedUnitPrice = try Number.From([UnitPrice]) otherwise null,
+                        ProductCodeText = try Text.Trim(Text.From([ProductCode])) otherwise "",
+                        Issues =
+                            List.RemoveNulls(
+                                {
+                                    if ParsedOrderDate = null then "Missing or invalid OrderDate" else null,
+                                    if ParsedQuantity = null or ParsedQuantity &lt;= 0 then "Missing or non-positive Quantity" else null,
+                                    if ParsedUnitPrice = null or ParsedUnitPrice &lt;= 0 then "Missing or non-positive UnitPrice" else null,
+                                    if ProductCodeText = "" then "Missing ProductCode" else null
+                                }
+                            )
+                    in
+                        Text.Combine(Issues, "; "),
+                type text
+            ),
+        ErrorRows =
+            Table.SelectRows(
+                AddedDataQualityIssue,
+                each [DataQualityIssue] &lt;&gt; ""
+            )
+    in
+        ErrorRows
+
+// FactOrders valid-row filter pattern
+ValidatedOrders =
+    Table.AddColumn(
+        stg_OrdersCombined,
+        "DataQualityIssue",
+        each
+            let
+                ParsedOrderDate = try Date.From([OrderDate]) otherwise null,
+                ParsedQuantity = try Number.From([Quantity]) otherwise null,
+                ParsedUnitPrice = try Number.From([UnitPrice]) otherwise null,
+                ProductCodeText = try Text.Trim(Text.From([ProductCode])) otherwise "",
+                Issues =
+                    List.RemoveNulls(
+                        {
+                            if ParsedOrderDate = null then "Missing or invalid OrderDate" else null,
+                            if ParsedQuantity = null or ParsedQuantity &lt;= 0 then "Missing or non-positive Quantity" else null,
+                            if ParsedUnitPrice = null or ParsedUnitPrice &lt;= 0 then "Missing or non-positive UnitPrice" else null,
+                            if ProductCodeText = "" then "Missing ProductCode" else null
+                        }
+                    )
+            in
+                Text.Combine(Issues, "; "),
+        type text
+    )
+
+ValidRows =
+    Table.SelectRows(
+        ValidatedOrders,
+        each [DataQualityIssue] = ""
+    )
+
 // Final type pattern
 TypedOrders =
     Table.TransformColumnTypes(
-        stg_OrdersCombined,
+        ValidRows,
         {
             {"OrderId", Int64.Type},
             {"OrderDate", type date},
@@ -332,10 +418,31 @@ TypedOrders =
         }
     )
 
+// Invoke fn_CleanText in FactOrders after typing
+FactOrders =
+    Table.TransformColumns(
+        TypedOrders,
+        {
+            {"CustomerName", each fn_CleanText(_), type nullable text},
+            {"SalesChannel", each fn_CleanText(_), type nullable text}
+        }
+    )
+
+// Invoke fn_CleanText in the product reference query
+CleanedProductText =
+    Table.TransformColumns(
+        dim_ProductCategory,
+        {
+            {"ProductName", each fn_CleanText(_), type nullable text},
+            {"ProductCategory", each fn_CleanText(_), type nullable text},
+            {"ProductSubcategory", each fn_CleanText(_), type nullable text}
+        }
+    )
+
 // Incremental refresh filter pattern
 FilteredRows =
     Table.SelectRows(
-        TypedOrders,
+        FactOrders,
         each [OrderDate] &gt;= Date.From(RangeStart)
             and [OrderDate] &lt; Date.From(RangeEnd)
     )</code></pre>
@@ -351,10 +458,11 @@ FilteredRows =
         <div class="checklist" data-progress="lab03">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <p class="small"><span class="count">0</span> of 7 complete</p>
           <label><input type="checkbox">Web URLs loaded</label>
 <label><input type="checkbox">Monthly queries appended</label>
 <label><input type="checkbox">Explicit types applied</label>
+<label><input type="checkbox">Five parameters documented</label>
 <label><input type="checkbox">Data quality issues found</label>
 <label><input type="checkbox">Custom function created</label>
 <label><input type="checkbox">Incremental refresh notes captured</label>

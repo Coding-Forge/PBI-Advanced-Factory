@@ -24,7 +24,7 @@ relationship AutoDetected_746b1a31-ce7c-4e83-9f09-aa6ed96a2386
 
 relationship 393297c7-556a-6583-b4e5-72cdaa616c16
 	fromColumn: FactSales.CustomerKey
-	toColumn: DimCustomers.CustomerKey
+	toColumn: DimCustomer.CustomerKey
 
 relationship 0a3fc0cf-e255-bff0-3ebc-9fcca32dec65
 	fromColumn: FactSales.TerritoryKey
@@ -53,7 +53,7 @@ relationship 45d6df51-7f97-dc83-e3ba-007c45129ff7
 relationship 80d71114-5f17-2d68-2526-428c2a78ee7d
 	crossFilteringBehavior: bothDirections
 	fromColumn: BridgeCustomerSegment.CustomerKey
-	toColumn: DimCustomers.CustomerKey
+	toColumn: DimCustomer.CustomerKey
 
 relationship AutoDetected_dfb6dbfd-467c-4775-bd2f-9fb183087a5e
 	fromColumn: FactTargets.ProductCategory
@@ -62,4 +62,24 @@ relationship AutoDetected_dfb6dbfd-467c-4775-bd2f-9fb183087a5e
 relationship AutoDetected_606c397b-22a1-4c11-9d04-ac41ca9139ed
 	fromColumn: DimProduct.ProductCategory
 	toColumn: DimProductCategory.ProductCategory
+
+relationship 3d2891f9-0b2d-4443-81f1-a31af39f604f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactOrders.OrderDate
+	toColumn: LocalDateTable_35731b34-cb56-4998-ba94-589bde342bb3.Date
+
+relationship AutoDetected_1ce62a72-ffed-4a2b-8393-62f604154c33
+	fromColumn: product-category-map.ProductCategory
+	toColumn: DimProductCategory.ProductCategory
+
+relationship AutoDetected_c58ad877-728a-4510-8824-af6fa8fbbb11
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: product-category-map.ProductName
+	toColumn: DimProduct.ProductName
+
+relationship AutoDetected_e9ec14d5-3e39-4f75-9ca9-b74b9093b5e0
+	fromColumn: FactOrders.ProductCode
+	toColumn: product-category-map.ProductCode
 

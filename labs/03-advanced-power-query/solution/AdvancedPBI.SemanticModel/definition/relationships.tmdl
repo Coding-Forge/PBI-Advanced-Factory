@@ -1,0 +1,101 @@
+relationship 997bc2df-2848-40e2-8a6c-da6ef9daafd6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactTargets.TargetMonth
+	toColumn: LocalDateTable_2c05766e-6153-432b-a89d-0970cbe753ed.Date
+
+relationship 21d81152-1e1e-492e-b730-02471e53809b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactSales.OrderDate
+	toColumn: LocalDateTable_5e0f18ab-e4cf-4db6-9037-d06fd708ed09.Date
+
+relationship 43a43c97-611b-4792-b761-8bc52c63c504
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactSales.ShipDate
+	toColumn: LocalDateTable_252c1600-f105-4832-bef8-c700c8027c13.Date
+
+relationship aa7d4c46-6573-4521-92b0-0d6e37eec3cd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactSales.InvoiceDate
+	toColumn: LocalDateTable_6da3a195-0266-4b53-82d4-7196f21a806d.Date
+
+relationship AutoDetected_746b1a31-ce7c-4e83-9f09-aa6ed96a2386
+	fromColumn: BridgeCustomerSegment.Segment
+	toColumn: DimSegment.Segment
+
+relationship 393297c7-556a-6583-b4e5-72cdaa616c16
+	fromColumn: FactSales.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship 0a3fc0cf-e255-bff0-3ebc-9fcca32dec65
+	fromColumn: FactSales.TerritoryKey
+	toColumn: DimTerritory.TerritoryKey
+
+relationship 37619601-a851-8426-2fbe-5e6af57810aa
+	fromColumn: FactSales.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship 750bc426-ebd7-e948-e07b-3225f21e73bf
+	fromColumn: FactTargets.TerritoryKey
+	toColumn: DimTerritory.TerritoryKey
+
+relationship d032974e-e09e-0215-845e-b2c5052c636f
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DimShipDate.Date
+	toColumn: FactSales.ShipDate
+
+relationship 45d6df51-7f97-dc83-e3ba-007c45129ff7
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DimOrderDate.Date
+	toColumn: FactSales.OrderDate
+
+relationship 80d71114-5f17-2d68-2526-428c2a78ee7d
+	crossFilteringBehavior: bothDirections
+	fromColumn: BridgeCustomerSegment.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_dfb6dbfd-467c-4775-bd2f-9fb183087a5e
+	fromColumn: FactTargets.ProductCategory
+	toColumn: DimProductCategory.ProductCategory
+
+relationship AutoDetected_606c397b-22a1-4c11-9d04-ac41ca9139ed
+	fromColumn: DimProduct.ProductCategory
+	toColumn: DimProductCategory.ProductCategory
+
+relationship 3d2891f9-0b2d-4443-81f1-a31af39f604f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactOrders.OrderDate
+	toColumn: LocalDateTable_35731b34-cb56-4998-ba94-589bde342bb3.Date
+
+relationship c9d3d9d3-c84b-4878-84ff-e83681583b43
+	joinOnDateBehavior: datePartOnly
+	fromColumn: err_OrdersReview.OrderDate
+	toColumn: LocalDateTable_f2d13506-c798-47ce-b8bc-f3d872b81c32.Date
+
+relationship AutoDetected_1ce62a72-ffed-4a2b-8393-62f604154c33
+	fromColumn: product-category-map.ProductCategory
+	toColumn: DimProductCategory.ProductCategory
+
+relationship AutoDetected_2c8b0115-cb89-4c9b-8da5-962be30ed92a
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: err_OrdersReview.CustomerName
+	toColumn: DimCustomer.CustomerName
+
+relationship AutoDetected_c58ad877-728a-4510-8824-af6fa8fbbb11
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: product-category-map.ProductName
+	toColumn: DimProduct.ProductName
+
+relationship AutoDetected_e9ec14d5-3e39-4f75-9ca9-b74b9093b5e0
+	fromColumn: FactOrders.ProductCode
+	toColumn: product-category-map.ProductCode
+
+relationship AutoDetected_7e7ebc34-9409-4993-b8d0-564844d9b859
+	crossFilteringBehavior: bothDirections
+	fromColumn: product-category-map.ProductCode
+	toColumn: err_OrdersReview.ProductCode
+

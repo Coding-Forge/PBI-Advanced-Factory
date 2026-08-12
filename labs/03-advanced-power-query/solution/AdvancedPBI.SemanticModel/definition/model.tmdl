@@ -1,0 +1,42 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","BridgeCustomerSegment","FactTargets","FactSales","DimCustomer","DimProduct","DimTerritory","DimOrderDate","DimShipDate","DimSegment","DimProductCategory","_Measures","orders-2026-01","orders-2026-02","orders-2026-03","product-category-map","stg_OrdersCombined","RawDataBaseUrl","RangeStart","RangeEnd","FactOrders","fn_CleanText","SourceFolderPath","EnvironmentName","err_OrdersReview"]
+
+annotation PBI_ProTooling = ["DevMode","CalcGroup"]
+
+ref table BridgeCustomerSegment
+ref table FactTargets
+ref table DateTableTemplate_2f05558b-2c6a-4aa8-8376-af48161fbf47
+ref table LocalDateTable_2c05766e-6153-432b-a89d-0970cbe753ed
+ref table FactSales
+ref table LocalDateTable_5e0f18ab-e4cf-4db6-9037-d06fd708ed09
+ref table LocalDateTable_252c1600-f105-4832-bef8-c700c8027c13
+ref table LocalDateTable_6da3a195-0266-4b53-82d4-7196f21a806d
+ref table DimCustomer
+ref table DimProduct
+ref table DimTerritory
+ref table DimOrderDate
+ref table DimShipDate
+ref table DimSegment
+ref table DimProductCategory
+ref table _Measures
+ref table 'Time Calculation'
+ref table product-category-map
+ref table FactOrders
+ref table LocalDateTable_35731b34-cb56-4998-ba94-589bde342bb3
+ref table err_OrdersReview
+ref table LocalDateTable_f2d13506-c798-47ce-b8bc-f3d872b81c32
+
+ref cultureInfo en-US
+

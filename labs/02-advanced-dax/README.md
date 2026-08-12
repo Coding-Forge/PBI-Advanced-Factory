@@ -213,14 +213,96 @@ After applying TMDL changes, return to Power BI Desktop and validate the generat
 4. Add the calculation items from the table below.
 5. Save the model and test in Power BI Desktop.
 
-### Calculation items
+### Calculation group answer key
 
-| Calculation item | Expression |
-|---|---|
-| `Current` | `SELECTEDMEASURE()` |
-| `Prior Year` | `CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR(DimOrderDate[Date]))` |
-| `YoY Change` | `SELECTEDMEASURE() - CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR(DimOrderDate[Date]))` |
-| `YoY Change %` | `DIVIDE(SELECTEDMEASURE() - CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR(DimOrderDate[Date])), CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR(DimOrderDate[Date])))` |
+Use these formulas for the `Time Calculation` calculation items. Each item uses `SELECTEDMEASURE()` so the same time-intelligence logic can be applied to `[Sales Amount]`, `[Gross Margin]`, `[Quantity]`, or another explicit base measure.
+
+#### `Current`
+
+```DAX
+SELECTEDMEASURE()
+```
+
+#### `MTD`
+
+```DAX
+CALCULATE (
+    SELECTEDMEASURE(),
+    DATESMTD ( DimOrderDate[Date] )
+)
+```
+
+#### `QTD`
+
+```DAX
+CALCULATE (
+    SELECTEDMEASURE(),
+    DATESQTD ( DimOrderDate[Date] )
+)
+```
+
+#### `YTD`
+
+```DAX
+CALCULATE (
+    SELECTEDMEASURE(),
+    DATESYTD ( DimOrderDate[Date] )
+)
+```
+
+#### `Fiscal YTD`
+
+```DAX
+CALCULATE (
+    SELECTEDMEASURE(),
+    DATESYTD ( DimOrderDate[Date], "6/30" )
+)
+```
+
+#### `Prior Year`
+
+```DAX
+CALCULATE (
+    SELECTEDMEASURE(),
+    SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+)
+```
+
+#### `YoY Change`
+
+```DAX
+VAR PriorYearValue =
+    CALCULATE (
+        SELECTEDMEASURE(),
+        SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+    )
+RETURN
+    SELECTEDMEASURE() - PriorYearValue
+```
+
+#### `YoY Change %`
+
+```DAX
+VAR PriorYearValue =
+    CALCULATE (
+        SELECTEDMEASURE(),
+        SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+    )
+RETURN
+    DIVIDE ( SELECTEDMEASURE() - PriorYearValue, PriorYearValue )
+```
+
+#### `Rolling 90 Days`
+
+```DAX
+VAR LastVisibleDate =
+    MAX ( DimOrderDate[Date] )
+RETURN
+    CALCULATE (
+        SELECTEDMEASURE(),
+        DATESINPERIOD ( DimOrderDate[Date], LastVisibleDate, -90, DAY )
+    )
+```
 
 ### Conceptual alternate path
 

@@ -20,7 +20,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimCustomers"
+                      "Entity": "DimCustomer"
                     }
                   },
                   "Property": "CustomerName"
@@ -103,7 +103,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimCustomers"
+                      "Entity": "DimCustomer"
                     }
                   },
                   "Property": "CustomerName"
@@ -267,7 +267,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "DimCustomers"
+                "Entity": "DimCustomer"
               }
             },
             "Property": "CustomerName"

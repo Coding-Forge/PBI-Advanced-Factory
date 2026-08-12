@@ -35,6 +35,18 @@ Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub 
 6. Select **OK**.
 7. Use the parameter in source or filter steps instead of hard-coded values.
 
+### Module parameter reference
+
+Create these five parameters during Module 3. The required Web-source path uses `RawDataBaseUrl`, `EnvironmentName`, `RangeStart`, and `RangeEnd`. `SourceFolderPath` is included as an optional placeholder for offline or folder-based delivery; it can be blank and does not need to be used in the Web-source path.
+
+| Parameter | Type | Suggested value | Used in core Web path? | Purpose |
+|---|---|---|---|---|
+| `RawDataBaseUrl` | Text | `https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/` | Yes | Base path for raw GitHub CSV files. |
+| `SourceFolderPath` | Text | Blank, or a local folder path for offline delivery | No | Optional folder connector placeholder for instructor/offline scenarios. |
+| `EnvironmentName` | Text or List | `Dev` | Yes, as documentation/concept | Introduces Dev/Test/Prod source switching without changing the required Web-source path. |
+| `RangeStart` | Date/Time | `2026-01-01 00:00:00` | Yes, for incremental refresh prep | Lower bound for incremental refresh filtering. |
+| `RangeEnd` | Date/Time | `2026-04-01 00:00:00` | Yes, for incremental refresh prep | Upper bound for incremental refresh filtering. |
+
 ### Append queries
 
 1. In Power Query, select **Home > Append Queries > Append Queries as New**.
@@ -61,7 +73,7 @@ Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub 
 2. Create Web queries for the three monthly order files using the raw URLs.
 3. Name the raw Web queries `raw_Orders_2026_01`, `raw_Orders_2026_02`, and `raw_Orders_2026_03`.
 4. Append the three raw queries into a staged query named `stg_OrdersCombined`.
-5. Create a final load query named `fact_Orders`.
+5. Create a final load query named `FactOrders`.
 6. Disable load for raw and staging queries.
 
 ### Expected result
@@ -90,14 +102,14 @@ All valid monthly order rows are appended into one query with consistent types a
 
 ### Tasks
 
-1. Create `SourceFolderPath`.
-2. Use it in the folder connector.
-3. Create an optional `EnvironmentName` parameter with values such as `Dev`, `Test`, and `Prod`.
-4. Document how each environment should map to source paths or gateway connections.
+1. Create `SourceFolderPath` as a Text parameter. Leave it blank unless you are using an offline/local folder delivery path.
+2. Create `EnvironmentName` as a Text or List parameter with values such as `Dev`, `Test`, and `Prod`.
+3. Keep the required Web-source queries pointed at `RawDataBaseUrl`.
+4. Document how each environment would map to source paths, gateway connections, or alternate base URLs.
 
 ### Expected result
 
-The query can be repointed without rewriting applied steps.
+The required Web-source query remains stable, and the model documents how it could be repointed for offline folder delivery or environment-specific sources.
 
 ## Lab 4: Custom functions
 
@@ -110,7 +122,7 @@ The query can be repointed without rewriting applied steps.
 3. Trim whitespace.
 4. Clean non-printable characters.
 5. Return null safely when input is null.
-6. Invoke the function against customer and product text columns.
+6. Invoke the function against text columns such as `CustomerName`, `SalesChannel`, `ProductName`, `ProductCategory`, and `ProductSubcategory`.
 
 ### Example function
 
@@ -126,9 +138,42 @@ in
     Result
 ```
 
+### Invocation examples
+
+Use **Transform > Invoke Custom Function** in Power Query, or add a `Table.TransformColumns` step in Advanced Editor.
+
+Example for the final order fact query:
+
+```powerquery
+CleanedOrderText =
+    Table.TransformColumns(
+        TypedOrders,
+        {
+            {"CustomerName", each fn_CleanText(_), type nullable text},
+            {"SalesChannel", each fn_CleanText(_), type nullable text}
+        }
+    )
+```
+
+Example for the product reference query:
+
+```powerquery
+CleanedProductText =
+    Table.TransformColumns(
+        dim_ProductCategory,
+        {
+            {"ProductName", each fn_CleanText(_), type nullable text},
+            {"ProductCategory", each fn_CleanText(_), type nullable text},
+            {"ProductSubcategory", each fn_CleanText(_), type nullable text}
+        }
+    )
+```
+
+> **Validation note:** In the current `pbi-local` PBIP model, `fn_CleanText` is not yet present or invoked. This Module 3 lab step is where learners create and apply it.
+
 ### Expected result
 
-Text cleanup is reusable and null-safe.
+Text cleanup is reusable, null-safe, and applied consistently to selected customer, channel, and product text fields.
 
 ## Lab 5: Data quality and error handling
 
@@ -138,9 +183,59 @@ Text cleanup is reusable and null-safe.
 
 1. Add explicit type conversions.
 2. Identify rows with invalid quantity, price, or order date values.
-3. Create an error review query.
-4. Replace or remove invalid rows according to documented business rules.
-5. Add a data quality notes section to the lab output.
+3. Create an error review query named `err_OrdersReview`.
+4. Keep `err_OrdersReview` load disabled unless the instructor wants to show it in the model for review.
+5. Create `FactOrders` from rows that do not have data quality issues.
+6. Add a data quality notes section to the lab output.
+
+### `err_OrdersReview` Power Query pattern
+
+Create `err_OrdersReview` as a **Reference** of `stg_OrdersCombined`, not as a duplicate. The query should add a readable reason column and keep only rows with one or more issues.
+
+```powerquery
+let
+    Source = stg_OrdersCombined,
+    AddedDataQualityIssue =
+        Table.AddColumn(
+            Source,
+            "DataQualityIssue",
+            each
+                let
+                    ParsedOrderDate = try Date.From([OrderDate]) otherwise null,
+                    ParsedQuantity = try Number.From([Quantity]) otherwise null,
+                    ParsedUnitPrice = try Number.From([UnitPrice]) otherwise null,
+                    ProductCodeText = try Text.Trim(Text.From([ProductCode])) otherwise "",
+                    Issues =
+                        List.RemoveNulls(
+                            {
+                                if ParsedOrderDate = null then "Missing or invalid OrderDate" else null,
+                                if ParsedQuantity = null or ParsedQuantity <= 0 then "Missing or non-positive Quantity" else null,
+                                if ParsedUnitPrice = null or ParsedUnitPrice <= 0 then "Missing or non-positive UnitPrice" else null,
+                                if ProductCodeText = "" then "Missing ProductCode" else null
+                            }
+                        )
+                in
+                    Text.Combine(Issues, "; "),
+            type text
+        ),
+    ErrorRows =
+        Table.SelectRows(
+            AddedDataQualityIssue,
+            each [DataQualityIssue] <> ""
+        )
+in
+    ErrorRows
+```
+
+Use the same validation logic as the starting point for `FactOrders`, but keep only rows where `DataQualityIssue` is blank before applying final data types:
+
+```powerquery
+ValidRows =
+    Table.SelectRows(
+        AddedDataQualityIssue,
+        each [DataQualityIssue] = ""
+    )
+```
 
 ### Expected result
 
@@ -173,7 +268,7 @@ Learners can explain why folding improves performance and why it must be validat
 ### Tasks
 
 1. Create DateTime parameters named `RangeStart` and `RangeEnd`.
-2. Filter `fact_Orders[OrderDate]` using `RangeStart` and `RangeEnd`.
+2. Filter `FactOrders[OrderDate]` using `RangeStart` and `RangeEnd`.
 3. Confirm the filtered column is a DateTime-compatible column.
 4. Document the intended refresh and archive windows.
 5. Validate Service requirements before making refresh policy setup mandatory.
@@ -191,6 +286,7 @@ The fact query is ready for incremental refresh policy configuration when the Se
 - [ ] Custom text cleanup function handles null values.
 - [ ] Data quality issues are identified and documented.
 - [ ] Query folding is demonstrated or explained with source limitations.
+- [ ] All five Module 3 parameters are documented: `RawDataBaseUrl`, `SourceFolderPath`, `EnvironmentName`, `RangeStart`, and `RangeEnd`.
 - [ ] Incremental refresh parameters are DateTime and correctly named.
 - [ ] Dataflows, Dataflows Gen2, connectors, and Service refresh features include Gov notes.
 
