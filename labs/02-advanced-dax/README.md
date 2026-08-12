@@ -170,6 +170,17 @@ Learners can create guided flexibility without duplicating pages or visuals.
 10. Add `Time Intelligence[Time Calculation]` to a slicer, matrix column, or other visual well.
 11. Test the calculation group against `[Sales Amount]` and `[Gross Margin]`.
 
+![Annotated calculation group in Power BI Desktop Model view](images/CalculationGroups-annotated.png)
+
+| Callout | What it shows | How it maps to the steps |
+|---|---|---|
+| 1 | **Model** tab in the Data pane | Confirms you are working in the semantic model metadata, not only report fields. |
+| 2 | **Calculation groups** node | Shows the calculation group container created by the ribbon command. |
+| 3 | `Name` property | Rename the calculation group table to `Time Intelligence`. |
+| 4 | **Calculation group column** | Rename this column to `Time Calculation`; this is the field users place in slicers or visuals. |
+| 5 | **Calculation items** folder | Use this area in Model Explorer to add more calculation items. |
+| 6 | First calculation item | Rename the initial item to `Current` and set its expression to `SELECTEDMEASURE()`. |
+
 ### Option 2: Create or review the calculation group in TMDL View
 
 Use this option when learners are already working with PBIP, Git integration, Fabric, or CI/CD workflows and the environment supports TMDL editing.

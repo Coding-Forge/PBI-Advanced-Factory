@@ -120,6 +120,9 @@ section { margin: 0 0 30px; }
 .task-card { padding: 18px; }
 .task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
 .lab-sequence { display: grid; gap: 14px; }
+.figure { margin: 14px 0 0; padding: 14px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; }
+.figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--cp-border); border-radius: 0.625rem; }
+.figure figcaption { margin-top: 8px; color: var(--cp-text-muted); font-size: 0.9rem; }
 .column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
 .column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
 .column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
@@ -628,6 +631,21 @@ function RenderHowToGuide($moduleNumber) {
     <div class="task-card"><h3>Create a calculation group</h3><ol><li>Confirm base measures such as <code>[Sales Amount]</code> and <code>[Gross Margin]</code> work first.</li><li>Open <strong>Model view</strong> in Power BI Desktop.</li><li>Select <strong>Calculation group</strong> from the ribbon.</li><li>If prompted, enable <strong>Discourage implicit measures</strong>.</li><li>Rename the calculation group table to <code>Time Intelligence</code> and the calculation group column to <code>Time Calculation</code>.</li><li>Rename the first calculation item to <code>Current</code> and set its expression to <code>SELECTEDMEASURE()</code>.</li><li>Add more calculation items from <strong>Model Explorer</strong>, then test the group with a date field and base measure.</li></ol></div>
     <div class="task-card"><h3>Review TMDL or external-tool paths</h3><ol><li>Use <strong>TMDL View</strong> only when the Desktop/PBIP workflow is validated.</li><li>Use Tabular Editor only when external tools are approved.</li><li>Document which path was used and whether it is allowed in the target environment.</li><li>If no calculation group authoring path is validated, use separate DAX measures as the fallback.</li></ol></div>
   </div>
+  <figure class="figure">
+    <img src="images/02-advanced-dax/CalculationGroups-annotated.png" alt="Annotated Power BI Desktop Model view showing a calculation group, its column, and calculation items.">
+    <figcaption>Calculation group authoring in Power BI Desktop Model view. The numbered callouts match the steps below.</figcaption>
+  </figure>
+  <table class="column-table">
+    <thead><tr><th>Callout</th><th>What it shows</th><th>How it maps to the steps</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Model</strong> tab in the Data pane</td><td>Confirms you are working in the semantic model metadata, not only report fields.</td></tr>
+      <tr><td>2</td><td><strong>Calculation groups</strong> node</td><td>Shows the calculation group container created by the ribbon command.</td></tr>
+      <tr><td>3</td><td><code>Name</code> property</td><td>Rename the calculation group table to <code>Time Intelligence</code>.</td></tr>
+      <tr><td>4</td><td><strong>Calculation group column</strong></td><td>Rename this column to <code>Time Calculation</code>; this is the field users place in slicers or visuals.</td></tr>
+      <tr><td>5</td><td><strong>Calculation items</strong> folder</td><td>Use this area in Model Explorer to add more calculation items.</td></tr>
+      <tr><td>6</td><td>First calculation item</td><td>Rename the initial item to <code>Current</code> and set its expression to <code>SELECTEDMEASURE()</code>.</td></tr>
+    </tbody>
+  </table>
 </section>
 '@ }
     "03" { return @'
@@ -1601,6 +1619,14 @@ Write-Utf8NoBom -Path (Join-Path $scriptsRoot "delivery-brand.js") -Content $bra
 Write-Utf8NoBom -Path (Join-Path $scriptsRoot "lab-progress.js") -Content $progressJs
 Write-Utf8NoBom -Path (Join-Path $scriptsRoot "delivery-config.js") -Content $deliveryConfig
 Write-Utf8NoBom -Path (Join-Path $webRoot "BRANDING.md") -Content $brandingReadme
+
+$webImagesRoot = Join-Path $webRoot "images"
+$module02ImagesRoot = Join-Path $webImagesRoot "02-advanced-dax"
+New-Item -ItemType Directory -Force -Path $module02ImagesRoot | Out-Null
+$calculationGroupImage = Join-Path $repoRoot "labs\02-advanced-dax\images\CalculationGroups-annotated.png"
+if (Test-Path $calculationGroupImage) {
+  Copy-Item -Path $calculationGroupImage -Destination (Join-Path $module02ImagesRoot "CalculationGroups-annotated.png") -Force
+}
 
 Write-Utf8NoBom -Path (Join-Path $webRoot "index.html") -Content (New-IndexPage $modules)
 for ($i = 0; $i -lt $modules.Count; $i++) {

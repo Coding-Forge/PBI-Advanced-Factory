@@ -87,6 +87,9 @@ section { margin: 0 0 30px; }
 .task-card { padding: 18px; }
 .task-card ul, .task-card ol { margin: 8px 0 0; padding-left: 22px; }
 .lab-sequence { display: grid; gap: 14px; }
+.figure { margin: 14px 0 0; padding: 14px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; }
+.figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--cp-border); border-radius: 0.625rem; }
+.figure figcaption { margin-top: 8px; color: var(--cp-text-muted); font-size: 0.9rem; }
 .column-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
 .column-table th, .column-table td { padding: 8px 10px; border: 1px solid var(--cp-border); text-align: left; vertical-align: top; }
 .column-table th { background: var(--cp-surface-soft); color: var(--cp-text); }
