@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "a75791676b7a0859c34e",
   "position": {
-    "x": 9.9082568807339442,
+    "x": 9.908256880733944,
     "y": 0,
     "z": 0,
     "height": 439.26605504587155,
@@ -250,6 +250,26 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "tooltip": [
+        {
+          "properties": {
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ReportPage'"
+                }
+              }
+            },
+            "reportPage": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sales Tooltip'"
                 }
               }
             }

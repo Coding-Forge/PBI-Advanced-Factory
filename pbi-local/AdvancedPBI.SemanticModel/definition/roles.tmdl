@@ -1,0 +1,9 @@
+role 'East Region'
+	modelPermission: read
+
+	tablePermission DimTerritory = [TerritoryRegion] = "East"
+
+role 'Dynamic Territory Security'
+	modelPermission: read
+
+	tablePermission SecurityUserTerritory = [UserPrincipalName] = USERPRINCIPALNAME()

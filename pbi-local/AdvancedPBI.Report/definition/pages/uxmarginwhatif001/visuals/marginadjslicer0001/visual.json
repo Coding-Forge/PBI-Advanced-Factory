@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "marginadjslicer0001",
+  "position": {
+    "x": 24,
+    "y": 300,
+    "z": 2,
+    "height": 200,
+    "width": 400,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Margin Adjustment %"
+                    }
+                  },
+                  "Property": "Margin Adjustment %"
+                }
+              },
+              "queryRef": "Margin Adjustment %.Margin Adjustment %",
+              "nativeQueryRef": "Margin Adjustment %",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Basic'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "title": {
+      "titleText": {
+        "expr": {
+          "Literal": {
+            "Value": "'Margin Adjustment %'"
+          }
+        }
+      },
+      "show": true
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "marginAdjustmentFilter",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Margin Adjustment %"
+              }
+            },
+            "Property": "Margin Adjustment %"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

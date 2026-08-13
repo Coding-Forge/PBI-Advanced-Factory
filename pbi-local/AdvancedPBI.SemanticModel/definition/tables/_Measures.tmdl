@@ -210,6 +210,25 @@ table _Measures
 			    )
 		lineageTag: 82c06cb2-26df-4428-99d4-3525e8fd8b19
 
+	measure 'Selected Margin Adjustment %' = SELECTEDVALUE ( 'Margin Adjustment %'[Margin Adjustment %], 0 )
+		formatString: 0%;-0%;0%
+		lineageTag: 4b8e2a6c-9d1f-4e3a-8c7b-5f2d9a6e1c4b
+
+	measure 'Adjusted Gross Margin %' =
+			
+			// Module 6 Lab 1: What-If parameter scenario measure.
+			// Applies the user-selected Margin Adjustment % on top of the actual
+			// Gross Margin % so report users can model a scenario without editing the report.
+			[Gross Margin %] + [Selected Margin Adjustment %]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8c1f4a7d-2e9b-4d6c-a1f8-3b7e5c9d2a6f
+
+	measure 'Adjusted Gross Margin' =
+			
+			[Adjusted Gross Margin %] * [Sales Amount]
+		formatString: 0
+		lineageTag: 1d9a3e6c-7b4f-4a2d-9e1c-6f8b3a5d7c2e
+
 	column Measures
 		dataType: string
 		isHidden
