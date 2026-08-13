@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab02ex2title",
+  "name": "lab02ex3title",
   "position": {
     "x": 24,
     "y": 24,
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Lab 02, Exercise 2: Context Transition and CALCULATE",
+                    "value": "Lab 02, Exercise 3: Advanced Time Intelligence",
                     "textStyle": {
                       "fontSize": "24px",
                       "fontWeight": "bold",

@@ -45,6 +45,33 @@ table _Measures
 		formatString: \$#,0;(\$#,0);\$#,0
 		lineageTag: f6a7b8c9-2d4e-4f6a-c7bc-0d2e3f4a5b6c
 
+	measure 'Sales YTD' = TOTALYTD ( [Sales Amount], DimOrderDate[Date] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: a7b8c9d0-3e5f-4a7b-d8cd-1e3f4a5b6c7d
+
+	measure 'Sales Prior Year' = CALCULATE ( [Sales Amount], SAMEPERIODLASTYEAR ( DimOrderDate[Date] ) )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b8c9d0e1-4f6a-4b8c-e9de-2f4a5b6c7d8e
+
+	measure 'Sales YoY' = [Sales Amount] - [Sales Prior Year]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: c9d0e1f2-5a7b-4c9d-fa0f-3a5b6c7d8e9f
+
+	measure 'Sales YoY %' = DIVIDE ( [Sales YoY], [Sales Prior Year] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d0e1f2a3-6b8c-4d0e-ab1a-4b6c7d8e9f0a
+
+	measure 'Sales Rolling 90 Days' =
+			VAR LastVisibleDate =
+			    MAX ( DimOrderDate[Date] )
+			RETURN
+			    CALCULATE (
+			        [Sales Amount],
+			        DATESINPERIOD ( DimOrderDate[Date], LastVisibleDate, -90, DAY )
+			    )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: e1f2a3b4-7c9d-4e1f-bc2b-5c7d8e9f0a1b
+
 	column Value
 		lineageTag: 128e770a-5a8d-4084-b873-bfc8feb87ecc
 		isNameInferred

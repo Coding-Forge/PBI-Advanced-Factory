@@ -1,35 +1,39 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab02ex2table",
+  "name": "lab02ex3matrix",
   "position": {
     "x": 24,
-    "y": 260,
+    "y": 100,
     "z": 0,
     "height": 700,
-    "width": 1500,
-    "tabOrder": 2
+    "width": 1600,
+    "tabOrder": 1
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Values": {
+        "Rows": {
           "projections": [
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimProduct"
+                      "Entity": "DimOrderDate"
                     }
                   },
-                  "Property": "ProductCategory"
+                  "Property": "YearMonthName"
                 }
               },
-              "queryRef": "DimProduct.ProductCategory",
-              "nativeQueryRef": "ProductCategory",
+              "queryRef": "DimOrderDate.YearMonthName",
+              "nativeQueryRef": "YearMonthName",
               "active": true
-            },
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
             {
               "field": {
                 "Measure": {
@@ -53,11 +57,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Sales Amount (All Products)"
+                  "Property": "Sales YTD"
                 }
               },
-              "queryRef": "_Measures.Sales Amount (All Products)",
-              "nativeQueryRef": "Sales Amount (All Products)",
+              "queryRef": "_Measures.Sales YTD",
+              "nativeQueryRef": "Sales YTD",
               "active": true
             },
             {
@@ -68,11 +72,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Product Sales Share %"
+                  "Property": "Sales Prior Year"
                 }
               },
-              "queryRef": "_Measures.Product Sales Share %",
-              "nativeQueryRef": "Product Sales Share %",
+              "queryRef": "_Measures.Sales Prior Year",
+              "nativeQueryRef": "Sales Prior Year",
               "active": true
             },
             {
@@ -83,35 +87,68 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Sales Amount (Enterprise Only, Keep Filters)"
+                  "Property": "Sales YoY %"
                 }
               },
-              "queryRef": "_Measures.Sales Amount (Enterprise Only, Keep Filters)",
-              "nativeQueryRef": "Sales Amount (Enterprise Only, Keep Filters)",
+              "queryRef": "_Measures.Sales YoY %",
+              "nativeQueryRef": "Sales YoY %",
+              "active": true
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Sales Rolling 90 Days"
+                }
+              },
+              "queryRef": "_Measures.Sales Rolling 90 Days",
+              "nativeQueryRef": "Sales Rolling 90 Days",
               "active": true
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DimOrderDate"
+                  }
+                },
+                  "Property": "YearMonthName"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
-      "columnHeaders": [
+      "general": [
         {
           "properties": {
-            "bold": {
+            "layout": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "'Outline'"
                 }
               }
             }
           }
         }
       ],
-      "total": [
+      "columnHeaders": [
         {
           "properties": {
-            "totals": {
+            "bold": {
               "expr": {
                 "Literal": {
                   "Value": "true"
