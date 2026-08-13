@@ -53,3 +53,4 @@ table SecurityUserTerritory
 				  #"Filtered rows"
 
 	annotation PBI_ResultType = Table
+

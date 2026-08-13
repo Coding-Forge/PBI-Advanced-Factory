@@ -4,3 +4,4 @@ role 'East Region'
 	tablePermission DimTerritory = 'DimTerritory'[TerritoryRegion] = "East"
 
 	annotation PBI_Id = a1c2d3e4f5a64b1c9d2e3f4a5b6c7d8e
+

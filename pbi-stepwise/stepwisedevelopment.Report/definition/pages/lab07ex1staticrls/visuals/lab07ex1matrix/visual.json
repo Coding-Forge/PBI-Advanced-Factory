@@ -42,7 +42,8 @@
                 }
               },
               "queryRef": "DimTerritory.TerritoryName",
-              "nativeQueryRef": "TerritoryName"
+              "nativeQueryRef": "TerritoryName",
+              "active": false
             }
           ]
         },
@@ -82,6 +83,42 @@
         }
       }
     },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "DimTerritory.TerritoryRegion"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimTerritory"
+                    }
+                  },
+                  "Property": "TerritoryRegion"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "DimTerritory.TerritoryName"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
+          }
+        ],
+        "root": {}
+      }
+    ],
     "drillFilterOtherVisuals": true
   }
 }
