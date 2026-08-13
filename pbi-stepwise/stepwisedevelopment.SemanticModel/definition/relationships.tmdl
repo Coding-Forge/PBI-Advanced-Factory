@@ -29,3 +29,4 @@ relationship AutoDetected_a7b8c9d0-e1f2-4345-a6b7-c8d9e0f1a2b3
 relationship AutoDetected_b8c9d0e1-f2a3-4456-b7c8-d9e0f1a2b3c4
 	fromColumn: DimProduct.ProductCategory
 	toColumn: DimProductCategory.ProductCategory
+

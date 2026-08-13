@@ -38,13 +38,6 @@
       "labels": [
         {
           "properties": {
-            "color": {
-              "expr": {
-                "Literal": {
-                  "Value": "'#0F3D56'"
-                }
-              }
-            },
             "fontSize": {
               "expr": {
                 "Literal": {
@@ -58,13 +51,6 @@
       "categoryLabels": [
         {
           "properties": {
-            "color": {
-              "expr": {
-                "Literal": {
-                  "Value": "'#119DA4'"
-                }
-              }
-            },
             "show": {
               "expr": {
                 "Literal": {
@@ -77,8 +63,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

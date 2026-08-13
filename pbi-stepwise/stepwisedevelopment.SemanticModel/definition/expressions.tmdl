@@ -82,3 +82,4 @@ expression DimDate =
 	lineageTag: a919657f-0b13-4f2b-aea5-0c199f092c9c
 
 	annotation PBI_ResultType = Table
+

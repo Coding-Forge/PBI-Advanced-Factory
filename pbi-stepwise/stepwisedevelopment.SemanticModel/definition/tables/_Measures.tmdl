@@ -21,8 +21,14 @@ table _Measures
 		formatString: \$#,0;(\$#,0);\$#,0
 		lineageTag: 9f7a1b3c-6d8e-4f0a-c15c-4d6e7f8a9b0c
 
+	column Value
+		lineageTag: 128e770a-5a8d-4084-b873-bfc8feb87ecc
+		isNameInferred
+		sourceColumn: [Value]
+
 	partition _Measures = calculated
 		mode: import
 		source = {(1)}
 
 	annotation PBI_Id = 3f8a6b2c9d4e4f5a8b7c6d5e4f3a2b1c
+

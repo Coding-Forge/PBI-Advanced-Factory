@@ -76,7 +76,8 @@
                 }
               },
               "queryRef": "_Measures.Gross Margin %",
-              "nativeQueryRef": "Gross Margin %"
+              "nativeQueryRef": "Gross Margin %",
+              "active": false
             }
           ]
         }
@@ -99,20 +100,6 @@
       "columnHeaders": [
         {
           "properties": {
-            "backColor": {
-              "expr": {
-                "Literal": {
-                  "Value": "'#0F3D56'"
-                }
-              }
-            },
-            "fontColor": {
-              "expr": {
-                "Literal": {
-                  "Value": "'#FFFFFF'"
-                }
-              }
-            },
             "bold": {
               "expr": {
                 "Literal": {
@@ -125,21 +112,10 @@
       ],
       "rowHeaders": [
         {
-          "properties": {
-            "fontColor": {
-              "expr": {
-                "Literal": {
-                  "Value": "'#0F3D56'"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

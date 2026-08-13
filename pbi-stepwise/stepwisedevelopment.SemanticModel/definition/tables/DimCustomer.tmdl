@@ -3,10 +3,10 @@ table DimCustomer
 
 	column CustomerKey
 		dataType: string
+		isHidden
 		lineageTag: df0db380-d176-421d-b811-94d8846eedb1
 		summarizeBy: none
 		sourceColumn: CustomerKey
-		isHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -53,3 +53,4 @@ table DimCustomer
 				  #"Removed duplicates"
 
 	annotation PBI_ResultType = Table
+

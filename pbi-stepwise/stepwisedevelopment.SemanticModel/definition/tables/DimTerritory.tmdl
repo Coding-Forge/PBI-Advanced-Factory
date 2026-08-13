@@ -3,10 +3,10 @@ table DimTerritory
 
 	column TerritoryKey
 		dataType: string
+		isHidden
 		lineageTag: 078213e8-f2f0-4bae-a390-8f74ec3571db
 		summarizeBy: none
 		sourceColumn: TerritoryKey
-		isHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -37,3 +37,4 @@ table DimTerritory
 				  #"Removed duplicates"
 
 	annotation PBI_ResultType = Table
+

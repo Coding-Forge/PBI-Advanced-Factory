@@ -3,10 +3,10 @@ table BridgeCustomerSegment
 
 	column CustomerKey
 		dataType: string
+		isHidden
 		lineageTag: f2e33eac-8380-41d8-a5da-e858f5d20146
 		summarizeBy: none
 		sourceColumn: CustomerKey
-		isHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -31,3 +31,4 @@ table BridgeCustomerSegment
 				  #"Removed duplicates"
 
 	annotation PBI_ResultType = Table
+

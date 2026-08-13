@@ -9,14 +9,15 @@ table FactTargets
 		sourceColumn: TargetMonth
 
 		annotation SummarizationSetBy = Automatic
+
 		annotation UnderlyingDateTimeDataType = Date
 
 	column TerritoryKey
 		dataType: string
+		isHidden
 		lineageTag: b0bce13d-fdab-43ec-ae9b-a2a0108471cf
 		summarizeBy: none
 		sourceColumn: TerritoryKey
-		isHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -49,3 +50,4 @@ table FactTargets
 				  #"Filtered rows"
 
 	annotation PBI_ResultType = Table
+
