@@ -20,15 +20,11 @@ relationship 750bc426-ebd7-e948-e07b-3225f21e73bf
 
 relationship d032974e-e09e-0215-845e-b2c5052c636f
 	crossFilteringBehavior: bothDirections
-	fromCardinality: many
-	toCardinality: one
 	fromColumn: FactSales.ShipDate
 	toColumn: DimShipDate.Date
 
 relationship 45d6df51-7f97-dc83-e3ba-007c45129ff7
 	crossFilteringBehavior: bothDirections
-	fromCardinality: many
-	toCardinality: one
 	fromColumn: FactSales.OrderDate
 	toColumn: DimOrderDate.Date
 

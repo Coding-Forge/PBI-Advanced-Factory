@@ -178,6 +178,24 @@ table _Measures
 			    )
 		lineageTag: 19b64da4-fd58-48be-8dfc-bd9bbf89ace4
 
+	measure 'Target Sales Amount (Ending Balance)' =
+			
+			// Semi-additive pattern (Module 2 Lab 4): FactTargets is stored at monthly
+			// snapshot grain (one row per territory/category/month), not a transaction
+			// fact, so SUM-ing target rows across a multi-month selection double-counts.
+			// FactTargets has no relationship to a date dimension, so the "current" month
+			// is resolved directly from FactTargets[TargetMonth] using its own max date
+			// within whatever filter context (e.g. a territory/category slicer) is active.
+			VAR LastTargetMonth =
+			    CALCULATE ( MAX ( FactTargets[TargetMonth] ), ALLSELECTED ( FactTargets[TargetMonth] ) )
+			RETURN
+			    CALCULATE (
+			        [Target Sales Amount],
+			        FactTargets[TargetMonth] = LastTargetMonth
+			    )
+		formatString: 0
+		lineageTag: 6f2a6b8d-6b0e-4b5f-8e2b-2a2c5f7b9c1a
+
 	measure 'Margin Target Status Color' =
 			
 			VAR StatusValue = [Margin Target Status]

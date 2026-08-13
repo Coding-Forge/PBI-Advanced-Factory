@@ -43,7 +43,7 @@
               },
               "queryRef": "DimCustomers.CustomerName",
               "nativeQueryRef": "CustomerName",
-              "active": false
+              "active": true
             },
             {
               "field": {
@@ -86,12 +86,12 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Sales Amount"
+                  "Property": "Sales Variance %"
                 }
               },
-              "queryRef": "_Measures.Sales Amount",
-              "nativeQueryRef": "Sales Amount",
-              "displayName": "Sales Amount"
+              "queryRef": "_Measures.Sales Variance %",
+              "nativeQueryRef": "Sales Variance %",
+              "displayName": "Sales Variance %"
             }
           ],
           "fieldParameters": [
@@ -177,7 +177,20 @@
             "isPinned": true
           }
         ],
-        "root": {}
+        "root": {
+          "children": [
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'Security'"
+                  }
+                }
+              ],
+              "isToggled": true
+            }
+          ]
+        }
       }
     ],
     "objects": {

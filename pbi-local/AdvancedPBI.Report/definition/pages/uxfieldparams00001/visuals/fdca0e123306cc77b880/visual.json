@@ -68,7 +68,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''_Measures''[Sales Amount]'"
+                                "Value": "'''_Measures''[Sales Variance %]'"
                               }
                             }
                           ]
@@ -96,7 +96,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''_Measures''[Sales Amount]'"
+                                      "Value": "'''_Measures''[Sales Variance %]'"
                                     }
                                   }
                                 ]
@@ -120,7 +120,7 @@
                         },
                         "valueMap": [
                           {
-                            "0": "Sales Amount"
+                            "0": "Sales Variance %"
                           }
                         ]
                       }

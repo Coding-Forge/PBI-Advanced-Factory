@@ -118,9 +118,17 @@ table FactOrders
 				                {"SourceFile", type text}
 				            }
 				        ),
+				    // Module 3 Lab 7: incremental refresh preparation. Filter on the
+				    // RangeStart/RangeEnd DateTime parameters so the query is ready for an
+				    // incremental refresh policy once published to the Service.
+				    FilteredByRefreshRange =
+				        Table.SelectRows(
+				            TypedOrders,
+				            each [OrderDate] >= Date.From(RangeStart) and [OrderDate] < Date.From(RangeEnd)
+				        ),
 				    CleanedOrderText =
 				        Table.TransformColumns(
-				            TypedOrders,
+				            FilteredByRefreshRange,
 				            {
 				                {"CustomerName", each fn_CleanText(_), type nullable text},
 				                {"SalesChannel", each fn_CleanText(_), type nullable text}
