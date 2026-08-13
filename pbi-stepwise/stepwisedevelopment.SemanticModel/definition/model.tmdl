@@ -13,7 +13,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode","CalcGroup"]
 
-annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","FactSales","DimCustomer","DimProduct","DimProductCategory","DimTerritory","FactTargets","BridgeCustomerSegment","DimSegment","DimOrderDate","DimShipDate","Metric Selector","Margin Target","RawDataBaseUrl","RangeStart","RangeEnd","SourceFolderPath","EnvironmentName","orders-2026-01","orders-2026-02","orders-2026-03","stg_OrdersCombined","fn_CleanText","err_OrdersReview","FactOrders","product-category-map"]
+annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","FactSales","DimCustomer","DimProduct","DimProductCategory","DimTerritory","FactTargets","BridgeCustomerSegment","DimSegment","DimOrderDate","DimShipDate","Metric Selector","Margin Target","Margin Adjustment %","RawDataBaseUrl","RangeStart","RangeEnd","SourceFolderPath","EnvironmentName","orders-2026-01","orders-2026-02","orders-2026-03","stg_OrdersCombined","fn_CleanText","err_OrdersReview","FactOrders","product-category-map"]
 
 ref table FactSales
 ref table DimCustomer
@@ -32,6 +32,7 @@ ref table FactOrders
 ref table product-category-map
 ref table 'Metric Parameter'
 ref table 'Margin Target'
+ref table 'Margin Adjustment %'
 
 ref cultureInfo en-US
 

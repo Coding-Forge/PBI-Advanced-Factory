@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab06ex7notes",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 0,
+    "height": 700,
+    "width": 1400,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: Copilot in Power BI/Fabric is Commercial-focused / Verify for Gov. Treat as conceptual unless confirmed available for your tenant.\n\nConceptual tasks:\n1. Potential Copilot-assisted workflows for this model: narrative summaries of the Lab 05 performance findings, natural-language Q&A over Sales Amount/Gross Margin by Territory/Product Category, and DAX/measure-authoring assistance while building new pages.\n2. Tenant, capacity, licensing, and data boundary requirements: Copilot in Fabric/Power BI requires an eligible Fabric capacity (F64+ in most SKUs), tenant-level Copilot enablement by an admin, and respects the same workspace/data boundaries as the underlying semantic model — it does not bypass RLS or existing sharing permissions.\n3. Human validation requirements: any Copilot-generated narrative, DAX, or Q&A answer must be checked against the underlying measures/visuals before being shared externally or used for a business decision — Copilot can misinterpret ambiguous natural-language questions or generalize from a filtered view.\n4. Non-AI fallback per workflow: narrative summaries -> author them manually from the same visuals; natural-language Q&A -> use the built-in Q&A visual (non-Copilot) or well-labeled existing visuals; DAX authoring -> use the documented measure patterns and error-tracking knowledge base already built for this project (see pbip_error_log) instead of AI-generated DAX.\n\nDeliverable for this exercise: for each of the three workflows above, write one sentence confirming whether it is validated for this tenant, and its non-AI fallback if not.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

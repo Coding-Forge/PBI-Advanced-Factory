@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab06ex2notes",
+  "position": {
+    "x": 960,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 660,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: the Decomposition tree visual is Verify for Gov. Confirm visual availability and tenant settings before making this hands-on.\n\nWhen available:\n1. Add a Decomposition tree visual.\n2. Set Sales Amount or Gross Margin as the analyzed metric.\n3. Add Territory, Product Category, Customer Type, and Segment as explanatory fields.\n4. Use High value/Low value AI splits, or expand manually, to explore which paths drive the metric.\n\nGov-safe alternate path (used on this page): the matrix below reproduces the same explanatory hierarchy manually — Territory > Product Category > Customer Type — using a standard matrix visual and this report's existing drillthrough page (Lab 04, Exercise 1) for a deeper look at any single row.\n\nTasks: 1) Expand each level of the matrix hierarchy. 2) Identify which Territory/Category/CustomerType combination has the highest and lowest Gross Margin %. 3) Right-click a row and drill through to the Lab 04 drillthrough page for order-level detail.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

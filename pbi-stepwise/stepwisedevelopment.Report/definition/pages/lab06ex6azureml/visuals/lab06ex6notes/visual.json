@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab06ex6notes",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 0,
+    "height": 700,
+    "width": 1400,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: Azure ML integration is Verify for Gov. Validate cloud, region, network, identity, endpoint, and data residency before delivery.\n\nConceptual tasks:\n1. Scoring architecture: a typical pattern trains a model in Azure ML, deploys it as a managed online endpoint or batch endpoint, and either (a) scores data inside a Power Query step that calls the endpoint, or (b) scores data upstream in a pipeline/notebook and lands the scored output in a table the model then imports.\n2. Identity and network dependencies: the caller needs a managed identity or service principal with access to the endpoint, and the endpoint's network (public, private endpoint, or VNet-injected) must be reachable from Power BI Desktop/gateway/Service depending on where scoring happens.\n3. Data residency constraints: Azure Government requires the ML workspace, endpoint, and any storage the scored data touches to remain in an approved Gov region; verify this before sending workshop or production data to any endpoint.\n4. Gov-safe alternate path: import a static, already-scored sample table (as if produced by an offline batch job) instead of calling a live endpoint from this training model. This lets learners build measures and visuals against ML output without introducing a live network/identity dependency in the classroom.\n\nDeliverable for this exercise: a short diagram or bullet list mapping each of the four items above to this specific model's data (FactSales/DimCustomer), and a one-line statement of what would need Gov validation before this became a hands-on lab.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab06ex3notes",
+  "position": {
+    "x": 960,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 660,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: the Analytics-pane Forecast feature is Verify for Gov. Validate visual support, tenant policy, and data residency before requiring it.\n\nWhen available:\n1. Add a line chart with Date on the X axis and Sales Amount as the value.\n2. Enable Forecast in the Analytics pane.\n3. Review the confidence interval band and note the underlying exponential smoothing assumptions.\n\nGov-safe alternate path (used on this page): the line chart plots Sales Amount alongside 'Sales Rolling 90 Days' (a rolling average) and 'Sales Prior Year' (a same-period-last-year comparison) — both already built as Lab 02 time-intelligence measures. These give trend and seasonality context without relying on a forecasting algorithm or an AI-classified visual.\n\nTasks: 1) Identify where actual Sales Amount diverges most from the rolling average. 2) Compare year-over-year using Sales Prior Year. 3) Discuss what a forecast visual would add beyond these two reference lines, and what governance question you would ask before turning it on for a Gov customer.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

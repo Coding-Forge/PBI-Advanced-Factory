@@ -23,7 +23,14 @@
     "lab05ex3daxstudio",
     "lab05ex4visualopt",
     "lab05ex5aggregation",
-    "lab05ex6incremental"
+    "lab05ex6incremental",
+    "lab06ex1whatif",
+    "lab06ex2decomptree",
+    "lab06ex3forecast",
+    "lab06ex4keyinfluencers",
+    "lab06ex5pythonr",
+    "lab06ex6azureml",
+    "lab06ex7copilot"
   ],
-  "activePageName": "lab05ex6incremental"
+  "activePageName": "lab06ex7copilot"
 }

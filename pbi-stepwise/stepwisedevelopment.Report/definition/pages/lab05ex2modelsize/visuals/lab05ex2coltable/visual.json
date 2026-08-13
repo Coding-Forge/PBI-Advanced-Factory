@@ -42,7 +42,8 @@
                 }
               },
               "queryRef": "_Measures.Order Count",
-              "nativeQueryRef": "Order Count"
+              "nativeQueryRef": "Order Count",
+              "active": false
             },
             {
               "field": {
@@ -56,12 +57,59 @@
                 }
               },
               "queryRef": "_Measures.Customer Sales Rank",
-              "nativeQueryRef": "Customer Sales Rank"
+              "nativeQueryRef": "Customer Sales Rank",
+              "active": false
             }
           ]
         }
       }
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e1aa9d4806e60880b42a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimCustomer"
+              }
+            },
+            "Property": "CustomerType"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "17c304b7d1d0719cde35",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Order Count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "79470da9a0b18eb90501",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Customer Sales Rank"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

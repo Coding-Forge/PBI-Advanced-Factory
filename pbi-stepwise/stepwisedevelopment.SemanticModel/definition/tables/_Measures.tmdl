@@ -190,6 +190,22 @@ table _Measures
 			    )
 		lineageTag: a81966fd-7253-4807-adb7-9cd0000acfa2
 
+	measure 'Selected Margin Adjustment %' = SELECTEDVALUE ( 'Margin Adjustment %'[Margin Adjustment %], 0 )
+		formatString: 0%;-0%;0%
+		lineageTag: f61191fe-a881-4cd9-95e9-bfb3506611f8
+
+	measure 'Adjusted Gross Margin %' = [Gross Margin %] + [Selected Margin Adjustment %]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e02520f3-96aa-4ec9-ae88-960c5586a28e
+
+	measure 'Adjusted Gross Margin' = [Adjusted Gross Margin %] * [Sales Amount]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 274bc18f-66e3-4d96-947d-14350e5a4b75
+
+	measure 'Adjusted Margin vs Base' = [Adjusted Gross Margin] - [Gross Margin]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 79429233-c55f-422c-ab70-eb96eb439836
+
 	column Value
 		lineageTag: 128e770a-5a8d-4084-b873-bfc8feb87ecc
 		isNameInferred

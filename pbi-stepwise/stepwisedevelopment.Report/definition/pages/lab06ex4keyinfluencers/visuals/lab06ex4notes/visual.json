@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab06ex4notes",
+  "position": {
+    "x": 960,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 660,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: Key influencers is Verify for Gov because it is an AI visual.\n\nWhen available:\n1. Add a Key influencers visual.\n2. Select a target metric or category (for example, Is Top 5 Customer).\n3. Add explanatory fields such as CustomerType, TerritoryRegion, Segment.\n4. Review the influencers and segments the visual surfaces, and discuss interpretation limits — correlation is not causation, and small sample sizes can produce unstable splits.\n\nGov-safe alternate path (used on this page): the table below reuses the Lab 02 ranked measures — Customer Sales Rank and Is Top 5 Customer — alongside CustomerType and TerritoryRegion, letting learners manually compare which segments contain the top-ranked customers instead of relying on an AI-driven influencer search.\n\nTasks: 1) Sort by Customer Sales Rank. 2) Identify which CustomerType/TerritoryRegion combinations contain the most Top 5 customers. 3) Discuss what a Key influencers visual would add versus this manual ranked comparison, and what human validation step you would still apply to either approach.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
