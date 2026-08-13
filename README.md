@@ -27,6 +27,7 @@ For customer delivery, validate feature availability in the target tenant before
 - [Delivery Paths](docs\delivery-paths.md)
 - [Three-Day Training Agenda](docs\three-day-training-agenda.md)
 - [Customer Training Datasheet](docs\customer-training-datasheet.md)
+- [Deeper Lessons Teaching Deck](docs\deeper-lessons-teaching-deck.md)
 - [Azure Government Readiness Review](docs\azure-government-readiness-review.md)
 - [Instructor Deck](docs\instructor-deck.md)
 - [Learner Workbook](docs\learner-workbook.md)
