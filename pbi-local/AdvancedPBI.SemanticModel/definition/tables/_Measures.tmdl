@@ -154,7 +154,13 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: a3afd863-3b29-457d-af11-2cb7f0c6fdad
 
-	measure 'Gross Margin vs Target' = [Gross Margin %] - [Selected Margin Target]
+	measure 'Gross Margin vs Target' =
+			
+			IF (
+			    ISBLANK ( [Gross Margin %] ),
+			    BLANK (),
+			    [Gross Margin %] - [Selected Margin Target]
+			)
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: b5485a15-11df-4980-914a-a265dbf7bbd1
 
@@ -164,7 +170,7 @@ table _Measures
 			RETURN
 			    SWITCH (
 			        TRUE (),
-			        ISBLANK ( [Gross Margin %] ), "No margin data",
+			        ISBLANK ( [Gross Margin %] ), BLANK (),
 			        Difference >= 0.05, "Above target",
 			        Difference >= 0, "At target",
 			        Difference >= -0.05, "Near target",

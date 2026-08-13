@@ -44,21 +44,6 @@
               "queryRef": "DimProductCategory.ProductCategory",
               "nativeQueryRef": "ProductCategory",
               "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimTerritory"
-                    }
-                  },
-                  "Property": "TerritoryRegion"
-                }
-              },
-              "queryRef": "DimTerritory.TerritoryRegion",
-              "nativeQueryRef": "TerritoryRegion",
-              "active": true
             }
           ]
         },
@@ -77,20 +62,6 @@
               },
               "queryRef": "_Measures.Gross Margin %",
               "nativeQueryRef": "Gross Margin %"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Selected Margin Target"
-                }
-              },
-              "queryRef": "_Measures.Selected Margin Target",
-              "nativeQueryRef": "Selected Margin Target"
             },
             {
               "field": {
@@ -166,13 +137,6 @@
                 }
               }
             ],
-            "isPinned": true
-          },
-          {
-            "queryRefs": [
-              "DimTerritory.TerritoryRegion"
-            ],
-            "isCollapsed": true,
             "isPinned": true
           }
         ],
@@ -322,20 +286,6 @@
               }
             },
             "Property": "ProductCategory"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "d5ab76388784a08283b3",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DimTerritory"
-              }
-            },
-            "Property": "TerritoryRegion"
           }
         },
         "type": "Categorical"
