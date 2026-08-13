@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "varianceMatrix0001",
+  "name": "50e43573e0bd61c80453",
   "position": {
-    "x": 24,
-    "y": 260,
-    "z": 0,
-    "height": 700,
-    "width": 1350,
-    "tabOrder": 1
+    "x": 1174.8985326256634,
+    "y": 0,
+    "z": 3,
+    "height": 570.66500156103655,
+    "width": 683.95878863565406,
+    "tabOrder": 3
   },
   "visual": {
     "visualType": "pivotTable",
@@ -72,11 +72,28 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Sales Variance %"
+                  "Property": "Sales Amount"
                 }
               },
-              "queryRef": "_Measures.Sales Variance %",
-              "nativeQueryRef": "Sales Variance %"
+              "queryRef": "_Measures.Sales Amount",
+              "nativeQueryRef": "Sales Amount",
+              "displayName": "Sales Amount"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MyTests"
+                    }
+                  },
+                  "Property": "MyTests"
+                }
+              },
+              "index": 0,
+              "length": 1
             }
           ]
         }
@@ -176,19 +193,7 @@
                   }
                 }
               ],
-              "isToggled": true,
-              "children": [
-                {
-                  "identityValues": [
-                    {
-                      "Literal": {
-                        "Value": "'Integration'"
-                      }
-                    }
-                  ],
-                  "isToggled": true
-                }
-              ]
+              "isToggled": true
             },
             {
               "identityValues": [
@@ -231,16 +236,6 @@
                 }
               ],
               "isToggled": true
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "null"
-                  }
-                }
-              ],
-              "isToggled": true
             }
           ]
         }
@@ -279,7 +274,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "b790b82eaa379de17015",
+        "name": "e5eceb4340d70bd1e3b1",
         "field": {
           "Column": {
             "Expression": {
@@ -293,7 +288,7 @@
         "type": "Categorical"
       },
       {
-        "name": "f72e4419b192d42e9214",
+        "name": "bcb71650cc5d2906b06b",
         "field": {
           "Column": {
             "Expression": {
@@ -307,7 +302,7 @@
         "type": "Categorical"
       },
       {
-        "name": "d5ab76388784a08283b3",
+        "name": "24ed0c10d069438110a3",
         "field": {
           "Column": {
             "Expression": {
@@ -319,6 +314,20 @@
           }
         },
         "type": "Categorical"
+      },
+      {
+        "name": "fb1952d3d3cb86c27307",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Sales Amount"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

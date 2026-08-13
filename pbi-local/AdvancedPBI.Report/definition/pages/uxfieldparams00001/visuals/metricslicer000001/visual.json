@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "metricslicer000001",
   "position": {
-    "x": 24,
-    "y": 24,
+    "x": 23.977521073993131,
+    "y": 23.977521073993131,
     "z": 1,
-    "height": 260,
-    "width": 440,
+    "height": 197.21511083359351,
+    "width": 237.97689665938182,
     "tabOrder": 0
   },
   "visual": {
@@ -99,7 +99,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Sales Amount'"
+                                "Value": "'Gross Margin'"
                               }
                             }
                           ]
