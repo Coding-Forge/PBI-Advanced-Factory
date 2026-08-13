@@ -163,6 +163,19 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2960.8251477773847,
+            "y": 540.082762966445
+          },
+          "nodeIndex": "Time Intelligence",
+          "nodeLineageTag": "c1d2e3f4-7f8a-4c1d-fa2f-5f8a9b0c1d2e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

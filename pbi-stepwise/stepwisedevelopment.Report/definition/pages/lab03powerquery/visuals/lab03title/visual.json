@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab02ex8title",
+  "name": "lab03title",
   "position": {
     "x": 24,
     "y": 24,
     "z": 0,
     "height": 60,
-    "width": 1000,
+    "width": 1200,
     "tabOrder": 0
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Lab 02, Exercise 8: DAX Optimization",
+                    "value": "Lab 03: Advanced Power Query and Data Transformation",
                     "textStyle": {
                       "fontSize": "24px",
                       "fontWeight": "bold",

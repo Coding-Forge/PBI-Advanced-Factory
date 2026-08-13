@@ -6,35 +6,35 @@ table 'Time Intelligence'
 		calculationItem Current = SELECTEDMEASURE()
 
 		calculationItem MTD =
-
+				
 				CALCULATE (
 				    SELECTEDMEASURE(),
 				    DATESMTD ( DimOrderDate[Date] )
 				)
 
 		calculationItem QTD =
-
+				
 				CALCULATE (
 				    SELECTEDMEASURE(),
 				    DATESQTD ( DimOrderDate[Date] )
 				)
 
 		calculationItem YTD =
-
+				
 				CALCULATE (
 				    SELECTEDMEASURE(),
 				    DATESYTD ( DimOrderDate[Date] )
 				)
 
 		calculationItem 'Prior Year' =
-
+				
 				CALCULATE (
 				    SELECTEDMEASURE(),
 				    SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
 				)
 
 		calculationItem 'YoY Change' =
-
+				
 				VAR PriorYearValue =
 				    CALCULATE (
 				        SELECTEDMEASURE(),
@@ -44,7 +44,7 @@ table 'Time Intelligence'
 				    SELECTEDMEASURE() - PriorYearValue
 
 		calculationItem 'YoY Change %' =
-
+				
 				VAR PriorYearValue =
 				    CALCULATE (
 				        SELECTEDMEASURE(),

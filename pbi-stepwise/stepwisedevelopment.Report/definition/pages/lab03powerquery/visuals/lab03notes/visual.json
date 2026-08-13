@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab03notes",
+  "position": {
+    "x": 1250,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 620,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Power Query architecture (all exercises applied):\n\n• orders-2026-01/02/03 — raw Web-source queries per month, load disabled, each tagged with SourceFile for lineage.\n\n• stg_OrdersCombined — appends the three raw queries into one staged query, load disabled.\n\n• err_OrdersReview — a Reference of stg_OrdersCombined that isolates rows with a DataQualityIssue (missing/invalid OrderDate, non-positive Quantity/UnitPrice, missing ProductCode). Load disabled by default; enable temporarily in Desktop to review rejected rows.\n\n• fn_CleanText — reusable, null-safe custom function (Text.Proper/Trim/Clean) applied to CustomerName and SalesChannel.\n\n• FactOrders — final load query: filters out data-quality issues, applies explicit types, filters to the RangeStart/RangeEnd window (incremental-refresh ready), cleans text, and removes the validation column. This is the only query with load enabled from this chain.\n\n• product-category-map — Web-source reference table using fn_CleanText on ProductName/Category/Subcategory, built from RawDataBaseUrl.\n\n• Parameters: RawDataBaseUrl (Text), RangeStart/RangeEnd (DateTime), SourceFolderPath (Text, optional/blank), EnvironmentName (Text, Dev/Test/Prod placeholder).\n\nQuery folding and Service-side incremental refresh policy are Verify for Gov / source-dependent — see the Lab 03 README Gov notes.",
+                    "textStyle": {
+                      "fontSize": "12px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

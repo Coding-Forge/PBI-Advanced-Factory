@@ -50,20 +50,28 @@
       ],
       "general": [
         {
-          "properties": {
-            "selection": {
-              "singleSelect": {
-                "expr": {
-                  "Literal": {
-                    "Value": "true"
-                  }
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7e1d359cdeb3a7871619",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Time Intelligence"
+              }
+            },
+            "Property": "Time Calculation"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

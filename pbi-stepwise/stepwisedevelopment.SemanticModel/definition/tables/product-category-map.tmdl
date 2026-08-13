@@ -1,0 +1,55 @@
+table product-category-map
+	lineageTag: b1c2d3e4-1f2a-4b1c-bc2e-3f4a5b6c7d8e
+
+	column ProductCode
+		dataType: string
+		lineageTag: c2d3e4f5-2a3b-4c2d-cd3f-4a5b6c7d8e9f
+		summarizeBy: none
+		sourceColumn: ProductCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: d3e4f5a6-3b4c-4d3e-de4a-5b6c7d8e9f0a
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategory
+		dataType: string
+		lineageTag: e4f5a6b7-4c5d-4e4f-ef5b-6c7d8e9f0a1b
+		summarizeBy: none
+		sourceColumn: ProductCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSubcategory
+		dataType: string
+		lineageTag: f5a6b7c8-5d6e-4f5a-fa6c-7d8e9f0a1b2c
+		summarizeBy: none
+		sourceColumn: ProductSubcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	partition product-category-map = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(Web.Contents(RawDataBaseUrl & "reference/product-category-map.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  #"Changed column type" = Table.TransformColumnTypes(Source, {{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}}),
+				  #"Promoted headers" = Table.PromoteHeaders(#"Changed column type", [PromoteAllScalars = true]),
+				  #"Filtered rows" = Table.SelectRows(#"Promoted headers", each ([ProductCode] <> "")),
+				  #"Cleaned text" = Table.TransformColumns(
+				      #"Filtered rows",
+				      {
+				          {"ProductName", each fn_CleanText(_), type nullable text},
+				          {"ProductCategory", each fn_CleanText(_), type nullable text},
+				          {"ProductSubcategory", each fn_CleanText(_), type nullable text}
+				      }
+				  )
+				in
+				  #"Cleaned text"
+
+	annotation PBI_ResultType = Table

@@ -83,3 +83,144 @@ expression DimDate =
 
 	annotation PBI_ResultType = Table
 
+/// the base url to the raw data,
+expression RawDataBaseUrl = "https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+	lineageTag: f1a2b3c4-1d2e-4f1a-9b2c-3d4e5f6a7b8c
+
+	annotation PBI_ResultType = Text
+
+expression RangeStart = #datetime(2026, 1, 1, 0, 0, 0) meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type datetime]
+	lineageTag: a2b3c4d5-2e3f-4a2b-ac3d-4e5f6a7b8c9d
+
+	annotation PBI_ResultType = DateTime
+
+expression RangeEnd = #datetime(2026, 4, 1, 0, 0, 0) meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type datetime]
+	lineageTag: b3c4d5e6-3f4a-4b3c-bd4e-5f6a7b8c9d0e
+
+	annotation PBI_ResultType = DateTime
+
+expression SourceFolderPath =
+		let
+		    Source = "" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+		in
+		    Source
+	lineageTag: c4d5e6f7-4a5b-4c4d-ce5f-6a7b8c9d0e1f
+
+	annotation PBI_ResultType = Text
+
+expression EnvironmentName =
+		let
+		    Source = "DEV" meta [IsParameterQuery = true, IsParameterQueryRequired = false, Type = type text]
+		in
+		    Source
+	lineageTag: d5e6f7a8-5b6c-4d5e-df6a-7b8c9d0e1f2a
+
+	annotation PBI_ResultType = Text
+
+expression 'orders-2026-01' =
+		let
+		  Source = Csv.Document(Web.Contents(RawDataBaseUrl & "monthly-orders/orders-2026-01.csv"), [Delimiter = ",", Columns = 7, QuoteStyle = QuoteStyle.None]),
+		  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"OrderId", type text}, {"OrderDate", type text}, {"CustomerName", type text}, {"ProductCode", type text}, {"Quantity", type text}, {"UnitPrice", type text}, {"SalesChannel", type text}}),
+		  #"Removed bottom rows" = Table.RemoveLastN(#"Changed column type", 1),
+		  #"Added SourceFile" = Table.AddColumn(#"Removed bottom rows", "SourceFile", each "orders-2026-01.csv", type text)
+		in
+		  #"Added SourceFile"
+	lineageTag: e6f7a8b9-6c7d-4e6f-ea7b-8c9d0e1f2a3b
+
+	annotation PBI_ResultType = Table
+
+expression 'orders-2026-02' =
+		let
+		  Source = Csv.Document(Web.Contents(RawDataBaseUrl & "monthly-orders/orders-2026-02.csv"), [Delimiter = ",", Columns = 7, QuoteStyle = QuoteStyle.None]),
+		  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"OrderId", type text}, {"OrderDate", type text}, {"CustomerName", type text}, {"ProductCode", type text}, {"Quantity", type text}, {"UnitPrice", type text}, {"SalesChannel", type text}}),
+		  #"Removed bottom rows" = Table.RemoveLastN(#"Changed column type", 1),
+		  #"Added SourceFile" = Table.AddColumn(#"Removed bottom rows", "SourceFile", each "orders-2026-02.csv", type text)
+		in
+		  #"Added SourceFile"
+	lineageTag: f7a8b9c0-7d8e-4f7a-fb8c-9d0e1f2a3b4c
+
+	annotation PBI_ResultType = Table
+
+expression 'orders-2026-03' =
+		let
+		  Source = Csv.Document(Web.Contents(RawDataBaseUrl & "monthly-orders/orders-2026-03.csv"), [Delimiter = ",", Columns = 7, QuoteStyle = QuoteStyle.None]),
+		  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"OrderId", Int64.Type}, {"OrderDate", type text}, {"CustomerName", type text}, {"ProductCode", type text}, {"Quantity", type text}, {"UnitPrice", Int64.Type}, {"SalesChannel", type text}}),
+		  #"Removed bottom rows" = Table.RemoveLastN(#"Changed column type", 1),
+		  #"Added SourceFile" = Table.AddColumn(#"Removed bottom rows", "SourceFile", each "orders-2026-03.csv", type text)
+		in
+		  #"Added SourceFile"
+	lineageTag: a8b9c0d1-8e9f-4a8b-ac9d-0e1f2a3b4c5d
+
+	annotation PBI_ResultType = Table
+
+expression stg_OrdersCombined =
+		let
+		  Source = Table.Combine({#"orders-2026-01", #"orders-2026-02", #"orders-2026-03"}),
+		  #"Changed column type" = Table.TransformColumnTypes(Source, {{"OrderId", type text}, {"OrderDate", type text}, {"CustomerName", type text}, {"ProductCode", type text}, {"Quantity", type text}, {"UnitPrice", type text}, {"SalesChannel", type text}, {"SourceFile", type text}})
+		in
+		  #"Changed column type"
+	lineageTag: b9c0d1e2-9f0a-4b9c-bd0e-1f2a3b4c5d6e
+
+	annotation PBI_ResultType = Table
+
+expression fn_CleanText =
+		// Lab 03, Exercise 4: reusable, null-safe text cleanup function.
+		let
+		    Source = (inputText as nullable text) as nullable text =>
+		let
+		    Result =
+		        if inputText = null then
+		            null
+		        else
+		            Text.Proper(Text.Trim(Text.Clean(inputText)))
+		in
+		    Result
+		in
+		    Source
+	lineageTag: c0d1e2f3-0a1b-4c0d-ce1f-2a3b4c5d6e7f
+
+	annotation PBI_ResultType = Function
+
+expression err_OrdersReview =
+		// Lab 03, Exercise 5: reference of stg_OrdersCombined (not a duplicate)
+		// that surfaces rows with data quality issues for review. Load stays
+		// disabled by default; enable temporarily in Deskop to inspect rows.
+		let
+		    Source = stg_OrdersCombined,
+		    AddedDataQualityIssue =
+		        Table.AddColumn(
+		            Source,
+		            "DataQualityIssue",
+		            each
+		                let
+		                    ParsedOrderDate = try Date.From([OrderDate]) otherwise null,
+		                    ParsedQuantity = try Number.From([Quantity]) otherwise null,
+		                    ParsedUnitPrice = try Number.From([UnitPrice]) otherwise null,
+		                    ProductCodeText = try Text.Trim(Text.From([ProductCode])) otherwise "",
+		                    Issues =
+		                        List.RemoveNulls(
+		                            {
+		                                if ParsedOrderDate = null then "Missing or invalid OrderDate" else null,
+		                                if ParsedQuantity = null or ParsedQuantity <= 0 then "Missing or non-positive Quantity" else null,
+		                                if ParsedUnitPrice = null or ParsedUnitPrice <= 0 then "Missing or non-positive UnitPrice" else null,
+		                                if ProductCodeText = "" then "Missing ProductCode" else null
+		                            }
+		                        )
+		                in
+		                    Text.Combine(Issues, "; "),
+		            type text
+		        ),
+		    ErrorRows =
+		        Table.SelectRows(
+		            AddedDataQualityIssue,
+		            each [DataQualityIssue] <> ""
+		        )
+		in
+		    ErrorRows
+	lineageTag: d1e2f3a4-1b2c-4d1e-df2a-3b4c5d6e7f8a
+
+	annotation PBI_ResultType = Table
+
