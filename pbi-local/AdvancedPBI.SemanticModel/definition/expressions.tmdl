@@ -64,7 +64,7 @@ expression fn_DimDate =
 
 expression raw_SalesFlat =
 		let
-		  Source = Csv.Document(File.Contents("C:\Projects\PowerBI\workshop\PBI_AdvancedFactory\data\sales-flat.csv"), [Delimiter = ",", Columns = 21, QuoteStyle = QuoteStyle.None]),
+		  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/sales-flat.csv"), [Delimiter = ",", Columns = 21, QuoteStyle = QuoteStyle.None]),
 		  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
 		  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"SalesOrderLineKey", Int64.Type}, {"OrderDate", type date}, {"ShipDate", type date}, {"InvoiceDate", type date}, {"CustomerKey", type text}, {"CustomerName", type text}, {"CustomerType", type text}, {"CustomerState", type text}, {"CustomerRegion", type text}, {"ProductKey", type text}, {"ProductName", type text}, {"ProductCategory", type text}, {"ProductSubcategory", type text}, {"TerritoryKey", type text}, {"TerritoryName", type text}, {"TerritoryRegion", type text}, {"Quantity", Int64.Type}, {"UnitPrice", Int64.Type}, {"UnitCost", Int64.Type}, {"SalesAmount", Int64.Type}, {"GrossMargin", Int64.Type}}),
 		  #"Filtered rows" = Table.SelectRows(#"Changed column type", each ([SalesOrderLineKey] <> null))

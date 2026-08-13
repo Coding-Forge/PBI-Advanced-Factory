@@ -41,7 +41,7 @@ table FactTargets
 		mode: import
 		source =
 				let
-				  Source = Csv.Document(File.Contents("C:\Projects\PowerBI\workshop\PBI_AdvancedFactory\data\targets.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/targets.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
 				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
 				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"TargetMonth", type date}, {"TerritoryKey", type text}, {"ProductCategory", type text}, {"TargetSalesAmount", Int64.Type}}),
 				  #"Filtered rows" = Table.SelectRows(#"Changed column type", each ([TargetMonth] <> null))
