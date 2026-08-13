@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab2m2terrslicer",
+  "name": "lab02ex2custslicer",
   "position": {
     "x": 24,
     "y": 100,
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimTerritory"
+                      "Entity": "DimCustomer"
                     }
                   },
-                  "Property": "TerritoryName"
+                  "Property": "CustomerType"
                 }
               },
-              "queryRef": "DimTerritory.TerritoryName",
-              "nativeQueryRef": "TerritoryName",
+              "queryRef": "DimCustomer.CustomerType",
+              "nativeQueryRef": "CustomerType",
               "active": true
             }
           ]
@@ -40,10 +40,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "DimTerritory"
+                    "Entity": "DimCustomer"
                   }
                 },
-                "Property": "TerritoryName"
+                "Property": "CustomerType"
               }
             },
             "direction": "Ascending"
@@ -66,30 +66,27 @@
           }
         }
       ],
-      "general": [
+      "title": [
         {
-          "properties": {}
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Customer Type'"
+                }
+              }
+            }
+          }
         }
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "b1589006d2bc4389558a",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DimTerritory"
-              }
-            },
-            "Property": "TerritoryName"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

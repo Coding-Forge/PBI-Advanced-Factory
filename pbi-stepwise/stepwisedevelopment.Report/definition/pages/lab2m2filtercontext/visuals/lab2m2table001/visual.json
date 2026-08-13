@@ -138,5 +138,93 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "350e880eb0e9d13aa991",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimCustomer"
+              }
+            },
+            "Property": "CustomerName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "ac27191eec3d65cb0597",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimProduct"
+              }
+            },
+            "Property": "ProductCategory"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9bcf0ab4e7aee089dd8b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Sales Amount"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "68f14b9275a6b40058b6",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Gross Margin %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5275967c89605de01c84",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Quantity"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "76527a4bd05037d9c72c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactSales"
+              }
+            },
+            "Property": "Line Margin % (Row Context Demo)"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
-  "name": "lab2m2filtercontext",
-  "displayName": "Row vs Filter Context",
+  "name": "lab02ex2calculate",
+  "displayName": "CALCULATE and Context Transition",
   "displayOption": "FitToPage",
   "height": 1080,
   "width": 1920

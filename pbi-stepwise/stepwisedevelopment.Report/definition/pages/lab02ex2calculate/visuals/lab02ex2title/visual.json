@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab2m2title001",
+  "name": "lab02ex2title",
   "position": {
     "x": 24,
     "y": 24,
     "z": 0,
     "height": 60,
-    "width": 900,
+    "width": 1000,
     "tabOrder": 0
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Module 2, Lab 1: Row Context vs. Filter Context",
+                    "value": "Lab 02, Exercise 2: Context Transition and CALCULATE",
                     "textStyle": {
                       "fontSize": "24px",
                       "fontWeight": "bold",

@@ -33,6 +33,18 @@ table _Measures
 		formatString: #,0
 		lineageTag: c3d4e5f6-9a1b-4c3d-f489-7a9b0c1d2e3f
 
+	measure 'Sales Amount (All Products)' = CALCULATE ( [Sales Amount], ALL ( DimProduct ) )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: d4e5f6a7-0b2c-4d4e-a59a-8b0c1d2e3f4a
+
+	measure 'Product Sales Share %' = DIVIDE ( [Sales Amount], [Sales Amount (All Products)] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e5f6a7b8-1c3d-4e5f-b6ab-9c1d2e3f4a5b
+
+	measure 'Sales Amount (Enterprise Only, Keep Filters)' = CALCULATE ( [Sales Amount], KEEPFILTERS ( DimCustomer[CustomerType] = "Enterprise" ) )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: f6a7b8c9-2d4e-4f6a-c7bc-0d2e3f4a5b6c
+
 	column Value
 		lineageTag: 128e770a-5a8d-4084-b873-bfc8feb87ecc
 		isNameInferred
