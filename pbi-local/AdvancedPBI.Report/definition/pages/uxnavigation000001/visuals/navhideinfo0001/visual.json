@@ -24,30 +24,7 @@
             }
           }
         }
-      ],
-      "action": [
-        {
-          "properties": {
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Bookmark'"
-                }
-              }
-            },
-            "bookmark": {
-              "expr": {
-                "Literal": {
-                  "Value": "'bookmarkHideInfo01'"
-                }
-              }
-            }
-          }
-        }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

@@ -15,39 +15,14 @@
       "general": [
         {
           "properties": {
-            "paragraphs": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Use this page to explore customer, category, and region. Use Show/Hide Info to toggle this help panel.'"
-                }
+            "paragraphs": [
+              {
+                "textRuns": []
               }
-            }
-          }
-        }
-      ],
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Info Panel'"
-                }
-              }
-            }
+            ]
           }
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

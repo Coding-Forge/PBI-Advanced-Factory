@@ -5,10 +5,11 @@
   "displayOption": "ActualSize",
   "height": 240,
   "width": 320,
-  "type": "Tooltip",
   "pageBinding": {
     "name": "salesTooltipBinding",
-    "type": "Tooltip"
+    "type": "Tooltip",
+    "parameters": []
   },
-  "visibility": "HiddenInViewMode"
+  "visibility": "HiddenInViewMode",
+  "type": "Tooltip"
 }

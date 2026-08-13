@@ -24,23 +24,7 @@
             }
           }
         }
-      ],
-      "action": [
-        {
-          "properties": {
-            "type": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Back'"
-                }
-              }
-            }
-          }
-        }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

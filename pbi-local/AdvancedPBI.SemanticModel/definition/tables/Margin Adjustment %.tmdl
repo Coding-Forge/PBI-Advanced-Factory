@@ -6,7 +6,7 @@ table 'Margin Adjustment %'
 		formatString: 0%;-0%;0%
 		lineageTag: 3a1f6c9d-2e5b-4a7c-9d8e-1b6f4c2a8d5e
 		summarizeBy: sum
-		sourceColumn: 'Margin Adjustment %'
+		sourceColumn: [Value]
 
 		extendedProperty ParameterMetadata =
 				{

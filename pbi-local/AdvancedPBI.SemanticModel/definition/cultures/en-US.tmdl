@@ -12,10 +12,19 @@ cultureInfo en-US
 			          "ConceptualProperty": "Sales Amount"
 			        }
 			      },
+			      "State": "Generated"
+			    },
+			    "table_measures.sales_variance_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Sales Variance %"
+			        }
+			      },
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Sales Amount": {
+			          "Sales Variance %": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
