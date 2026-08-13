@@ -214,6 +214,100 @@ RETURN
 
 Students should understand that Power Query can create the disconnected selector table, DAX is still needed to respond to slicer selections, field parameters are better for native field/measure swapping, and disconnected tables plus `SWITCH` are useful when you want custom logic or teaching clarity.
 
+### Deeper Understanding Challenge: Build a disconnected margin target selector
+
+This challenge uses a disconnected what-if table to let report users choose the margin target that defines good, near-target, and below-target performance.
+
+#### Goal
+
+Create a margin target slicer using Power Query and DAX, then use it to drive KPI status and exception analysis.
+
+#### Step 1: Create the disconnected what-if table in Power Query
+
+1. Open **Transform data**.
+2. Create a **Blank Query**.
+3. Rename it `Margin Target`.
+4. Open **Advanced Editor**.
+5. Replace the query with:
+
+```powerquery
+let
+    Source =
+        #table(
+            type table [MarginTargetLabel = text, MarginTargetValue = number, SortOrder = Int64.Type],
+            {
+                {"20%", 0.20, 0},
+                {"25%", 0.25, 1},
+                {"30%", 0.30, 2},
+                {"35%", 0.35, 3},
+                {"40%", 0.40, 4}
+            }
+        )
+in
+    Source
+```
+
+6. Select **Close & Apply**.
+7. In Model view, confirm `Margin Target` has no relationships.
+8. Sort `Margin Target[MarginTargetLabel]` by `Margin Target[SortOrder]`.
+
+#### Step 2: Create the DAX measures
+
+```DAX
+Selected Margin Target =
+SELECTEDVALUE ( 'Margin Target'[MarginTargetValue], 0.30 )
+```
+
+```DAX
+Gross Margin vs Target =
+[Gross Margin %] - [Selected Margin Target]
+```
+
+```DAX
+Margin Target Status =
+VAR Difference = [Gross Margin vs Target]
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( [Gross Margin %] ), "No margin data",
+        Difference >= 0.05, "Above target",
+        Difference >= 0, "At target",
+        Difference >= -0.05, "Near target",
+        "Below target"
+    )
+```
+
+```DAX
+Margin Target Status Color =
+VAR StatusValue = [Margin Target Status]
+RETURN
+    SWITCH (
+        StatusValue,
+        "Above target", "#107C10",
+        "At target", "#107C10",
+        "Near target", "#FFB900",
+        "Below target", "#D13438",
+        "#605E5C"
+    )
+```
+
+#### Step 3: Use it in a visual
+
+1. Add `Margin Target[MarginTargetLabel]` to a slicer.
+2. Add cards for `[Selected Margin Target]`, `[Gross Margin %]`, and `[Gross Margin vs Target]`.
+3. Add a table or matrix with Customer, Product Category, `[Gross Margin %]`, `[Gross Margin vs Target]`, and `[Margin Target Status]`.
+4. Use `[Margin Target Status Color]` for conditional formatting where appropriate.
+
+#### Reflection questions
+
+| Question | Why it matters |
+|---|---|
+| Why does the target table have no relationship? | Shows disconnected table behavior. |
+| Why does the measure still respond to the slicer? | `SELECTEDVALUE` reads the disconnected slicer context. |
+| What happens when no target is selected? | Teaches default values. |
+| What happens when multiple targets are selected? | Teaches `SELECTEDVALUE` fallback behavior. |
+| How does this improve UX? | Users define their own threshold without editing the report. |
+
 ## Lab 6: Conditional formatting
 
 **Objective:** Use visual formatting to highlight business meaning.

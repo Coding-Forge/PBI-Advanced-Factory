@@ -36,6 +36,8 @@ ref table product-category-map
 ref table FactOrders
 ref table LocalDateTable_35731b34-cb56-4998-ba94-589bde342bb3
 ref table 'Metric Parameter'
+ref table MyTests
+ref table 'Margin Target'
 
 ref cultureInfo en-US
 

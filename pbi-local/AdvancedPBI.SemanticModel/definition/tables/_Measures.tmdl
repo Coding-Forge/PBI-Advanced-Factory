@@ -14,9 +14,8 @@ table _Measures
 		lineageTag: 7d7d1bd9-f6aa-4a68-8e71-2147e52f3f92
 
 	measure 'Gross Margin %' = DIVIDE([Gross Margin],[Sales Amount])
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: 1cd85c50-0523-4bf2-b073-eee865113f7e
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Target Sales Amount' = ```
 			SUM(FactTargets[TargetSalesAmount]) 
@@ -152,11 +151,50 @@ table _Measures
 			    )
 		lineageTag: 341185de-dc32-4121-8c3c-30e1143ef03f
 
+	measure 'Selected Margin Target' = SELECTEDVALUE ( 'Margin Target'[MarginTargetValue], 0.30 )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: a3afd863-3b29-457d-af11-2cb7f0c6fdad
+
+	measure 'Gross Margin vs Target' = [Gross Margin %] - [Selected Margin Target]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b5485a15-11df-4980-914a-a265dbf7bbd1
+
+	measure 'Margin Target Status' =
+			
+			VAR Difference = [Gross Margin vs Target]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( [Gross Margin %] ), "No margin data",
+			        Difference >= 0.05, "Above target",
+			        Difference >= 0, "At target",
+			        Difference >= -0.05, "Near target",
+			        "Below target"
+			    )
+		lineageTag: 19b64da4-fd58-48be-8dfc-bd9bbf89ace4
+
+	measure 'Margin Target Status Color' =
+			
+			VAR StatusValue = [Margin Target Status]
+			RETURN
+			    SWITCH (
+			        StatusValue,
+			        "Above target", "#107C10",
+			        "At target", "#107C10",
+			        "Near target", "#FFB900",
+			        "Below target", "#D13438",
+			        "#605E5C"
+			    )
+		lineageTag: 82c06cb2-26df-4428-99d4-3525e8fd8b19
+
 	column Measures
 		dataType: string
+		isHidden
 		lineageTag: 44dc2435-c2ec-4ad7-b81e-8f60302b76e4
 		summarizeBy: none
 		sourceColumn: Measures
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

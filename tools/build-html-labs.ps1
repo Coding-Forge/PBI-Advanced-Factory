@@ -621,6 +621,51 @@ function RenderHowToGuide($moduleNumber) {
     <div class="task-card"><h3>Evaluate composite model choices</h3><ol><li>Start from the business need: freshness, performance, source load, and security.</li><li>Identify tables that should stay Import for performance.</li><li>Identify tables that might require DirectQuery for freshness.</li><li>Document gateway, connector, tenant, and source limitations before changing storage mode.</li></ol></div>
   </div>
 </section>
+<section>
+  <h2>Deeper Understanding Challenge</h2>
+  <div class="task-card">
+    <h3>Build a disconnected margin target selector</h3>
+    <p>Create a Power Query what-if table that lets users choose the margin target used for KPI status and conditional formatting.</p>
+    <ol>
+      <li>Create a blank Power Query named <code>Margin Target</code>.</li>
+      <li>Use <code>#table</code> to create margin targets such as 20%, 25%, 30%, 35%, and 40%.</li>
+      <li>Load the table without creating relationships.</li>
+      <li>Create DAX measures for selected target, margin variance, status label, and status color.</li>
+      <li>Add <code>Margin Target[MarginTargetLabel]</code> to a slicer and use the measures in cards or a matrix.</li>
+    </ol>
+    <pre class="code"><code>let
+    Source =
+        #table(
+            type table [MarginTargetLabel = text, MarginTargetValue = number, SortOrder = Int64.Type],
+            {
+                {"20%", 0.20, 0},
+                {"25%", 0.25, 1},
+                {"30%", 0.30, 2},
+                {"35%", 0.35, 3},
+                {"40%", 0.40, 4}
+            }
+        )
+in
+    Source</code></pre>
+    <pre class="code"><code>Selected Margin Target =
+SELECTEDVALUE ( 'Margin Target'[MarginTargetValue], 0.30 )
+
+Gross Margin vs Target =
+[Gross Margin %] - [Selected Margin Target]
+
+Margin Target Status =
+VAR Difference = [Gross Margin vs Target]
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( [Gross Margin %] ), "No margin data",
+        Difference &gt;= 0.05, "Above target",
+        Difference &gt;= 0, "At target",
+        Difference &gt;= -0.05, "Near target",
+        "Below target"
+    )</code></pre>
+  </div>
+</section>
 '@ }
     "02" { return @'
 <section>
