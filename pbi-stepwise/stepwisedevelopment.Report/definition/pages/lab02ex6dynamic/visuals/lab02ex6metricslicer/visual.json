@@ -81,5 +81,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "66ca7a845054aba5825d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Metric Selector"
+              }
+            },
+            "Property": "Metric"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

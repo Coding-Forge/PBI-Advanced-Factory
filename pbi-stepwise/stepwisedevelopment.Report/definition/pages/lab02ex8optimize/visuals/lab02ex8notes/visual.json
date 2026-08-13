@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab02ex4notes",
+  "name": "lab02ex8notes",
   "position": {
     "x": 960,
-    "y": 260,
+    "y": 100,
     "z": 0,
     "height": 500,
     "width": 660,
-    "tabOrder": 3
+    "tabOrder": 2
   },
   "visual": {
     "visualType": "textbox",
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Transaction facts (e.g. FactSales) are additive — SUM works correctly across any date range because each row is an independent event.\n\nSnapshot facts (e.g. FactTargets, inventory, headcount, account balances) represent a point-in-time state. Summing snapshot rows across multiple months double-counts the same balance.\n\nLeft table: 'Target Sales Amount' (plain SUM) inflates as more months are in context.\n\nRight table: 'Target Sales Amount (Ending Balance)' resolves the latest snapshot month within the current filter context and returns only that month's value — the correct semi-additive pattern.",
+                    "value": "Both columns return the same results, but 'Margin Health Score (Unoptimized)' repeats the DIVIDE/SUM logic three times inside nested IFs — each repetition re-evaluates the same filter context.\n\n'Margin Health Score' computes Gross Margin % once as a variable and branches from the trusted base measure using SWITCH(TRUE(), ...). This is easier to read, test, and maintain, and avoids redundant evaluation.\n\nUse Performance Analyzer or DAX Studio (Verify for Gov) to compare query duration between the two patterns on a large model.",
                     "textStyle": {
                       "fontSize": "13px",
                       "color": "#102A43"

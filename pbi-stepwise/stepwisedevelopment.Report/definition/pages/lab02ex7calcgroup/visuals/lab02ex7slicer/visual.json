@@ -1,33 +1,33 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab02ex6dyntitle",
+  "name": "lab02ex7slicer",
   "position": {
     "x": 24,
     "y": 100,
     "z": 0,
-    "height": 60,
-    "width": 900,
+    "height": 500,
+    "width": 300,
     "tabOrder": 1
   },
   "visual": {
-    "visualType": "card",
+    "visualType": "slicer",
     "query": {
       "queryState": {
         "Values": {
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "Time Intelligence"
                     }
                   },
-                  "Property": "Dynamic Title"
+                  "Property": "Time Calculation"
                 }
               },
-              "queryRef": "_Measures.Dynamic Title",
-              "nativeQueryRef": "Dynamic Title",
+              "queryRef": "Time Intelligence.Time Calculation",
+              "nativeQueryRef": "Time Calculation",
               "active": true
             }
           ]
@@ -35,37 +35,28 @@
       }
     },
     "objects": {
-      "labels": [
+      "header": [
         {
           "properties": {
-            "fontSize": {
+            "text": {
               "expr": {
                 "Literal": {
-                  "Value": "24D"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#0F3D56'"
-                    }
-                  }
+                  "Value": "'Time Calculation'"
                 }
               }
             }
           }
         }
       ],
-      "categoryLabels": [
+      "general": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+            "selection": {
+              "singleSelect": {
+                "expr": {
+                  "Literal": {
+                    "Value": "true"
+                  }
                 }
               }
             }

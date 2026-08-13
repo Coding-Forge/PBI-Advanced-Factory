@@ -19,11 +19,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Module 2, Lab 1: Row Context vs. Filter Context",
+                    "value": "Lab  02, Exercise 1: Row Context vs. Filter Context",
                     "textStyle": {
-                      "fontSize": "24px",
                       "fontWeight": "bold",
-                      "color": "#0F3D56"
+                      "fontSize": "24px",
+                      "color": "#0f3d56"
                     }
                   }
                 ]

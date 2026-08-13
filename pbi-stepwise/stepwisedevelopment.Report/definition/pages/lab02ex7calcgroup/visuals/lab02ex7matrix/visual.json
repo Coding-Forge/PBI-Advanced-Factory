@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab02ex4matrix",
+  "name": "lab02ex7matrix",
   "position": {
-    "x": 24,
-    "y": 260,
+    "x": 350,
+    "y": 100,
     "z": 0,
     "height": 500,
-    "width": 900,
+    "width": 1250,
     "tabOrder": 2
   },
   "visual": {
@@ -20,14 +20,33 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimTerritory"
+                      "Entity": "DimOrderDate"
                     }
                   },
-                  "Property": "TerritoryName"
+                  "Property": "YearMonthName"
                 }
               },
-              "queryRef": "DimTerritory.TerritoryName",
-              "nativeQueryRef": "TerritoryName",
+              "queryRef": "DimOrderDate.YearMonthName",
+              "nativeQueryRef": "YearMonthName",
+              "active": true
+            }
+          ]
+        },
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Time Intelligence"
+                    }
+                  },
+                  "Property": "Time Calculation"
+                }
+              },
+              "queryRef": "Time Intelligence.Time Calculation",
+              "nativeQueryRef": "Time Calculation",
               "active": true
             }
           ]
@@ -42,26 +61,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Target Sales Amount"
+                  "Property": "Sales Amount"
                 }
               },
-              "queryRef": "_Measures.Target Sales Amount",
-              "nativeQueryRef": "Target Sales Amount (SUM - incorrect across months)",
-              "active": true
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Target Sales Amount (Ending Balance)"
-                }
-              },
-              "queryRef": "_Measures.Target Sales Amount (Ending Balance)",
-              "nativeQueryRef": "Target Sales Amount (Ending Balance)",
+              "queryRef": "_Measures.Sales Amount",
+              "nativeQueryRef": "Sales Amount",
               "active": true
             }
           ]
@@ -69,23 +73,10 @@
       }
     },
     "objects": {
-      "general": [
+      "subTotals": [
         {
           "properties": {
-            "layout": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Outline'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "columnHeaders": [
-        {
-          "properties": {
-            "bold": {
+            "rowSubtotals": {
               "expr": {
                 "Literal": {
                   "Value": "true"

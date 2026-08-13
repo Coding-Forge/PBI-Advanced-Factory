@@ -90,8 +90,7 @@ table _Measures
 		formatString: \$#,0;(\$#,0);\$#,0
 		lineageTag: f2a3b4c5-8d0e-4f2a-cd3c-6d8e9f0a1b2c
 
-	measure 'Customer Sales Rank' =
-			RANKX ( ALLSELECTED ( DimCustomer[CustomerName] ), [Sales Amount], , DESC, DENSE )
+	measure 'Customer Sales Rank' = RANKX ( ALLSELECTED ( DimCustomer[CustomerName] ), [Sales Amount], , DESC, DENSE )
 		formatString: #,0
 		lineageTag: a3b4c5d6-9e1f-4a3b-de4d-7e9f0a1b2c3d
 
@@ -121,6 +120,41 @@ table _Measures
 			        [Sales Amount]
 			    )
 		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: f8a9b0c1-4c5d-4f8a-cd9c-2c4d5e6f7a8b
+
+	measure 'Margin Health Score (Unoptimized)' =
+			// Lab 02, Exercise 8: deliberately repeats the same CALCULATE/ALL and
+			// DIVIDE logic three times instead of branching from existing measures.
+			// Each repeated sub-expression re-evaluates the full filter context,
+			// which costs more and is harder to maintain than the optimized version.
+			IF (
+			    DIVIDE ( SUM ( FactSales[GrossMargin] ), SUM ( FactSales[SalesAmount] ) ) >= 0.4,
+			    "Healthy",
+			    IF (
+			        DIVIDE ( SUM ( FactSales[GrossMargin] ), SUM ( FactSales[SalesAmount] ) ) >= 0.25,
+			        "Watch",
+			        IF (
+			            DIVIDE ( SUM ( FactSales[GrossMargin] ), CALCULATE ( SUM ( FactSales[SalesAmount] ), ALL ( FactSales ) ) ) >= 0,
+			            "At Risk",
+			            "At Risk"
+			        )
+			    )
+			)
+		lineageTag: a9b0c1d2-5d6e-4a9b-de0d-3d5e6f7a8b9c
+
+	measure 'Margin Health Score' =
+			// Optimized: computes Gross Margin % once via a variable and branches
+			// from the trusted base measure instead of re-deriving SUM/DIVIDE logic
+			// in every branch. Easier to read, test, and reuse.
+			VAR MarginPct = [Gross Margin %]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        MarginPct >= 0.4, "Healthy",
+			        MarginPct >= 0.25, "Watch",
+			        "At Risk"
+			    )
+		lineageTag: b0c1d2e3-6e7f-4b0c-ef1e-4e6f7a8b9c0d
 		lineageTag: e7f8a9b0-3c5d-4e7f-bc8b-1c3d4e5f6a7b
 
 	column Value

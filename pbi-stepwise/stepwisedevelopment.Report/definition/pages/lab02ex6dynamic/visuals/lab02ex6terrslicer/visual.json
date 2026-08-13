@@ -47,8 +47,31 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a9bdd02d3ded5327615e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimTerritory"
+              }
+            },
+            "Property": "TerritoryName"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

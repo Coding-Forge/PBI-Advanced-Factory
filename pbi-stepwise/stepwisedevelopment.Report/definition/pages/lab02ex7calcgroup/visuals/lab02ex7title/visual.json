@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "lab02ex4title",
+  "name": "lab02ex7title",
   "position": {
     "x": 24,
     "y": 24,
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Lab 02, Exercise 4: Semi-Additive Measures",
+                    "value": "Lab 02, Exercise 7: Calculation Groups for Reusable Time Intelligence",
                     "textStyle": {
                       "fontSize": "24px",
                       "fontWeight": "bold",

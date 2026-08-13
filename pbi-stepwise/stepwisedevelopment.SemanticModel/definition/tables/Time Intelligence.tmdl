@@ -1,0 +1,73 @@
+table 'Time Intelligence'
+	lineageTag: c1d2e3f4-7f8a-4c1d-fa2f-5f8a9b0c1d2e
+
+	calculationGroup
+
+		calculationItem Current = SELECTEDMEASURE()
+
+		calculationItem MTD =
+
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    DATESMTD ( DimOrderDate[Date] )
+				)
+
+		calculationItem QTD =
+
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    DATESQTD ( DimOrderDate[Date] )
+				)
+
+		calculationItem YTD =
+
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    DATESYTD ( DimOrderDate[Date] )
+				)
+
+		calculationItem 'Prior Year' =
+
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+				)
+
+		calculationItem 'YoY Change' =
+
+				VAR PriorYearValue =
+				    CALCULATE (
+				        SELECTEDMEASURE(),
+				        SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+				    )
+				RETURN
+				    SELECTEDMEASURE() - PriorYearValue
+
+		calculationItem 'YoY Change %' =
+
+				VAR PriorYearValue =
+				    CALCULATE (
+				        SELECTEDMEASURE(),
+				        SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+				    )
+				RETURN
+				    DIVIDE ( SELECTEDMEASURE() - PriorYearValue, PriorYearValue )
+
+	column 'Time Calculation'
+		dataType: string
+		lineageTag: a9b0c1d2-5e7f-4a9b-de0d-3e5f6a7b8c9d
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: b0c1d2e3-6f8a-4b0c-ef1e-4f6a7b8c9d0e
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
