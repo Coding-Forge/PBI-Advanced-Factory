@@ -30,3 +30,11 @@ relationship AutoDetected_b8c9d0e1-f2a3-4456-b7c8-d9e0f1a2b3c4
 	fromColumn: DimProduct.ProductCategory
 	toColumn: DimProductCategory.ProductCategory
 
+relationship c9d0e1f2-a3b4-4567-c8d9-e0f1a2b3c4d5
+	fromColumn: FactSales.OrderDate
+	toColumn: DimOrderDate.Date
+
+relationship d0e1f2a3-b4c5-4678-d9e0-f1a2b3c4d5e6
+	fromColumn: FactSales.ShipDate
+	toColumn: DimShipDate.Date
+
