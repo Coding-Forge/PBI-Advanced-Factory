@@ -86,10 +86,10 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "MyTests"
+                      "Entity": "PBI Field Parameters"
                     }
                   },
-                  "Property": "MyTests"
+                  "Property": "Sales Parameters"
                 }
               },
               "index": 0,
@@ -314,20 +314,6 @@
           }
         },
         "type": "Categorical"
-      },
-      {
-        "name": "fb1952d3d3cb86c27307",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Sales Amount"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

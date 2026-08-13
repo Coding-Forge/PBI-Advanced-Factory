@@ -1,7 +1,7 @@
-table MyTests
+table 'PBI Field Parameters'
 	lineageTag: f3177e71-504d-43ba-9073-9bcfe9fd38b0
 
-	column MyTests
+	column 'Sales Parameters'
 		lineageTag: e9822142-728c-44b5-9b52-3864a6359d97
 		summarizeBy: none
 		sourceColumn: [Value1]
@@ -36,7 +36,7 @@ table MyTests
 
 		annotation SummarizationSetBy = Automatic
 
-	partition MyTests = calculated
+	partition 'PBI Field Parameters' = calculated
 		mode: import
 		source =
 				{

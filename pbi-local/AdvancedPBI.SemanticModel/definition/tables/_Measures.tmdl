@@ -2,7 +2,7 @@ table _Measures
 	lineageTag: 3b418873-073e-447e-87b6-d111fc13bfad
 
 	measure 'Sales Amount' = sum(FactSales[SalesAmount])
-		formatString: 0
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 496c6cad-a8eb-4bf7-ab9e-50b4a7660c36
 
 	measure Quantity = sum(FactSales[Quantity])
@@ -24,15 +24,14 @@ table _Measures
 		lineageTag: 840e1d0e-d34a-481e-8156-dbadf55e94fa
 
 	measure 'Sales Variance' = [Sales Amount] - [Target Sales Amount]
-		formatString: 0
+		formatString: #,0
 		lineageTag: 55deac69-07be-4a13-9381-7f2f7852fdda
 
 	measure 'Sales Variance %' =
 			
 			DIVIDE ( [Sales Variance], [Target Sales Amount] )
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: 60e48932-b94e-40bf-b4bb-362cec20f035
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Sales All Products' =
 			

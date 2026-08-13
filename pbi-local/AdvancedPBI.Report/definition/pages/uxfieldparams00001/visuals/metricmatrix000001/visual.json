@@ -20,21 +20,6 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimCustomer"
-                    }
-                  },
-                  "Property": "CustomerName"
-                }
-              },
-              "queryRef": "DimCustomers.CustomerName",
-              "nativeQueryRef": "CustomerName",
-              "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
                       "Entity": "DimProductCategory"
                     }
                   },
@@ -50,6 +35,21 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
+                      "Entity": "DimCustomer"
+                    }
+                  },
+                  "Property": "CustomerName"
+                }
+              },
+              "queryRef": "DimCustomers.CustomerName",
+              "nativeQueryRef": "CustomerName",
+              "active": false
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
                       "Entity": "DimTerritory"
                     }
                   },
@@ -58,7 +58,7 @@
               },
               "queryRef": "DimTerritory.TerritoryRegion",
               "nativeQueryRef": "TerritoryRegion",
-              "active": true
+              "active": false
             }
           ]
         },
@@ -100,10 +100,10 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "MyTests"
+                      "Entity": "PBI Field Parameters"
                     }
                   },
-                  "Property": "MyTests"
+                  "Property": "Sales Parameters"
                 }
               },
               "index": 1,
@@ -119,25 +119,6 @@
           "Rows"
         ],
         "levels": [
-          {
-            "queryRefs": [
-              "DimCustomers.CustomerName"
-            ],
-            "isCollapsed": true,
-            "identityKeys": [
-              {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimCustomer"
-                    }
-                  },
-                  "Property": "CustomerName"
-                }
-              }
-            ],
-            "isPinned": true
-          },
           {
             "queryRefs": [
               "DimProductCategory.ProductCategory"
@@ -159,100 +140,44 @@
           },
           {
             "queryRefs": [
+              "DimCustomers.CustomerName"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimCustomer"
+                    }
+                  },
+                  "Property": "CustomerName"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
               "DimTerritory.TerritoryRegion"
             ],
             "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimTerritory"
+                    }
+                  },
+                  "Property": "TerritoryRegion"
+                }
+              }
+            ],
             "isPinned": true
           }
         ],
-        "root": {
-          "children": [
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "'Adventure Works Gov'"
-                  }
-                }
-              ],
-              "isToggled": true,
-              "children": [
-                {
-                  "identityValues": [
-                    {
-                      "Literal": {
-                        "Value": "'Analytics'"
-                      }
-                    }
-                  ],
-                  "isToggled": true
-                }
-              ]
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "'Contoso Defense'"
-                  }
-                }
-              ],
-              "isToggled": true
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "'Fabrikam Energy'"
-                  }
-                }
-              ],
-              "isToggled": true
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "'Northwind Health'"
-                  }
-                }
-              ],
-              "isToggled": true,
-              "children": [
-                {
-                  "identityValues": [
-                    {
-                      "Literal": {
-                        "Value": "'Analytics'"
-                      }
-                    }
-                  ],
-                  "isToggled": true
-                },
-                {
-                  "identityValues": [
-                    {
-                      "Literal": {
-                        "Value": "'Security'"
-                      }
-                    }
-                  ],
-                  "isToggled": true
-                }
-              ]
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "'Wide World Logistics'"
-                  }
-                }
-              ],
-              "isToggled": true
-            }
-          ]
-        }
+        "root": {}
       }
     ],
     "objects": {
@@ -287,20 +212,6 @@
   },
   "filterConfig": {
     "filters": [
-      {
-        "name": "b790b82eaa379de17015",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DimCustomer"
-              }
-            },
-            "Property": "CustomerName"
-          }
-        },
-        "type": "Categorical"
-      },
       {
         "name": "f72e4419b192d42e9214",
         "field": {
@@ -344,18 +255,18 @@
         "type": "Advanced"
       },
       {
-        "name": "cc040a6e13deb017c0c2",
+        "name": "350c537be363cd80b960",
         "field": {
-          "Measure": {
+          "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "_Measures"
+                "Entity": "DimCustomer"
               }
             },
-            "Property": "Sales Amount"
+            "Property": "CustomerName"
           }
         },
-        "type": "Advanced"
+        "type": "Categorical"
       }
     ]
   }
