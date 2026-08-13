@@ -27,29 +27,11 @@
                 }
               },
               "queryRef": "Margin Target.MarginTargetLabel",
-              "nativeQueryRef": "Margin Target",
+              "nativeQueryRef": "MarginTargetLabel",
               "active": true
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Margin Target"
-                  }
-                },
-                "Property": "SortOrder"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
@@ -77,7 +59,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "9d1de1c615c78377e872",
+        "name": "marginTargetLabelFilter",
         "field": {
           "Column": {
             "Expression": {

@@ -5,7 +5,7 @@ table 'Margin Target'
 		dataType: string
 		lineageTag: 80f87e04-fde6-468f-b41b-b21072d164a2
 		summarizeBy: none
-		sourceColumn: MarginTargetLabel
+		sourceColumn: [Value1]
 		sortByColumn: SortOrder
 
 		annotation SummarizationSetBy = Automatic
@@ -15,7 +15,7 @@ table 'Margin Target'
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: cb6f0f0e-731c-4f9f-8689-6638b4d99255
 		summarizeBy: sum
-		sourceColumn: MarginTargetValue
+		sourceColumn: [Value2]
 
 		annotation SummarizationSetBy = Automatic
 
@@ -24,27 +24,20 @@ table 'Margin Target'
 		formatString: 0
 		lineageTag: 1a57e234-1edf-45f6-bc6a-78799a0529bb
 		summarizeBy: sum
-		sourceColumn: SortOrder
+		sourceColumn: [Value3]
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'Margin Target' = m
+	partition 'Margin Target' = calculated
 		mode: import
 		source =
-				let
-				    Source =
-				        #table(
-				            type table [MarginTargetLabel = text, MarginTargetValue = number, SortOrder = Int64.Type],
-				            {
-				                {"20%", 0.20, 0},
-				                {"25%", 0.25, 1},
-				                {"30%", 0.30, 2},
-				                {"35%", 0.35, 3},
-				                {"40%", 0.40, 4}
-				            }
-				        )
-				in
-				    Source
+				{
+				    ("20%", 0.20, 0),
+				    ("25%", 0.25, 1),
+				    ("30%", 0.30, 2),
+				    ("35%", 0.35, 3),
+				    ("40%", 0.40, 4)
+				}
 
 	annotation PBI_ResultType = Table
 
