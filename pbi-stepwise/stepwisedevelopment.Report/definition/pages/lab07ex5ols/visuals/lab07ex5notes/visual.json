@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab07ex5notes",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 0,
+    "height": 900,
+    "width": 1850,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: OLS is Verify for Gov. Validate XMLA-compatible tooling, capacity, tenant settings, and customer policy before making this hands-on.\n\nObjective: understand when to hide sensitive tables or columns from specific roles, beyond what row-level filtering (RLS) can do.\n\nConceptual tasks (this model, applied via an XMLA-capable external tool such as Tabular Editor — not natively available in Power BI Desktop's Manage roles UI):\n1. Identify sensitive fields in this model — candidates: DimCustomer unit cost/margin-adjacent columns, the SecurityUserTerritory.AccessLevel column (shows entitlement level, not itself business data), and any future PII columns.\n2. Determine whether each field should be removed entirely, hidden from the field list for all users, or protected with OLS scoped to specific roles (e.g., hide UnitCost from the 'East Region' role but keep it visible to a 'Finance' role).\n3. Review tooling and capacity requirements: OLS is set via TOM/TMSL (Tabular Editor, TMDL script) rather than the Manage roles dialog; applying it requires XMLA write access and, in Government clouds, additional validation of network/tenant support for XMLA endpoints.\n4. Document validation requirements: confirm the target capacity/SKU supports XMLA read-write, confirm tenant settings permit external tools, and confirm the change is auditable (who applied OLS, on which objects, for which roles).\n\nExpected result: learners can distinguish RLS (row filtering) from OLS (object/column visibility) and know OLS in this workshop is a Gov-verify item requiring external tooling.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

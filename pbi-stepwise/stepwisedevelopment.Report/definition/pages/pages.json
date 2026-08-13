@@ -30,7 +30,13 @@
     "lab06ex4keyinfluencers",
     "lab06ex5pythonr",
     "lab06ex6azureml",
-    "lab06ex7copilot"
+    "lab06ex7copilot",
+    "lab07ex1staticrls",
+    "lab07ex2dynamicrls",
+    "lab07ex3testing",
+    "lab07ex4buildperm",
+    "lab07ex5ols",
+    "lab07ex6labels"
   ],
-  "activePageName": "lab06ex7copilot"
+  "activePageName": "lab07ex6labels"
 }

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab07ex4notes",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 0,
+    "height": 900,
+    "width": 1850,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Objective: understand what Build permission on a semantic model allows, separate from viewing a report.\n\nWhat Build permission allows: a user with Build on a semantic model can create new reports against it, connect via Analyze in Excel, use the XMLA endpoint (where enabled), and query the model directly with tools like Excel PivotTables or third-party clients — independent of any specific report's visuals.\n\nRLS still applies: Build permission does not bypass RLS. A user with Build who is also assigned to 'East Region' or 'Dynamic Territory Security' will still only see their permitted rows when building a new report or connecting via Analyze in Excel.\n\nWhich personas should have Build permission — per the security-role-matrix.csv reference data used in this lab:\n- Executive Sponsor / Regional Manager (App Viewer, no Build): consume via the App and thin reports only; RLS scopes what they see.\n- Analyst (Workspace Viewer, Build = Yes): may build thin reports against the shared model if approved, still subject to RLS.\n- Semantic Model Developer (Workspace Member, Build = Yes): should not be used to validate production RLS — developer access can bypass workspace-level RLS testing assumptions.\n- External Partner (App Viewer, Build = Verify): B2B and Azure Government policy must be validated before granting any Build access.\n\nAnalyze in Excel and thin report risk: Build permission effectively turns the semantic model into a reusable data source. Uncontrolled Build access can lead to unofficial \"shadow\" reports, inconsistent measure reuse, or data leaving governed report surfaces via exports. Pair Build permission with RLS, OLS (Verify for Gov) for sensitive columns, and export/DLP controls.\n\nGovernance controls to document: who has Build today, whether it is scoped to the minimum needed personas, whether XMLA endpoint access is restricted, and whether exports from Analyze in Excel are covered by sensitivity labels and DLP policy.\n\nDemonstrate in Service where available: open the semantic model's manage permissions pane, show the Build permission toggle per user/group, and (if licensed) show Analyze in Excel producing a workbook still scoped by the connected user's RLS role.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

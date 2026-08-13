@@ -25,3 +25,4 @@ table 'Margin Adjustment %'
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation ParameterMetadata = {"version":3,"kind":"Numeric"}
+

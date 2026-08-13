@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab07ex2notes",
+  "position": {
+    "x": 960,
+    "y": 100,
+    "z": 0,
+    "height": 620,
+    "width": 660,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: Dynamic RLS is Gov-ready.\n\nThis model loads security-user-territory.csv into the SecurityUserTerritory table and relates it to DimTerritory on TerritoryKey. The 'Dynamic Territory Security' role (Modeling > Manage roles) applies:\n\n[UserPrincipalName] = USERPRINCIPALNAME()\n\nto SecurityUserTerritory, which cascades to DimTerritory, FactSales, and FactTargets.\n\nSample UPNs to test with View as > Other user:\n- alex.manager@contoso.example (2 territories: Mid-Atlantic, South Central)\n- casey.lead@contoso.example (1 territory: Pacific Northwest)\n- devon.director@contoso.example (4 territories — all of them)\n- jordan.rep@contoso.example (1 territory: Mountain)\n\nTasks: 1) Select Modeling > View as, check 'Dynamic Territory Security', enter one sample UPN, and select OK. 2) Compare the table below for a single-territory user (casey.lead) vs. a multi-territory user (devon.director). 3) Document results for both cases. 4) Turn off View as when finished.\n\nExpected result: the model filters territories based on the current user's mapping rows in SecurityUserTerritory.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -228,6 +228,19 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4323.8251477773847,
+            "y": 504.082762966445
+          },
+          "nodeIndex": "Margin Adjustment %",
+          "nodeLineageTag": "200cdad4-e2f0-4d73-8e2d-866975b35eaf",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

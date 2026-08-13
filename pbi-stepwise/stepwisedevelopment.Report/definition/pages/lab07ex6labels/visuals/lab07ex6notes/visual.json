@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab07ex6notes",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 0,
+    "height": 900,
+    "width": 1850,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: Sensitivity labels are Verify for Gov. Validate Microsoft Purview Information Protection configuration, label policies, tenant settings, and cloud support.\n\nObjective: understand label-based governance layered on top of RLS/OLS.\n\nConceptual or hands-on tasks:\n1. Review available labels: in the Power BI Desktop ribbon (Home/File > Sensitivity), check whether tenant-defined labels (e.g., Public, General, Confidential, Highly Confidential) are visible — label availability depends on Microsoft Purview Information Protection being configured for the tenant.\n2. Apply a label where available: for this report, a reasonable label would be 'Confidential' given it contains customer sales, margin, and user-territory security mapping data; apply it via File > Sensitivity if the tenant exposes labels.\n3. Review export and inheritance behavior: labels applied to a report or semantic model are intended to flow through to exports (PDF, PowerPoint, Excel) and, depending on tenant DLP policy, can restrict or watermark those exports. Labels on a semantic model can also propagate to reports built from it.\n4. Document Purview and DLP dependencies: confirm Microsoft Purview Information Protection is licensed and configured, confirm label policies are published to the Power BI workload, and confirm DLP policies that act on labeled content (e.g., blocking external sharing of Highly Confidential items) are validated for the Azure Government tenant before relying on labels as a control.\n\nExternal sharing and B2B note: combine with the security-role-matrix.csv 'External Partner' persona (ExternalSharingAllowed = Verify) — sensitivity labels and DLP are a key control point when any workspace considers guest/B2B access, and both must be explicitly validated for Gov tenants rather than assumed to work as in commercial.\n\nExpected result: learners understand sensitivity labels as a tenant-governed control that is Verify for Gov, distinct from the Gov-ready RLS built in Exercises 1-2.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

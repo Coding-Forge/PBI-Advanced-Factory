@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab07ex3notes",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 0,
+    "height": 900,
+    "width": 1850,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Objective: validate security before production. This page is conceptual — apply it against the Ex1 static role and Ex2 dynamic role using the live model.\n\nDesktop testing:\n1. Select Modeling > View as.\n2. Test 'East Region' (static) — confirm only Mid-Atlantic/East data is visible.\n3. Test 'Dynamic Territory Security' (dynamic) with each sample UPN from Ex2 — confirm single-territory and multi-territory users see the correct rows.\n4. Turn off View as before saving or publishing.\n\nService testing (where available):\n1. Publish the .pbix (generated from this PBIP) to a workspace.\n2. In the semantic model settings, select Security next to each role and add the users or Azure AD security groups who should receive that role.\n3. Use 'Test as role' in the workspace to validate as a specific role without needing a second account.\n4. For dynamic RLS, confirm the assigned user's UPN matches a row in SecurityUserTerritory — unmapped users will see no rows under a restrictive role.\n\nDocument for each role tested: role name, test method (Desktop View as / Service Test as role), sample identity used, and observed visible territories/sales — compare against the security-role-matrix.csv expectations.\n\nAzure Government note: RLS testing workflow itself is Gov-ready in both Desktop and the Azure Government Power BI service; validate tenant-specific group assignment and identity provider configuration (Azure AD Government) before production rollout.",
+                    "textStyle": {
+                      "fontSize": "14px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

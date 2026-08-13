@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab07ex1notes",
+  "position": {
+    "x": 960,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 660,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: Static RLS is Gov-ready.\n\nThis model ships a static role named 'East Region' (Modeling > Manage roles). It applies:\n\n[TerritoryRegion] = \"East\"\n\nto DimTerritory, which automatically filters FactSales and FactTargets through the existing relationships.\n\nTasks: 1) Select Modeling > View as, check 'East Region', and select OK. 2) Compare the matrix below before/after — only Mid-Atlantic (T01), the East territory, should remain visible. 3) Document expected visible customers and sales for the East region vs. the unfiltered model. 4) Turn off View as when finished.\n\nExpected result: the role limits the matrix below to the East region only.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

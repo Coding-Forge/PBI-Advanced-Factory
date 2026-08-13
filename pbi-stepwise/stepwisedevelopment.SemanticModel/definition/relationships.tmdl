@@ -39,3 +39,7 @@ relationship d0e1f2a3-b4c5-4678-d9e0-f1a2b3c4d5e6
 	fromColumn: FactSales.ShipDate
 	toColumn: DimShipDate.Date
 
+relationship e1f2a3b4-c5d6-4789-e0f1-a2b3c4d5e6f7
+	fromColumn: SecurityUserTerritory.TerritoryKey
+	toColumn: DimTerritory.TerritoryKey
+
