@@ -10,7 +10,14 @@
     "lab02ex6dynamic",
     "lab02ex7calcgroup",
     "lab02ex8optimize",
-    "lab03powerquery"
+    "lab03powerquery",
+    "lab04ex1drillthrough",
+    "lab04ex2tooltip",
+    "lab04ex3bookmarks",
+    "lab04ex4navigation",
+    "lab04ex5fieldparams",
+    "lab04ex6conditional",
+    "lab04ex7mobile"
   ],
-  "activePageName": "lab03powerquery"
+  "activePageName": "lab04ex7mobile"
 }

@@ -165,5 +165,39 @@ table _Measures
 		mode: import
 		source = {(1)}
 
-	annotation PBI_Id = 3f8a6b2c9d4e4f5a8b7c6d5e4f3a2b1c
 
+	measure 'Selected Margin Target' = SELECTEDVALUE ( 'Margin Target'[MarginTargetValue], 0.30 )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 9d15edaa-103e-47ee-877e-9d392f48e1f8
+
+	measure 'Gross Margin vs Target' = [Gross Margin %] - [Selected Margin Target]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 2c3f2eaf-c3d6-4b32-8368-1aea03304712
+
+	measure 'Margin Target Status' =
+			VAR Difference = [Gross Margin vs Target]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( [Gross Margin %] ), "No margin data",
+			        Difference >= 0.05, "Above target",
+			        Difference >= 0, "At target",
+			        Difference >= -0.05, "Near target",
+			        "Below target"
+			    )
+		lineageTag: b55ef839-e9f0-4a2a-970a-15b003e3a3da
+
+	measure 'Margin Target Status Color' =
+			VAR StatusValue = [Margin Target Status]
+			RETURN
+			    SWITCH (
+			        StatusValue,
+			        "Above target", "#107C10",
+			        "At target", "#107C10",
+			        "Near target", "#FFB900",
+			        "Below target", "#D13438",
+			        "#605E5C"
+			    )
+		lineageTag: a81966fd-7253-4807-adb7-9cd0000acfa2
+
+	annotation PBI_Id = 3f8a6b2c9d4e4f5a8b7c6d5e4f3a2b1c

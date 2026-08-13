@@ -140,5 +140,121 @@
       }
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "71c279fd20d3aa11e612",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactOrders"
+              }
+            },
+            "Property": "OrderId"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1458815b250a40c9cb63",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactOrders"
+              }
+            },
+            "Property": "OrderDate"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "fae6f8e28107c6e4b530",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactOrders"
+              }
+            },
+            "Property": "CustomerName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "619b0d05bd1426d455b7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactOrders"
+              }
+            },
+            "Property": "ProductCode"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "ac0859894a27e67cda05",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactOrders"
+              }
+            },
+            "Property": "Quantity"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6e0aadf8088e26282a30",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactOrders"
+              }
+            },
+            "Property": "UnitPrice"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "94f5d5485d6e0650cbb4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactOrders"
+              }
+            },
+            "Property": "SalesChannel"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5bcda90463e9eb04ee50",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactOrders"
+              }
+            },
+            "Property": "SourceFile"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

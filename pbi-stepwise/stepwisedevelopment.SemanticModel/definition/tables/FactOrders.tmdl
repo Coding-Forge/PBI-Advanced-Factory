@@ -140,3 +140,4 @@ table FactOrders
 				    RemovedValidationColumn
 
 	annotation PBI_ResultType = Table
+

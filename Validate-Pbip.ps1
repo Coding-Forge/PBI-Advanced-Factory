@@ -34,7 +34,8 @@ foreach ($f in $jsonFiles) {
     }
 }
 
-# --- Check 2: visual.json files must not have filterConfig or title nested inside "visual" ---
+# --- Check 2: visual.json files must not have filterConfig nested inside "visual", and
+#     visualContainerObjects must be nested INSIDE "visual" (sibling of "objects"), not at file root ---
 $visualFiles = Get-ChildItem -Path $ProjectPath -Filter "visual.json" -Recurse -ErrorAction SilentlyContinue
 foreach ($f in $visualFiles) {
     $raw = Get-Content $f.FullName -Raw
@@ -43,7 +44,19 @@ foreach ($f in $visualFiles) {
         $failures += "SCHEMA ERROR: 'filterConfig' nested inside 'visual' in $($f.FullName) - must be a sibling of 'visual' at the container root."
     }
     if ($obj.visual.PSObject.Properties.Name -contains 'title') {
-        $failures += "SCHEMA ERROR: bare 'title' property found inside 'visual' in $($f.FullName) - title formatting belongs under objects.title, not directly under visual."
+        $failures += "SCHEMA ERROR: bare 'title' property found inside 'visual' in $($f.FullName) - title formatting belongs under visual.visualContainerObjects.title, not directly under visual."
+    }
+    if ($obj.PSObject.Properties.Name -contains 'visualContainerObjects') {
+        $failures += "SCHEMA ERROR: 'visualContainerObjects' found at the ROOT of $($f.FullName) - it must be nested INSIDE 'visual' (sibling of 'objects'), e.g. visual.visualContainerObjects.general.altText."
+    }
+    if ($raw -match '"altText"' -and $raw -notmatch '"visualContainerObjects"') {
+        $failures += "SCHEMA ERROR: 'altText' found in $($f.FullName) but no 'visualContainerObjects' present - altText belongs under visual.visualContainerObjects.general.altText, not inside visual.objects.general."
+    }
+    if ($raw -match '"reportTooltip"') {
+        $failures += "SCHEMA ERROR: 'reportTooltip' found in $($f.FullName) - this is not a valid PBIR property. Use visual.visualContainerObjects.visualTooltip with type='ReportPage' and section='<tooltip page name>' instead."
+    }
+    if ($obj.visual.objects.general.properties.action -or $obj.visual.objects.general.properties.bookmark -or $obj.visual.objects.general.properties.pageNavigation) {
+        $failures += "SCHEMA ERROR: button/navigation wiring ('action'/'bookmark'/'pageNavigation') found inside visual.objects.general.properties in $($f.FullName) - must use visual.visualContainerObjects.visualLink with type='Bookmark' (+ 'bookmark') or type='PageNavigation' (+ 'navigationSection') instead."
     }
 }
 

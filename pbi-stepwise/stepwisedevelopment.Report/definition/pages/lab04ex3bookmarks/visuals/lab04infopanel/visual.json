@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab04infopanel",
+  "position": {
+    "x": 1160,
+    "y": 160,
+    "z": 0,
+    "height": 300,
+    "width": 640,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Lab 04 info panel\n\n\u2022 Bookmarks capture display state for this panel only.\n\u2022 Data is not captured so slicers stay under user control.\n\u2022 Reset returns the page to the hidden-panel baseline.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Information panel explaining bookmark behavior'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

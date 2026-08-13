@@ -1,0 +1,49 @@
+table 'Metric Parameter'
+	lineageTag: 109b62bb-5a8a-4141-a418-5a49b2497672
+
+	column 'Metric Parameter'
+		lineageTag: 6c21f3dc-df57-4fd4-bc77-67e5f7755751
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Metric Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Metric Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Metric Parameter Fields'
+		isHidden
+		lineageTag: f9328295-3b2d-46e4-a5aa-0e91c1995299
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Metric Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Metric Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: ea57d102-cfb5-4751-8ae0-7e94c8c0c6d2
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Metric Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("Sales Amount", NAMEOF('_Measures'[Sales Amount]), 0),
+				    ("Gross Margin", NAMEOF('_Measures'[Gross Margin]), 1),
+				    ("Gross Margin %", NAMEOF('_Measures'[Gross Margin %]), 2),
+				    ("Quantity", NAMEOF('_Measures'[Quantity]), 3)
+				}
+
+	annotation PBI_Id = c222bc32b692456da941071b410c3fa3

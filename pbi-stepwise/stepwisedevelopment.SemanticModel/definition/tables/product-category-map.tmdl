@@ -53,3 +53,4 @@ table product-category-map
 				  #"Cleaned text"
 
 	annotation PBI_ResultType = Table
+

@@ -176,6 +176,32 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3225.8251477773847,
+            "y": 468.082762966445
+          },
+          "nodeIndex": "FactOrders",
+          "nodeLineageTag": "e2f3a4b5-2c3d-4e2f-ea3b-4c5d6e7f8a9b",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3509.8251477773847,
+            "y": 516.082762966445
+          },
+          "nodeIndex": "product-category-map",
+          "nodeLineageTag": "b1c2d3e4-1f2a-4b1c-bc2e-3f4a5b6c7d8e",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab04ex5notes",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 0,
+    "height": 140,
+    "width": 760,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Left: native field parameter using the special Metric Parameter table. Right: existing disconnected Metric Selector from Lab 02 for comparison. Bottom: optional Margin Target what-if selector driving status logic and conditional formatting.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
