@@ -202,6 +202,32 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3774.8251477773847,
+            "y": 528.082762966445
+          },
+          "nodeIndex": "Margin Target",
+          "nodeLineageTag": "bdd8fe5d-1126-4a64-9da4-935ec846c5e4",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4058.8251477773847,
+            "y": 528.082762966445
+          },
+          "nodeIndex": "Metric Parameter",
+          "nodeLineageTag": "109b62bb-5a8a-4141-a418-5a49b2497672",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

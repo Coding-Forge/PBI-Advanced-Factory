@@ -156,16 +156,6 @@ table _Measures
 			    )
 		lineageTag: b0c1d2e3-6e7f-4b0c-ef1e-4e6f7a8b9c0d
 
-	column Value
-		lineageTag: 128e770a-5a8d-4084-b873-bfc8feb87ecc
-		isNameInferred
-		sourceColumn: [Value]
-
-	partition _Measures = calculated
-		mode: import
-		source = {(1)}
-
-
 	measure 'Selected Margin Target' = SELECTEDVALUE ( 'Margin Target'[MarginTargetValue], 0.30 )
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 9d15edaa-103e-47ee-877e-9d392f48e1f8
@@ -200,4 +190,14 @@ table _Measures
 			    )
 		lineageTag: a81966fd-7253-4807-adb7-9cd0000acfa2
 
+	column Value
+		lineageTag: 128e770a-5a8d-4084-b873-bfc8feb87ecc
+		isNameInferred
+		sourceColumn: [Value]
+
+	partition _Measures = calculated
+		mode: import
+		source = {(1)}
+
 	annotation PBI_Id = 3f8a6b2c9d4e4f5a8b7c6d5e4f3a2b1c
+

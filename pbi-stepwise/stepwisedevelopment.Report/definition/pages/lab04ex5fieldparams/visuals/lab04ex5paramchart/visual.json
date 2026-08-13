@@ -36,18 +36,34 @@
           "projections": [
             {
               "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Sales Amount"
+                }
+              },
+              "queryRef": "_Measures.Sales Amount",
+              "nativeQueryRef": "Sales Amount",
+              "displayName": "Sales Amount"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "Metric Parameter"
                     }
                   },
-                  "Property": "Metric Parameter Fields"
+                  "Property": "Metric Parameter"
                 }
               },
-              "queryRef": "Metric Parameter.Metric Parameter Fields",
-              "nativeQueryRef": "Metric Parameter Fields",
-              "active": true
+              "index": 0,
+              "length": 1
             }
           ]
         }
@@ -78,7 +94,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -120,7 +135,8 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [
@@ -148,6 +164,21 @@
               }
             },
             "Property": "Metric Parameter"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      },
+      {
+        "name": "f8ea187e981e0c356312",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Metric Parameter"
+              }
+            },
+            "Property": "Metric Parameter Fields"
           }
         },
         "type": "Categorical"

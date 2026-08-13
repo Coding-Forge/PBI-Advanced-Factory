@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Reflection prompts:\n\u2022 Field parameters are easier for native field swapping and preserve formatting/metadata better.\n\u2022 Disconnected selectors give more DAX control and are great for teaching filter context.\n\u2022 A single SWITCH measure can create formatting trade-offs when switching between currency, count, and percent.",
+                    "value": "Reflection prompts:\n• Field parameters are easier for native field swapping and preserve formatting/metadata better.\n• Disconnected selectors give more DAX control and are great for teaching filter context.\n• A single SWITCH measure can create formatting trade-offs when switching between currency, count, and percent.",
                     "textStyle": {
                       "fontSize": "13px",
                       "color": "#102A43"

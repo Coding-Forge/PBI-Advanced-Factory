@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Lab 04 info panel\n\n\u2022 Bookmarks capture display state for this panel only.\n\u2022 Data is not captured so slicers stay under user control.\n\u2022 Reset returns the page to the hidden-panel baseline.",
+                    "value": "Lab 04 info panel\n\n• Bookmarks capture display state for this panel only.\n• Data is not captured so slicers stay under user control.\n• Reset returns the page to the hidden-panel baseline.",
                     "textStyle": {
                       "fontSize": "13px",
                       "color": "#102A43"

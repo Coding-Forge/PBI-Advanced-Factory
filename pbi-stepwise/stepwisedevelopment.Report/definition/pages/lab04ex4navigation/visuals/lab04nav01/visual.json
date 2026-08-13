@@ -21,24 +21,18 @@
                   {
                     "value": "Lab 02 Filter Context",
                     "textStyle": {
-                      "fontSize": "15px",
                       "fontWeight": "bold",
-                      "color": "#FFFFFF"
+                      "fontSize": "15px",
+                      "color": "#ffffff"
                     }
                   }
                 ]
               }
-            ],
-            "fill": {
-              "solid": {
-                "color": "#0F3D56"
-              }
-            }
+            ]
           }
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -79,7 +73,32 @@
             }
           }
         }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F3D56'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

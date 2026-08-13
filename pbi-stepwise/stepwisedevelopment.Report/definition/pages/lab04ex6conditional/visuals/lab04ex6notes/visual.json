@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Thresholds: Above target >= +5 pts, At target 0 to +5 pts, Near target 0 to -5 pts, Below target less than -5 pts. Status is shown as text in addition to color so meaning does not rely on color alone.",
+                    "value": "Conditional formatting is applied to the 'Margin Target Status' column background (green/amber/red) via the 'Margin Target Status Color' measure. Thresholds: Above target >= +5 pts, At target 0 to +5 pts, Near target 0 to -5 pts, Below target less than -5 pts. Status is shown as text in addition to color so meaning does not rely on color alone.",
                     "textStyle": {
                       "fontSize": "13px",
                       "color": "#102A43"
