@@ -38,6 +38,7 @@ For customer delivery, validate feature availability in the target tenant before
 - [Gov Delivery Notes](docs\gov-delivery-notes.md)
 - [Commercial Delivery Notes](docs\commercial-delivery-notes.md)
 - [Auto Date/Time Cleanup TODO](docs\auto-date-time-cleanup-todo.md)
+- [Labs 1-7 Completion Notes](docs\labs-1-7-completion-notes.md)
 - [Labs Source README](Student\Labs\Source\README.md)
 
 ## Modules
