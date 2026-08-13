@@ -17,11 +17,6 @@ table FactSales
 		summarizeBy: none
 		sourceColumn: OrderDate
 
-		variation Variation
-			isDefault
-			relationship: 21d81152-1e1e-492e-b730-02471e53809b
-			defaultHierarchy: LocalDateTable_5e0f18ab-e4cf-4db6-9037-d06fd708ed09.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -33,11 +28,6 @@ table FactSales
 		summarizeBy: none
 		sourceColumn: ShipDate
 
-		variation Variation
-			isDefault
-			relationship: 43a43c97-611b-4792-b761-8bc52c63c504
-			defaultHierarchy: LocalDateTable_252c1600-f105-4832-bef8-c700c8027c13.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -48,11 +38,6 @@ table FactSales
 		lineageTag: 6d5f01f4-c846-4f49-aea5-ec34d7d19b3b
 		summarizeBy: none
 		sourceColumn: InvoiceDate
-
-		variation Variation
-			isDefault
-			relationship: aa7d4c46-6573-4521-92b0-0d6e37eec3cd
-			defaultHierarchy: LocalDateTable_6da3a195-0266-4b53-82d4-7196f21a806d.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 

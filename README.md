@@ -37,6 +37,7 @@ For customer delivery, validate feature availability in the target tenant before
 - [Knowledge Checks and Answer Keys](docs\knowledge-checks-and-answer-keys.md)
 - [Gov Delivery Notes](docs\gov-delivery-notes.md)
 - [Commercial Delivery Notes](docs\commercial-delivery-notes.md)
+- [Auto Date/Time Cleanup TODO](docs\auto-date-time-cleanup-todo.md)
 - [Labs Source README](Student\Labs\Source\README.md)
 
 ## Modules
