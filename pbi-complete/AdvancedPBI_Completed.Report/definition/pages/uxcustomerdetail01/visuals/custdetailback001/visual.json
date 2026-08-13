@@ -14,15 +14,12 @@
     "query": {
       "queryState": {}
     },
-    "drillFilterOtherVisuals": true,
     "objects": {
       "fill": [
         {
           "properties": {
             "fillColor": {
-              "solid": {
-                "color": "#0F3D56"
-              }
+              "solid": {}
             }
           }
         }
@@ -73,6 +70,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

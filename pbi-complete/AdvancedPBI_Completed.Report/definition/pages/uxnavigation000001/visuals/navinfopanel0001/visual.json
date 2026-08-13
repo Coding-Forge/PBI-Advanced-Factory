@@ -14,39 +14,23 @@
     "query": {
       "queryState": {}
     },
-    "drillFilterOtherVisuals": true,
     "objects": {
-      "paragraphs": [
+      "general": [
         {
           "properties": {
-            "textRuns": [
+            "paragraphs": [
               {
-                "value": "Use the navigation buttons to toggle this panel. Bookmarks preserve layout while keeping data context intact."
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
               }
             ]
           }
         }
-      ],
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Info Panel'"
-                }
-              }
-            }
-          }
-        }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

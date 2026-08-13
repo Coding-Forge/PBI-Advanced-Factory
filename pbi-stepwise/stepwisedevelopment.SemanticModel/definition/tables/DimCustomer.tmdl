@@ -1,0 +1,55 @@
+table DimCustomer
+	lineageTag: cb989456-9c6a-47d4-a53f-df38d35d9235
+
+	column CustomerKey
+		dataType: string
+		lineageTag: df0db380-d176-421d-b811-94d8846eedb1
+		summarizeBy: none
+		sourceColumn: CustomerKey
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		lineageTag: 8c573ba1-b5f0-4049-953b-1e2ef8895743
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerType
+		dataType: string
+		lineageTag: cb28105b-6df4-45da-9e57-7efffc0e683f
+		summarizeBy: none
+		sourceColumn: CustomerType
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerState
+		dataType: string
+		lineageTag: a4ff821e-76b9-4f07-87b4-7096c2bf021c
+		summarizeBy: none
+		sourceColumn: CustomerState
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerRegion
+		dataType: string
+		lineageTag: e8716e0f-1bfe-4537-aafd-c3583fac3804
+		summarizeBy: none
+		sourceColumn: CustomerRegion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCustomer = m
+		mode: import
+		source =
+				let
+				  Source = raw_SalesFlat,
+				  #"Removed other columns" = Table.SelectColumns(Source, {"CustomerKey", "CustomerName", "CustomerType", "CustomerState", "CustomerRegion"}),
+				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"CustomerKey", "CustomerName", "CustomerType", "CustomerState", "CustomerRegion"})
+				in
+				  #"Removed duplicates"
+
+	annotation PBI_ResultType = Table

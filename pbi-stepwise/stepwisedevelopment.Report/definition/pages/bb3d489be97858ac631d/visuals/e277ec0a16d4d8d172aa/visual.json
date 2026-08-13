@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "e277ec0a16d4d8d172aa",
+  "position": {
+    "x": 24,
+    "y": 24,
+    "z": 0,
+    "height": 60,
+    "width": 900,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Lab 1: Star Schema Refactor",
+                    "textStyle": {
+                      "fontSize": "24px",
+                      "fontWeight": "bold",
+                      "color": "#0F3D56"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,39 @@
+table DimTerritory
+	lineageTag: 4b8609bc-34a4-48d3-910f-c2150cbc700f
+
+	column TerritoryKey
+		dataType: string
+		lineageTag: 078213e8-f2f0-4bae-a390-8f74ec3571db
+		summarizeBy: none
+		sourceColumn: TerritoryKey
+		isHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryName
+		dataType: string
+		lineageTag: e60e2132-6c9f-482d-92d8-394e9cecca0d
+		summarizeBy: none
+		sourceColumn: TerritoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryRegion
+		dataType: string
+		lineageTag: 73dd09a1-f190-464e-97ed-d63f0b88192c
+		summarizeBy: none
+		sourceColumn: TerritoryRegion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimTerritory = m
+		mode: import
+		source =
+				let
+				  Source = raw_SalesFlat,
+				  #"Removed other columns" = Table.SelectColumns(Source, {"TerritoryKey", "TerritoryName", "TerritoryRegion"}),
+				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"TerritoryKey", "TerritoryName", "TerritoryRegion"})
+				in
+				  #"Removed duplicates"
+
+	annotation PBI_ResultType = Table

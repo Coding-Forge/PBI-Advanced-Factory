@@ -1,0 +1,31 @@
+relationship AutoDetected_a1b2c3d4-e5f6-4789-a0b1-c2d3e4f5a6b7
+	fromColumn: BridgeCustomerSegment.Segment
+	toColumn: DimSegment.Segment
+
+relationship b2c3d4e5-f6a7-4890-b1c2-d3e4f5a6b7c8
+	fromColumn: FactSales.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship c3d4e5f6-a7b8-4901-c2d3-e4f5a6b7c8d9
+	fromColumn: FactSales.TerritoryKey
+	toColumn: DimTerritory.TerritoryKey
+
+relationship d4e5f6a7-b8c9-4012-d3e4-f5a6b7c8d9e0
+	fromColumn: FactSales.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship e5f6a7b8-c9d0-4123-e4f5-a6b7c8d9e0f1
+	fromColumn: FactTargets.TerritoryKey
+	toColumn: DimTerritory.TerritoryKey
+
+relationship f6a7b8c9-d0e1-4234-f5a6-b7c8d9e0f1a2
+	fromColumn: BridgeCustomerSegment.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_a7b8c9d0-e1f2-4345-a6b7-c8d9e0f1a2b3
+	fromColumn: FactTargets.ProductCategory
+	toColumn: DimProductCategory.ProductCategory
+
+relationship AutoDetected_b8c9d0e1-f2a3-4456-b7c8-d9e0f1a2b3c4
+	fromColumn: DimProduct.ProductCategory
+	toColumn: DimProductCategory.ProductCategory

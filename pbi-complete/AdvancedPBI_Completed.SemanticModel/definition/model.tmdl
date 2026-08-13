@@ -11,9 +11,9 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","BridgeCustomerSegment","FactTargets","FactSales","DimCustomer","DimProduct","DimTerritory","DimOrderDate","DimShipDate","DimSegment","DimProductCategory","_Measures","orders-2026-01","orders-2026-02","orders-2026-03","product-category-map","stg_OrdersCombined","RawDataBaseUrl","RangeStart","RangeEnd","FactOrders","fn_CleanText","SourceFolderPath","EnvironmentName","err_OrdersReview","Metric Parameter","Margin Target","SecurityUserTerritory"]
-
 annotation PBI_ProTooling = ["DevMode","CalcGroup"]
+
+annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","BridgeCustomerSegment","FactTargets","FactSales","DimCustomer","DimProduct","DimTerritory","DimOrderDate","DimShipDate","DimSegment","DimProductCategory","_Measures","orders-2026-01","orders-2026-02","orders-2026-03","product-category-map","stg_OrdersCombined","RawDataBaseUrl","RangeStart","RangeEnd","FactOrders","fn_CleanText","SourceFolderPath","EnvironmentName","err_OrdersReview","Metric Parameter","Margin Target","SecurityUserTerritory"]
 
 ref table BridgeCustomerSegment
 ref table FactTargets

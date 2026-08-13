@@ -13,25 +13,6 @@
     "visualType": "matrix",
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimTerritory"
-                    }
-                  },
-                  "Property": "TerritoryRegion"
-                }
-              },
-              "queryRef": "DimTerritory.TerritoryRegion",
-              "nativeQueryRef": "Territory Region",
-              "active": true
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -47,6 +28,25 @@
               },
               "queryRef": "DimProductCategory.ProductCategory",
               "nativeQueryRef": "Product Category",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimTerritory"
+                    }
+                  },
+                  "Property": "TerritoryRegion"
+                }
+              },
+              "queryRef": "DimTerritory.TerritoryRegion",
+              "nativeQueryRef": "Territory Region",
               "active": true
             }
           ]
@@ -85,41 +85,6 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
-    "objects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Territory and Category Performance'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "tooltip": [
-        {
-          "properties": {
-            "reportPage": {
-              "expr": {
-                "Literal": {
-                  "Value": "'uxsalestooltip01'"
-                }
-              }
-            }
-          }
-        }
-      ]
-    }
+    "drillFilterOtherVisuals": true
   }
 }

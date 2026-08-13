@@ -1,0 +1,84 @@
+expression fn_DimDate =
+		let
+		    fn_DimDate =
+		        (
+		            StartDate as date,
+		            EndDate as date,
+		            optional FiscalYearStartMonth as nullable number,
+		            optional Holidays as nullable table
+		        ) as table =>
+		        let
+		            FiscalStartMonth = if FiscalYearStartMonth = null then 7 else FiscalYearStartMonth,
+		            _ValidateFiscalMonth =
+		                if FiscalStartMonth < 1 or FiscalStartMonth > 12 then
+		                    error "FiscalYearStartMonth must be a number from 1 through 12."
+		                else
+		                    FiscalStartMonth,
+		            DayCount = Duration.Days(EndDate - StartDate) + 1,
+		            Source =
+		                if DayCount < 1 then
+		                    error "EndDate must be on or after StartDate."
+		                else
+		                    List.Dates(StartDate, DayCount, #duration(1, 0, 0, 0)),
+		            Dates = Table.FromList(Source, Splitter.SplitByNothing(), {"Date"}),
+		            ChangedType = Table.TransformColumnTypes(Dates, {{"Date", type date}}),
+		            AddYearMonthDay = Table.AddColumn(ChangedType, "YearMonthDay", each Date.Year([Date]) * 10000 + Date.Month([Date]) * 100 + Date.Day([Date]), Int64.Type),
+		            AddYearMonth = Table.AddColumn(AddYearMonthDay, "YearMonth", each Date.Year([Date]) * 100 + Date.Month([Date]), Int64.Type),
+		            AddYear = Table.AddColumn(AddYearMonth, "Year", each Date.Year([Date]), Int64.Type),
+		            AddQuarter = Table.AddColumn(AddYear, "Quarter", each Date.QuarterOfYear([Date]), Int64.Type),
+		            AddMonth = Table.AddColumn(AddQuarter, "Month", each Date.Month([Date]), Int64.Type),
+		            AddDay = Table.AddColumn(AddMonth, "Day", each Date.Day([Date]), Int64.Type),
+		            AddWeek = Table.AddColumn(AddDay, "Week", each let WeekStart = Date.StartOfWeek([Date], Day.Monday) in Date.Year(WeekStart) * 10000 + Date.Month(WeekStart) * 100 + Date.Day(WeekStart), Int64.Type),
+		            AddWeekNumber = Table.AddColumn(AddWeek, "WeekNumber", each Date.WeekOfYear([Date], Day.Monday), Int64.Type),
+		            AddYearWeekNumber = Table.AddColumn(AddWeekNumber, "YearWeekNumber", each Date.Year([Date]) * 100 + Date.WeekOfYear([Date], Day.Monday), Int64.Type),
+		            AddMonthName = Table.AddColumn(AddYearWeekNumber, "MonthName", each Date.ToText([Date], "MMMM", "en-US"), type text),
+		            AddMonthShortName = Table.AddColumn(AddMonthName, "MonthShortName", each Date.ToText([Date], "MMM", "en-US"), type text),
+		            AddYearMonthName = Table.AddColumn(AddMonthShortName, "YearMonthName", each Date.ToText([Date], "yyyy-MMM", "en-US"), type text),
+		            AddQuarterName = Table.AddColumn(AddYearMonthName, "QuarterName", each "Q" & Text.From([Quarter], "en-US"), type text),
+		            AddYearQuarter = Table.AddColumn(AddQuarterName, "YearQuarter", each Text.From([Year], "en-US") & "-Q" & Text.From([Quarter], "en-US"), type text),
+		            AddWeekdayName = Table.AddColumn(AddYearQuarter, "WeekdayName", each Date.ToText([Date], "dddd", "en-US"), type text),
+		            AddWeekdayShortName = Table.AddColumn(AddWeekdayName, "WeekdayShortName", each Date.ToText([Date], "ddd", "en-US"), type text),
+		            AddDayOfWeekNumber = Table.AddColumn(AddWeekdayShortName, "DayOfWeekNumber", each Date.DayOfWeek([Date], Day.Monday) + 1, Int64.Type),
+		            AddIsWeekend = Table.AddColumn(AddDayOfWeekNumber, "IsWeekend", each [DayOfWeekNumber] >= 6, type logical),
+		            AddFiscalYearNumber = Table.AddColumn(AddIsWeekend, "FiscalYearNumber", each if Date.Month([Date]) >= FiscalStartMonth then Date.Year([Date]) + 1 else Date.Year([Date]), Int64.Type),
+		            AddFiscalYear = Table.AddColumn(AddFiscalYearNumber, "FiscalYear", each "FY" & Text.From([FiscalYearNumber], "en-US"), type text),
+		            AddFiscalQuarter = Table.AddColumn(AddFiscalYear, "FiscalQuarter", each Number.IntegerDivide(Number.Mod(Date.Month([Date]) - FiscalStartMonth + 12, 12), 3) + 1, Int64.Type),
+		            AddFiscalPeriod = Table.AddColumn(AddFiscalQuarter, "FiscalPeriod", each [FiscalYear] & "-Q" & Text.From([FiscalQuarter], "en-US"), type text),
+		            AddFiscalYearQuarterNumber = Table.AddColumn(AddFiscalPeriod, "FiscalYearQuarterNumber", each [FiscalYearNumber] * 10 + [FiscalQuarter], Int64.Type),
+		            HolidaySource =
+		                if Holidays = null then
+		                    #table(type table [Date = date, HolidayName = text], {})
+		                else
+		                    Table.TransformColumnTypes(Holidays, {{"Date", type date}, {"HolidayName", type text}}),
+		            MergeHolidays = Table.NestedJoin(AddFiscalYearQuarterNumber, {"Date"}, HolidaySource, {"Date"}, "Holiday", JoinKind.LeftOuter),
+		            ExpandHolidays = Table.ExpandTableColumn(MergeHolidays, "Holiday", {"HolidayName"}, {"HolidayName"}),
+		            AddIsHoliday = Table.AddColumn(ExpandHolidays, "IsHoliday", each [HolidayName] <> null, type logical),
+		            AddIsBusinessDay = Table.AddColumn(AddIsHoliday, "IsBusinessDay", each not [IsWeekend] and not [IsHoliday], type logical)
+		        in
+		            AddIsBusinessDay
+		in
+		    fn_DimDate
+	lineageTag: 2480e44f-a55f-438d-82cd-b6d312d53f98
+
+	annotation PBI_ResultType = Function
+
+expression raw_SalesFlat =
+		let
+		  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/sales-flat.csv"), [Delimiter = ",", Columns = 21, QuoteStyle = QuoteStyle.None]),
+		  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"SalesOrderLineKey", Int64.Type}, {"OrderDate", type date}, {"ShipDate", type date}, {"InvoiceDate", type date}, {"CustomerKey", type text}, {"CustomerName", type text}, {"CustomerType", type text}, {"CustomerState", type text}, {"CustomerRegion", type text}, {"ProductKey", type text}, {"ProductName", type text}, {"ProductCategory", type text}, {"ProductSubcategory", type text}, {"TerritoryKey", type text}, {"TerritoryName", type text}, {"TerritoryRegion", type text}, {"Quantity", Int64.Type}, {"UnitPrice", Int64.Type}, {"UnitCost", Int64.Type}, {"SalesAmount", Int64.Type}, {"GrossMargin", Int64.Type}}),
+		  #"Filtered rows" = Table.SelectRows(#"Changed column type", each ([SalesOrderLineKey] <> null))
+		in
+		  #"Filtered rows"
+	lineageTag: 5351626a-350d-42bb-b1ad-49edadebe432
+
+	annotation PBI_ResultType = Table
+
+expression DimDate =
+		let
+		    Source = fn_DimDate(#date(2023, 1, 1), #date(2029, 12, 31), 7, null)
+		in
+		    Source
+	lineageTag: a919657f-0b13-4f2b-aea5-0c199f092c9c
+
+	annotation PBI_ResultType = Table

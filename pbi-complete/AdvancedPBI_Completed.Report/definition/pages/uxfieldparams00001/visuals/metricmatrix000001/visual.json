@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "metricmatrix000001",
   "position": {
-    "x": 40,
-    "y": 200,
+    "x": 33.283740701381504,
+    "y": 341.44527098831031,
     "z": 0,
-    "height": 580,
-    "width": 820,
+    "height": 484.90967056323058,
+    "width": 820.0425079702444,
     "tabOrder": 1
   },
   "visual": {
@@ -52,28 +52,38 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
-    "objects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d1cf510605c173a60e30",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimTerritory"
               }
             },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Selected Metric by Territory'"
-                }
-              }
-            }
+            "Property": "TerritoryRegion"
           }
-        }
-      ]
-    }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "80cf1bf15acb14102559",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Selected Metric Value"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

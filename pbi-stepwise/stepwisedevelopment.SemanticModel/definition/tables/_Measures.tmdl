@@ -1,0 +1,28 @@
+table _Measures
+	lineageTag: 4a2b6c8d-1e3f-4a5b-9c7d-8e0f1a2b3c4d
+
+	measure 'Sales Amount' = SUM ( FactSales[SalesAmount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 5b3c7d9e-2f4a-4b6c-8d1e-9f2a3b4c5d6e
+
+	measure 'Gross Margin' = SUM ( FactSales[GrossMargin] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 6c4d8e0f-3a5b-4c7d-9e2f-1a3b4c5d6e7f
+
+	measure 'Gross Margin %' = DIVIDE ( [Gross Margin], [Sales Amount] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 7d5e9f1a-4b6c-4d8e-af3a-2b4c5d6e7f8a
+
+	measure 'Order Count' = DISTINCTCOUNT ( FactSales[SalesOrderLineKey] )
+		formatString: #,0
+		lineageTag: 8e6f0a2b-5c7d-4e9f-b04b-3c5d6e7f8a9b
+
+	measure 'Target Sales Amount' = SUM ( FactTargets[TargetSalesAmount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 9f7a1b3c-6d8e-4f0a-c15c-4d6e7f8a9b0c
+
+	partition _Measures = calculated
+		mode: import
+		source = {(1)}
+
+	annotation PBI_Id = 3f8a6b2c9d4e4f5a8b7c6d5e4f3a2b1c

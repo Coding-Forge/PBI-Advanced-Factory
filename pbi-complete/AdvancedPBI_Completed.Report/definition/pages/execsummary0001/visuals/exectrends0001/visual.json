@@ -52,52 +52,17 @@
         }
       }
     },
-    "drillFilterOtherVisuals": true,
     "objects": {
       "dataPoint": [
         {
           "properties": {
             "defaultColor": {
-              "solid": {
-                "color": "#119DA4"
-              }
-            }
-          }
-        }
-      ],
-      "tooltip": [
-        {
-          "properties": {
-            "reportPage": {
-              "expr": {
-                "Literal": {
-                  "Value": "'uxsalestooltip01'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Sales Trend by Month'"
-                }
-              }
+              "solid": {}
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }
