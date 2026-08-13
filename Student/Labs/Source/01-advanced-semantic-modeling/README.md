@@ -1,4 +1,4 @@
-# Module 1 Labs: Advanced Semantic Modeling
+# Lab 01: Advanced Semantic Modeling
 
 ## Lab summary
 
@@ -34,7 +34,7 @@ Follow the numbered steps and exact object names in each lab section before movi
 
 Build the starter and completed Power BI artifacts as PBIP projects. PBIP is the source-controlled format for this workshop because it makes report and semantic model changes easier to review in git. PBIX files can be generated from PBIP later when a packaged desktop file is needed.
 
-## Lab 1: Star schema refactor
+### Exercise 1: Star schema refactor
 
 **Objective:** Convert a flat sales export into a dimensional model.
 
@@ -131,7 +131,7 @@ erDiagram
 
 The model has one central fact table and clean dimensions with single-direction filtering into the fact table.
 
-## Lab 2: Role-playing dimensions
+### Exercise 2: Role-playing dimensions
 
 **Objective:** Support analysis by order date and ship date.
 
@@ -277,7 +277,7 @@ After creating either pattern, mark the table as a date table using the `Date` c
 
 Learners can slice sales by order date or ship date without ambiguous relationships.
 
-## Lab 3: Bridge table pattern
+### Exercise 3: Bridge table pattern
 
 **Objective:** Model customers that can belong to multiple segments.
 
@@ -300,7 +300,7 @@ Learners can slice sales by order date or ship date without ambiguous relationsh
 
 Customer segments filter sales without duplicating customer rows in the customer dimension.
 
-## Lab 4: Composite model or DirectQuery comparison
+### Exercise 4: Composite model or DirectQuery comparison
 
 > **Azure Government note:** This lab is marked **Verify for Gov**. Confirm connector support, gateway access, tenant settings, network path, and source availability before making this a required hands-on lab.
 

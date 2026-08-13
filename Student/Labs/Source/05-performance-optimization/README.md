@@ -1,4 +1,4 @@
-# Module 5 Labs: Performance Optimization
+# Lab 05: Performance Optimization
 
 ## Lab summary
 
@@ -39,7 +39,7 @@ Build report and semantic model artifacts as PBIP projects. PBIP is the source-c
 - Optional: DAX Studio.
 - Optional: Service workspace with compatible license/capacity.
 
-## Lab 1: Performance Analyzer
+### Exercise 1: Performance Analyzer
 
 **Objective:** Measure report performance before optimizing.
 
@@ -56,7 +56,7 @@ Build report and semantic model artifacts as PBIP projects. PBIP is the source-c
 
 Learners identify at least one candidate visual or measure for optimization.
 
-## Lab 2: Reduce model size and cardinality
+### Exercise 2: Reduce model size and cardinality
 
 **Objective:** Identify model fields that increase size or reduce compression.
 
@@ -72,7 +72,7 @@ Learners identify at least one candidate visual or measure for optimization.
 
 Learners produce a model reduction plan and understand why the changes matter.
 
-## Lab 3: DAX Studio query timings
+### Exercise 3: DAX Studio query timings
 
 > **Azure Government note:** DAX Studio is marked **Verify for Gov**. Validate workstation policy, external tool usage, Service connectivity, and XMLA settings before making this required.
 
@@ -94,7 +94,7 @@ Use Performance Analyzer results and simpler visuals to compare measure behavior
 
 Learners understand that DAX Studio is useful but environment-dependent.
 
-## Lab 4: Visual optimization
+### Exercise 4: Visual optimization
 
 **Objective:** Reduce page-level overhead.
 
@@ -110,7 +110,7 @@ Learners understand that DAX Studio is useful but environment-dependent.
 
 The report page is simpler and faster without losing business value.
 
-## Lab 5: Aggregation table
+### Exercise 5: Aggregation table
 
 > **Azure Government note:** Aggregation patterns are **Gov-ready / Verify for source**. DirectQuery source behavior, gateway, connector support, and tenant settings must be validated.
 
@@ -128,7 +128,7 @@ The report page is simpler and faster without losing business value.
 
 Learners can explain how aggregation tables support summary performance and what must match for them to work.
 
-## Lab 6: Incremental refresh policy
+### Exercise 6: Incremental refresh policy
 
 > **Azure Government note:** Incremental refresh is **Verify for Gov** for Service execution. Validate license, workspace, gateway, source, and cloud support before making policy setup required.
 

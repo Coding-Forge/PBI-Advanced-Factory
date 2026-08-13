@@ -26,13 +26,13 @@ The standard shortened delivery covers **Modules 1-7**:
 
 | Module | Plain-language description |
 |---|---|
-| Module 1: Advanced Semantic Modeling | Build a strong model foundation so reports are easier to maintain and measures behave correctly. |
-| Module 2: Advanced DAX | Create trusted metrics and reusable calculations for sales, margin, targets, time intelligence, and ranking. |
-| Module 3: Advanced Power Query | Prepare data using source parameters, staging queries, reusable cleanup functions, and error review. |
-| Module 4: Report Design and UX | Design report pages that are easier for business users to navigate and understand. |
-| Module 5: Performance Optimization | Learn how to measure and improve report/model performance instead of guessing. |
-| Module 6: Advanced Analytics and AI-Assisted Insights | Use scenario analysis and discuss advanced/AI features with appropriate validation. |
-| Module 7: Security Design | Apply and test row-level security patterns for controlled data access. |
+| Lab 01: Advanced Semantic Modeling | Build a strong model foundation so reports are easier to maintain and measures behave correctly. |
+| Lab 02: Advanced DAX | Create trusted metrics and reusable calculations for sales, margin, targets, time intelligence, and ranking. |
+| Lab 03: Advanced Power Query | Prepare data using source parameters, staging queries, reusable cleanup functions, and error review. |
+| Lab 04: Report Design and UX | Design report pages that are easier for business users to navigate and understand. |
+| Lab 05: Performance Optimization | Learn how to measure and improve report/model performance instead of guessing. |
+| Lab 06: Advanced Analytics and AI-Assisted Insights | Use scenario analysis and discuss advanced/AI features with appropriate validation. |
+| Lab 07: Security Design | Apply and test row-level security patterns for controlled data access. |
 
 ## Optional extension modules
 
@@ -40,11 +40,11 @@ The following topics can be added when time, audience, and tenant readiness allo
 
 | Optional module | Why customers request it |
 |---|---|
-| Module 8: Service Enterprise Deployment | Publishing, refresh, workspaces, Apps, and governed distribution. |
-| Module 9: Monitoring, Administration, and Governance | Usage review, refresh troubleshooting, tenant settings, and support/runbook practices. |
-| Module 10: Premium, Fabric, and Capacity Architecture | Capacity planning, Premium/Fabric considerations, and architecture tradeoffs. |
-| Module 11: Automation, DevOps, and Lifecycle Management | PBIP, git workflows, external tools, APIs, and CI/CD concepts. |
-| Module 12: Capstone | A complete end-to-end exercise that ties modeling, DAX, reporting, security, deployment, and governance together. |
+| Lab 08: Service Enterprise Deployment | Publishing, refresh, workspaces, Apps, and governed distribution. |
+| Lab 09: Monitoring, Administration, and Governance | Usage review, refresh troubleshooting, tenant settings, and support/runbook practices. |
+| Lab 10: Premium, Fabric, and Capacity Architecture | Capacity planning, Premium/Fabric considerations, and architecture tradeoffs. |
+| Lab 11: Automation, DevOps, and Lifecycle Management | PBIP, git workflows, external tools, APIs, and CI/CD concepts. |
+| Capstone Lab: Capstone | A complete end-to-end exercise that ties modeling, DAX, reporting, security, deployment, and governance together. |
 
 ## Delivery style
 

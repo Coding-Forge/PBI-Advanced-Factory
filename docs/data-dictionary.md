@@ -12,7 +12,7 @@ https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/
 
 The lab-local `Student\Labs\Source\...\data` files are retained as authoring/reference copies. The canonical learner-facing source for Power BI imports is the `data\` folder.
 
-## Module 1: Advanced Semantic Modeling
+## Lab 01: Advanced Semantic Modeling
 
 ### `data\sales-flat.csv`
 
@@ -146,7 +146,7 @@ https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/se
 | TerritoryName | Territory name granted to user. |
 | AccessLevel | Synthetic access level. |
 
-## Module 3: Advanced Power Query
+## Lab 03: Advanced Power Query
 
 ### `data\monthly-orders\orders-YYYY-MM.csv`
 
@@ -183,9 +183,9 @@ https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/re
 | ProductCategory | Product category. |
 | ProductSubcategory | Product subcategory. |
 
-## Module 7: Security Design
+## Lab 07: Security Design
 
-## Module 7: Security Design
+## Lab 07: Security Design
 
 ### `data\security\security-user-territory.csv`
 

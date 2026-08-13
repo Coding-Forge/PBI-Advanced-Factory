@@ -12,8 +12,8 @@ Use this guide as the workshop-level troubleshooting index.
 
 ## Module troubleshooting references
 
-- [Module 1 troubleshooting](..\modules\01-advanced-semantic-modeling\troubleshooting.md)
-- [Module 3 troubleshooting](..\modules\03-advanced-power-query\troubleshooting.md)
+- [Lab 01 troubleshooting](..\modules\01-advanced-semantic-modeling\troubleshooting.md)
+- [Lab 03 troubleshooting](..\modules\03-advanced-power-query\troubleshooting.md)
 
 ## Service troubleshooting
 

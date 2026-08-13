@@ -1,4 +1,4 @@
-# Module 6 Labs: Advanced Analytics and AI-Assisted Insights
+# Lab 06: Advanced Analytics and AI-Assisted Insights
 
 ## Lab summary
 
@@ -37,7 +37,7 @@ Build report artifacts as PBIP projects. PBIP is the source-controlled format fo
 - PBIP report/model from earlier modules.
 - Optional tenant validation for AI visuals, Python/R, Azure ML, or Copilot.
 
-## Lab 1: What-if parameters
+### Exercise 1: What-if parameters
 
 **Objective:** Build a scenario analysis experience.
 
@@ -53,7 +53,7 @@ Build report artifacts as PBIP projects. PBIP is the source-controlled format fo
 
 Users can adjust a parameter and see scenario measures update.
 
-## Lab 2: Decomposition tree where available
+### Exercise 2: Decomposition tree where available
 
 > **Azure Government note:** Decomposition tree is **Verify for Gov**. Confirm visual availability and tenant settings before making this hands-on.
 
@@ -70,7 +70,7 @@ Users can adjust a parameter and see scenario measures update.
 
 Use a matrix hierarchy and drillthrough page to explore the same dimensions manually.
 
-## Lab 3: Forecasting where available
+### Exercise 3: Forecasting where available
 
 > **Azure Government note:** Forecasting is **Verify for Gov**. Validate visual support, tenant policy, and data residency before requiring it.
 
@@ -87,7 +87,7 @@ Use a matrix hierarchy and drillthrough page to explore the same dimensions manu
 
 Create rolling average and prior-period comparison measures.
 
-## Lab 4: Key influencers where available
+### Exercise 4: Key influencers where available
 
 > **Azure Government note:** Key influencers is **Verify for Gov** because it is an AI visual.
 
@@ -105,7 +105,7 @@ Create rolling average and prior-period comparison measures.
 
 Use ranked visuals, Top N measures, and slicer-driven comparisons.
 
-## Lab 5: Optional Python or R visuals
+### Exercise 5: Optional Python or R visuals
 
 > **Azure Government note:** Python/R visuals are **Verify for Gov**. Validate Desktop configuration, approved packages, Service support, and customer policy.
 
@@ -122,7 +122,7 @@ Use ranked visuals, Top N measures, and slicer-driven comparisons.
 
 Use native visuals or precomputed data instead of code-based visuals.
 
-## Lab 6: Optional Azure Machine Learning integration
+### Exercise 6: Optional Azure Machine Learning integration
 
 > **Azure Government note:** Azure ML integration is **Verify for Gov**. Validate cloud, region, network, identity, endpoint, and data residency before delivery.
 
@@ -139,7 +139,7 @@ Use native visuals or precomputed data instead of code-based visuals.
 
 Use a static scored sample table and explain how it would be produced outside the lab.
 
-## Lab 7: Copilot conceptual section
+### Exercise 7: Copilot conceptual section
 
 > **Azure Government note:** Copilot in Power BI/Fabric is **Commercial-focused / Verify for Gov**. Treat as conceptual unless confirmed available.
 

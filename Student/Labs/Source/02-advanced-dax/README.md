@@ -1,8 +1,8 @@
-# Module 2 Labs: Advanced DAX
+# Lab 02: Advanced DAX
 
 ## Lab summary
 
-These labs build a trusted DAX measure layer over the Module 1 semantic model.
+These labs build a trusted DAX measure layer over the Lab 01 semantic model.
 
 ## Azure Government readiness
 
@@ -10,7 +10,7 @@ The required labs are **Gov-ready** because they use Power BI Desktop and core D
 
 ## Prerequisites
 
-- Completed Module 1 semantic model or equivalent model.
+- Completed Lab 01 semantic model or equivalent model.
 - Tables named similarly to `FactSales`, `FactTargets`, `DimOrderDate`, `DimCustomer`, `DimProduct`, `DimTerritory`, `DimSegment`, and `BridgeCustomerSegment`.
 
 ## Novice-friendly how-to guide
@@ -45,7 +45,7 @@ The required labs are **Gov-ready** because they use Power BI Desktop and core D
 8. Add more calculation items from **Model Explorer**.
 9. Test the calculation group in Power BI Desktop with `DimOrderDate` and a base measure.
 
-## Lab 1: Row context vs. filter context
+### Exercise 1: Row context vs. filter context
 
 **Objective:** Diagnose why measures evaluate differently in different visuals.
 
@@ -61,7 +61,7 @@ The required labs are **Gov-ready** because they use Power BI Desktop and core D
 
 Learners can explain why the same measure returns different values across visual cells, slicers, and totals.
 
-## Lab 2: Context transition and `CALCULATE`
+### Exercise 2: Context transition and `CALCULATE`
 
 **Objective:** Use `CALCULATE` to intentionally modify filter context.
 
@@ -77,7 +77,7 @@ Learners can explain why the same measure returns different values across visual
 
 Learners can explain filter replacement, filter removal, and filter preservation.
 
-## Lab 3: Advanced time intelligence
+### Exercise 3: Advanced time intelligence
 
 **Objective:** Create reusable time-intelligence measures.
 
@@ -94,7 +94,7 @@ Learners can explain filter replacement, filter removal, and filter preservation
 
 Learners can branch time-intelligence measures from a trusted base measure.
 
-## Lab 4: Semi-additive measures
+### Exercise 4: Semi-additive measures
 
 **Objective:** Understand measures that should not be summed across time.
 
@@ -109,7 +109,7 @@ Learners can branch time-intelligence measures from a trusted base measure.
 
 Learners can identify semi-additive scenarios and choose an appropriate last-value or last-nonblank pattern.
 
-## Lab 5: Dynamic Top N and ranking
+### Exercise 5: Dynamic Top N and ranking
 
 **Objective:** Rank customers and filter visuals to a dynamic Top N view.
 
@@ -125,7 +125,7 @@ Learners can identify semi-additive scenarios and choose an appropriate last-val
 
 Learners can build rankings that respect the intended report context.
 
-## Lab 6: Dynamic titles and measure switching
+### Exercise 6: Dynamic titles and measure switching
 
 **Objective:** Make report text and metrics respond to user selections.
 
@@ -141,7 +141,7 @@ Learners can build rankings that respect the intended report context.
 
 Learners can create guided flexibility without duplicating pages or visuals.
 
-## Lab 7: Calculation groups for reusable time intelligence
+### Exercise 7: Calculation groups for reusable time intelligence
 
 > **Azure Government note:** This lab is marked **Verify for Gov**. Confirm the target Power BI Desktop version exposes native calculation group authoring. TMDL View, Git/CI-CD workflows, XMLA, external tools such as Tabular Editor, capacity behavior, and customer workstation policy also require validation before making those paths required.
 
@@ -312,7 +312,7 @@ If Tabular Editor or XMLA workflows are blocked, compare the calculation group d
 
 Learners understand when calculation groups improve DAX maintainability and why they require tenant/tool validation.
 
-## Lab 8: DAX optimization
+### Exercise 8: DAX optimization
 
 **Objective:** Improve readability and reduce repeated calculations.
 

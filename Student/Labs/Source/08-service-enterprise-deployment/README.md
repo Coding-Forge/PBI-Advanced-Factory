@@ -1,4 +1,4 @@
-# Module 8 Labs: Power BI Service Enterprise Deployment
+# Lab 08: Power BI Service Enterprise Deployment
 
 ## Lab summary
 
@@ -40,7 +40,7 @@ PBIP is the source-controlled format for workshop development. Publish from PBIP
 - Appropriate permissions for publishing and refresh.
 - Optional gateway for gateway-backed refresh.
 
-## Lab 1: Publish report and semantic model
+### Exercise 1: Publish report and semantic model
 
 **Objective:** Publish workshop content to a governed workspace.
 
@@ -56,7 +56,7 @@ PBIP is the source-controlled format for workshop development. Publish from PBIP
 
 The report and semantic model are available in the Service workspace.
 
-## Lab 2: Scheduled refresh
+### Exercise 2: Scheduled refresh
 
 **Objective:** Configure refresh and credentials.
 
@@ -72,7 +72,7 @@ The report and semantic model are available in the Service workspace.
 
 Refresh configuration and history are documented.
 
-## Lab 3: Gateway-backed refresh
+### Exercise 3: Gateway-backed refresh
 
 > **Azure Government note:** Gateways are **Verify for Gov**. Validate gateway version, network path, data source support, credentials, and tenant policy.
 
@@ -90,7 +90,7 @@ Refresh configuration and history are documented.
 
 Review gateway architecture and document required setup without configuring a live gateway.
 
-## Lab 4: Shared semantic model and thin report
+### Exercise 4: Shared semantic model and thin report
 
 **Objective:** Separate model ownership from report creation.
 
@@ -106,7 +106,7 @@ Review gateway architecture and document required setup without configuring a li
 
 Learners understand semantic model reuse and Build permission.
 
-## Lab 5: Power BI App distribution
+### Exercise 5: Power BI App distribution
 
 **Objective:** Package content for consumers.
 
@@ -149,7 +149,7 @@ Content is distributed through an App instead of broad workspace access.
 4. Deploy content to the next stage.
 5. Review deployment rules.
 
-## Lab 6: Promoted and certified content governance
+### Exercise 6: Promoted and certified content governance
 
 **Objective:** Review endorsement requirements.
 

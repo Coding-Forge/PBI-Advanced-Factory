@@ -9,7 +9,7 @@ cases, columns that *do* have an explicit role-playing date dimension) picked up
 `joinOnDateBehavior: datePartOnly` relationship, and a default `variation` block on the
 source column. This clutters the model with tables that were never part of the documented
 lab design and, on `FactSales.OrderDate` / `FactSales.ShipDate`, duplicated the explicit
-`DimOrderDate` / `DimShipDate` role-playing relationships taught in Module 1 Lab 2.
+`DimOrderDate` / `DimShipDate` role-playing relationships taught in Lab 01 Lab 2.
 
 This was fixed in `pbi-local\AdvancedPBI.SemanticModel` on 2026-08-13:
 
@@ -46,7 +46,7 @@ each one using the same steps as above when that module is revisited:
   - `LocalDateTable_252c1600-f105-4832-bef8-c700c8027c13`
   - `LocalDateTable_6da3a195-0266-4b53-82d4-7196f21a806d`
   - `DateTableTemplate_2f05558b-2c6a-4aa8-8376-af48161fbf47`
-  - Note: this is the **shipped solution** for Module 1, whose own README/validation
+  - Note: this is the **shipped solution** for Lab 01, whose own README/validation
     checklist says "Role-playing dates work without ambiguity" — the leftover auto date
     tables directly contradict that checklist item, so prioritize this one first.
 - [ ] `Student\Labs\Source\02-advanced-dax\starter\AdvancedPBI.SemanticModel` — same 5 tables.

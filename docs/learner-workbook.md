@@ -33,17 +33,17 @@ All Power BI work should be created as PBIP projects. PBIP is the source-control
 
 ## Module links
 
-- [Module 1 learner guide](..\modules\01-advanced-semantic-modeling\learner-guide.md)
-- [Module 2 learner guide](..\modules\02-advanced-dax\learner-guide.md)
-- [Module 3 learner guide](..\modules\03-advanced-power-query\learner-guide.md)
-- [Module 4 learner guide](..\modules\04-report-design-ux\learner-guide.md)
-- [Module 5 learner guide](..\modules\05-performance-optimization\learner-guide.md)
-- [Module 6 learner guide](..\modules\06-advanced-analytics-ai\learner-guide.md)
-- [Module 7 learner guide](..\modules\07-security-design\learner-guide.md)
-- [Module 8 learner guide](..\modules\08-service-enterprise-deployment\learner-guide.md)
-- [Module 9 learner guide](..\modules\09-monitoring-governance\learner-guide.md)
-- [Module 10 learner guide](..\modules\10-premium-fabric-capacity\learner-guide.md)
-- [Module 11 learner guide](..\modules\11-automation-devops\learner-guide.md)
+- [Lab 01 learner guide](..\modules\01-advanced-semantic-modeling\learner-guide.md)
+- [Lab 02 learner guide](..\modules\02-advanced-dax\learner-guide.md)
+- [Lab 03 learner guide](..\modules\03-advanced-power-query\learner-guide.md)
+- [Lab 04 learner guide](..\modules\04-report-design-ux\learner-guide.md)
+- [Lab 05 learner guide](..\modules\05-performance-optimization\learner-guide.md)
+- [Lab 06 learner guide](..\modules\06-advanced-analytics-ai\learner-guide.md)
+- [Lab 07 learner guide](..\modules\07-security-design\learner-guide.md)
+- [Lab 08 learner guide](..\modules\08-service-enterprise-deployment\learner-guide.md)
+- [Lab 09 learner guide](..\modules\09-monitoring-governance\learner-guide.md)
+- [Lab 10 learner guide](..\modules\10-premium-fabric-capacity\learner-guide.md)
+- [Lab 11 learner guide](..\modules\11-automation-devops\learner-guide.md)
 - [Capstone guide](..\Student\Labs\Source\12-capstone\learner-step-by-step-guide.md)
 
 

@@ -22,7 +22,7 @@ The workshop should be organized around three learning tracks:
 2. **Enterprise operations** - Power BI Service workspaces, deployment, security, governance, refresh, monitoring, and administration.
 3. **Modern lifecycle and Fabric-aware patterns** - source control, deployment automation, Premium/Fabric capacity, Direct Lake, XMLA, and related enterprise architecture considerations.
 
-## Module 1: Advanced semantic modeling
+## Lab 01: Advanced semantic modeling
 
 **Goal:** Teach customers how to design scalable, maintainable semantic models that support enterprise reporting.
 
@@ -56,7 +56,7 @@ The workshop should be organized around three learning tracks:
 - Add role-playing date dimensions.
 - Compare Import, DirectQuery, and composite model behavior.
 
-## Module 2: Advanced DAX
+## Lab 02: Advanced DAX
 
 **Goal:** Help authors reason about filter context, row context, and reusable measure patterns.
 
@@ -94,7 +94,7 @@ The workshop should be organized around three learning tracks:
 - Build dynamic Top N and ranking visuals.
 - Optimize slow measures using variables and filter simplification.
 
-## Module 3: Advanced Power Query and data transformation
+## Lab 03: Advanced Power Query and data transformation
 
 **Goal:** Teach reusable, performant, and governable data preparation patterns.
 
@@ -130,7 +130,7 @@ The workshop should be organized around three learning tracks:
 - Add parameters for dev/test/prod source switching.
 - Prepare a table for incremental refresh.
 
-## Module 4: Advanced report design and user experience
+## Lab 04: Advanced report design and user experience
 
 **Goal:** Teach authors to create highly interactive, accessible, and role-aware reports.
 
@@ -167,7 +167,7 @@ The workshop should be organized around three learning tracks:
 - Design an executive summary and analyst detail page.
 - Create a mobile-optimized version of a report.
 
-## Module 5: Performance optimization
+## Lab 05: Performance optimization
 
 **Goal:** Teach practical diagnostics and optimization techniques across model, DAX, Power Query, and visual layers.
 
@@ -204,7 +204,7 @@ The workshop should be organized around three learning tracks:
 - Create an aggregation table over a DirectQuery source.
 - Configure incremental refresh and test policy behavior.
 
-## Module 6: Advanced analytics and AI-assisted insights
+## Lab 06: Advanced analytics and AI-assisted insights
 
 **Goal:** Introduce advanced analytics capabilities while clearly separating Gov-ready features from commercial-only or parity-sensitive experiences.
 
@@ -240,7 +240,7 @@ The workshop should be organized around three learning tracks:
 - Add forecasting to a time-series visual.
 - Compare AI visual availability between commercial and Gov delivery paths.
 
-## Module 7: Security design
+## Lab 07: Security design
 
 **Goal:** Teach security patterns that protect data while preserving usability.
 
@@ -276,7 +276,7 @@ The workshop should be organized around three learning tracks:
 - Add sensitivity labels where available.
 - Review export and sharing settings from a governance perspective.
 
-## Module 8: Power BI Service enterprise deployment
+## Lab 08: Power BI Service enterprise deployment
 
 **Goal:** Teach how to publish, govern, refresh, and distribute content at enterprise scale.
 
@@ -315,7 +315,7 @@ The workshop should be organized around three learning tracks:
 - Create an App with audience targeting where available.
 - Promote or certify a semantic model using a governance checklist.
 
-## Module 9: Monitoring, administration, and governance
+## Lab 09: Monitoring, administration, and governance
 
 **Goal:** Teach platform owners how to monitor adoption, control risk, and support production workloads.
 
@@ -352,7 +352,7 @@ The workshop should be organized around three learning tracks:
 - Inspect gateway status and data source mappings.
 - Build an adoption and support checklist.
 
-## Module 10: Premium, Fabric, and capacity-aware architecture
+## Lab 10: Premium, Fabric, and capacity-aware architecture
 
 **Goal:** Explain advanced architecture choices for large models, enterprise scale, and Fabric-integrated analytics.
 
@@ -389,7 +389,7 @@ The workshop should be organized around three learning tracks:
 - Demonstrate Direct Lake conceptually, with an alternate Import-mode lab for Gov.
 - Analyze capacity metrics where available.
 
-## Module 11: Automation, DevOps, and lifecycle management
+## Lab 11: Automation, DevOps, and lifecycle management
 
 **Goal:** Teach repeatable deployment and source-control patterns for enterprise BI solutions.
 

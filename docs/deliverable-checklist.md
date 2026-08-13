@@ -29,7 +29,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Define learner handout template
 - [x] Define answer key or expected outcome template
 
-## Module 1: Advanced semantic modeling
+## Lab 01: Advanced semantic modeling
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -47,7 +47,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add knowledge check questions
 - [x] Add troubleshooting notes
 
-## Module 2: Advanced DAX
+## Lab 02: Advanced DAX
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -64,7 +64,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add knowledge check questions
 - [x] Add answer key
 
-## Module 3: Advanced Power Query and data transformation
+## Lab 03: Advanced Power Query and data transformation
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -80,7 +80,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add knowledge check questions
 - [x] Add troubleshooting notes
 
-## Module 4: Advanced report design and user experience
+## Lab 04: Advanced report design and user experience
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -97,7 +97,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add knowledge check questions
 - [ ] Add finished report screenshots
 
-## Module 5: Performance optimization
+## Lab 05: Performance optimization
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -114,7 +114,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add knowledge check questions
 - [x] Add performance benchmark targets
 
-## Module 6: Advanced analytics and AI-assisted insights
+## Lab 06: Advanced analytics and AI-assisted insights
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -130,7 +130,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add Gov-safe alternate lab path
 - [x] Add knowledge check questions
 
-## Module 7: Security design
+## Lab 07: Security design
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -146,7 +146,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add knowledge check questions
 - [x] Add security review checklist
 
-## Module 8: Power BI Service enterprise deployment
+## Lab 08: Power BI Service enterprise deployment
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -163,7 +163,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add Gov notes for deployment pipelines, App audiences, gateways, and cloud connections
 - [x] Add knowledge check questions
 
-## Module 9: Monitoring, administration, and governance
+## Lab 09: Monitoring, administration, and governance
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -180,7 +180,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add knowledge check questions
 - [x] Add operations runbook template
 
-## Module 10: Premium, Fabric, and capacity-aware architecture
+## Lab 10: Premium, Fabric, and capacity-aware architecture
 
 - [x] Write instructor guide
 - [x] Write learner guide
@@ -197,7 +197,7 @@ Use this checklist to track creation of training and lab material. Keep Azure Go
 - [x] Add Gov-safe alternate architecture path
 - [x] Add knowledge check questions
 
-## Module 11: Automation, DevOps, and lifecycle management
+## Lab 11: Automation, DevOps, and lifecycle management
 
 - [x] Write instructor guide
 - [x] Write learner guide

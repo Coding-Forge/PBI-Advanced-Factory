@@ -18,7 +18,7 @@ All Power BI development must be performed as PBIP projects. PBIP is the source-
 
 ### Work through the capstone safely
 
-1. Start from the capstone starter PBIP or the completed solution from the previous module.
+1. Start from the capstone starter PBIP or the completed solution from the previous lab.
 2. Complete one capability at a time: model, DAX, report UX, security, deployment, governance, and monitoring.
 3. Save after each major milestone.
 4. Validate each capability with the rubric before moving to the next one.

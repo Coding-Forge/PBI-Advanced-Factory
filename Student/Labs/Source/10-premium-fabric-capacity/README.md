@@ -1,4 +1,4 @@
-# Module 10 Labs: Premium, Fabric, and Capacity-Aware Architecture
+# Lab 10: Premium, Fabric, and Capacity-Aware Architecture
 
 ## Lab summary
 
@@ -33,7 +33,7 @@ Fabric capacity, Direct Lake, OneLake, Lakehouse, Warehouse, Semantic Link, and 
 - Optional capacity metrics app access.
 - Optional Fabric workspace with validated feature availability.
 
-## Lab 1: Licensing and capacity comparison
+### Exercise 1: Licensing and capacity comparison
 
 **Objective:** Choose architecture options based on workload requirements.
 
@@ -49,7 +49,7 @@ Fabric capacity, Direct Lake, OneLake, Lakehouse, Warehouse, Semantic Link, and 
 
 Learners can recommend an option with caveats and validation needs.
 
-## Lab 2: XMLA endpoint connection where available
+### Exercise 2: XMLA endpoint connection where available
 
 > **Azure Government note:** XMLA endpoint is **Verify for Gov**. Validate capacity, tenant settings, workspace configuration, tooling, and cloud support before making this hands-on.
 
@@ -64,7 +64,7 @@ Learners can recommend an option with caveats and validation needs.
 
 Review XMLA use cases conceptually and document validation requirements.
 
-## Lab 3: Paginated report where available
+### Exercise 3: Paginated report where available
 
 > **Azure Government note:** Paginated reports are **Verify for Gov**. Validate licensing, workspace support, Report Builder use, and cloud availability.
 
@@ -80,7 +80,7 @@ Review XMLA use cases conceptually and document validation requirements.
 
 Discuss scenarios where paginated reports are preferred over interactive reports.
 
-## Lab 4: Large semantic model settings where available
+### Exercise 4: Large semantic model settings where available
 
 > **Azure Government note:** Large semantic models are **Verify for Gov**. Validate capacity and tenant settings.
 
@@ -123,7 +123,7 @@ Discuss scenarios where paginated reports are preferred over interactive reports
 2. Connect to semantic model metadata from a notebook where supported.
 3. Document governance and security considerations.
 
-## Lab 5: Capacity metrics and throttling concepts
+### Exercise 5: Capacity metrics and throttling concepts
 
 > **Azure Government note:** Capacity metrics are **Verify for Gov**. Validate app availability, capacity type, permissions, and telemetry.
 

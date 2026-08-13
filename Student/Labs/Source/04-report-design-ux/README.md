@@ -1,4 +1,4 @@
-# Module 4 Labs: Advanced Report Design and User Experience
+# Lab 04: Advanced Report Design and User Experience
 
 ## Lab summary
 
@@ -43,11 +43,11 @@ Build report artifacts as PBIP projects. PBIP is the source-controlled format fo
 
 ## Prerequisites
 
-- Module 1 semantic model.
-- Module 2 DAX measures.
+- Lab 01 semantic model.
+- Lab 02 DAX measures.
 - Power BI Desktop.
 
-## Lab 1: Drillthrough
+### Exercise 1: Drillthrough
 
 **Objective:** Add a detail path from summary analysis to entity detail.
 
@@ -63,7 +63,7 @@ Build report artifacts as PBIP projects. PBIP is the source-controlled format fo
 
 Users can right-click a customer and navigate to a filtered detail page.
 
-## Lab 2: Report page tooltips
+### Exercise 2: Report page tooltips
 
 **Objective:** Add contextual detail without cluttering the main report page.
 
@@ -79,7 +79,7 @@ Users can right-click a customer and navigate to a filtered detail page.
 
 Hovering over the assigned visual displays compact contextual information.
 
-## Lab 3: Bookmarks and buttons
+### Exercise 3: Bookmarks and buttons
 
 **Objective:** Create guided interactions.
 
@@ -95,7 +95,7 @@ Hovering over the assigned visual displays compact contextual information.
 
 Users can reveal and hide guided content without leaving the page.
 
-## Lab 4: Dynamic navigation
+### Exercise 4: Dynamic navigation
 
 **Objective:** Improve report navigation.
 
@@ -110,7 +110,7 @@ Users can reveal and hide guided content without leaving the page.
 
 Users can move through the report without relying only on page tabs.
 
-## Lab 5: Field parameters for guided exploration
+### Exercise 5: Field parameters for guided exploration
 
 **Objective:** Let report users switch between business metrics and dimensions without duplicating report pages.
 
@@ -308,7 +308,7 @@ RETURN
 | What happens when multiple targets are selected? | Teaches `SELECTEDVALUE` fallback behavior. |
 | How does this improve UX? | Users define their own threshold without editing the report. |
 
-## Lab 6: Conditional formatting
+### Exercise 6: Conditional formatting
 
 **Objective:** Use visual formatting to highlight business meaning.
 
@@ -323,7 +323,7 @@ RETURN
 
 Formatting highlights exceptions without overwhelming the report.
 
-## Lab 7: Mobile layout
+### Exercise 7: Mobile layout
 
 **Objective:** Create a mobile-optimized report view.
 
@@ -339,7 +339,7 @@ Formatting highlights exceptions without overwhelming the report.
 
 The report has a readable mobile experience with prioritized content.
 
-## Lab 8: Accessibility review
+### Exercise 8: Accessibility review
 
 **Objective:** Validate the report for accessibility and usability.
 

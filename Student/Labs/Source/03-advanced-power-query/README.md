@@ -1,4 +1,4 @@
-# Module 3 Labs: Advanced Power Query and Data Transformation
+# Lab 03: Advanced Power Query and Data Transformation
 
 ## Lab summary
 
@@ -37,7 +37,7 @@ Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub 
 
 ### Module parameter reference
 
-Create these five parameters during Module 3. The required Web-source path uses `RawDataBaseUrl`, `EnvironmentName`, `RangeStart`, and `RangeEnd`. `SourceFolderPath` is included as an optional placeholder for offline or folder-based delivery; it can be blank and does not need to be used in the Web-source path.
+Create these five parameters during Lab 03. The required Web-source path uses `RawDataBaseUrl`, `EnvironmentName`, `RangeStart`, and `RangeEnd`. `SourceFolderPath` is included as an optional placeholder for offline or folder-based delivery; it can be blank and does not need to be used in the Web-source path.
 
 | Parameter | Type | Suggested value | Used in core Web path? | Purpose |
 |---|---|---|---|---|
@@ -63,7 +63,7 @@ Create these five parameters during Module 3. The required Web-source path uses 
 3. Leave only final model-ready queries enabled.
 4. Select **Close & Apply** after reviewing query names and data types.
 
-## Lab 1: Staged query architecture
+### Exercise 1: Staged query architecture
 
 **Objective:** Create maintainable query layers.
 
@@ -80,7 +80,7 @@ Create these five parameters during Module 3. The required Web-source path uses 
 
 Only the final model-ready query is loaded. Intermediate queries remain available for development and troubleshooting.
 
-## Lab 2: Folder combine
+### Exercise 2: Folder combine
 
 **Objective:** Combine monthly files safely.
 
@@ -96,7 +96,7 @@ Only the final model-ready query is loaded. Intermediate queries remain availabl
 
 All valid monthly order rows are appended into one query with consistent types and source lineage.
 
-## Lab 3: Parameters and source switching
+### Exercise 3: Parameters and source switching
 
 **Objective:** Use parameters to avoid hard-coded local paths.
 
@@ -111,7 +111,7 @@ All valid monthly order rows are appended into one query with consistent types a
 
 The required Web-source query remains stable, and the model documents how it could be repointed for offline folder delivery or environment-specific sources.
 
-## Lab 4: Custom functions
+### Exercise 4: Custom functions
 
 **Objective:** Encapsulate reusable cleanup logic.
 
@@ -169,13 +169,13 @@ CleanedProductText =
     )
 ```
 
-> **Validation note:** In the current `pbi-local` PBIP model, `fn_CleanText` is not yet present or invoked. This Module 3 lab step is where learners create and apply it.
+> **Validation note:** In the current `pbi-local` PBIP model, `fn_CleanText` is not yet present or invoked. This Lab 03 lab step is where learners create and apply it.
 
 ### Expected result
 
 Text cleanup is reusable, null-safe, and applied consistently to selected customer, channel, and product text fields.
 
-## Lab 5: Data quality and error handling
+### Exercise 5: Data quality and error handling
 
 **Objective:** Detect and handle invalid source rows.
 
@@ -241,7 +241,7 @@ ValidRows =
 
 Learners can distinguish between silently removing bad data and explicitly reviewing data quality issues.
 
-## Lab 6: Query folding
+### Exercise 6: Query folding
 
 > **Azure Government note:** Query folding is marked **Gov-ready / Verify for source**. The concept is core Power Query, but hands-on folding validation requires a connector and source that support folding in the target environment.
 
@@ -259,7 +259,7 @@ Learners can distinguish between silently removing bad data and explicitly revie
 
 Learners can explain why folding improves performance and why it must be validated per source.
 
-## Lab 7: Incremental refresh preparation
+### Exercise 7: Incremental refresh preparation
 
 > **Azure Government note:** Incremental refresh preparation in Desktop is generally Gov-ready, but applying and running the policy in the Service is **Verify for Gov**.
 
@@ -286,7 +286,7 @@ The fact query is ready for incremental refresh policy configuration when the Se
 - [ ] Custom text cleanup function handles null values.
 - [ ] Data quality issues are identified and documented.
 - [ ] Query folding is demonstrated or explained with source limitations.
-- [ ] All five Module 3 parameters are documented: `RawDataBaseUrl`, `SourceFolderPath`, `EnvironmentName`, `RangeStart`, and `RangeEnd`.
+- [ ] All five Lab 03 parameters are documented: `RawDataBaseUrl`, `SourceFolderPath`, `EnvironmentName`, `RangeStart`, and `RangeEnd`.
 - [ ] Incremental refresh parameters are DateTime and correctly named.
 - [ ] Dataflows, Dataflows Gen2, connectors, and Service refresh features include Gov notes.
 

@@ -1,4 +1,4 @@
-# Module 7 Labs: Security Design
+# Lab 07: Security Design
 
 ## Lab summary
 
@@ -42,7 +42,7 @@ Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub 
 5. Filter the security table with `[UserPrincipalName] = USERPRINCIPALNAME()`.
 6. Use **View as** with sample UPN values from the mapping table.
 
-## Lab 1: Static RLS
+### Exercise 1: Static RLS
 
 **Objective:** Create a role that filters data to one territory or region.
 
@@ -58,7 +58,7 @@ Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub 
 
 The role limits data to the selected region.
 
-## Lab 2: Dynamic RLS
+### Exercise 2: Dynamic RLS
 
 **Objective:** Create user-specific access using a security mapping table.
 
@@ -80,7 +80,7 @@ The role limits data to the selected region.
 
 The model filters territories based on the current user's mapping rows.
 
-## Lab 3: Testing roles in Desktop and Service
+### Exercise 3: Testing roles in Desktop and Service
 
 **Objective:** Validate security before production.
 
@@ -97,7 +97,7 @@ The model filters territories based on the current user's mapping rows.
 
 RLS behavior is verified in both Desktop and Service where available.
 
-## Lab 4: Build permission behavior
+### Exercise 4: Build permission behavior
 
 **Objective:** Understand downstream semantic model access.
 

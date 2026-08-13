@@ -1,4 +1,4 @@
-# Module 9 Labs: Monitoring, Administration, and Governance
+# Lab 09: Monitoring, Administration, and Governance
 
 ## Lab summary
 
@@ -35,7 +35,7 @@ Usage metrics and refresh history are generally **Gov-ready**, subject to permis
 - Optional capacity admin access.
 - Optional Purview/DLP access.
 
-## Lab 1: Usage metrics
+### Exercise 1: Usage metrics
 
 **Objective:** Interpret report adoption and usage.
 
@@ -51,7 +51,7 @@ Usage metrics and refresh history are generally **Gov-ready**, subject to permis
 
 Learners can interpret usage data and connect it to support or adoption actions.
 
-## Lab 2: Refresh troubleshooting
+### Exercise 2: Refresh troubleshooting
 
 **Objective:** Diagnose semantic model refresh issues.
 
@@ -68,7 +68,7 @@ Learners can interpret usage data and connect it to support or adoption actions.
 
 Learners can follow a structured refresh troubleshooting process.
 
-## Lab 3: Tenant setting review
+### Exercise 3: Tenant setting review
 
 **Objective:** Understand tenant settings that affect governance.
 
@@ -85,7 +85,7 @@ Learners can follow a structured refresh troubleshooting process.
 
 Learners understand how tenant settings influence risk and user experience.
 
-## Lab 4: Gateway monitoring
+### Exercise 4: Gateway monitoring
 
 > **Azure Government note:** Gateway monitoring is **Verify for Gov**. Validate gateway access, network path, version, data source, and tenant policy.
 
@@ -156,7 +156,7 @@ Use the operations runbook template to document gateway requirements conceptuall
 3. Review export and sharing behavior.
 4. Document compliance requirements.
 
-## Lab 5: Operations runbook
+### Exercise 5: Operations runbook
 
 **Objective:** Create a support-ready runbook.
 

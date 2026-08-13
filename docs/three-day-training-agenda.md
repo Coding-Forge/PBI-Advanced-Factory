@@ -9,13 +9,13 @@ Use this agenda as a customer-facing starting point for a three-day delivery win
 | Time | Format | Topic | Outcome |
 |---|---|---|---|
 | 10:00-10:15 | Presentation | Welcome, goals, environment check, and PBIP-first workflow | Learners understand the workshop flow, files, and expected deliverables. |
-| 10:15-10:45 | Presentation + demo | Module 3 overview: Power Query staging patterns and source parameters | Learners understand raw, staging, function, error-review, and final load queries. |
-| 10:45-11:45 | Lab | Module 3: Advanced Power Query, Labs 1-3 | Learners create parameters, load monthly files, append staging queries, and preserve source lineage. |
+| 10:15-10:45 | Presentation + demo | Lab 03 overview: Power Query staging patterns and source parameters | Learners understand raw, staging, function, error-review, and final load queries. |
+| 10:45-11:45 | Lab | Lab 03: Advanced Power Query, Labs 1-3 | Learners create parameters, load monthly files, append staging queries, and preserve source lineage. |
 | 11:45-12:00 | Discussion | Data quality strategy | Learners understand why invalid rows should be reviewed before removal. |
 | 12:00-12:30 | Break | Midday break |  |
-| 12:30-1:15 | Lab | Module 3: Advanced Power Query, Labs 4-7 | Learners create `fn_CleanText`, `err_OrdersReview`, `FactOrders`, and incremental refresh prep parameters. |
-| 1:15-1:45 | Presentation + demo | Module 1 overview: star schema, grain, keys, and relationship design | Learners understand how the flat file becomes a reusable semantic model. |
-| 1:45-2:45 | Lab | Module 1: Advanced Semantic Modeling, Labs 1-2 | Learners create fact/dimension tables, date tables, and role-playing date relationships. |
+| 12:30-1:15 | Lab | Lab 03: Advanced Power Query, Labs 4-7 | Learners create `fn_CleanText`, `err_OrdersReview`, `FactOrders`, and incremental refresh prep parameters. |
+| 1:15-1:45 | Presentation + demo | Lab 01 overview: star schema, grain, keys, and relationship design | Learners understand how the flat file becomes a reusable semantic model. |
+| 1:45-2:45 | Lab | Lab 01: Advanced Semantic Modeling, Labs 1-2 | Learners create fact/dimension tables, date tables, and role-playing date relationships. |
 | 2:45-3:00 | Review | Day 1 checkpoint and Q&A | Learners confirm data prep and model foundation are ready for Day 2. |
 
 ### Day 2: Advanced DAX and interactive report design
@@ -23,13 +23,13 @@ Use this agenda as a customer-facing starting point for a three-day delivery win
 | Time | Format | Topic | Outcome |
 |---|---|---|---|
 | 10:00-10:15 | Review | Day 1 recap and model validation | Learners confirm relationships, date tables, and source queries are working. |
-| 10:15-10:45 | Presentation + demo | Module 2 overview: DAX evaluation context and base measures | Learners understand filter context, row context, and measure branching. |
-| 10:45-11:45 | Lab | Module 2: Advanced DAX, Labs 1-3 | Learners create base measures, `CALCULATE` patterns, and time-intelligence measures. |
+| 10:15-10:45 | Presentation + demo | Lab 02 overview: DAX evaluation context and base measures | Learners understand filter context, row context, and measure branching. |
+| 10:45-11:45 | Lab | Lab 02: Advanced DAX, Labs 1-3 | Learners create base measures, `CALCULATE` patterns, and time-intelligence measures. |
 | 11:45-12:00 | Discussion | DAX validation habits | Learners practice testing measures in simple visuals before adding complexity. |
 | 12:00-12:30 | Break | Midday break |  |
-| 12:30-1:15 | Lab | Module 2: Advanced DAX, Labs 4-8 | Learners review semi-additive patterns, Top N/ranking, calculation groups, dynamic titles, and DAX optimization. |
-| 1:15-1:45 | Presentation + demo | Module 4 overview: report UX patterns | Learners understand drillthrough, tooltips, bookmarks, navigation, and field parameters. |
-| 1:45-2:45 | Lab | Module 4: Report Design and UX, Labs 1-5 | Learners create guided report interactions and field parameters for metric or dimension switching. |
+| 12:30-1:15 | Lab | Lab 02: Advanced DAX, Labs 4-8 | Learners review semi-additive patterns, Top N/ranking, calculation groups, dynamic titles, and DAX optimization. |
+| 1:15-1:45 | Presentation + demo | Lab 04 overview: report UX patterns | Learners understand drillthrough, tooltips, bookmarks, navigation, and field parameters. |
+| 1:45-2:45 | Lab | Lab 04: Report Design and UX, Labs 1-5 | Learners create guided report interactions and field parameters for metric or dimension switching. |
 | 2:45-3:00 | Review | Day 2 checkpoint and Q&A | Learners confirm measures and report interactions are ready for optimization and deployment topics. |
 
 ### Day 3: Report polish, performance, analytics, and security
@@ -37,25 +37,25 @@ Use this agenda as a customer-facing starting point for a three-day delivery win
 | Time | Format | Topic | Outcome |
 |---|---|---|---|
 | 10:00-10:15 | Review | Day 2 recap and report validation | Learners confirm visuals, measures, and interaction patterns are working. |
-| 10:15-10:45 | Lab | Module 4: Report Design and UX, Labs 6-8 | Learners complete conditional formatting, mobile layout, and accessibility review. |
-| 10:45-11:20 | Presentation + demo | Module 5 overview: Performance Analyzer, model size, and DAX optimization | Learners understand how to capture a baseline before changing the report. |
-| 11:20-12:00 | Lab | Module 5: Performance Optimization | Learners capture performance evidence, review model size, and optimize one DAX or visual pattern. |
+| 10:15-10:45 | Lab | Lab 04: Report Design and UX, Labs 6-8 | Learners complete conditional formatting, mobile layout, and accessibility review. |
+| 10:45-11:20 | Presentation + demo | Lab 05 overview: Performance Analyzer, model size, and DAX optimization | Learners understand how to capture a baseline before changing the report. |
+| 11:20-12:00 | Lab | Lab 05: Performance Optimization | Learners capture performance evidence, review model size, and optimize one DAX or visual pattern. |
 | 12:00-12:30 | Break | Midday break |  |
-| 12:30-1:00 | Presentation + demo | Module 6 overview: scenario analysis and AI-aware alternatives | Learners understand what-if parameters, advanced visuals, and Gov-safe fallback patterns. |
-| 1:00-1:30 | Lab | Module 6: Advanced Analytics and AI-Assisted Insights | Learners create a what-if scenario and document optional advanced/AI feature validation. |
-| 1:30-2:00 | Presentation + discussion | Module 7 overview: security design and RLS patterns | Learners understand static RLS, dynamic RLS, testing, and Build permission considerations. |
-| 2:00-2:45 | Lab | Module 7: Security Design, Labs 1-3 | Learners create or review static/dynamic RLS and test roles in Desktop or Service where available. |
+| 12:30-1:00 | Presentation + demo | Lab 06 overview: scenario analysis and AI-aware alternatives | Learners understand what-if parameters, advanced visuals, and Gov-safe fallback patterns. |
+| 1:00-1:30 | Lab | Lab 06: Advanced Analytics and AI-Assisted Insights | Learners create a what-if scenario and document optional advanced/AI feature validation. |
+| 1:30-2:00 | Presentation + discussion | Lab 07 overview: security design and RLS patterns | Learners understand static RLS, dynamic RLS, testing, and Build permission considerations. |
+| 2:00-2:45 | Lab | Lab 07: Security Design, Labs 1-3 | Learners create or review static/dynamic RLS and test roles in Desktop or Service where available. |
 | 2:45-3:00 | Closeout | Wrap-up, optional follow-on modules, Q&A, and action items | Customer leaves with a completed Modules 1-7 path, validation notes, and recommended next steps. |
 
 ## Optional follow-on topics for a shortened three-day delivery
 
 | Optional module | Topic | When to add it |
 |---|---|---|
-| Module 8: Service Enterprise Deployment | Publishing, refresh, Apps, deployment paths | Add when the customer has a training workspace and wants Service deployment practice. |
-| Module 9: Monitoring, Administration, and Governance | Usage metrics, refresh history, tenant settings, operations runbook | Add for administrators, platform owners, or support teams. |
-| Module 10: Premium, Fabric, and Capacity Architecture | Capacity choices, Fabric-aware patterns, Direct Lake concepts | Add for architects, capacity owners, or roadmap discussions. |
-| Module 11: Automation, DevOps, and Lifecycle Management | PBIP, git, external tools, APIs, CI/CD concepts | Add for BI developers or DevOps-oriented teams. |
-| Module 12: Capstone | End-to-end solution validation | Add when learners need a final applied exercise or certification-style wrap-up. |
+| Lab 08: Service Enterprise Deployment | Publishing, refresh, Apps, deployment paths | Add when the customer has a training workspace and wants Service deployment practice. |
+| Lab 09: Monitoring, Administration, and Governance | Usage metrics, refresh history, tenant settings, operations runbook | Add for administrators, platform owners, or support teams. |
+| Lab 10: Premium, Fabric, and Capacity Architecture | Capacity choices, Fabric-aware patterns, Direct Lake concepts | Add for architects, capacity owners, or roadmap discussions. |
+| Lab 11: Automation, DevOps, and Lifecycle Management | PBIP, git, external tools, APIs, CI/CD concepts | Add for BI developers or DevOps-oriented teams. |
+| Capstone Lab: Capstone | End-to-end solution validation | Add when learners need a final applied exercise or certification-style wrap-up. |
 
 ## Instructor customization guide
 

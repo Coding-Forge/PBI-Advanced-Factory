@@ -1,4 +1,4 @@
-# Module 11 Labs: Automation, DevOps, and Lifecycle Management
+# Lab 11: Automation, DevOps, and Lifecycle Management
 
 ## Lab summary
 
@@ -36,7 +36,7 @@ PBIP and local git workflows are **Gov-ready**. Tabular Editor, ALM Toolkit, RES
 - Optional service principal.
 - Optional Azure DevOps or GitHub repository.
 
-## Lab 1: PBIP file structure
+### Exercise 1: PBIP file structure
 
 **Objective:** Understand what gets checked into source control.
 
@@ -52,7 +52,7 @@ PBIP and local git workflows are **Gov-ready**. Tabular Editor, ALM Toolkit, RES
 
 Learners understand why PBIP supports code review better than PBIX.
 
-## Lab 2: Source control workflow
+### Exercise 2: Source control workflow
 
 **Objective:** Track and review Power BI changes with git.
 
@@ -69,7 +69,7 @@ Learners understand why PBIP supports code review better than PBIX.
 
 Learners can use a basic source-control workflow for PBIP content.
 
-## Lab 3: Tabular Editor workflow where available
+### Exercise 3: Tabular Editor workflow where available
 
 > **Azure Government note:** Tabular Editor is **Verify for Gov**. Validate workstation policy, XMLA, tenant settings, and customer approval.
 
@@ -80,7 +80,7 @@ Learners can use a basic source-control workflow for PBIP content.
 3. Make a small metadata change.
 4. Save and review git diff.
 
-## Lab 4: ALM Toolkit model comparison where available
+### Exercise 4: ALM Toolkit model comparison where available
 
 > **Azure Government note:** ALM Toolkit is **Verify for Gov**. Validate workstation policy, XMLA, tenant settings, and customer approval.
 
@@ -133,7 +133,7 @@ Learners can use a basic source-control workflow for PBIP content.
 3. Review sync status.
 4. Commit workspace changes.
 
-## Lab 5: Conceptual CI/CD pipeline for Azure DevOps
+### Exercise 5: Conceptual CI/CD pipeline for Azure DevOps
 
 **Objective:** Design a deployment pipeline pattern.
 
@@ -145,7 +145,7 @@ Learners can use a basic source-control workflow for PBIP content.
 4. Identify deployment stage.
 5. Add Gov validation notes.
 
-## Lab 6: Conceptual CI/CD pipeline for GitHub Actions
+### Exercise 6: Conceptual CI/CD pipeline for GitHub Actions
 
 **Objective:** Design a GitHub Actions deployment pattern.
 
@@ -157,7 +157,7 @@ Learners can use a basic source-control workflow for PBIP content.
 4. Identify authentication approach.
 5. Add Gov validation notes.
 
-## Lab 7: Deployment checklist
+### Exercise 7: Deployment checklist
 
 **Objective:** Validate readiness before deployment.
 
