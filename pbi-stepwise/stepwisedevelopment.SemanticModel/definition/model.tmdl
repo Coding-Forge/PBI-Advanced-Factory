@@ -11,7 +11,7 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_ProTooling = ["DevMode"]
 
-annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","FactSales","DimCustomer","DimProduct","DimProductCategory","DimTerritory","FactTargets","BridgeCustomerSegment","DimSegment","DimOrderDate","DimShipDate"]
+annotation PBI_QueryOrder = ["fn_DimDate","DimDate","raw_SalesFlat","FactSales","DimCustomer","DimProduct","DimProductCategory","DimTerritory","FactTargets","BridgeCustomerSegment","DimSegment","DimOrderDate","DimShipDate","Metric Selector"]
 
 ref table FactSales
 ref table DimCustomer
@@ -24,6 +24,7 @@ ref table DimSegment
 ref table _Measures
 ref table DimOrderDate
 ref table DimShipDate
+ref table 'Metric Selector'
 
 ref cultureInfo en-US
 

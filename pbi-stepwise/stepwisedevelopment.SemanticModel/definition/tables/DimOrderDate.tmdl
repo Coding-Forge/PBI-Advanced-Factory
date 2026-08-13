@@ -113,8 +113,8 @@ table DimOrderDate
 		dataType: string
 		lineageTag: 3a4b5c6d-7e8f-4a9b-0c1d-2e3f4a5b6c7d
 		summarizeBy: none
-		sortByColumn: YearMonth
 		sourceColumn: YearMonthName
+		sortByColumn: YearMonth
 
 		annotation SummarizationSetBy = Automatic
 

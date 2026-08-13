@@ -1,0 +1,39 @@
+table 'Metric Selector'
+	lineageTag: f8a9b0c1-4d6e-4f8a-cd9c-2d4e5f6a7b8c
+
+	column Metric
+		dataType: string
+		lineageTag: a9b0c1d2-5e7f-4a9b-dead-3e5f6a7b8c9d
+		summarizeBy: none
+		sourceColumn: Metric
+		sortByColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		dataType: int64
+		formatString: 0
+		lineageTag: b0c1d2e3-6f8a-4b0c-efbf-4f6a7b8c9d0e
+		summarizeBy: sum
+		sourceColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Metric Selector' = m
+		mode: import
+		source =
+				let
+				    Source =
+				        #table(
+				            type table [Metric = text, SortOrder = Int64.Type],
+				            {
+				                {"Sales Amount", 0},
+				                {"Gross Margin", 1},
+				                {"Gross Margin %", 2},
+				                {"Quantity", 3}
+				            }
+				        )
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
