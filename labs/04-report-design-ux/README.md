@@ -139,6 +139,81 @@ Users can move through the report without relying only on page tabs.
 
 Learners can provide controlled self-service flexibility without creating duplicate report pages.
 
+### Deeper Understanding Challenge: Build a disconnected metric selector
+
+Field parameters are the native Power BI way to let users switch fields or measures in a visual. Another common pattern is a disconnected selector table plus a DAX `SWITCH` measure. Build this second pattern so you can compare it to the native field parameter.
+
+#### Goal
+
+Create a metric selector using Power Query and DAX, then compare it to the field parameter created in the main lab.
+
+#### Step 1: Create the disconnected selector table in Power Query
+
+1. Open **Transform data**.
+2. Create a **Blank Query**.
+3. Rename it `Metric Selector`.
+4. Open **Advanced Editor**.
+5. Replace the query with:
+
+```powerquery
+let
+    Source =
+        #table(
+            type table [Metric = text, SortOrder = Int64.Type],
+            {
+                {"Sales Amount", 0},
+                {"Gross Margin", 1},
+                {"Gross Margin %", 2},
+                {"Quantity", 3}
+            }
+        )
+in
+    Source
+```
+
+6. Select **Close & Apply**.
+7. In Model view, confirm `Metric Selector` has no relationships.
+8. Sort `Metric Selector[Metric]` by `Metric Selector[SortOrder]`.
+
+#### Step 2: Create the DAX switching measure
+
+```DAX
+Selected Metric Value =
+VAR SelectedMetric =
+    SELECTEDVALUE ( 'Metric Selector'[Metric], "Sales Amount" )
+RETURN
+    SWITCH (
+        SelectedMetric,
+        "Sales Amount", [Sales Amount],
+        "Gross Margin", [Gross Margin],
+        "Gross Margin %", [Gross Margin %],
+        "Quantity", [Quantity],
+        [Sales Amount]
+    )
+```
+
+#### Step 3: Use it in a visual
+
+1. Add `Metric Selector[Metric]` to a slicer.
+2. Add a bar chart, line chart, or matrix.
+3. Add `Selected Metric Value` to the visual values.
+4. Use the slicer to switch metrics.
+5. Compare this behavior to the native field parameter visual.
+
+#### Reflection questions
+
+| Question | Notes |
+|---|---|
+| Which pattern was easier to create? | Field parameter or disconnected selector? |
+| Which pattern was easier to understand? | Why? |
+| Which pattern gives more DAX control? | Think about custom fallback logic. |
+| Which pattern works better for switching dimensions? | Field parameters usually win here. |
+| What formatting issue appears when switching between currency, whole numbers, and percentages? | A single measure has one format unless you add more advanced logic. |
+
+#### Expected learning
+
+Students should understand that Power Query can create the disconnected selector table, DAX is still needed to respond to slicer selections, field parameters are better for native field/measure swapping, and disconnected tables plus `SWITCH` are useful when you want custom logic or teaching clarity.
+
 ## Lab 6: Conditional formatting
 
 **Objective:** Use visual formatting to highlight business meaning.

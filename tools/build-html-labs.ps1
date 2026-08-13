@@ -669,6 +669,46 @@ function RenderHowToGuide($moduleNumber) {
     <div class="task-card"><h3>Create a field parameter</h3><ol><li>Select <strong>Modeling &gt; New parameter &gt; Fields</strong>.</li><li>Name it <code>Metric Parameter</code>.</li><li>Select approved measures such as <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code>.</li><li>Keep <strong>Add slicer to this page</strong> selected and choose <strong>Create</strong>.</li><li>Add the generated parameter field to a visual's values well and use the slicer to switch metrics.</li></ol></div>
   </div>
 </section>
+<section>
+  <h2>Deeper Understanding Challenge</h2>
+  <div class="task-card">
+    <h3>Build a disconnected metric selector</h3>
+    <p>Compare native field parameters with a Power Query selector table and a DAX <code>SWITCH</code> measure.</p>
+    <ol>
+      <li>Create a blank Power Query named <code>Metric Selector</code>.</li>
+      <li>Use <code>#table</code> to create rows for Sales Amount, Gross Margin, Gross Margin %, and Quantity.</li>
+      <li>Load the table without creating relationships.</li>
+      <li>Create a DAX measure named <code>Selected Metric Value</code> using <code>SELECTEDVALUE</code> and <code>SWITCH</code>.</li>
+      <li>Add <code>Metric Selector[Metric]</code> to a slicer and <code>Selected Metric Value</code> to a visual.</li>
+      <li>Compare the behavior to the native field parameter visual.</li>
+    </ol>
+    <pre class="code"><code>let
+    Source =
+        #table(
+            type table [Metric = text, SortOrder = Int64.Type],
+            {
+                {"Sales Amount", 0},
+                {"Gross Margin", 1},
+                {"Gross Margin %", 2},
+                {"Quantity", 3}
+            }
+        )
+in
+    Source</code></pre>
+    <pre class="code"><code>Selected Metric Value =
+VAR SelectedMetric =
+    SELECTEDVALUE ( 'Metric Selector'[Metric], "Sales Amount" )
+RETURN
+    SWITCH (
+        SelectedMetric,
+        "Sales Amount", [Sales Amount],
+        "Gross Margin", [Gross Margin],
+        "Gross Margin %", [Gross Margin %],
+        "Quantity", [Quantity],
+        [Sales Amount]
+    )</code></pre>
+  </div>
+</section>
 '@ }
     "05" { return @'
 <section>
