@@ -38,6 +38,7 @@ By the end of this module, learners will be able to:
 - [Gov-Safe Alternate Path](gov-safe-alternate-path.md)
 - [Copilot Conceptual Section](copilot-conceptual-section.md)
 - [Knowledge Check](knowledge-check.md)
-- [Module labs](..\..\labs\06-advanced-analytics-ai\README.md)
+- [Module labs](..\..\Student\Labs\Source\06-advanced-analytics-ai\README.md)
+
 
 

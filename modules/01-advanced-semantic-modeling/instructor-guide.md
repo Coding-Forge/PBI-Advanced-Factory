@@ -45,7 +45,7 @@ Learners should already understand tables, relationships, basic measures, slicer
 ## Environment setup
 
 - Power BI Desktop installed.
-- Access to the lab CSV files under `labs\01-advanced-semantic-modeling\data`.
+- Access to the lab CSV files under `Student\Labs\Source\01-advanced-semantic-modeling\data`.
 - Optional: SQL source or other DirectQuery-capable source for composite model demonstration.
 
 ## Lab facilitation notes
@@ -86,4 +86,5 @@ The required lab path uses Power BI Desktop and local CSV files. This keeps the 
 - Demonstrate DirectQuery against a cloud data warehouse.
 - Demonstrate composite models with Dual-mode dimensions.
 - Publish to a Premium/Fabric workspace and discuss large semantic model settings.
+
 

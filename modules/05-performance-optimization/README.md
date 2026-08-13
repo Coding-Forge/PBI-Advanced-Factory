@@ -37,6 +37,7 @@ By the end of this module, learners will be able to:
 - [Teaching Deck](assets\performance-optimization.pptx)
 - [Performance Benchmark Targets](performance-benchmark-targets.md)
 - [Knowledge Check](knowledge-check.md)
-- [Module labs](..\..\labs\05-performance-optimization\README.md)
+- [Module labs](..\..\Student\Labs\Source\05-performance-optimization\README.md)
+
 
 

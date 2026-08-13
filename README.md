@@ -37,7 +37,7 @@ For customer delivery, validate feature availability in the target tenant before
 - [Knowledge Checks and Answer Keys](docs\knowledge-checks-and-answer-keys.md)
 - [Gov Delivery Notes](docs\gov-delivery-notes.md)
 - [Commercial Delivery Notes](docs\commercial-delivery-notes.md)
-- [Labs README](labs\README.md)
+- [Labs Source README](Student\Labs\Source\README.md)
 
 ## Modules
 
@@ -52,12 +52,14 @@ For customer delivery, validate feature availability in the target tenant before
 - [Module 9: Monitoring, Administration, and Governance](modules\09-monitoring-governance\README.md)
 - [Module 10: Premium, Fabric, and Capacity-Aware Architecture](modules\10-premium-fabric-capacity\README.md)
 - [Module 11: Automation, DevOps, and Lifecycle Management](modules\11-automation-devops\README.md)
-- [Capstone Lab: Enterprise-Ready Power BI Solution](labs\12-capstone\README.md)
+- [Capstone Lab: Enterprise-Ready Power BI Solution](Student\Labs\Source\12-capstone\README.md)
 
 ## Local Power BI development
 
-Use `pbi-local\` for ongoing PBIP solution development. PBIP projects in that folder can be promoted into `labs\<module>\starter\` or `labs\<module>\solution\` when they are ready for learner use.
+Use `pbi-local\` for ongoing PBIP solution development. PBIP projects in that folder can be promoted into `Student\Labs\Source\<module>\starter\` or `Student\Labs\Source\<module>\solution\` when they are ready for learner use.
 
 ## HTML lab delivery
 
 The student-facing HTML lab site is in `Student\Labs\Web`. Open `Student\Labs\Web\index.html` to launch the lab menu. Customer branding is controlled by `Student\Labs\Web\scripts\delivery-config.js`; see `Student\Labs\Web\BRANDING.md`.
+
+

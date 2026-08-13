@@ -37,6 +37,7 @@ By the end of this module, learners will be able to:
 - [Teaching Deck](assets\advanced-semantic-modeling.pptx)
 - [Knowledge Check](knowledge-check.md)
 - [Troubleshooting Notes](troubleshooting.md)
-- [Module labs](..\..\labs\01-advanced-semantic-modeling\README.md)
+- [Module labs](..\..\Student\Labs\Source\01-advanced-semantic-modeling\README.md)
+
 
 

@@ -1,6 +1,6 @@
 # Screenshot Capture Plan
 
-Use this plan when the Module 4 PBIP report is available. Screenshots should be stored in `labs\04-report-design-ux\images`.
+Use this plan when the Module 4 PBIP report is available. Screenshots should be stored in `Student\Labs\Source\04-report-design-ux\images`.
 
 ## Required screenshots
 
@@ -26,4 +26,5 @@ Use this plan when the Module 4 PBIP report is available. Screenshots should be 
 ## Checklist dependency
 
 The deliverable checklist item **Create finished report screenshots** should remain unchecked until these images are captured from the completed PBIP report.
+
 

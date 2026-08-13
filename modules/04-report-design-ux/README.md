@@ -42,6 +42,7 @@ By the end of this module, learners will be able to:
 - [Report UX Design Standards](report-ux-design-standards.md)
 - [Knowledge Check](knowledge-check.md)
 - [Screenshot Capture Plan](screenshot-capture-plan.md)
-- [Module labs](..\..\labs\04-report-design-ux\README.md)
+- [Module labs](..\..\Student\Labs\Source\04-report-design-ux\README.md)
+
 
 

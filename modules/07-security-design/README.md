@@ -39,6 +39,7 @@ By the end of this module, learners will be able to:
 - [Teaching Deck](assets\security-design.pptx)
 - [Security Review Checklist](security-review-checklist.md)
 - [Knowledge Check](knowledge-check.md)
-- [Module labs](..\..\labs\07-security-design\README.md)
+- [Module labs](..\..\Student\Labs\Source\07-security-design\README.md)
+
 
 

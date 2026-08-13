@@ -12,7 +12,7 @@ Contoso Advanced Manufacturing has a sales analytics report that started as a si
 
 - Power BI Desktop
 - Basic understanding of relationships and measures
-- Access to the module data files in `labs\01-advanced-semantic-modeling\data`
+- Access to the module data files in `Student\Labs\Source\01-advanced-semantic-modeling\data`
 
 ## Azure Government readiness
 
@@ -128,4 +128,5 @@ Your completed model should include:
 ## Optional extension
 
 If tenant and source capabilities are validated, discuss composite model and DirectQuery design choices. Calculation groups are covered in Module 2, and field parameters are covered in Module 4.
+
 

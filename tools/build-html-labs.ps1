@@ -567,7 +567,7 @@ function RenderUrls($moduleNumber) {
 }
 
 function RenderLabSequence($moduleNumber) {
-  $labReadme = Get-ChildItem -Path (Join-Path $repoRoot "labs") -Directory |
+  $labReadme = Get-ChildItem -Path (Join-Path $repoRoot "Student\Labs\Source") -Directory |
     Where-Object { $_.Name -like "$moduleNumber-*" } |
     Select-Object -First 1 |
     ForEach-Object { Join-Path $_.FullName "README.md" }
@@ -1876,7 +1876,7 @@ Write-Utf8NoBom -Path (Join-Path $webRoot "BRANDING.md") -Content $brandingReadm
 $webImagesRoot = Join-Path $webRoot "images"
 $module02ImagesRoot = Join-Path $webImagesRoot "02-advanced-dax"
 New-Item -ItemType Directory -Force -Path $module02ImagesRoot | Out-Null
-$calculationGroupImage = Join-Path $repoRoot "labs\02-advanced-dax\images\CalculationGroups-annotated.png"
+$calculationGroupImage = Join-Path $repoRoot "Student\Labs\Source\02-advanced-dax\images\CalculationGroups-annotated.png"
 if (Test-Path $calculationGroupImage) {
   Copy-Item -Path $calculationGroupImage -Destination (Join-Path $module02ImagesRoot "CalculationGroups-annotated.png") -Force
 }
@@ -1889,3 +1889,5 @@ for ($i = 0; $i -lt $modules.Count; $i++) {
 }
 
 Write-Host "Generated HTML labs in $webRoot"
+
+

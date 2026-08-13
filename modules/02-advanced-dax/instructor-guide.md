@@ -49,7 +49,7 @@ Learners should understand basic measures, relationships, slicers, filters, and 
 ## Environment setup
 
 - Power BI Desktop installed.
-- Module 1 model or equivalent model built from `labs\01-advanced-semantic-modeling\data`.
+- Module 1 model or equivalent model built from `Student\Labs\Source\01-advanced-semantic-modeling\data`.
 - Optional: DAX Studio installed for diagnostics.
 - Optional: Tabular Editor for model inspection, not required for core labs.
 
@@ -83,4 +83,5 @@ The required DAX labs are Gov-ready because they rely on Power BI Desktop and co
 - Create calculation groups using native Power BI Desktop, TMDL View, or Tabular Editor where validated.
 - Use Tabular Editor for bulk measure review.
 - Demonstrate DAX query view or newer Desktop diagnostics if available in the delivery environment.
+
 

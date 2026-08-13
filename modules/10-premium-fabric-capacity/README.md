@@ -42,6 +42,7 @@ By the end of this module, learners will be able to:
 - [Licensing and Capacity Comparison](licensing-capacity-comparison.md)
 - [Gov-Safe Alternate Architecture Path](gov-safe-alternate-architecture-path.md)
 - [Knowledge Check](knowledge-check.md)
-- [Module labs](..\..\labs\10-premium-fabric-capacity\README.md)
+- [Module labs](..\..\Student\Labs\Source\10-premium-fabric-capacity\README.md)
+
 
 

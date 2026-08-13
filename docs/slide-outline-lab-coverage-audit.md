@@ -1,6 +1,6 @@
 # Slide Outline to Lab Coverage Audit
 
-This audit compares each module `slide-outline.md` with the corresponding `labs/<module>/README.md`. Use it as an instructor planning checklist: `Partial` and `Needs review` items are candidates for lab updates or outline simplification.
+This audit compares each module `slide-outline.md` with the corresponding `Student/Labs/Source/<module>/README.md`. Use it as an instructor planning checklist: `Partial` and `Needs review` items are candidates for lab updates or outline simplification.
 ## Summary
 
 | Module | Covered | Partial | Needs review |
@@ -248,3 +248,4 @@ This audit compares each module `slide-outline.md` with the corresponding `labs/
 **Coverage note:** PBIP, git workflow, Tabular Editor/ALM Toolkit, REST/PowerShell, DevOps/GitHub Actions, and checklist are represented.
 
 **Fix item:** CI/CD remains conceptual; add runnable pipeline samples only after environment assumptions are finalized.
+

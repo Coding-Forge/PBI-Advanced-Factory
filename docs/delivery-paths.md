@@ -121,7 +121,7 @@ For Azure Government customers, use the Gov-ready path by default:
 
 ## Local PBIP development area
 
-Use `pbi-local\` for ongoing local Power BI solution development. This folder is intended for work-in-progress PBIP projects and related local development artifacts before selected starter/solution artifacts are promoted into the appropriate `labs\<module>\starter\` or `labs\<module>\solution\` folders.
+Use `pbi-local\` for ongoing local Power BI solution development. This folder is intended for work-in-progress PBIP projects and related local development artifacts before selected starter/solution artifacts are promoted into the appropriate `Student\Labs\Source\<module>\starter\` or `Student\Labs\Source\<module>\solution\` folders.
 
 Recommended pattern:
 
@@ -133,4 +133,5 @@ pbi-local\
 ```
 
 When an artifact is ready for learners, copy or promote it from `pbi-local\` into the relevant lab folder.
+
 

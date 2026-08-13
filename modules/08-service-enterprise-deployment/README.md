@@ -43,6 +43,7 @@ By the end of this module, learners will be able to:
 - [Workspace Setup Instructions](workspace-setup-instructions.md)
 - [Endorsement Governance Checklist](endorsement-governance-checklist.md)
 - [Knowledge Check](knowledge-check.md)
-- [Module labs](..\..\labs\08-service-enterprise-deployment\README.md)
+- [Module labs](..\..\Student\Labs\Source\08-service-enterprise-deployment\README.md)
+
 
 

@@ -4,7 +4,7 @@
 
 | Symptom | Likely cause | Resolution |
 |---|---|---|
-| CSV files do not load | File path changed or Power BI cached a previous path | Use **Transform data > Data source settings** and update the source path to `labs\01-advanced-semantic-modeling\data`. |
+| CSV files do not load | File path changed or Power BI cached a previous path | Use **Transform data > Data source settings** and update the source path to `Student\Labs\Source\01-advanced-semantic-modeling\data`. |
 | Date columns load as text | Locale or type detection issue | Set `OrderDate`, `ShipDate`, `InvoiceDate`, and `TargetMonth` to Date in Power Query. |
 | Numeric columns load as text | Locale or delimiter issue | Confirm comma delimiter and set quantity, price, cost, sales, margin, and target columns to Whole Number or Decimal Number. |
 
@@ -51,4 +51,5 @@
 |---|---|---|
 | Learner asks about calculation groups | This is an advanced DAX maintainability topic | Continue to Module 2, where calculation groups are taught with time-intelligence measures. |
 | Learner asks about field parameters | This is a report interaction and UX topic | Continue to Module 4, where field parameters are taught as guided report exploration. |
+
 

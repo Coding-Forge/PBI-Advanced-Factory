@@ -38,6 +38,7 @@ By the end of this module, learners will be able to:
 - [Teaching Deck](assets\advanced-power-query.pptx)
 - [Knowledge Check](knowledge-check.md)
 - [Troubleshooting Notes](troubleshooting.md)
-- [Module labs](..\..\labs\03-advanced-power-query\README.md)
+- [Module labs](..\..\Student\Labs\Source\03-advanced-power-query\README.md)
+
 
 

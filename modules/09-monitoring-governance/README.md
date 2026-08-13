@@ -39,6 +39,7 @@ By the end of this module, learners will be able to:
 - [Teaching Deck](assets\monitoring-governance.pptx)
 - [Operations Runbook Template](operations-runbook-template.md)
 - [Knowledge Check](knowledge-check.md)
-- [Module labs](..\..\labs\09-monitoring-governance\README.md)
+- [Module labs](..\..\Student\Labs\Source\09-monitoring-governance\README.md)
+
 
 

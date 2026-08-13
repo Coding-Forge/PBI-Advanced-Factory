@@ -41,6 +41,7 @@ By the end of this module, learners will be able to:
 - [Deployment Checklist](deployment-checklist.md)
 - [Conceptual CI/CD Pipelines](conceptual-cicd-pipelines.md)
 - [Knowledge Check](knowledge-check.md)
-- [Module labs](..\..\labs\11-automation-devops\README.md)
+- [Module labs](..\..\Student\Labs\Source\11-automation-devops\README.md)
+
 
 

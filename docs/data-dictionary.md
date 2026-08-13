@@ -10,7 +10,7 @@ Labs should load CSV data through the Power BI **Web** connector from the reposi
 https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/
 ```
 
-The lab-local `labs\...\data` files are retained as authoring/reference copies. The canonical learner-facing source for Power BI imports is the `data\` folder.
+The lab-local `Student\Labs\Source\...\data` files are retained as authoring/reference copies. The canonical learner-facing source for Power BI imports is the `data\` folder.
 
 ## Module 1: Advanced Semantic Modeling
 
@@ -219,4 +219,5 @@ https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/se
 | BuildPermission | Whether Build permission is intended. |
 | ExternalSharingAllowed | Whether external sharing is allowed or requires validation. |
 | Notes | Governance notes. |
+
 

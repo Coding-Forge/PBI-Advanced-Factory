@@ -41,6 +41,7 @@ By the end of this module, learners will be able to:
 - [Teaching Deck](assets\advanced-dax.pptx)
 - [DAX Pattern Reference](dax-pattern-reference.md)
 - [Knowledge Check](knowledge-check.md)
-- [Module labs](..\..\labs\02-advanced-dax\README.md)
+- [Module labs](..\..\Student\Labs\Source\02-advanced-dax\README.md)
+
 
 

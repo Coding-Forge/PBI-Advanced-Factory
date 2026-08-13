@@ -12,7 +12,7 @@ Contoso Advanced Manufacturing receives monthly order extracts from multiple ope
 
 - Power BI Desktop
 - Basic Power Query experience
-- Access to `labs\03-advanced-power-query\data`
+- Access to `Student\Labs\Source\03-advanced-power-query\data`
 
 ## Azure Government readiness
 
@@ -55,4 +55,5 @@ Your completed module work should include:
 - Explicit error-handling steps.
 - Incremental refresh preparation notes.
 - Azure Government feature availability notes.
+
 

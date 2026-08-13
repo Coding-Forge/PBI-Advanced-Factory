@@ -49,7 +49,7 @@ Learners should understand workspaces, semantic models, relationships, basic DAX
 
 - Power BI Desktop installed.
 - PBIP model/report from earlier modules.
-- Security sample files under `labs\07-security-design\data`.
+- Security sample files under `Student\Labs\Source\07-security-design\data`.
 - Optional: Power BI Service workspace.
 - Optional: Tenant with Purview sensitivity labels configured.
 - Optional: XMLA-compatible tooling for OLS demonstration.
@@ -80,4 +80,5 @@ Static and dynamic RLS are Gov-ready core labs. OLS, sensitivity labels, Purview
 - Demonstrate sensitivity labels in a configured commercial tenant.
 - Demonstrate OLS using XMLA-compatible tooling.
 - Demonstrate downstream Build permission with Analyze in Excel or thin reports.
+
 

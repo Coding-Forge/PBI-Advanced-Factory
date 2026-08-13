@@ -44,5 +44,6 @@ All Power BI work should be created as PBIP projects. PBIP is the source-control
 - [Module 9 learner guide](..\modules\09-monitoring-governance\learner-guide.md)
 - [Module 10 learner guide](..\modules\10-premium-fabric-capacity\learner-guide.md)
 - [Module 11 learner guide](..\modules\11-automation-devops\learner-guide.md)
-- [Capstone guide](..\labs\12-capstone\learner-step-by-step-guide.md)
+- [Capstone guide](..\Student\Labs\Source\12-capstone\learner-step-by-step-guide.md)
+
 

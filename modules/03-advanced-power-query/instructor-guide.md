@@ -50,7 +50,7 @@ Learners should understand basic Power Query steps, data types, merging, appendi
 ## Environment setup
 
 - Power BI Desktop installed.
-- Lab files under `labs\03-advanced-power-query\data`.
+- Lab files under `Student\Labs\Source\03-advanced-power-query\data`.
 - Optional: SQL Server, Azure SQL, or another query-folding-capable source for folding demonstration.
 - Optional: Power BI Service workspace for incremental refresh or dataflow demonstrations.
 
@@ -81,4 +81,5 @@ The required labs are Gov-ready because they use local files and Desktop transfo
 - Demonstrate query folding against Azure SQL or Fabric Warehouse.
 - Build a Power BI dataflow or Dataflow Gen2.
 - Publish a model and configure incremental refresh policy.
+
 

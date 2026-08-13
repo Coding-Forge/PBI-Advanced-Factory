@@ -11,9 +11,9 @@ Use these standards when creating training modules, labs, datasets, screenshots,
 - Write hands-on steps for a Power BI novice who is improving their reporting skills: include menu paths, exact object names, fields/measures to select, expected UI behavior, and validation steps instead of only saying "create" or "review" a feature.
 - Do not require preview, commercial-only, or Fabric-specific features in the core Gov-ready path unless the customer tenant has been validated.
 - Build Power BI deliverables as PBIP projects first so report and semantic model source files can be reviewed and checked into git. Treat PBIX files as generated/exportable artifacts that can be created from PBIP later when needed.
-- Use `pbi-local\` for ongoing PBIP solution development. Promote completed learner-ready artifacts into the relevant `labs\<module>\starter\` or `labs\<module>\solution\` folder.
+- Use `pbi-local\` for ongoing PBIP solution development. Promote completed learner-ready artifacts into the relevant `Student\Labs\Source\<module>\starter\` or `Student\Labs\Source\<module>\solution\` folder.
 - Use `Student\Labs\Web` for student-facing HTML lab instructions with completion checkboxes. Regenerate the site with `tools\build-html-labs.ps1` after major lab flow changes.
-- Keep the generated HTML and Markdown lab paths aligned: every numbered `## Lab N:` section in `labs\<module>\README.md` should be visible in the corresponding `Student\Labs\Web\<module>.html` page, even when optional or marked **Verify for Gov**.
+- Keep the generated HTML and Markdown lab paths aligned: every numbered `## Lab N:` section in `Student\Labs\Source\<module>\README.md` should be visible in the corresponding `Student\Labs\Web\<module>.html` page, even when optional or marked **Verify for Gov**.
 
 ## Azure Government feature availability labels
 
@@ -36,7 +36,7 @@ Each module should include:
 - `learner-guide.md` - learner-facing explanation and lab steps.
 - `knowledge-check.md` - review questions and applied prompts.
 - `assets\` - images, diagrams, and supporting files.
-- `labs\` or linked lab folder - starter files, solution files, data, and validation steps.
+- `Student\Labs\Source\` or linked lab folder - starter files, solution files, data, and validation steps.
 
 ## Required lab structure
 
@@ -157,4 +157,6 @@ Recommended source categories:
 - [ ] Instructor notes include setup and troubleshooting guidance.
 - [ ] Learner steps include expected outcomes.
 - [ ] Any tenant, license, capacity, or admin dependency is documented.
+
+
 
