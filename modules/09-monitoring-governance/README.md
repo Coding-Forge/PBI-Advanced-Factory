@@ -36,7 +36,9 @@ By the end of this module, learners will be able to:
 - [Instructor Guide](instructor-guide.md)
 - [Learner Guide](learner-guide.md)
 - [Slide Outline](slide-outline.md)
+- [Teaching Deck](assets\monitoring-governance.pptx)
 - [Operations Runbook Template](operations-runbook-template.md)
 - [Knowledge Check](knowledge-check.md)
 - [Module labs](..\..\labs\09-monitoring-governance\README.md)
+
 

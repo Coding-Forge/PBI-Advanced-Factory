@@ -37,8 +37,10 @@ By the end of this module, learners will be able to:
 - [Instructor Guide](instructor-guide.md)
 - [Learner Guide](learner-guide.md)
 - [Slide Outline](slide-outline.md)
+- [Teaching Deck](assets\automation-devops.pptx)
 - [Deployment Checklist](deployment-checklist.md)
 - [Conceptual CI/CD Pipelines](conceptual-cicd-pipelines.md)
 - [Knowledge Check](knowledge-check.md)
 - [Module labs](..\..\labs\11-automation-devops\README.md)
+
 

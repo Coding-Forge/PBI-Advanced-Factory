@@ -34,8 +34,10 @@ By the end of this module, learners will be able to:
 - [Instructor Guide](instructor-guide.md)
 - [Learner Guide](learner-guide.md)
 - [Slide Outline](slide-outline.md)
+- [Teaching Deck](assets\advanced-analytics-ai.pptx)
 - [Gov-Safe Alternate Path](gov-safe-alternate-path.md)
 - [Copilot Conceptual Section](copilot-conceptual-section.md)
 - [Knowledge Check](knowledge-check.md)
 - [Module labs](..\..\labs\06-advanced-analytics-ai\README.md)
+
 

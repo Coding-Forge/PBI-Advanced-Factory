@@ -38,8 +38,10 @@ By the end of this module, learners will be able to:
 - [Instructor Guide](instructor-guide.md)
 - [Learner Guide](learner-guide.md)
 - [Slide Outline](slide-outline.md)
+- [Teaching Deck](assets\report-design-ux.pptx)
 - [Report UX Design Standards](report-ux-design-standards.md)
 - [Knowledge Check](knowledge-check.md)
 - [Screenshot Capture Plan](screenshot-capture-plan.md)
 - [Module labs](..\..\labs\04-report-design-ux\README.md)
+
 

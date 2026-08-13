@@ -34,7 +34,9 @@ By the end of this module, learners will be able to:
 - [Instructor Guide](instructor-guide.md)
 - [Learner Guide](learner-guide.md)
 - [Slide Outline](slide-outline.md)
+- [Teaching Deck](assets\performance-optimization.pptx)
 - [Performance Benchmark Targets](performance-benchmark-targets.md)
 - [Knowledge Check](knowledge-check.md)
 - [Module labs](..\..\labs\05-performance-optimization\README.md)
+
 

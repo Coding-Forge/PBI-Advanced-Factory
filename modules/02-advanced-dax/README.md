@@ -38,7 +38,9 @@ By the end of this module, learners will be able to:
 - [Instructor Guide](instructor-guide.md)
 - [Learner Guide](learner-guide.md)
 - [Slide Outline](slide-outline.md)
+- [Teaching Deck](assets\advanced-dax.pptx)
 - [DAX Pattern Reference](dax-pattern-reference.md)
 - [Knowledge Check](knowledge-check.md)
 - [Module labs](..\..\labs\02-advanced-dax\README.md)
+
 

@@ -36,7 +36,9 @@ By the end of this module, learners will be able to:
 - [Instructor Guide](instructor-guide.md)
 - [Learner Guide](learner-guide.md)
 - [Slide Outline](slide-outline.md)
+- [Teaching Deck](assets\security-design.pptx)
 - [Security Review Checklist](security-review-checklist.md)
 - [Knowledge Check](knowledge-check.md)
 - [Module labs](..\..\labs\07-security-design\README.md)
+
 

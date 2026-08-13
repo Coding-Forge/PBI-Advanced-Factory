@@ -39,8 +39,10 @@ By the end of this module, learners will be able to:
 - [Instructor Guide](instructor-guide.md)
 - [Learner Guide](learner-guide.md)
 - [Slide Outline](slide-outline.md)
+- [Teaching Deck](assets\service-enterprise-deployment.pptx)
 - [Workspace Setup Instructions](workspace-setup-instructions.md)
 - [Endorsement Governance Checklist](endorsement-governance-checklist.md)
 - [Knowledge Check](knowledge-check.md)
 - [Module labs](..\..\labs\08-service-enterprise-deployment\README.md)
+
 
