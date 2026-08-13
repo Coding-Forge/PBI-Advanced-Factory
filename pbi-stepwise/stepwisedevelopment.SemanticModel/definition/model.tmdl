@@ -21,9 +21,9 @@ ref table DimTerritory
 ref table FactTargets
 ref table BridgeCustomerSegment
 ref table DimSegment
+ref table _Measures
 ref table DimOrderDate
 ref table DimShipDate
-ref table _Measures
 
 ref cultureInfo en-US
 
