@@ -47,19 +47,29 @@
             }
           }
         }
-      ]
-    },
-    "drillFilterOtherVisuals": true,
-    "title": {
-      "titleText": {
-        "expr": {
-          "Literal": {
-            "Value": "'Margin Adjustment %'"
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Margin Adjustment %'"
+                }
+              }
+            }
           }
         }
-      },
-      "show": true
-    }
+      ]
+    },
+    "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [
