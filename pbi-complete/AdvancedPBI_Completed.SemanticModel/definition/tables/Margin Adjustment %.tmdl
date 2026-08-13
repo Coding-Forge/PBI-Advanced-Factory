@@ -1,0 +1,30 @@
+table 'Margin Adjustment %'
+	lineageTag: cc734538-af77-4426-8e24-4cd9ab168024
+
+	column 'Margin Adjustment %'
+		dataType: double
+		formatString: 0%;-0%;0%
+		lineageTag: 28c1fd5b-3e45-456a-ad57-68db478384f5
+		summarizeBy: sum
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 1,
+				  "min": -0.1,
+				  "max": 0.2,
+				  "increment": 0.01,
+				  "default": 0
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Margin Adjustment %' = calculated
+		mode: import
+		source = GENERATESERIES(-0.1, 0.2, 0.01)
+
+	annotation PBI_Id = 0be2d0afb90842d0bf38aea4320bac6c
+

@@ -1,0 +1,47 @@
+table DimProduct
+	lineageTag: 45aee981-f9b1-438a-935b-2b7515104ea7
+
+	column ProductKey
+		dataType: string
+		lineageTag: e44e142e-e3a3-4cb8-af95-13634959bdcd
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: 93b3bdd3-2859-4673-a76c-e3607281d192
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategory
+		dataType: string
+		lineageTag: ea87ff5a-a415-4ccb-aefc-9c1bd1fd126a
+		summarizeBy: none
+		sourceColumn: ProductCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSubcategory
+		dataType: string
+		lineageTag: 40e1ef90-adbe-4315-8bac-8f9b0e4da749
+		summarizeBy: none
+		sourceColumn: ProductSubcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimProduct = m
+		mode: import
+		source =
+				let
+				  Source = raw_SalesFlat,
+				  #"Removed other columns" = Table.SelectColumns(Source, {"ProductKey", "ProductName", "ProductCategory", "ProductSubcategory"}),
+				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"ProductKey", "ProductName", "ProductCategory", "ProductSubcategory"})
+				in
+				  #"Removed duplicates"
+
+	annotation PBI_ResultType = Table
+

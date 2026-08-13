@@ -27,3 +27,4 @@ table 'Margin Adjustment %'
 		source = GENERATESERIES(-0.1, 0.2, 0.01)
 
 	annotation PBI_Id = 6f3e8a1d2b4c4f5e9a7d6c8b1f3e5a2d
+

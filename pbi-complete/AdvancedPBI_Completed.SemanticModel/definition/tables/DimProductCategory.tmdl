@@ -1,0 +1,23 @@
+table DimProductCategory
+	lineageTag: 1b548c6b-2554-427c-9a91-f27436436856
+
+	column ProductCategory
+		dataType: string
+		lineageTag: c0126147-9767-4258-917f-0ae6d6d07a40
+		summarizeBy: none
+		sourceColumn: ProductCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimProductCategory = m
+		mode: import
+		source =
+				let
+				  Source = raw_SalesFlat,
+				  #"Removed other columns" = Table.SelectColumns(Source, {"ProductCategory"}),
+				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"ProductCategory"})
+				in
+				  #"Removed duplicates"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,98 @@
+{
+  "name": "Factory Executive Blue",
+  "dataColors": [
+    "#0F3D56",
+    "#119DA4",
+    "#A1C181",
+    "#F4A259",
+    "#D1495B",
+    "#7768AE",
+    "#3AB795",
+    "#EDAE49",
+    "#5C7AFF",
+    "#C8553D"
+  ],
+  "background": "#F5F7FA",
+  "foreground": "#102A43",
+  "tableAccent": "#119DA4",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#102A43"
+              }
+            },
+            "fontSize": 12,
+            "alignment": "left"
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": false,
+            "radius": 8
+          }
+        ]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#0F3D56"
+              }
+            },
+            "fontSize": 20
+          }
+        ],
+        "categoryLabels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#486581"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "slicer": {
+      "*": {
+        "items": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#102A43"
+              }
+            }
+          }
+        ],
+        "header": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#0F3D56"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

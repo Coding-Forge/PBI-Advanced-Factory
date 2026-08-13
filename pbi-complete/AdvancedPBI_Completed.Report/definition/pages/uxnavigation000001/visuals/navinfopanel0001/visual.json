@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "navinfopanel0001",
+  "position": {
+    "x": 1080,
+    "y": 180,
+    "z": 0,
+    "height": 420,
+    "width": 760,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "query": {
+      "queryState": {}
+    },
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "paragraphs": [
+        {
+          "properties": {
+            "textRuns": [
+              {
+                "value": "Use the navigation buttons to toggle this panel. Bookmarks preserve layout while keeping data context intact."
+              }
+            ]
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Info Panel'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
+  "pageOrder": [
+    "execsummary0001",
+    "uxnavigation000001",
+    "uxfieldparams00001",
+    "uxconditional0001",
+    "uxmobilelayout0001",
+    "uxmarginwhatif001",
+    "uxcustomerdetail01",
+    "uxsalestooltip01"
+  ],
+  "activePageName": "execsummary0001"
+}

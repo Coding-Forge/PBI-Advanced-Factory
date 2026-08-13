@@ -1,0 +1,23 @@
+table DimSegment
+	lineageTag: 6ddb69dd-23a9-4b10-bbd3-057445ef144f
+
+	column Segment
+		dataType: string
+		lineageTag: 6e9d24cb-4122-4323-99f5-347b74cb85de
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimSegment = m
+		mode: import
+		source =
+				let
+				  Source = BridgeCustomerSegment,
+				  #"Removed other columns" = Table.SelectColumns(Source, {"Segment"}),
+				  #"Removed duplicates" = Table.Distinct(#"Removed other columns", {"Segment"})
+				in
+				  #"Removed duplicates"
+
+	annotation PBI_ResultType = Table
+

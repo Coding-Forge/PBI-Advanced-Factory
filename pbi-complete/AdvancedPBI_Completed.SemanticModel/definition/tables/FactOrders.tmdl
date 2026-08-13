@@ -1,0 +1,143 @@
+table FactOrders
+	lineageTag: b1d86c8c-ba1c-4955-b66b-c071527b1457
+
+	column OrderId
+		dataType: int64
+		formatString: 0
+		lineageTag: b2b217cc-02da-409c-acfb-1037b5a5341c
+		summarizeBy: count
+		sourceColumn: OrderId
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1e2e9fe5-ba6e-4352-b2be-cd5ee1bff2be
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerName
+		dataType: string
+		lineageTag: f85cd1de-0202-4202-b647-d78dee5b8b9c
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCode
+		dataType: string
+		lineageTag: d0be37ea-fca5-4b87-b33c-271dd1c312da
+		summarizeBy: none
+		sourceColumn: ProductCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: f5e1c2f4-5102-4f37-bafb-c3c5e57b46e0
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: int64
+		formatString: 0
+		lineageTag: 2305e85e-843c-4b26-914a-dcd2fb47ad8d
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesChannel
+		dataType: string
+		lineageTag: a90d9ec3-b0b9-4afd-b5dd-78a91ea5c7a4
+		summarizeBy: none
+		sourceColumn: SalesChannel
+
+		annotation SummarizationSetBy = Automatic
+
+	column SourceFile
+		dataType: string
+		lineageTag: 42a1cd6b-5800-46e2-859a-bd0990df038b
+		summarizeBy: none
+		sourceColumn: SourceFile
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactOrders = m
+		mode: import
+		source =
+				let
+				    Source = stg_OrdersCombined,
+				    AddedDataQualityIssue =
+				        Table.AddColumn(
+				            Source,
+				            "DataQualityIssue",
+				            each
+				                let
+				                    ParsedOrderDate = try Date.From([OrderDate]) otherwise null,
+				                    ParsedQuantity = try Number.From([Quantity]) otherwise null,
+				                    ParsedUnitPrice = try Number.From([UnitPrice]) otherwise null,
+				                    ProductCodeText = try Text.Trim(Text.From([ProductCode])) otherwise "",
+				                    Issues =
+				                        List.RemoveNulls(
+				                            {
+				                                if ParsedOrderDate = null then "Missing or invalid OrderDate" else null,
+				                                if ParsedQuantity = null or ParsedQuantity <= 0 then "Missing or non-positive Quantity" else null,
+				                                if ParsedUnitPrice = null or ParsedUnitPrice <= 0 then "Missing or non-positive UnitPrice" else null,
+				                                if ProductCodeText = "" then "Missing ProductCode" else null
+				                            }
+				                        )
+				                in
+				                    Text.Combine(Issues, "; "),
+				            type text
+				        ),
+				    ValidRows =
+				        Table.SelectRows(
+				            AddedDataQualityIssue,
+				            each [DataQualityIssue] = ""
+				        ),
+				    TypedOrders =
+				        Table.TransformColumnTypes(
+				            ValidRows,
+				            {
+				                {"OrderId", Int64.Type},
+				                {"OrderDate", type date},
+				                {"CustomerName", type text},
+				                {"ProductCode", type text},
+				                {"Quantity", Int64.Type},
+				                {"UnitPrice", Int64.Type},
+				                {"SalesChannel", type text},
+				                {"SourceFile", type text}
+				            }
+				        ),
+				    // Module 3 Lab 7: incremental refresh preparation. Filter on the
+				    // RangeStart/RangeEnd DateTime parameters so the query is ready for an
+				    // incremental refresh policy once published to the Service.
+				    FilteredByRefreshRange =
+				        Table.SelectRows(
+				            TypedOrders,
+				            each [OrderDate] >= Date.From(RangeStart) and [OrderDate] < Date.From(RangeEnd)
+				        ),
+				    CleanedOrderText =
+				        Table.TransformColumns(
+				            FilteredByRefreshRange,
+				            {
+				                {"CustomerName", each fn_CleanText(_), type nullable text},
+				                {"SalesChannel", each fn_CleanText(_), type nullable text}
+				            }
+				        ),
+				    RemovedValidationColumn =
+				        Table.RemoveColumns(CleanedOrderText, {"DataQualityIssue"})
+				in
+				    RemovedValidationColumn
+
+	annotation PBI_ResultType = Table
+

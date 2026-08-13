@@ -1,0 +1,33 @@
+table BridgeCustomerSegment
+	lineageTag: 424b320b-a213-4f00-8fb1-7e15be06bc19
+
+	column CustomerKey
+		dataType: string
+		lineageTag: fd54959a-1d63-4c24-b605-33161469cdd4
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: d2157da2-9fb2-4612-b81e-99cc2236cf48
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BridgeCustomerSegment = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/customer-segments.csv"), [Delimiter = ",", Columns = 2, QuoteStyle = QuoteStyle.None]),
+				  #"Changed column type" = Table.TransformColumnTypes(Source, {{"Column1", type text}, {"Column2", type text}}),
+				  #"Promoted headers" = Table.PromoteHeaders(#"Changed column type", [PromoteAllScalars = true]),
+				  #"Filtered rows" = Table.SelectRows(#"Promoted headers", each ([CustomerKey] <> "")),
+				  #"Removed duplicates" = Table.Distinct(#"Filtered rows", {"CustomerKey", "Segment"})
+				in
+				  #"Removed duplicates"
+
+	annotation PBI_ResultType = Table
+

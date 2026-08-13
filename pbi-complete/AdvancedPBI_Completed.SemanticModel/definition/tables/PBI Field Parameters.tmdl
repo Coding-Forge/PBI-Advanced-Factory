@@ -1,0 +1,49 @@
+table 'PBI Field Parameters'
+	lineageTag: cd213db5-6ac0-41b1-8add-08b092d25029
+
+	column 'Sales Parameters'
+		lineageTag: b934cac7-c183-4e6b-a6c6-de71a7e22434
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'MyTests Order'
+
+		relatedColumnDetails
+			groupByColumn: 'MyTests Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'MyTests Fields'
+		isHidden
+		lineageTag: efdb9d2e-18c7-4bae-99b7-264786607b17
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'MyTests Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'MyTests Order'
+		isHidden
+		formatString: 0
+		lineageTag: 559fb0d1-4b98-475e-b756-848d4b7c03cd
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'PBI Field Parameters' = calculated
+		mode: import
+		source =
+				{
+				    ("Sales Amount", NAMEOF('_Measures'[Sales Amount]), 0),
+				    ("Sales Variance", NAMEOF('_Measures'[Sales Variance]), 2),
+				    ("Sales Variance %", NAMEOF('_Measures'[Sales Variance %]), 3)
+				}
+
+	annotation PBI_Id = bc61831badaa42f2bfcbfd52b455984b
+

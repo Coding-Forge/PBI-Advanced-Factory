@@ -1,0 +1,50 @@
+table 'Margin Target'
+	lineageTag: acfd880f-02cf-42f8-b230-7151be496f23
+
+	column MarginTargetLabel
+		dataType: string
+		lineageTag: aced35b5-e037-4e0b-bd34-d2c11258b5ce
+		summarizeBy: none
+		sourceColumn: MarginTargetLabel
+		sortByColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column MarginTargetValue
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 1ac530bd-864c-4418-8d94-2c63d088a6ce
+		summarizeBy: sum
+		sourceColumn: MarginTargetValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d05864d-323e-46d0-bfbc-e53abd864230
+		summarizeBy: sum
+		sourceColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Margin Target' = m
+		mode: import
+		source =
+				let
+				    Source =
+				        #table(
+				            type table [MarginTargetLabel = text, MarginTargetValue = number, SortOrder = Int64.Type],
+				            {
+				                {"20%", 0.20, 0},
+				                {"25%", 0.25, 1},
+				                {"30%", 0.30, 2},
+				                {"35%", 0.35, 3},
+				                {"40%", 0.40, 4}
+				            }
+				        )
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

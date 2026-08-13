@@ -99,7 +99,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Sales Amount'"
+                                "Value": "'Gross Margin %'"
                               }
                             }
                           ]

@@ -1,0 +1,90 @@
+table 'Time Calculation'
+	lineageTag: 50fb08da-536a-4ab0-9f82-54b08abe0c6e
+
+	calculationGroup
+
+		calculationItem Current = SELECTEDMEASURE()
+
+		calculationItem MTD =
+				
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    DATESMTD ( DimOrderDate[Date] )
+				)
+
+		calculationItem QTD =
+				
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    DATESQTD ( DimOrderDate[Date] )
+				)
+
+		calculationItem YTD =
+				
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    DATESYTD ( DimOrderDate[Date] )
+				)
+
+		calculationItem 'Fiscal YTD' =
+				
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    DATESYTD ( DimOrderDate[Date], "6/30" )
+				)
+
+		calculationItem 'Prior Year' =
+				
+				CALCULATE (
+				    SELECTEDMEASURE(),
+				    SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+				)
+
+		calculationItem 'YoY Change' =
+				
+				VAR PriorYearValue =
+				    CALCULATE (
+				        SELECTEDMEASURE(),
+				        SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+				    )
+				RETURN
+				    SELECTEDMEASURE() - PriorYearValue
+
+		calculationItem 'YoY Change %' =
+				
+				VAR PriorYearValue =
+				    CALCULATE (
+				        SELECTEDMEASURE(),
+				        SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+				    )
+				RETURN
+				    DIVIDE ( SELECTEDMEASURE() - PriorYearValue, PriorYearValue )
+
+		calculationItem 'Rolling 90 Days' =
+				
+				VAR LastVisibleDate =
+				    MAX ( DimOrderDate[Date] )
+				RETURN
+				    CALCULATE (
+				        SELECTEDMEASURE(),
+				        DATESINPERIOD ( DimOrderDate[Date], LastVisibleDate, -90, DAY )
+				    )
+
+	column 'Time Calculation'
+		dataType: string
+		lineageTag: b28e0154-c06a-41b2-967f-0fdcb26ad07d
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: b429212d-fd22-4b0d-bf6b-5bf10a1c95d5
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

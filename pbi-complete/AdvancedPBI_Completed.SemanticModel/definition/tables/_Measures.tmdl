@@ -1,0 +1,252 @@
+table _Measures
+	lineageTag: 9a02f4e9-ee5a-4fbf-bd30-50a20192fe8a
+
+	measure 'Sales Amount' = sum(FactSales[SalesAmount])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: dd6af1a4-5db5-409f-9bb7-e518cab0087b
+
+	measure Quantity = sum(FactSales[Quantity])
+		formatString: 0
+		lineageTag: 22cfb2f7-435d-4fd5-abd3-21fa5223269b
+
+	measure 'Gross Margin' = sum(FactSales[GrossMargin])
+		formatString: 0
+		lineageTag: c8604ecc-3063-42c1-a01e-79675cbe76ef
+
+	measure 'Gross Margin %' = DIVIDE([Gross Margin],[Sales Amount])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 16e5d5ec-6287-4570-89da-81bdb4e7ece3
+
+	measure 'Target Sales Amount' = ```
+			SUM(FactTargets[TargetSalesAmount]) 
+			```
+		formatString: 0
+		lineageTag: 9faef4d0-d992-4956-81ac-397abe2413cb
+
+	measure 'Sales Variance' = [Sales Amount] - [Target Sales Amount]
+		formatString: #,0
+		lineageTag: 5a73efa9-ac9a-4616-8f14-5c44ced928ab
+
+	measure 'Sales Variance %' =
+			
+			DIVIDE ( [Sales Variance], [Target Sales Amount] )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d5776c6a-ff56-4a2a-b397-8af75277eaa7
+
+	measure 'Sales All Products' =
+			
+			CALCULATE (
+			    [Sales Amount],
+			    REMOVEFILTERS ( DimProduct )
+			)
+		formatString: 0
+		lineageTag: 0939d25d-d408-4c33-a3f1-f41d2cb9583d
+
+	measure 'Product Sales Share' =
+			
+			DIVIDE ( [Sales Amount], [Sales All Products] )
+		lineageTag: f6cafe43-d711-4cdc-acdd-4f9720bd23a2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Enterprise Customer Sales' = ```
+			
+			CALCULATE (
+			    [Sales Amount],
+			    KEEPFILTERS ( DimCustomer[CustomerType] = "Enterprise" )
+			)
+			
+			```
+		lineageTag: 6212c0f2-f7fe-4e5e-a898-1cc3a3fc223f
+
+	measure 'Sales YTD' = ```
+			
+			TOTALYTD (
+			    [Sales Amount],
+			    DimOrderDate[Date]
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 299185ac-9f67-405f-9cc6-ee0f98f8b278
+
+	measure 'Sales Prior Year' =
+			
+			CALCULATE (
+			    [Sales Amount],
+			    SAMEPERIODLASTYEAR ( DimOrderDate[Date] )
+			)
+		formatString: 0
+		lineageTag: 75b70200-d62e-4c63-8563-9b55b245aa7b
+
+	measure 'Sales YoY' =
+			
+			[Sales Amount] - [Sales Prior Year]
+		formatString: 0
+		lineageTag: de925cd2-43fa-41b3-8005-d01d40724737
+
+	measure 'Sales YoY %' = ```
+			
+			DIVIDE ( [Sales YoY], [Sales Prior Year] )
+			
+			```
+		lineageTag: 4c00e895-de72-4f14-9ae3-464df463d44d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Rolling 90 Days' =
+			
+			VAR LastVisibleDate =
+			    MAX ( DimOrderDate[Date] )
+			RETURN
+			    CALCULATE (
+			        [Sales Amount],
+			        DATESINPERIOD ( DimOrderDate[Date], LastVisibleDate, -90, DAY )
+			    )
+		formatString: 0
+		lineageTag: 35589d92-3396-4d18-beae-45d9e55c3cc4
+
+	measure 'Customer Sales Rank' = ```
+			
+			RANKX (
+			    ALLSELECTED ( DimCustomer[CustomerName] ),
+			    [Sales Amount],
+			    ,
+			    DESC,
+			    DENSE
+			)
+			
+			
+			```
+		formatString: 0
+		lineageTag: 4c60061d-a4da-4c10-bcdd-54c4f5cb8713
+
+	measure 'Is Top 5 Customer' =
+			
+			IF ( [Customer Sales Rank] <= 5, 1, 0 )
+		formatString: 0
+		lineageTag: 5e064055-ac8f-42a1-9480-427f56aa2dfb
+
+	measure 'Sales Title' =
+			
+			VAR SelectedRegion =
+			    SELECTEDVALUE ( DimTerritory[TerritoryRegion], "All Regions" )
+			RETURN
+			    "Sales Performance - " & SelectedRegion
+		lineageTag: 23bfc83c-d7c1-4dbc-9bc2-6f3d20267a74
+
+	measure 'Selected Metric Value' =
+			
+			VAR SelectedMetric =
+			    SELECTEDVALUE ( 'Metric Parameter'[Metric], "Sales Amount" )
+			RETURN
+			    SWITCH (
+			        SelectedMetric,
+			        "Sales Amount", [Sales Amount],
+			        "Gross Margin", [Gross Margin],
+			        "Gross Margin %", [Gross Margin %],
+			        "Quantity", [Quantity],
+			        [Sales Amount]
+			    )
+		lineageTag: 4df42f44-1e0c-454c-b7e5-83749e0f92f7
+
+	measure 'Selected Margin Target' = SELECTEDVALUE ( 'Margin Target'[MarginTargetValue], 0.30 )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 1df9a650-82e1-4d4c-a6f0-708355a4ffa0
+
+	measure 'Gross Margin vs Target' =
+			
+			IF (
+			    ISBLANK ( [Gross Margin %] ),
+			    BLANK (),
+			    [Gross Margin %] - [Selected Margin Target]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: fc79d721-f32e-4f5c-bae0-b12a07654c22
+
+	measure 'Margin Target Status' =
+			
+			VAR Difference = [Gross Margin vs Target]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( [Gross Margin %] ), BLANK (),
+			        Difference >= 0.05, "Above target",
+			        Difference >= 0, "At target",
+			        Difference >= -0.05, "Near target",
+			        "Below target"
+			    )
+		lineageTag: 6fdf09ae-20a7-48e3-9105-97f974eb28e4
+
+	measure 'Margin Target Status Color' =
+			
+			VAR StatusValue = [Margin Target Status]
+			RETURN
+			    SWITCH (
+			        StatusValue,
+			        "Above target", "#107C10",
+			        "At target", "#107C10",
+			        "Near target", "#FFB900",
+			        "Below target", "#D13438",
+			        "#605E5C"
+			    )
+		lineageTag: d9314ab4-133f-44bd-b394-9fe10757e30f
+
+	measure 'Target Sales Amount (Ending Balance)' =
+			
+			// Semi-additive pattern (Module 2 Lab 4): FactTargets is stored at monthly
+			// snapshot grain (one row per territory/category/month), not a transaction
+			// fact, so SUM-ing target rows across a multi-month selection double-counts.
+			// FactTargets has no relationship to a date dimension, so the "current" month
+			// is resolved directly from FactTargets[TargetMonth] using its own max date
+			// within whatever filter context (e.g. a territory/category slicer) is active.
+			VAR LastTargetMonth =
+			    CALCULATE ( MAX ( FactTargets[TargetMonth] ), ALLSELECTED ( FactTargets[TargetMonth] ) )
+			RETURN
+			    CALCULATE (
+			        [Target Sales Amount],
+			        FactTargets[TargetMonth] = LastTargetMonth
+			    )
+		formatString: 0
+		lineageTag: 8d1b884d-2d08-4d39-8467-ae6290393752
+
+	measure 'Selected Margin Adjustment %' = SELECTEDVALUE ( 'Margin Adjustment %'[Margin Adjustment %], 0 )
+		formatString: 0%;-0%;0%
+		lineageTag: b541f581-669d-43f2-9b65-72683555ea17
+
+	measure 'Adjusted Gross Margin %' =
+			
+			// Module 6 Lab 1: What-If parameter scenario measure.
+			// Applies the user-selected Margin Adjustment % on top of the actual
+			// Gross Margin % so report users can model a scenario without editing the report.
+			[Gross Margin %] + [Selected Margin Adjustment %]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 5da9ecfc-77ae-441e-87c8-a1870d97d5bb
+
+	measure 'Adjusted Gross Margin' =
+			
+			[Adjusted Gross Margin %] * [Sales Amount]
+		formatString: 0
+		lineageTag: 0eb70d11-3842-47a7-bc7c-2ddc27a00892
+
+	column Measures
+		dataType: string
+		isHidden
+		lineageTag: a29c15dc-7e7c-482e-8f81-fefe4dddaf8d
+		summarizeBy: none
+		sourceColumn: Measures
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				  Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Measures = _t])
+				in
+				  Source
+
+	annotation PBI_ResultType = Table
+

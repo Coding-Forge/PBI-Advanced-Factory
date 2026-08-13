@@ -1,0 +1,7 @@
+role 'Dynamic Territory Security'
+	modelPermission: read
+
+	tablePermission SecurityUserTerritory = [UserPrincipalName] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = dad2280ffbf34669ad6af29b735d5f10
+
