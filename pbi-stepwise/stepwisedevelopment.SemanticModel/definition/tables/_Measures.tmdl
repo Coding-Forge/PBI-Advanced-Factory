@@ -29,6 +29,10 @@ table _Measures
 		formatString: \$#,0;(\$#,0);\$#,0
 		lineageTag: b2c3d4e5-8f0a-4b2c-e37e-6f8a9b0c1d2e
 
+	measure Quantity = SUM ( FactSales[Quantity] )
+		formatString: #,0
+		lineageTag: c3d4e5f6-9a1b-4c3d-f489-7a9b0c1d2e3f
+
 	column Value
 		lineageTag: 128e770a-5a8d-4084-b873-bfc8feb87ecc
 		isNameInferred

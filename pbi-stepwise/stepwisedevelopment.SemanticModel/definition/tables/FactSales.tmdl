@@ -115,6 +115,14 @@ table FactSales
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Line Margin % (Row Context Demo)' = DIVIDE ( FactSales[GrossMargin], FactSales[SalesAmount] )
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e4a5b6c7-d8e9-4f0a-8b1c-2d3e4f5a6b7c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition FactSales = m
 		mode: import
 		source =
