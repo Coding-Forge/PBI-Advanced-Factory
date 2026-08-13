@@ -21,9 +21,9 @@
                   {
                     "value": "Bookmarks",
                     "textStyle": {
-                      "fontSize": "15px",
                       "fontWeight": "bold",
-                      "color": "#FFFFFF"
+                      "fontSize": "15px",
+                      "color": "#ffffff"
                     }
                   }
                 ]

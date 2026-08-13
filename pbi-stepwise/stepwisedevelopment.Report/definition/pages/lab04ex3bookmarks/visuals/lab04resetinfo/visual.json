@@ -21,9 +21,9 @@
                   {
                     "value": "Reset",
                     "textStyle": {
-                      "fontSize": "16px",
                       "fontWeight": "bold",
-                      "color": "#FFFFFF"
+                      "fontSize": "16px",
+                      "color": "#ffffff"
                     }
                   }
                 ]

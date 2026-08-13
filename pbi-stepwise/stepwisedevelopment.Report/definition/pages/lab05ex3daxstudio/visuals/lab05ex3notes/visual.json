@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab05ex3notes",
+  "position": {
+    "x": 960,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 660,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: DAX Studio is marked Verify for Gov. Validate workstation policy, external tool usage, Service connectivity, and XMLA endpoint settings before making it required for delivery.\n\nWhen DAX Studio is available:\n1. Open Power BI Desktop with this file, then launch DAX Studio from External Tools.\n2. Connect to the local model (DAX Studio auto-detects the open session).\n3. Copy the query behind the card below from Performance Analyzer (right-click > Copy query) and paste it into DAX Studio.\n4. Run with Server Timings enabled and review Formula Engine (FE) vs Storage Engine (SE) time, and the query plan.\n5. Re-run after simplifying a measure (for example, comparing 'Margin Health Score (Unoptimized)' vs 'Margin Health Score' from Lab 02 Exercise 8) and compare SE/FE splits.\n\nAlternate path when DAX Studio is unavailable: rely on Performance Analyzer's DAX query time column and compare it before/after a measure rewrite using the same visual and filter context, as done in Exercise 1 and Exercise 4.\n\nExpected takeaway: DAX Studio adds Storage Engine/Formula Engine visibility that Performance Analyzer does not expose, but Performance Analyzer alone is sufficient to detect and compare relative optimization wins.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

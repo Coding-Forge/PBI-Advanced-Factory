@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab05ex5notes",
+  "position": {
+    "x": 960,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 660,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Azure Government note: Aggregation patterns are Gov-ready / Verify for source. DirectQuery source behavior, gateway, connector support, and tenant settings must be validated before this is required.\n\nDetail table: FactSales, at the SalesOrderLineKey grain (one row per order line).\n\nProposed aggregation grain: Month (DimOrderDate[YearMonth]) x ProductCategory (DimProductCategory[ProductCategory]) x Territory (DimTerritory[TerritoryName]), summarizing Sales Amount, Gross Margin, and Order Count.\n\nMapping (conceptual): the aggregation table's Month/ProductCategory/Territory columns map to the corresponding detail-table foreign keys through the existing FactSales -> DimOrderDate/DimProduct/DimTerritory relationships shown in the table on the left; the aggregation's Sales Amount/Gross Margin map to SUM(FactSales[SalesAmount])/SUM(FactSales[GrossMargin]); Order Count maps to DISTINCTCOUNT(FactSales[SalesOrderLineKey]).\n\nAggregation hits: a visual or query that only needs Month/ProductCategory/Territory-level summarization (matching or coarser than the aggregation grain) can be answered entirely from the smaller aggregation table.\n\nAggregation misses: any query that filters or groups by a column not present in the aggregation (for example CustomerName, Day-level dates, or SalesOrderLineKey) must fall back to the full FactSales detail table.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

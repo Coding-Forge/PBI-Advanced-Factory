@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab05ex4notes",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 0,
+    "height": 140,
+    "width": 1856,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Left ('Before'): 5 separate cards, each issuing its own DAX query for a single measure, plus visual interactions enabled between every visual on the page.\nRight ('After'): the same 5 measures consolidated into one table visual (1 query instead of 5) with drill/cross-filter interaction still available where it adds value.\n\nTasks: 1) Count visuals on each side. 2) Open Performance Analyzer and compare total DAX query time for the 'Before' region vs the 'After' table. 3) Note that consolidating measures into fewer visuals reduces the number of independent DAX queries Power BI must issue on every interaction.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

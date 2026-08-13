@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab05ex2notes",
+  "position": {
+    "x": 960,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 660,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Model reduction plan for this training model:\n\n1. FactSales has no unused columns — every column is either a key, a measure input, or the row-context demo column used in Lab 02.\n\n2. High-cardinality risk: DimCustomer[CustomerName] and FactOrders[CustomerName] are text columns with one distinct value per customer. Prefer a surrogate CustomerKey for relationships (already used on FactSales) and keep the name column only where it must be displayed.\n\n3. Date/time precision: DimOrderDate[Date] stores only the Date component (no time), which keeps cardinality to one row per calendar day instead of one row per timestamp. FactSales[OrderDate]/[ShipDate] are also typed as Date, not DateTime, for the same reason.\n\n4. FactOrders (Lab 03 Power Query source) intentionally keeps CustomerName and SalesChannel as text for a raw-ingestion exercise — in a production model these would be replaced by key columns to a dimension.\n\n5. Numeric precision: Quantity and UnitPrice/UnitCost are stored as whole-number int64 types rather than decimal, avoiding the higher storage cost of high-precision fixed decimal columns where cents-level precision isn't required by this dataset.\n\nRecommended removals/changes if this were a production model: drop any column not used by a measure, a relationship, or a visual; convert free-text description columns to key-based dimensions; round decimal columns to the precision actually needed by the business.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

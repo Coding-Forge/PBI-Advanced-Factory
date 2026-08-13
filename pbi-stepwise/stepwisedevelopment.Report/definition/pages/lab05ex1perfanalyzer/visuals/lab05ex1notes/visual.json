@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "lab05ex1notes",
+  "position": {
+    "x": 1260,
+    "y": 100,
+    "z": 0,
+    "height": 600,
+    "width": 660,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Use this page as a Performance Analyzer test target.\n\n1. Select View > Performance Analyzer.\n2. Select Start recording.\n3. Select Refresh visuals, then change the Territory slicer selection.\n4. Expand each visual result (matrix and slicer) to compare DAX query time vs. visual display time.\n5. The matrix below intentionally computes 6 measures across time-intelligence variants (YoY, YTD, rolling 90 days) at Month x Territory grain — this is a heavier query than a single card, making it a good optimization candidate.\n6. Record which visual has the highest DAX query time before moving to Exercise 2.\n\nAzure Government note: Performance Analyzer is Gov-ready — it runs entirely in Desktop with no external connection.",
+                    "textStyle": {
+                      "fontSize": "13px",
+                      "color": "#102A43"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

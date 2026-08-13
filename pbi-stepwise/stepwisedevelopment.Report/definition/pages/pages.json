@@ -17,7 +17,13 @@
     "lab04ex4navigation",
     "lab04ex5fieldparams",
     "lab04ex6conditional",
-    "lab04ex7mobile"
+    "lab04ex7mobile",
+    "lab05ex1perfanalyzer",
+    "lab05ex2modelsize",
+    "lab05ex3daxstudio",
+    "lab05ex4visualopt",
+    "lab05ex5aggregation",
+    "lab05ex6incremental"
   ],
-  "activePageName": "lab04ex6conditional"
+  "activePageName": "lab05ex6incremental"
 }

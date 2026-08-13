@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "lab04ex6table",
   "position": {
-    "x": 24,
-    "y": 270,
+    "x": 33.673064195896757,
+    "y": 270.01985440105892,
     "z": 0,
     "height": 520,
     "width": 1200,
