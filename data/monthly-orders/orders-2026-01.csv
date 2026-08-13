@@ -1,6 +1,151 @@
 OrderId,OrderDate,CustomerName,ProductCode,Quantity,UnitPrice,SalesChannel
-3001,2026-01-03, Northwind Health ,P001,4,1200,Enterprise
-3002,2026-01-06,Contoso Defense,P002,2,3400,Government
-3003,2026-01-11,Fabrikam Energy,P003,3,1800,Enterprise
-3004,2026-01-19,Wide World Logistics,P004,5,900,Commercial
-
+3001,2026-01-04,Fabrikam Energy,P035,7,5200,Enterprise
+3002,2026-01-03,VanArsdel Foods,P018,7,1200,Enterprise
+3003,2026-01-07,Redwood Solutions,P027,7,1800,Commercial
+3004,2026-01-24,Summit Defense,P013,1,3400,Commercial
+3005,2026-01-20,Proseware Solutions,P028,10,2200,Commercial
+3006,2026-01-19,Wide World Logistics,P021,4,700,Enterprise
+3007,2026-01-28,Fabrikam Telecom,P015,10,2200,Government
+3008,2026-01-03,Fabrikam Utilities,P005,10,1800,Government
+3009,2026-01-21,Pinnacle Energy,P017,1,2200,Enterprise
+3010,2026-01-03,Litware Foods,P033,6,2200,Commercial
+3011,2026-01-23,Nod Publishers Manufacturing,P022,5,5200,Government
+3012,2026-01-09,Summit University,P031,10,900,Enterprise
+3013,2026-01-25,Trey Research Defense,P003,9,3400,Government
+3014,2026-01-13,Coho Vineyard Solutions,P009,10,700,Enterprise
+3015,2026-01-19,Alpine Ski House Energy,P005,6,1200,Government
+3016,2026-01-11,Summit Defense,P028,6,3400,Commercial
+3017,2026-01-27,Proseware Manufacturing,P015,4,1200,Enterprise
+3018,2026-01-21,Pinnacle Insurance,P001,5,5200,Government
+3019,2026-01-14,Fabrikam Energy,P013,2,1800,Enterprise
+3020,2026-01-20,Redwood Dynamics,P033,5,1200,Enterprise
+3021,2026-01-03,Cobalt Holdings,P034,2,900,Enterprise
+3022,2026-01-22,Consolidated Messenger Labs,P008,1,5200,Commercial
+3023,2026-01-01,Wide World Logistics,P003,9,900,Commercial
+3024,2026-01-15,Blue Yonder Holdings,P013,10,5200,Government
+3025,2026-01-10,Cascade Insurance,P022,8,900,Commercial
+3026,2026-01-28,Proseware Defense,P015,8,700,Government
+3027,2026-01-15,Sterling Telecom,P015,6,2200,Commercial
+3028,2026-01-15, Proseware Defense ,P033,1,5200,Enterprise
+3029,2026-01-19,Proseware Solutions,P020,4,2200,Government
+3030,2026-01-28,Vantage Financial,P022,6,3400,Enterprise
+3031,2026-01-03,Summit Dynamics,P038,9,700,Commercial
+3032,2026-01-01,Anchor Telecom,P011,1,2200,Commercial
+3033,2026-01-26,Litware Foods,P026,1,700,Commercial
+3034,2026-01-08,Graphic Design Institute Telecom,P024,5,700,Government
+3035,2026-01-11,Anchor Dynamics,P038,2,900,Commercial
+3036,2026-01-27,Blue Yonder Labs,P034,10,900,Commercial
+3037,2026-01-26,Coho Vineyard Retail,P006,1,2200,Government
+3038,2026-01-06,Cobalt Holdings,P019,3,900,Enterprise
+3039,2026-01-04, Blue Yonder Foods ,P004,9,900,Commercial
+3040,2026-01-02,Blue Yonder Holdings,P017,5,700,Enterprise
+3041,2026-01-16,Proseware Solutions,P035,2,3400,Government
+3042,2026-01-07, Consolidated Messenger Financial ,P002,9,700,Government
+3043,2026-01-26,Summit Insurance,P019,1,5200,Commercial
+3044,2026-01-06,Contoso Labs,P028,2,900,Commercial
+3045,2026-01-12,Redwood Dynamics,P024,1,3400,Government
+3046,2026-01-22,Redwood Systems,P004,1,700,Enterprise
+3047,2026-01-22,Blue Yonder Holdings,P024,5,5200,Government
+3048,2026-01-04,Redwood Media,P021,3,1200,Government
+3049,2026-01-24,Summit Defense,P001,3,900,Commercial
+3050,2026-01-14,Summit Defense,P032,6,700,Enterprise
+3051,2026-01-23,Graphic Design Institute Telecom,P022,8,700,Enterprise
+3052,2026-01-02,Redwood Solutions,P006,5,3400,Commercial
+3053,2026-01-11,Alpine Ski House Energy,P024,10,700,Enterprise
+3054,2026-01-10,Best For You Organics Labs,P020,2,700,Government
+3055,2026-01-10,Sterling Telecom,P025,6,1800,Government
+3056,2026-01-09,Humongous Insurance Telecom,P003,2,1200,Enterprise
+3057,2026-01-04,Graphic Design Institute Insurance,P030,9,2200,Government
+3058,2026-01-09,Anchor Gov,P034,9,1800,Government
+3059,2026-01-23,Harbor Defense,P029,4,900,Government
+3060,2026-01-05,Anchor Gov,P023,2,3400,Enterprise
+3061,2026-01-23,Anchor Manufacturing,P010,3,700,Enterprise
+3062,2026-01-19,Anchor Logistics,P018,3,700,Government
+3063,2026-01-14,Sterling Telecom,P025,4,2200,Commercial
+3064,2026-01-24,VanArsdel Insurance,P026,4,3400,Government
+3065,2026-01-08,Blue Yonder Labs,P022,4,2200,Enterprise
+3066,2026-01-18,Summit Dynamics,P005,10,700,Government
+3067,2026-01-13,Trey Research Defense,P023,7,700,Enterprise
+3068,2026-01-08,Harbor Defense,P037,1,1200,Government
+3069,2026-01-23,Fabrikam Energy,P002,3,900,Commercial
+3070,2026-01-14,Relecloud Group,P007,7,1800,Government
+3071,2026-01-25,Tailspin Dynamics,P035,4,900,Commercial
+3072,2026-01-15,Coho Vineyard Solutions,P012,3,700,Commercial
+3073,2026-01-04,Graphic Design Institute Utilities,P037,1,2200,Government
+3074,2026-01-09,Lucerne Publishing Foods,P023,5,2200,Enterprise
+3075,2026-01-11,Best For You Organics Manufacturing,P006,10,900,Enterprise
+3076,2026-01-23,Summit Foods,P026,3,3400,Government
+3077,2026-01-15,Northwind Logistics,P023,5,2200,Enterprise
+3078,2026-01-11,Redwood Media,P019,7,3400,Enterprise
+3079,2026-01-09,Litware Partners,P003,8,2200,Government
+3080,2026-01-14,Coho Vineyard Retail,P008,3,900,Commercial
+3081,2026-01-15,Proseware Defense,P035,8,5200,Enterprise
+3082,2026-01-20,Redwood Manufacturing,P001,8,900,Government
+3083,2026-01-03,Graphic Design Institute Telecom,P029,4,1800,Enterprise
+3084,2026-01-04,Best For You Organics Retail,P021,1,1800,Commercial
+3085,2026-01-09,Pinnacle Insurance,P020,6,3400,Enterprise
+3086,2026-01-10,Coho Vineyard Telecom,P027,7,700,Government
+3087,2026-01-10,Meridian Financial,P027,10,1200,Commercial
+3088,2026-01-23,Relecloud Health,P012,6,700,Enterprise
+3089,2026-01-24,Contoso Labs,P028,7,1200,Enterprise
+3090,2026-01-22,Consolidated Messenger Labs,P025,7,3400,Enterprise
+3091,2026-01-07,Litware Foods,P014,10,700,Commercial
+3092,2026-01-07,Coho Vineyard Telecom,P040,1,900,Commercial
+3093,2026-01-04,Redwood Solutions,P039,3,1800,Government
+3094,2026-01-27,Woodgrove Energy,P003,4,1800,Enterprise
+3095,2026-01-03,Fabrikam Retail,P003,8,900,Enterprise
+3096,2026-01-09,Vantage Financial,P036,8,3400,Commercial
+3097,2026-01-26,Pinnacle Utilities,P026,9,5200,Enterprise
+3098,2026-01-07,Graphic Design Institute Utilities,P037,1,1800,Government
+3099,2026-01-15,Litware Partners,P040,9,2200,Commercial
+3100,2026-01-20,Northwind Energy,P012,10,700,Enterprise
+3101,2026-01-26,Fabrikam Utilities,P032,10,3400,Enterprise
+3102,2026-01-16,Pinnacle Systems,P030,6,900,Commercial
+3103,2026-01-22,Woodgrove Energy,P037,3,900,Enterprise
+3104,2026-01-24,Margie's Travel Solutions,P037,8,1800,Commercial
+3105,2026-01-06,Wide World Financial,P014,6,700,Enterprise
+3106,2026-01-24,Lucerne Publishing Labs,P036,5,700,Enterprise
+3107,2026-01-02,Fourth Coffee Holdings,P016,7,2200,Commercial
+3108,2026-01-02,Meridian Financial,P004,6,700,Enterprise
+3109,2026-01-18,Redwood Media,P006,4,2200,Government
+3110,2026-01-09,Cascade Insurance,P039,1,700,Commercial
+3111,2026-01-02,Relecloud Group,P029,1,1800,Government
+3112,2026-01-19,Trey Research Holdings,P016,4,1800,Commercial
+3113,2026-01-07,Coho Vineyard Solutions,P011,4,2200,Government
+3114,2026-01-03,Graphic Design Institute Solutions,P031,7,1800,Commercial
+3115,2026-01-15,Margie's Travel Solutions,P027,2,5200,Enterprise
+3116,2026-01-08,Pinnacle Systems,P008,1,900,Government
+3117,2026-01-24,Coho Vineyard Telecom,P008,2,700,Government
+3118,2026-01-14,VanArsdel Foods,P021,9,1200,Government
+3119,2026-01-22,Cobalt Group,P027,3,700,Government
+3120,2026-01-06,Graphic Design Institute Telecom,P024,4,2200,Enterprise
+3121,2026-01-26,Lucerne Publishing Airlines,P013,9,700,Enterprise
+3122,2026-01-04,Redwood Gov,P015,10,900,Enterprise
+3123,2026-01-07,Relecloud Group,P033,7,2200,Government
+3124,2026-01-07,VanArsdel Insurance,P002,9,2200,Enterprise
+3125,2026-01-16,VanArsdel Health,P007,7,1200,Commercial
+3126,2026-01-24,Summit Media,P023,6,3400,Enterprise
+3127,2026-01-27,VanArsdel Insurance,P040,1,5200,Commercial
+3128,2026-01-28,Consolidated Messenger Financial,P022,9,700,Government
+3129,2026-01-19,Lucerne Publishing Labs,P031,7,3400,Commercial
+3130,2026-01-17,Fourth Coffee Holdings,P031,4,2200,Commercial
+3131,2026-01-25,Fabrikam Telecom,P027,1,1800,Commercial
+3132,2026-01-15,Graphic Design Institute Telecom,P028,4,2200,Government
+3133,2026-01-26,Graphic Design Institute Dynamics,P025,6,5200,Commercial
+3134,2026-01-23,Redwood Media,P010,5,5200,Enterprise
+3135,2026-01-28,Fabrikam Telecom,P004,10,700,Government
+3136,2026-01-08,Granite Partners,P004,3,700,Commercial
+3137,2026-01-06,Fabrikam Retail,P004,8,1200,Commercial
+3138,2026-01-28, Anchor Health ,P017,4,5200,Commercial
+3139,2026-01-08,Anchor Utilities,P026,6,2200,Enterprise
+3140,2026-01-14,Pinnacle Systems,P033,10,1800,Enterprise
+3141,2026-01-08,Woodgrove Energy,P011,10,1800,Commercial
+3142,2026-01-19,Consolidated Messenger Insurance,P008,7,1800,Government
+3143,2026-01-07,Anchor Utilities,P010,7,1200,Enterprise
+3144,2026-01-13,Woodgrove Gov,P025,3,1800,Government
+3145,2026-01-06,Proseware Manufacturing,P017,1,1800,Government
+3146,2026-01-15,Meridian Insurance,P019,2,700,Government
+3147,2026-01-07,Summit Defense,P035,1,1800,Enterprise
+3148,2026-01-10,Alpine Ski House Dynamics,P019,9,1200,Commercial
+3149,2026-01-09,Proseware Solutions,P002,1,900,Government
+3150,2026-01-27,Lucerne Publishing Gov,P001,8,900,Government

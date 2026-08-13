@@ -4,4 +4,38 @@ P002,Analytics Workspace,Analytics,Platform
 P003,Data Gateway,Integration,Connectivity
 P004,Monitoring Pack,Operations,Observability
 P005,AI Readiness Kit,Analytics,AI
-
+P006,Fabric Sync Hub,Integration,ETL
+P007,Managed Console,Operations,Automation
+P008,Encrypted Vault,Security,Network
+P009,Insight Model Hub,Analytics,Data Science
+P010,Data Connector Pack,Integration,Connectivity
+P011,Monitoring Toolkit,Operations,Automation
+P012,Zero Trust Vault,Security,Compliance
+P013,Predictive Workspace,Analytics,Data Science
+P014,Streaming Bridge,Integration,Connectivity
+P015,Monitoring Console,Operations,Observability
+P016,Shielded Firewall,Security,Identity
+P017,Smart Readiness Kit,Analytics,AI
+P018,Unified Pipeline,Integration,Connectivity
+P019,Proactive Control Center,Operations,Cost Management
+P020,Secure Perimeter,Security,Identity
+P021,Adaptive Workspace,Analytics,Visualization
+P022,Fabric Connector Pack,Integration,API Management
+P023,Monitoring Control Center,Operations,Cost Management
+P024,Zero Trust Guard,Security,Compliance
+P025,Adaptive Model Hub,Analytics,Visualization
+P026,Streaming Connector Pack,Integration,Connectivity
+P027,Resilient Pack,Operations,Reliability
+P028,Encrypted Firewall,Security,Identity
+P029,Predictive Model Hub,Analytics,Visualization
+P030,Data Bridge,Integration,Messaging
+P031,Managed Control Center,Operations,Automation
+P032,Zero Trust Firewall,Security,Network
+P033,Adaptive Readiness Kit,Analytics,Visualization
+P034,Connected Sync Hub,Integration,API Management
+P035,Resilient Toolkit,Operations,Reliability
+P036,Zero Trust Gateway,Security,Identity
+P037,Insight Studio,Analytics,AI
+P038,Streaming Gateway,Integration,Messaging
+P039,Automated Control Center,Operations,Cost Management
+P040,Encrypted Sentinel,Security,Threat Detection
