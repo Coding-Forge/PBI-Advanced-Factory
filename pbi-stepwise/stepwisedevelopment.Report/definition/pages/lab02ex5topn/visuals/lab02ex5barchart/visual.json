@@ -78,63 +78,63 @@
         }
       ]
     },
-    "filterConfig": {
-      "filters": [
-        {
-          "name": "top5customerfilter001",
-          "field": {
-            "Measure": {
-              "Expression": {
-                "SourceRef": {
-                  "Entity": "_Measures"
-                }
-              },
-              "Property": "Is Top 5 Customer"
-            }
-          },
-          "type": "Categorical",
-          "filter": {
-            "Version": 2,
-            "From": [
-              {
-                "Name": "m",
-                "Entity": "_Measures",
-                "Type": 0
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "top5customerfilter001",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
               }
-            ],
-            "Where": [
-              {
-                "Condition": {
-                  "In": {
-                    "Expressions": [
+            },
+            "Property": "Is Top 5 Customer"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "m",
+              "Entity": "_Measures",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "Is Top 5 Customer"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
                       {
-                        "Measure": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "m"
-                            }
-                          },
-                          "Property": "Is Top 5 Customer"
+                        "Literal": {
+                          "Value": "1L"
                         }
                       }
-                    ],
-                    "Values": [
-                      [
-                        {
-                          "Literal": {
-                            "Value": "1L"
-                          }
-                        }
-                      ]
                     ]
-                  }
+                  ]
                 }
               }
-            ]
-          }
+            }
+          ]
         }
-      ]
-    },
-    "drillFilterOtherVisuals": true
+      }
+    ]
   }
 }
