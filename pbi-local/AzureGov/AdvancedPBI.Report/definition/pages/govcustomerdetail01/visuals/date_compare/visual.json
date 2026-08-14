@@ -65,5 +65,51 @@
       }
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e6e40ee7094955baa4a1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimTerritory"
+              }
+            },
+            "Property": "TerritoryRegion"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3de8d149745ee9adfcfa",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Sales by Order Date"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ff13e5ef0a6bee0e3eeb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Sales by Ship Date"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Metric Parameter"
+                      "Entity": "PBI Field Parameters"
                     }
                   },
-                  "Property": "Metric"
+                  "Property": "Sales Parameters"
                 }
               },
-              "queryRef": "Metric Parameter.Metric",
-              "nativeQueryRef": "Metric",
+              "queryRef": "PBI Field Parameters.Sales Parameters",
+              "nativeQueryRef": "Sales Parameters",
               "active": true
             }
           ]
@@ -57,7 +57,7 @@
                 "From": [
                   {
                     "Name": "m",
-                    "Entity": "Metric Parameter",
+                    "Entity": "PBI Field Parameters",
                     "Type": 0
                   }
                 ],
@@ -73,7 +73,7 @@
                                   "Source": "m"
                                 }
                               },
-                              "Property": "Metric"
+                              "Property": "Sales Parameters"
                             }
                           }
                         ],
@@ -81,7 +81,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Sales Amount'"
+                                "Value": "'Gross Margin'"
                               }
                             }
                           ]
@@ -106,10 +106,10 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Metric Parameter"
+                "Entity": "PBI Field Parameters"
               }
             },
-            "Property": "Metric"
+            "Property": "Sales Parameters"
           }
         },
         "type": "Categorical"
