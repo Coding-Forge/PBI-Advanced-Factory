@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "adj_slicer",
   "position": {
-    "x": 600,
-    "y": 100,
+    "x": 613.63636363636363,
+    "y": 100.14545454545454,
     "z": 0,
     "height": 130,
     "width": 540,
@@ -35,19 +35,6 @@
       }
     },
     "objects": {
-      "data": [
-        {
-          "properties": {
-            "mode": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Between'"
-                }
-              }
-            }
-          }
-        }
-      ],
       "general": [
         {
           "properties": {
@@ -64,8 +51,9 @@
                 "Where": [
                   {
                     "Condition": {
-                      "Between": {
-                        "Expression": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
                           "Column": {
                             "Expression": {
                               "SourceRef": {
@@ -75,14 +63,9 @@
                             "Property": "Margin Adjustment %"
                           }
                         },
-                        "LowerBound": {
+                        "Right": {
                           "Literal": {
-                            "Value": "-0.1D"
-                          }
-                        },
-                        "UpperBound": {
-                          "Literal": {
-                            "Value": "-0.1D"
+                            "Value": "0D"
                           }
                         }
                       }
@@ -111,7 +94,22 @@
             "Property": "Margin Adjustment %"
           }
         },
-        "type": "Categorical"
+        "type": "Categorical",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "requireSingleSelect": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
       }
     ]
   }
