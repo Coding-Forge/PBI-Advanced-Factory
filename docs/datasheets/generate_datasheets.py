@@ -93,9 +93,9 @@ THEMES = {
 }
 
 DELIVERY_FORMATS = [
-    ("1-Day Executive Briefing", "Hours scoped at booking", "Leadership & architects", "Guided tour of modeling, DAX, report UX, security, and enterprise delivery considerations. Demo-driven with a short applied exercise."),
-    ("3-Day Standard Workshop", "Hours scoped at booking", "Report authors & analysts", "Hands-on Modules 1-7: modeling, DAX, Power Query, report UX, performance, analytics, and security, using the full lab set."),
-    ("5-Day Extended Workshop", "Hours scoped at booking", "BI developers & platform owners", "Full Modules 1-11 plus capstone: adds Service deployment, monitoring/governance, capacity architecture, and DevOps lifecycle."),
+    ("1-Day Executive Briefing", "Leadership & architects", "Guided tour of modeling, DAX, report UX, security, and enterprise delivery considerations. Demo-driven with a short applied exercise. Module selection is right-sized to the day during scoping."),
+    ("3-Day Standard Workshop", "Report authors & analysts", "Hands-on modeling, DAX, Power Query, report UX, performance, analytics, and security, drawn from the full lab set. Module depth is refined during scoping to fit the available days."),
+    ("5-Day Extended Workshop", "BI developers & platform owners", "Full curriculum plus capstone: adds Service deployment, monitoring/governance, capacity architecture, and DevOps lifecycle."),
 ]
 
 def render_html(theme):
@@ -116,10 +116,10 @@ def render_html(theme):
         f"""
         <div class="delivery-card">
           <div class="delivery-title">{name}</div>
-          <div class="delivery-meta">{hours} &middot; {audience}</div>
+          <div class="delivery-meta">{audience}</div>
           <div class="delivery-desc">{desc}</div>
         </div>"""
-        for name, hours, audience, desc in DELIVERY_FORMATS
+        for name, audience, desc in DELIVERY_FORMATS
     )
 
     special_topics = "\n".join(f"<li>{topic}</li>" for topic in t["special_topics"])
