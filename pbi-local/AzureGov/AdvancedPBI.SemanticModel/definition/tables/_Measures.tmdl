@@ -216,6 +216,22 @@ table _Measures
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: d5776c6a-ff56-4a2a-b397-8af75277eaa7
 
+	measure 'Customer Sales Group' =
+			// Groups/Bins demo (hand-authored equivalent of Desktop's "New Group"):
+			// buckets customers into named tiers by their total Sales Amount instead
+			// of a raw numeric bin, so the grouping stays meaningful across territories.
+			VAR CustomerSales = [Sales Amount]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( CustomerSales ), "No sales",
+			        CustomerSales >= 100000, "Tier 1: $100K+",
+			        CustomerSales >= 50000, "Tier 2: $50K-$100K",
+			        CustomerSales >= 10000, "Tier 3: $10K-$50K",
+			        "Tier 4: Under $10K"
+			    )
+		lineageTag: e6887d7b-0067-5b3b-c4a8-9f86388f1b8c
+
 	column Value
 		lineageTag: 128e770a-5a8d-4084-b873-bfc8feb87ecc
 		isNameInferred

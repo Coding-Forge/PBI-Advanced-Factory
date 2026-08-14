@@ -114,7 +114,29 @@ page.
 
 ---
 
-## Page 4 — Security, Navigation & Tooltip
+## Page 4 — Hierarchies, Drill & Groups
+
+- [ ] **Hierarchy matrix** (Product Hierarchy: Category → Subcategory →
+      Product Name rows, Sales Amount & Gross Margin % columns): uses the new
+      `Product Hierarchy` object defined on `DimProduct` — expand/collapse
+      (drill-down/drill-up) through all 3 levels from the matrix's own drill
+      controls.
+- [ ] **Drill notes textbox**: explains drill-down/up (in-visual, same
+      hierarchy), drill-across (nav bar to a related page/visual), and Groups
+      (DAX-authored sales tiers).
+- [ ] **Groups table** (Customer Name, Sales Amount, Customer Sales Group):
+      the `Customer Sales Group` measure buckets customers into 4 named tiers
+      by Sales Amount — the hand-authored equivalent of Desktop's New
+      Group/Bin feature.
+- [ ] **Nav buttons (4)**: same cross-page navigation as other pages.
+
+**Interaction check:** drilling down/up on the hierarchy matrix should not
+affect the Groups table; the Groups table's tier labels should reflect each
+customer's current Sales Amount.
+
+---
+
+## Page 5 — Security, Navigation & Tooltip
 
 - [ ] **RLS instructions textbox**: static text — no interactivity, just
       guidance to use Desktop's "View As Roles" to test `East Region`
@@ -139,7 +161,7 @@ to just that user's territory per the `SecurityUserTerritory` mapping.
 
 ---
 
-## Page 5 — Sales Detail Tooltip (hidden tooltip page, not in nav)
+## Page 6 — Sales Detail Tooltip (hidden tooltip page, not in nav)
 
 - [ ] Small 320×240 canvas, only reachable by hovering a data point on the
       metric_chart/tooltip_chart bars (or any other visual wired to it).
