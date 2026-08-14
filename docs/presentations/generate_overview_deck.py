@@ -693,13 +693,14 @@ build_module(
     "Designing navigation and interaction, not just placing visuals on a canvas.",
     [
         ("Guided interaction patterns", "Drillthrough, bookmarks, custom tooltips, and navigation that leads users somewhere intentional."),
+        ("Hierarchies, drill & groups", "Drill-down, drill-across, and custom groups/bins that let one visual answer questions at multiple levels of detail."),
         ("Flexible by design", "Field parameters and dynamic titles that let one report answer several questions instead of one."),
         ("Built for every screen and every user", "Mobile-optimized layouts, conditional formatting, and an accessibility pass before anything ships."),
     ],
     "Intermediate → Advanced", "PRESENT",
     "Module overview for Report Design & UX. The mindset shift: a report page is an interface, and "
-    "interfaces are designed, not assembled. Three sub-topics: guided interaction, flexible/reusable "
-    "report design, and designing for every device and every user.",
+    "interfaces are designed, not assembled. Four sub-topics: guided interaction, hierarchies/drill/"
+    "groups, flexible/reusable report design, and designing for every device and every user.",
     [
         {
             "title": "Guided Interaction Patterns",
@@ -717,6 +718,29 @@ build_module(
                 "explicitly: a feature that works but isn't discoverable might as well not exist. Watch a first-"
                 "time user try to navigate the report before you explain how -- if they get stuck, that's real "
                 "signal about where the navigation design needs more visual affordance."
+            ),
+        },
+        {
+            "title": "Hierarchies, Drill & Groups",
+            "icon": "layers",
+            "why": "A hierarchy lets one visual answer 'show me the summary' and 'show me exactly why' without building a separate visual or page for every level of detail.",
+            "key_points": [
+                "Hierarchies (e.g., Category > Subcategory > Product) are built once in the model and reused across every visual that needs them.",
+                "Drill-down moves a single visual deeper into its own hierarchy; drill-up reverses it -- both stay on the same visual.",
+                "Drill-across sends a selection to a different visual or page (via drillthrough or cross-report drill), showing related detail in a different context.",
+                "Groups and bins collapse many raw values into meaningful buckets (an 'Other' category, price bands) without changing the underlying data.",
+                "Turn on 'Show next level' and 'Expand all' deliberately -- they change how a user explores versus click-drills one level at a time.",
+            ],
+            "notes": (
+                "This sub-topic fills a real gap: drillthrough (jump to a dedicated detail page) is often taught, "
+                "but in-visual drill-down/drill-up through a hierarchy and drill-across between related visuals are "
+                "just as important and easy to overlook. Demo live if possible: build a Category > Subcategory > "
+                "Product hierarchy on a matrix or bar chart, drill down two levels, then contrast that with a "
+                "drillthrough page and a cross-report drill scenario so learners see all three interaction models "
+                "side by side. For groups: show a long tail of low-volume categories collapsed into an 'Other' "
+                "bucket via Power BI's built-in grouping feature -- it's a five-minute demo that immediately cleans "
+                "up a busy slicer or legend. Make the connection back to Module 1 explicit: hierarchies and groups "
+                "are modeling decisions with a UX payoff, not just a report-canvas trick."
             ),
         },
         {

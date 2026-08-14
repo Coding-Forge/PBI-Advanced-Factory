@@ -51,6 +51,9 @@ MATRIX = [
     ]),
     ("04", "Report Design & UX", [
         ("Add drillthrough from summary to detail", READY, READY, READY, ""),
+        ("Build a multi-level hierarchy and drill down/up in a visual", READY, READY, READY, ""),
+        ("Configure drill-across between related visuals/pages", READY, READY, READY, ""),
+        ("Group and bin field values into custom categories", READY, READY, READY, ""),
         ("Build a bookmark-driven guided analysis", READY, READY, READY, ""),
         ("Create report page tooltips", READY, READY, READY, ""),
         ("Design executive summary + analyst detail pages", READY, READY, READY, ""),

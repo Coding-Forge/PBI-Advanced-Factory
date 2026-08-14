@@ -38,8 +38,8 @@ This agenda sequences Modules 1–7 across three delivery days. Each day balance
 | 11:45–12:00 | Discussion | DAX validation habits | Learners practice testing measures in simple visuals before adding complexity. |
 | **12:00–12:30** | **Break** | **Midday break** | |
 | 12:30–1:15 | Lab | Module 2 exercises 4–8: Advanced DAX | Learners build semi-additive patterns, Top N/ranking, calculation groups, dynamic titles, and optimization passes. |
-| 1:15–1:45 | Presentation + demo | Module 4 overview: report UX patterns | Learners understand drillthrough, tooltips, bookmarks, navigation, and field parameters. |
-| 1:45–2:45 | Lab | Module 4 exercises 1–5: Report Design & UX | Learners build guided report interactions and field parameters for metric/dimension switching. |
+| 1:15–1:45 | Presentation + demo | Module 4 overview: report UX patterns | Learners understand drillthrough, hierarchies, drill-down/across, groups, tooltips, bookmarks, navigation, and field parameters. |
+| 1:45–2:45 | Lab | Module 4 exercises 1–6: Report Design & UX | Learners build guided report interactions, a drillable hierarchy with drill-across, custom groups/bins, and field parameters for metric/dimension switching. |
 | 2:45–3:00 | Review | Day 2 checkpoint and Q&A | Learners confirm measures and report interactions are ready for optimization, analytics, and security topics. |
 
 ---
@@ -51,7 +51,7 @@ This agenda sequences Modules 1–7 across three delivery days. Each day balance
 | Time | Format | Topic | Outcome |
 |---|---|---|---|
 | 10:00–10:15 | Review | Day 2 recap and report validation | Learners confirm visuals, measures, and interaction patterns are working. |
-| 10:15–10:45 | Lab | Module 4 exercises 6–8: Report Design & UX | Learners complete conditional formatting, mobile layout, and an accessibility review. |
+| 10:15–10:45 | Lab | Module 4 exercises 7–9: Report Design & UX | Learners complete conditional formatting, mobile layout, and an accessibility review. |
 | 10:45–11:20 | Presentation + demo | Module 5 overview: Performance Analyzer, model size, DAX optimization | Learners understand how to capture a performance baseline before changing the report. |
 | 11:20–12:00 | Lab | Module 5: Performance Optimization | Learners capture performance evidence, review model size, and optimize one DAX or visual pattern. |
 | **12:00–12:30** | **Break** | **Midday break** | |

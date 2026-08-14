@@ -14,7 +14,7 @@ MODULES = [
     ("01", "Advanced Semantic Modeling", "Star schemas, relationships, composite models, aggregations, and large-model design."),
     ("02", "Advanced DAX", "Filter/row context, CALCULATE patterns, time intelligence, ranking, dynamic measures."),
     ("03", "Advanced Power Query", "Query folding, parameters, custom functions, staging patterns, incremental refresh prep."),
-    ("04", "Report Design & UX", "Drillthrough, tooltip pages, bookmarks, navigation, field parameters, mobile & accessibility."),
+    ("04", "Report Design & UX", "Drillthrough, hierarchies & drill-down/across, groups, tooltip pages, bookmarks, navigation, field parameters, mobile & accessibility."),
     ("05", "Performance Optimization", "Performance Analyzer, DAX Studio, VertiPaq concepts, cardinality and model tuning."),
     ("06", "Advanced Analytics & AI", "What-if parameters, key influencers, decomposition tree, forecasting, AI-assisted insights."),
     ("07", "Security Design", "Static & dynamic row-level security, object-level security, sensitivity labels, sharing controls."),
