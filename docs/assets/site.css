@@ -182,6 +182,8 @@ table.matrix-preview th, table.matrix-preview td {
 table.matrix-preview th { background: #EEF5FA; color: var(--navy); }
 .yes { color: var(--good); font-weight: 700; }
 .verify { color: var(--warn); font-weight: 700; }
+.no { color: #B00020; font-weight: 700; }
+.soon { color: var(--navy-2); font-weight: 700; font-style: italic; }
 
 .panel {
   background: var(--card);
