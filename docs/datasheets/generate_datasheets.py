@@ -93,9 +93,9 @@ THEMES = {
 }
 
 DELIVERY_FORMATS = [
-    ("1-Day Executive Briefing", "6 hours", "Leadership & architects", "Guided tour of modeling, DAX, report UX, security, and enterprise delivery considerations. Demo-driven with a short applied exercise."),
-    ("3-Day Standard Workshop", "3 x 5 hours", "Report authors & analysts", "Hands-on Modules 1-7: modeling, DAX, Power Query, report UX, performance, analytics, and security, using the full lab set."),
-    ("5-Day Extended Workshop", "5 x 5 hours", "BI developers & platform owners", "Full Modules 1-11 plus capstone: adds Service deployment, monitoring/governance, capacity architecture, and DevOps lifecycle."),
+    ("1-Day Executive Briefing", "Hours scoped at booking", "Leadership & architects", "Guided tour of modeling, DAX, report UX, security, and enterprise delivery considerations. Demo-driven with a short applied exercise."),
+    ("3-Day Standard Workshop", "Hours scoped at booking", "Report authors & analysts", "Hands-on Modules 1-7: modeling, DAX, Power Query, report UX, performance, analytics, and security, using the full lab set."),
+    ("5-Day Extended Workshop", "Hours scoped at booking", "BI developers & platform owners", "Full Modules 1-11 plus capstone: adds Service deployment, monitoring/governance, capacity architecture, and DevOps lifecycle."),
 ]
 
 def render_html(theme):
