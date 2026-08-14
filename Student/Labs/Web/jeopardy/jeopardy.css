@@ -1,0 +1,151 @@
+/* Power BI Advanced Factory - Jeopardy engine styles
+   Shares the Clawpilot theme variables defined on each lab page (--cp-*).
+   This file assumes the host page already sets :root / [data-theme="dark"] variables. */
+
+.jp-shell { max-width: 1180px; margin: 0 auto; padding: 24px; }
+.jp-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0 18px; flex-wrap: wrap; }
+.jp-topbar a { font-weight: 700; text-decoration: none; }
+.jp-title-block { text-align: center; margin: 6px 0 22px; }
+.jp-eyebrow { color: var(--cp-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.06em; }
+.jp-title { margin: 6px 0 4px; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.jp-sub { color: var(--cp-text-muted); }
+
+.jp-board {
+  display: grid;
+  gap: 8px;
+  background: var(--cp-border);
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  padding: 8px;
+  overflow-x: auto;
+}
+.jp-board-inner { display: grid; gap: 8px; min-width: 720px; }
+.jp-cat-row { display: grid; gap: 8px; }
+.jp-cat {
+  background: var(--cp-accent);
+  color: var(--cp-accent-fg);
+  border-radius: 0.625rem;
+  padding: 14px 10px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.92rem;
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+}
+.jp-clue-row { display: grid; gap: 8px; grid-auto-flow: column; grid-auto-columns: 1fr; }
+.jp-tile {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 0.625rem;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--cp-accent);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.jp-tile:hover:not(.jp-tile--used) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); border-color: var(--cp-border-strong); }
+.jp-tile--used { color: var(--cp-text-soft); background: var(--cp-surface-soft); cursor: default; opacity: 0.55; }
+.jp-tile--used::after { content: "\2713"; font-size: 1.1rem; }
+
+.jp-teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 22px 0 6px;
+}
+.jp-team {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.jp-team input.jp-team-name {
+  border: none;
+  background: transparent;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--cp-text);
+  padding: 2px 0;
+  border-bottom: 1px dashed var(--cp-border);
+}
+.jp-team input.jp-team-name:focus { outline: none; border-color: var(--cp-accent); }
+.jp-team-score { font-size: 1.8rem; font-weight: 800; color: var(--cp-accent); }
+.jp-team-actions { display: flex; gap: 8px; }
+.jp-team-actions button {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--cp-border-strong);
+  background: var(--cp-surface);
+  color: var(--cp-text);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.jp-team-actions button:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.jp-team-remove { background: none; border: none; color: var(--cp-text-soft); cursor: pointer; font-size: 0.8rem; align-self: flex-end; }
+.jp-team-remove:hover { color: var(--cp-danger); }
+
+.jp-controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 4px; }
+.jp-btn {
+  padding: 10px 16px;
+  border-radius: 0.625rem;
+  border: 1px solid var(--cp-border-strong);
+  background: var(--cp-surface);
+  color: var(--cp-text);
+  cursor: pointer;
+  font-weight: 700;
+}
+.jp-btn:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+.jp-btn--primary { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
+.jp-btn--primary:hover { background: var(--cp-accent-hover); color: var(--cp-accent-fg); }
+
+.jp-overlay {
+  position: fixed; inset: 0; background: var(--cp-overlay);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 50; padding: 20px;
+}
+.jp-overlay[hidden] { display: none; }
+.jp-modal {
+  background: var(--cp-panel-strong);
+  border: 1px solid var(--cp-border);
+  border-radius: 20px;
+  max-width: 780px;
+  width: 100%;
+  padding: 34px;
+  box-shadow: var(--cp-shadow);
+  text-align: center;
+}
+.jp-modal-value { color: var(--cp-accent); font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.jp-modal-cat { color: var(--cp-text-muted); margin: 4px 0 20px; font-weight: 700; }
+.jp-modal-question { font-size: 1.5rem; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
+.jp-modal-answer { display: none; font-size: 1.2rem; color: var(--cp-success); font-weight: 700; margin-bottom: 20px; padding: 14px; background: var(--cp-surface-soft); border-radius: 0.625rem; }
+.jp-modal-answer--shown { display: block; }
+.jp-modal-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.jp-award-row { display: none; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
+.jp-award-row--shown { display: flex; }
+.jp-award-btn {
+  padding: 8px 14px; border-radius: 0.625rem; border: 1px solid var(--cp-border-strong);
+  background: var(--cp-surface); color: var(--cp-text); cursor: pointer; font-weight: 700;
+}
+.jp-award-btn:hover { border-color: var(--cp-success); color: var(--cp-success); }
+.jp-award-btn--wrong:hover { border-color: var(--cp-danger); color: var(--cp-danger); }
+
+.jp-final { text-align: center; padding: 30px 0; }
+.jp-final h2 { font-size: 1.6rem; }
+.jp-final-winner { font-size: 2rem; font-weight: 800; color: var(--cp-accent); margin: 10px 0; }
+
+@media (max-width: 760px) {
+  .jp-cat, .jp-tile { font-size: 0.85rem; min-height: 56px; }
+  .jp-tile { font-size: 1.1rem; }
+}
