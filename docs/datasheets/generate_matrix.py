@@ -68,11 +68,11 @@ MATRIX = [
     ]),
     ("06", "Advanced Analytics & AI", [
         ("Build a what-if parameter scenario analysis", READY, READY, READY, ""),
-        ("Use decomposition tree for driver analysis", READY, VERIFY, VERIFY, "Confirm visual availability/tenant settings"),
-        ("Add forecasting to a time-series visual", READY, VERIFY, VERIFY, "Validate feature and data residency requirements"),
-        ("Key influencers visual", READY, VERIFY, VERIFY, "AI feature availability may differ in Gov/DoD clouds"),
-        ("Python/R visuals", READY, VERIFY, VERIFY, "Depends on Desktop config, package policy, Service support"),
-        ("Azure Machine Learning integration", READY, VERIFY, NONE_, "Depends on Azure cloud/region/workspace/network/identity"),
+        ("Use decomposition tree for driver analysis", READY, NONE_, NONE_, "Not covered in Gov/DoD; treat as Commercial-only"),
+        ("Add forecasting to a time-series visual", READY, NONE_, NONE_, "Not covered in Gov/DoD; treat as Commercial-only"),
+        ("Key influencers visual", READY, NONE_, NONE_, "Not covered in Gov/DoD; treat as Commercial-only"),
+        ("Python/R visuals", READY, NONE_, NONE_, "Not covered in Gov/DoD; treat as Commercial-only"),
+        ("Azure Machine Learning integration", READY, NONE_, NONE_, "Not covered in Gov/DoD; treat as Commercial-only"),
         ("Copilot / AI-assisted authoring", READY, NONE_, NONE_, "Treat as conceptual unless confirmed in sovereign tenant"),
     ]),
     ("07", "Security Design", [
