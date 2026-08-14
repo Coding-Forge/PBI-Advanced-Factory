@@ -16,6 +16,10 @@ Some Power BI, Microsoft Fabric, Copilot, AI, Git integration, and preview featu
 
 For customer delivery, validate feature availability in the target tenant before finalizing labs.
 
+## Public website
+
+A public-facing overview site lives in `docs\` and can be published with GitHub Pages (Settings > Pages > Deploy from branch > `main` / `docs`). Pages: [Home](docs\index.html), [Curriculum](docs\curriculum.html), [Delivery Options](docs\delivery.html), [Resources](docs\resources.html).
+
 ## Core documents
 
 - [Workshop Data](data\README.md)
