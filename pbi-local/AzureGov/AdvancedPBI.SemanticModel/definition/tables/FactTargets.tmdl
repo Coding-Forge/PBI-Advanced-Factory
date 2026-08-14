@@ -1,0 +1,52 @@
+table FactTargets
+	lineageTag: a301558a-38fc-4470-b754-72f61e2361de
+
+	column TargetMonth
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2c972dab-6f78-48b3-8ad6-edd09aa5ae7e
+		summarizeBy: none
+		sourceColumn: TargetMonth
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TerritoryKey
+		dataType: string
+		lineageTag: f98c9e5c-46e6-45dc-a632-484419c6ad1e
+		summarizeBy: none
+		sourceColumn: TerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategory
+		dataType: string
+		lineageTag: bc999946-4781-4c8c-b4a9-c599d53c222c
+		summarizeBy: none
+		sourceColumn: ProductCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column TargetSalesAmount
+		dataType: int64
+		formatString: 0
+		lineageTag: e5a06cca-a031-4d27-ae44-d543c3f499e1
+		summarizeBy: sum
+		sourceColumn: TargetSalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactTargets = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/targets.csv"), [Delimiter = ",", Columns = 4, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"TargetMonth", type date}, {"TerritoryKey", type text}, {"ProductCategory", type text}, {"TargetSalesAmount", Int64.Type}}),
+				  #"Filtered rows" = Table.SelectRows(#"Changed column type", each ([TargetMonth] <> null))
+				in
+				  #"Filtered rows"
+
+	annotation PBI_ResultType = Table
+

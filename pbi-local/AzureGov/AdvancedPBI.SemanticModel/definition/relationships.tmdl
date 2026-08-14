@@ -1,0 +1,62 @@
+relationship AutoDetected_746b1a31-ce7c-4e83-9f09-aa6ed96a2386
+	fromColumn: BridgeCustomerSegment.Segment
+	toColumn: DimSegment.Segment
+
+relationship 393297c7-556a-6583-b4e5-72cdaa616c16
+	fromColumn: FactSales.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship 0a3fc0cf-e255-bff0-3ebc-9fcca32dec65
+	fromColumn: FactSales.TerritoryKey
+	toColumn: DimTerritory.TerritoryKey
+
+relationship 37619601-a851-8426-2fbe-5e6af57810aa
+	fromColumn: FactSales.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship 750bc426-ebd7-e948-e07b-3225f21e73bf
+	fromColumn: FactTargets.TerritoryKey
+	toColumn: DimTerritory.TerritoryKey
+
+relationship d032974e-e09e-0215-845e-b2c5052c636f
+	crossFilteringBehavior: bothDirections
+	fromColumn: FactSales.ShipDate
+	toColumn: DimShipDate.Date
+
+relationship 45d6df51-7f97-dc83-e3ba-007c45129ff7
+	crossFilteringBehavior: bothDirections
+	fromColumn: FactSales.OrderDate
+	toColumn: DimOrderDate.Date
+
+relationship 80d71114-5f17-2d68-2526-428c2a78ee7d
+	crossFilteringBehavior: bothDirections
+	fromColumn: BridgeCustomerSegment.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_dfb6dbfd-467c-4775-bd2f-9fb183087a5e
+	fromColumn: FactTargets.ProductCategory
+	toColumn: DimProductCategory.ProductCategory
+
+relationship AutoDetected_606c397b-22a1-4c11-9d04-ac41ca9139ed
+	fromColumn: DimProduct.ProductCategory
+	toColumn: DimProductCategory.ProductCategory
+
+relationship AutoDetected_1ce62a72-ffed-4a2b-8393-62f604154c33
+	fromColumn: product-category-map.ProductCategory
+	toColumn: DimProductCategory.ProductCategory
+
+relationship AutoDetected_c58ad877-728a-4510-8824-af6fa8fbbb11
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: product-category-map.ProductName
+	toColumn: DimProduct.ProductName
+
+relationship AutoDetected_e9ec14d5-3e39-4f75-9ca9-b74b9093b5e0
+	fromColumn: FactOrders.ProductCode
+	toColumn: product-category-map.ProductCode
+
+relationship c1a4e7d9-3b6f-4a8c-9e2d-5f8b1c6a3e7d
+	fromColumn: SecurityUserTerritory.TerritoryKey
+	toColumn: DimTerritory.TerritoryKey
+

@@ -1,0 +1,7 @@
+role 'East Region'
+	modelPermission: read
+
+	tablePermission DimTerritory = [TerritoryRegion] = "East"
+
+	annotation PBI_Id = b32ebb957d724cc1bd551efdd3d36b7c
+

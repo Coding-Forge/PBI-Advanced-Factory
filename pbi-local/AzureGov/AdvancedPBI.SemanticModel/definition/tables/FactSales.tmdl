@@ -1,0 +1,125 @@
+table FactSales
+	lineageTag: 79de5c4c-a3bf-4d57-88e4-4397a9c6a56f
+
+	column SalesOrderLineKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 46f088c5-c7d2-4d82-8820-092a8996ab3b
+		summarizeBy: count
+		sourceColumn: SalesOrderLineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d30de839-e12b-4e62-ab48-d9789ea02a9a
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ShipDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7e770118-b605-41f2-865b-9327a552e3cc
+		summarizeBy: none
+		sourceColumn: ShipDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column InvoiceDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6d5f01f4-c846-4f49-aea5-ec34d7d19b3b
+		summarizeBy: none
+		sourceColumn: InvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerKey
+		dataType: string
+		lineageTag: f5e669b3-bbc6-4be2-a71f-81ca1bc30b7f
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: string
+		lineageTag: f4125c15-66e2-45e5-8fbb-e502ffb548fd
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryKey
+		dataType: string
+		lineageTag: e5d2b8a4-f997-48c8-a9fd-5e3728ac9bf5
+		summarizeBy: none
+		sourceColumn: TerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 926fba29-e554-4944-8471-98d9a5075064
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: int64
+		formatString: 0
+		lineageTag: 0eec5551-57a5-46ce-901d-fb91d105797a
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitCost
+		dataType: int64
+		formatString: 0
+		lineageTag: f87fd794-11ce-4ba5-b744-1e68a2cca606
+		summarizeBy: sum
+		sourceColumn: UnitCost
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesAmount
+		dataType: int64
+		formatString: 0
+		lineageTag: 3fe8bbf8-f762-461c-8dae-801ee04c8e82
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	column GrossMargin
+		dataType: int64
+		formatString: 0
+		lineageTag: b13a6eef-169a-4784-a853-92f9f6ff9eee
+		summarizeBy: sum
+		sourceColumn: GrossMargin
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactSales = m
+		mode: import
+		source =
+				let
+				  Source = raw_SalesFlat,
+				  #"Removed other columns" = Table.SelectColumns(Source, {"SalesOrderLineKey", "OrderDate", "ShipDate", "InvoiceDate", "CustomerKey", "ProductKey", "TerritoryKey", "Quantity", "UnitPrice", "UnitCost", "SalesAmount", "GrossMargin"})
+				in
+				  #"Removed other columns"
+
+	annotation PBI_ResultType = Table
+

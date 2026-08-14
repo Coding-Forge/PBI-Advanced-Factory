@@ -1,0 +1,56 @@
+table SecurityUserTerritory
+	lineageTag: 9c4a7e2d-6b1f-4d8a-9e3c-5f7b2a8d1c6e
+
+	column UserPrincipalName
+		dataType: string
+		lineageTag: 2f8b6d1a-4c9e-4a7f-8d2b-6e1c9a3f5b7d
+		summarizeBy: none
+		sourceColumn: UserPrincipalName
+
+		annotation SummarizationSetBy = Automatic
+
+	column DisplayName
+		dataType: string
+		lineageTag: 5a1d9c3e-7b4f-4e2a-9c6d-8f3a1e5b9d2c
+		summarizeBy: none
+		sourceColumn: DisplayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryKey
+		dataType: string
+		lineageTag: 8e2c5a9d-1f4b-4d7e-8a3c-6d9f2b5e1a4c
+		summarizeBy: none
+		sourceColumn: TerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryName
+		dataType: string
+		lineageTag: 3d7f1a5c-9e2b-4a6d-8c4f-1b7e9d3a5c8f
+		summarizeBy: none
+		sourceColumn: TerritoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccessLevel
+		dataType: string
+		lineageTag: 6b9e3d7a-2c5f-4e8b-9d1a-4f6c8b2e5a9d
+		summarizeBy: none
+		sourceColumn: AccessLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SecurityUserTerritory = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(Web.Contents("https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-user-territory.csv"), [Delimiter = ",", Columns = 5, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"UserPrincipalName", type text}, {"DisplayName", type text}, {"TerritoryKey", type text}, {"TerritoryName", type text}, {"AccessLevel", type text}}),
+				  #"Filtered rows" = Table.SelectRows(#"Changed column type", each ([UserPrincipalName] <> null and [UserPrincipalName] <> ""))
+				in
+				  #"Filtered rows"
+
+	annotation PBI_ResultType = Table
+

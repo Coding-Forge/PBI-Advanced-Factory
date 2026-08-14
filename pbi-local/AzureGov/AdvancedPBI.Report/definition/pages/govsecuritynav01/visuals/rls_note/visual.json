@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "rls_note",
+  "position": {
+    "x": 24,
+    "y": 100,
+    "z": 4000,
+    "height": 180,
+    "width": 860,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Use View As Roles in Power BI Desktop to test the static East Region role and the Dynamic Territory Security role driven by USERPRINCIPALNAME() and SecurityUserTerritory. This page keeps security embedded in a working scenario rather than a standalone topic lab.",
+                    "textStyle": {
+                      "fontSize": "14px",
+                      "color": "#323130"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Instructions for testing static and dynamic row-level security'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
