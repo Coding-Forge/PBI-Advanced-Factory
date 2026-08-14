@@ -1,9 +1,9 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "nav_hierarchy",
+  "name": "7d920ac65c5e00675211",
   "position": {
-    "x": 24,
-    "y": 890,
+    "x": 32.4,
+    "y": 889.5272727272727,
     "z": 12001,
     "height": 50,
     "width": 1000

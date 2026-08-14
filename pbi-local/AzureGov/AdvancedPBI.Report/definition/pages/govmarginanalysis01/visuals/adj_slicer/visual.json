@@ -51,23 +51,28 @@
                 "Where": [
                   {
                     "Condition": {
-                      "Comparison": {
-                        "ComparisonKind": 0,
-                        "Left": {
-                          "Column": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "m"
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "m"
+                                }
+                              },
+                              "Property": "Margin Adjustment %"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "-0.1D"
                               }
-                            },
-                            "Property": "Margin Adjustment %"
-                          }
-                        },
-                        "Right": {
-                          "Literal": {
-                            "Value": "0D"
-                          }
-                        }
+                            }
+                          ]
+                        ]
                       }
                     }
                   }

@@ -10,11 +10,26 @@
     "tabOrder": 7000
   },
   "visual": {
-    "visualType": "lineStackedColumnComboChart",
+    "visualType": "lineClusteredColumnComboChart",
     "query": {
       "queryState": {
         "Category": {
           "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrderDate"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "DimOrderDate.Year",
+              "nativeQueryRef": "Year",
+              "active": false
+            },
             {
               "field": {
                 "Column": {
@@ -60,11 +75,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Sales YoY %"
+                  "Property": "Sales Variance %"
                 }
               },
-              "queryRef": "_Measures.Sales YoY %",
-              "nativeQueryRef": "Sales YoY %"
+              "queryRef": "_Measures.Sales Variance %",
+              "nativeQueryRef": "Sales Variance %"
             }
           ]
         }
@@ -79,7 +94,7 @@
                     "Entity": "DimOrderDate"
                   }
                 },
-                "Property": "Date"
+                "Property": "Year"
               }
             },
             "direction": "Ascending"
@@ -108,7 +123,21 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "bfd7653efcbfef50c8e8",
+        "name": "20303da0174c33cfa37c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimOrderDate"
+              }
+            },
+            "Property": "Year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "46097177ab032d42621f",
         "field": {
           "Column": {
             "Expression": {
@@ -122,21 +151,7 @@
         "type": "Categorical"
       },
       {
-        "name": "66c4176170c90550c994",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Sales YoY %"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "bdb34a61b635f8b52ed5",
+        "name": "d17a08991fc1b0cacd57",
         "field": {
           "Measure": {
             "Expression": {
@@ -145,6 +160,20 @@
               }
             },
             "Property": "Sales Amount"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0ba4c864a81186e45b9d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Sales Variance %"
           }
         },
         "type": "Advanced"

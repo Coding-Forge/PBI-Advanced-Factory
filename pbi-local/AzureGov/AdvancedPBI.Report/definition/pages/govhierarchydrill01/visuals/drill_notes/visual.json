@@ -19,10 +19,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Drill-down / Drill-up: use the matrix's own drill controls to expand Category \u2192 Subcategory \u2192 Product, or collapse back up \u2014 the visual stays the same, only the level of detail changes.",
+                    "value": "Drill-down / Drill-up: use the matrix's own drill controls to expand Category → Subcategory → Product, or collapse back up — the visual stays the same, only the level of detail changes.",
                     "textStyle": {
                       "fontSize": "14px",
-                      "color": "#102A43"
+                      "color": "#102a43"
                     }
                   }
                 ]
@@ -30,10 +30,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Drill-across: use the nav bar below to jump to Customer & Segmentation Detail \u2014 a different report page/visual continuing the same analysis thread, the report-level pattern for drill-across when a full drillthrough page isn't wired up.",
+                    "value": "Drill-across: use the nav bar below to jump to Customer & Segmentation Detail — a different report page/visual continuing the same analysis thread, the report-level pattern for drill-across when a full drillthrough page isn't wired up.",
                     "textStyle": {
                       "fontSize": "14px",
-                      "color": "#102A43"
+                      "color": "#102a43"
                     }
                   }
                 ]
@@ -44,7 +44,7 @@
                     "value": "Groups: the table below buckets customers into named sales tiers (Tier 1-4) using a DAX-authored grouping measure, the hand-built equivalent of Desktop's New Group/New Bin feature.",
                     "textStyle": {
                       "fontSize": "14px",
-                      "color": "#102A43"
+                      "color": "#102a43"
                     }
                   }
                 ]

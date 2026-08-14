@@ -215,7 +215,21 @@
         "type": "Categorical"
       },
       {
-        "name": "582aed25b6796e9b5585",
+        "name": "c757be18f1078568c96f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Quantity"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "cde38b3808531fc3a886",
         "field": {
           "Measure": {
             "Expression": {
@@ -229,7 +243,7 @@
         "type": "Advanced"
       },
       {
-        "name": "ea169586486d66bfcb69",
+        "name": "47ab73704a525de9ddda",
         "field": {
           "Measure": {
             "Expression": {
@@ -243,7 +257,7 @@
         "type": "Advanced"
       },
       {
-        "name": "aec675848d3136889ea4",
+        "name": "a6fd3a6ed31831e36fca",
         "field": {
           "Measure": {
             "Expression": {
@@ -252,20 +266,6 @@
               }
             },
             "Property": "Gross Margin %"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "610cc7e8c03f63fd6e46",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Quantity"
           }
         },
         "type": "Advanced"

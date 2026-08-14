@@ -78,5 +78,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "37072938f6575292dbe5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Adjusted Gross Margin"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
