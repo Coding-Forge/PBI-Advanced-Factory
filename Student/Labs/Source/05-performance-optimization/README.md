@@ -24,6 +24,13 @@ These labs teach a repeatable performance optimization process across report pag
 4. Test the rewritten measure beside the original.
 5. Keep the version that returns the same result with clearer logic.
 
+### Document before/after benchmark evidence
+
+1. Record the baseline timing before making a change.
+2. Change one thing at a time.
+3. Record the after timing using the same interaction.
+4. Note any tradeoff, such as lower detail, less interactivity, or a tenant-dependent feature.
+
 ## Azure Government readiness
 
 The required Desktop labs are **Gov-ready**. DAX Studio, VertiPaq Analyzer, Service-side incremental refresh, capacity metrics, and some DirectQuery/aggregation scenarios are **Verify for Gov**.
@@ -116,6 +123,8 @@ The report page is simpler and faster without losing business value.
 
 **Objective:** Understand how aggregations can speed summary queries.
 
+**Concept note:** Import aggregation tables can accelerate common summary queries while a detailed DirectQuery table remains available for drill-through or high-detail scenarios. Hybrid patterns require clear tradeoffs: source support, relationship behavior, cache hit rules, gateway/network readiness, and Gov validation must be documented before production use.
+
 ### Tasks
 
 1. Identify a detailed fact table.
@@ -133,6 +142,8 @@ Learners can explain how aggregation tables support summary performance and what
 > **Azure Government note:** Incremental refresh is **Verify for Gov** for Service execution. Validate license, workspace, gateway, source, and cloud support before making policy setup required.
 
 **Objective:** Prepare and review an incremental refresh policy.
+
+**Concept note:** Refresh performance starts in Power Query. Filter early, remove unused columns early, preserve query folding where the source supports it, and keep staging queries clear so the incremental refresh filter can be validated against the correct date/time column.
 
 ### Tasks
 

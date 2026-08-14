@@ -42,6 +42,13 @@ Use **Get data > Web** in Power BI Desktop to load each CSV from the raw GitHub 
 5. Filter the security table with `[UserPrincipalName] = USERPRINCIPALNAME()`.
 6. Use **View as** with sample UPN values from the mapping table.
 
+### Assign Service roles safely
+
+1. Publish only to an approved training workspace.
+2. Assign users or groups to RLS roles rather than relying on report access alone.
+3. Check workspace role implications before testing, because broad workspace permissions can affect what a user can do with content.
+4. Use App distribution for consumers when available instead of granting broad workspace access.
+
 ### Exercise 1: Static RLS
 
 **Objective:** Create a role that filters data to one territory or region.
@@ -84,6 +91,8 @@ The model filters territories based on the current user's mapping rows.
 
 **Objective:** Validate security before production.
 
+**Concept note:** Service testing includes both data access and content distribution. Assign users or groups to roles, confirm the viewer path through the workspace or App, and record any workspace role that could change the test result.
+
 ### Tasks
 
 1. Use **View as** in Desktop.
@@ -112,6 +121,10 @@ RLS behavior is verified in both Desktop and Service where available.
 ### Expected result
 
 Learners can distinguish report viewing from semantic model reuse.
+
+### Concept note: Sharing and external users
+
+Direct sharing, App access, workspace access, and B2B guest access are separate decisions. External sharing and guest-user behavior are **Verify for Gov** and should be validated against tenant policy before being used as a hands-on requirement.
 
 ## Optional lab: Object-level security
 

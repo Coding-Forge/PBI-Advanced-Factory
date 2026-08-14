@@ -154,7 +154,8 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>PBIP source review</li>
+          <div class="panel"><ul><li>Lifecycle goals</li>
+<li>PBIP source review</li>
 <li>Git workflow</li>
 <li>Automation validation</li>
 <li>Deployment checklist</li></ul></div>
@@ -163,99 +164,83 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
+  <h3>Define lifecycle goals</h3>
+  <ul>
+    <li>Document repeatability, reviewability, promotion, governance, and rollback expectations.</li>
+<li>Confirm PBIX is not the source of record.</li>
+  </ul>
+</div>
+<div class="task-card">
   <h3>Review PBIP structure</h3>
   <ul>
     <li>Inspect report and semantic model source files.</li>
-<li>Confirm PBIX is not the source of record.</li>
+<li>Identify generated or binary files that should not drive review.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Practice git workflow</h3>
   <ul>
     <li>Create a branch, make a small change, review status/diff, and commit.</li>
+<li>Discuss pull request review, tags, releases, and rollback evidence.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Review external tools</h3>
+  <h3>Review external tools and automation</h3>
   <ul>
-    <li>Tabular Editor and ALM Toolkit are Verify for Gov.</li>
-<li>Document XMLA and workstation policy needs.</li>
+    <li>Tabular Editor, ALM Toolkit, REST APIs, PowerShell, and service principals are Verify for Gov.</li>
+<li>Document XMLA, endpoint, identity, permission, and workstation policy needs.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Review automation options</h3>
+  <h3>Review Fabric Git and CI/CD</h3>
   <ul>
-    <li>REST APIs, PowerShell, service principals, Azure DevOps, and GitHub Actions require endpoint and policy validation.</li>
+    <li>Fabric workspace Git integration is Commercial-focused / Verify for Gov.</li>
+<li>Azure DevOps and GitHub Actions require endpoint, identity, network, and policy validation.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Complete deployment checklist</h3>
   <ul>
-    <li>Document source, security, refresh, environment config, automation validation, and release evidence.</li>
+    <li>Document source, security, refresh, environment config, automation validation, Azure Government validation, release evidence, and rollback path.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: PBIP file structure <span class="tag">Core or module-dependent</span></h3>
-  <p>Understand what gets checked into source control.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Source control workflow <span class="tag">Core or module-dependent</span></h3>
-  <p>Track and review Power BI changes with git.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Tabular Editor workflow where available <span class="tag">Verify for Gov</span></h3>
-  <p>See the lab README for detailed instructions.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: ALM Toolkit model comparison where available <span class="tag">Verify for Gov</span></h3>
-  <p>See the lab README for detailed instructions.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 5: Conceptual CI/CD pipeline for Azure DevOps <span class="tag">Core or module-dependent</span></h3>
-  <p>Design a deployment pipeline pattern.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 6: Conceptual CI/CD pipeline for GitHub Actions <span class="tag">Core or module-dependent</span></h3>
-  <p>Design a GitHub Actions deployment pattern.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 7: Deployment checklist <span class="tag">Core or module-dependent</span></h3>
-  <p>Validate readiness before deployment.</p>
-</div></div>
-</section>
+        
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
-    <div class="task-card"><h3>Work through each lab step</h3><ol><li>Start from the stated starter PBIP or completed prior module solution.</li><li>Create or modify one object at a time using the exact names in the lab.</li><li>Save after each major change.</li><li>Validate the result in a simple visual, Service page, checklist, or evidence table before moving on.</li></ol></div>
-    <div class="task-card"><h3>Document validation</h3><ol><li>Record the feature or setting being tested.</li><li>Record expected behavior before testing.</li><li>Capture actual behavior after testing.</li><li>Mark tenant-dependent features as Verify for Gov if they cannot be validated hands-on.</li></ol></div>
+    <div class="task-card"><h3>Review PBIP source structure</h3><ol><li>Open the PBIP project folder in File Explorer or VS Code.</li><li>Locate the <code>.pbip</code> file.</li><li>Locate the <code>.Report</code> and <code>.SemanticModel</code> folders.</li><li>Open JSON or TMDL files as text to understand what is source-controlled.</li><li>Do not edit generated files unless the lab explicitly tells you to.</li></ol></div>
+    <div class="task-card"><h3>Practice a basic git workflow</h3><ol><li>Open a terminal at the repo root.</li><li>Run <code>git status</code>.</li><li>Create or switch to the working branch chosen for the lab.</li><li>Make a small documented change.</li><li>Run <code>git diff</code> to review it.</li><li>Commit only the intended files.</li></ol></div>
+    <div class="task-card"><h3>Validate automation boundaries</h3><ol><li>Identify endpoint, identity, network, tenant setting, and permission requirements.</li><li>Mark REST APIs, PowerShell, service principals, XMLA, Fabric Git, and CI/CD as Verify for Gov unless approved.</li></ol></div>
   </div>
 </section>
         <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Artifact</th><th>Action</th><th>Gov status</th><th>Evidence</th></tr></thead><tbody>
-<tr><td>PBIP source</td><td>Keep report/model source in git</td><td>Gov-ready</td><td>Commit ID and changed files.</td></tr>
+<tr><td>Lifecycle goals</td><td>Document repeatability, reviewability, promotion, governance, and rollback</td><td>Gov-ready</td><td>Checklist notes and rollback path.</td></tr>
+<tr><td>PBIP source</td><td>Keep report/model source in git</td><td>Gov-ready</td><td>Repo path and changed files.</td></tr>
 <tr><td>PBIX output</td><td>Generate only when needed</td><td>Gov-ready</td><td>Output artifact note.</td></tr>
-<tr><td>Pull request</td><td>Review model, report, DAX, RLS, sources</td><td>Gov-ready</td><td>Review notes.</td></tr>
+<tr><td>Branch and pull request</td><td>Review model, report, DAX, RLS, sources, and generated changes</td><td>Gov-ready</td><td>Review notes, release tag, or rollback note.</td></tr>
 <tr><td>External tools</td><td>Use Tabular Editor/ALM Toolkit only if approved</td><td>Verify for Gov</td><td>Policy/XMLA validation.</td></tr>
-<tr><td>Automation</td><td>REST API, PowerShell, service principal, CI/CD</td><td>Verify for Gov</td><td>Endpoint, identity, and permission notes.</td></tr>
-<tr><td>Fabric Git</td><td>Use only if workspace Git is available</td><td>Commercial-focused / Verify for Gov</td><td>Workspace Git validation.</td></tr>
+<tr><td>Automation</td><td>REST API, PowerShell, service principal, CI/CD</td><td>Verify for Gov</td><td>Endpoint, identity, permission, runner, and network notes.</td></tr>
+<tr><td>Fabric Git</td><td>Use only if workspace Git is available</td><td>Commercial-focused / Verify for Gov</td><td>Workspace Git branching, folder, sync, conflict, and item-support validation.</td></tr>
+<tr><td>Azure Government boundary</td><td>Validate cloud endpoint, authority, network path, tenant settings, and customer policy</td><td>Verify for Gov</td><td>Environment validation notes.</td></tr>
 </tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
+    <li><strong>Define lifecycle management goals.</strong><p>Document repeatability, reviewability, environment promotion, governance, and rollback expectations for Power BI delivery.</p></li>
     <li><strong>Open the repository.</strong><p>Confirm the Power BI work is being done in PBIP format and that PBIX is not the source of record.</p></li>
     <li><strong>Inspect PBIP structure.</strong><p>Review report and semantic model folders. Identify files that represent report definitions, model metadata, relationships, measures, and data sources.</p></li>
     <li><strong>Practice a git workflow.</strong><p>Create a feature branch, make a small metadata or report change, run <code>git status</code>, review the changed files, and commit with a clear message.</p></li>
-    <li><strong>Discuss pull request review.</strong><p>Identify what reviewers should check: model changes, measures, data sources, parameters, RLS, report pages, and unintended generated changes.</p></li>
-    <li><strong>Review Tabular Editor and ALM Toolkit.</strong><p>If approved, demonstrate model inspection or comparison. If not approved, document required XMLA, workstation, and tenant validations.</p></li>
-    <li><strong>Review REST API and PowerShell options.</strong><p>Identify target workspace, cloud endpoint, permissions, deployment operations, and tenant settings. Keep hands-on automation optional until validated.</p></li>
+    <li><strong>Discuss pull request and release review.</strong><p>Identify what reviewers should check: model changes, measures, data sources, parameters, RLS, report pages, unintended generated changes, release notes, tags, and rollback evidence.</p></li>
+    <li><strong>Review Tabular Editor and ALM Toolkit.</strong><p>If approved, demonstrate model inspection or comparison. If not approved, document required XMLA, workstation, customer policy, and tenant validations.</p></li>
+    <li><strong>Review REST API deployment options.</strong><p>Identify target workspace, cloud endpoint, permissions, import/export/refresh operations, and tenant settings. Keep hands-on API deployment optional until validated.</p></li>
+    <li><strong>Review PowerShell administration.</strong><p>Identify approved modules, endpoint configuration, required permissions, and common administration commands. Record endpoint and cloud validation.</p></li>
     <li><strong>Review service principal requirements.</strong><p>Document app registration, admin setting approval, security group scoping, workspace role, and secret/certificate storage.</p></li>
-    <li><strong>Review Fabric Git integration.</strong><p>If available, discuss workspace sync. If unavailable, use local PBIP plus git as the Gov-safe path.</p></li>
-    <li><strong>Review CI/CD concepts.</strong><p>Walk through the Azure DevOps and GitHub Actions conceptual pipelines. Identify validation, authentication, deployment, smoke test, and evidence stages.</p></li>
-    <li><strong>Complete deployment checklist.</strong><p>Record source control, model/report validation, environment configuration, automation validation, Azure Government validation, and release evidence.</p></li>
+    <li><strong>Review Fabric Git integration.</strong><p>If available, discuss workspace-connected git, branch and folder selection, sync status, conflict behavior, and Commercial/Gov caveats. If unavailable, use local PBIP plus git as the Gov-safe path.</p></li>
+    <li><strong>Review CI/CD concepts.</strong><p>Walk through the Azure DevOps and GitHub Actions conceptual pipelines. Identify validation, package, authentication, deployment, configuration, smoke test, and evidence stages.</p></li>
+    <li><strong>Validate Azure Government boundaries.</strong><p>Record endpoint, identity, network, customer policy, and feature availability requirements before relying on automation.</p></li>
+    <li><strong>Complete deployment checklist.</strong><p>Record source control, model/report validation, environment configuration, automation validation, Azure Government validation, release evidence, and rollback path.</p></li>
   </ol>
 </section>
         
@@ -268,12 +253,15 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <div class="checklist" data-progress="lab11">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
-          <label><input type="checkbox">PBIP structure reviewed</label>
-<label><input type="checkbox">Git workflow practiced</label>
+          <p class="small"><span class="count">0</span> of 9 complete</p>
+          <label><input type="checkbox">Lifecycle goals documented</label>
+<label><input type="checkbox">PBIP structure reviewed</label>
+<label><input type="checkbox">Git workflow and PR/release expectations documented</label>
 <label><input type="checkbox">External tools labeled</label>
 <label><input type="checkbox">API/service principal validation documented</label>
+<label><input type="checkbox">Fabric Git caveats documented</label>
 <label><input type="checkbox">CI/CD path selected</label>
+<label><input type="checkbox">Gov endpoint/identity/network validation documented</label>
 <label><input type="checkbox">Deployment checklist completed</label>
         </div>
       </aside>

@@ -147,17 +147,19 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <header>
       <div class="eyebrow">Lab 3 - Data shaping</div>
       <h1>Advanced Power Query</h1>
-      <p class="lede">Create staged, reusable Power Query transformations using raw GitHub CSVs, parameters, custom functions, data quality checks, and incremental refresh preparation.</p>
+      <p class="lede">Create a staged Power Query pipeline from monthly Web CSVs with parameters, source lineage, reusable functions, data quality review, folding concepts, and incremental refresh preparation.</p>
       <div class="meta"><span>Advanced authoring</span><span>Deliverable: Reusable Power Query pipeline</span><span>PBIP-first</span></div>
     </header>
     <main class="layout">
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>Staged queries</li>
-<li>Web connector sources</li>
-<li>Custom function</li>
-<li>Data quality review</li></ul></div>
+          <div class="panel"><ul><li>Staged query architecture</li>
+<li>Parameter reference</li>
+<li>Folder/append pattern</li>
+<li>Reusable M function</li>
+<li>Data quality review</li>
+<li>Incremental refresh prep</li></ul></div>
         </section>
         <section>
   <h2>Source files</h2>
@@ -171,82 +173,56 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
-  <h3>Create Web sources</h3>
-  <ul>
-    <li>Use the monthly order raw URLs with Get data &gt; Web.</li>
-<li>Name raw queries by source month.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Append and stage</h3>
-  <ul>
-    <li>Append monthly files into stg_OrdersCombined.</li>
-<li>Preserve source file lineage and disable load for staging queries.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Clean and validate</h3>
-  <ul>
-    <li>Apply explicit types.</li>
-<li>Create error review logic for bad dates and quantities.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Add parameters and functions</h3>
+  <h3>Create parameters and Web sources</h3>
   <ul>
     <li>Create RawDataBaseUrl, SourceFolderPath, EnvironmentName, RangeStart, and RangeEnd.</li>
-<li>Keep SourceFolderPath blank unless using an offline/folder delivery path.</li>
-<li>Create fn_CleanText for reusable null-safe text cleanup.</li>
+<li>Use Get data &gt; Web for the three monthly order CSV files and name raw queries by source month.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Prepare refresh concepts</h3>
+  <h3>Append and stage monthly files</h3>
   <ul>
-    <li>Create RangeStart and RangeEnd parameters conceptually or hands-on.</li>
-<li>Mark Service incremental refresh as Verify for Gov.</li>
+    <li>Add a SourceFile lineage column to each raw query.</li>
+<li>Append into stg_OrdersCombined and disable load for raw and staging queries.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Document source switching</h3>
+  <ul>
+    <li>Keep the required Web-source queries pointed at RawDataBaseUrl.</li>
+<li>Document how EnvironmentName and optional SourceFolderPath would map to Dev/Test/Prod or offline delivery.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Create reusable cleanup logic</h3>
+  <ul>
+    <li>Create fn_CleanText for null-safe trim, clean, and proper-case logic.</li>
+<li>Invoke it for customer/channel and product reference text fields.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Review data quality and errors</h3>
+  <ul>
+    <li>Create err_OrdersReview as a disabled-load reference of stg_OrdersCombined.</li>
+<li>Keep valid rows in FactOrders and preserve readable DataQualityIssue reasons for excluded rows.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Validate folding and refresh readiness</h3>
+  <ul>
+    <li>Discuss folding blockers for file sources and validate View Native Query only with a folding-capable source.</li>
+<li>Filter FactOrders[OrderDate] with RangeStart and RangeEnd and mark Service incremental refresh Verify for Gov.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: Staged query architecture <span class="tag">Core or module-dependent</span></h3>
-  <p>Create maintainable query layers.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Folder combine <span class="tag">Core or module-dependent</span></h3>
-  <p>Combine monthly files safely.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Parameters and source switching <span class="tag">Core or module-dependent</span></h3>
-  <p>Use parameters to avoid hard-coded local paths.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Custom functions <span class="tag">Core or module-dependent</span></h3>
-  <p>Encapsulate reusable cleanup logic.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 5: Data quality and error handling <span class="tag">Core or module-dependent</span></h3>
-  <p>Detect and handle invalid source rows.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 6: Query folding <span class="tag">Gov-ready</span></h3>
-  <p>Understand and validate folding behavior.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 7: Incremental refresh preparation <span class="tag">Verify for Gov</span></h3>
-  <p>Prepare a fact query for incremental refresh.</p>
-</div></div>
-</section>
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create Power Query parameters</h3><ol><li>Open <strong>Transform data</strong> to launch Power Query.</li><li>Select <strong>Manage Parameters &gt; New Parameter</strong>.</li><li>Create <code>RawDataBaseUrl</code>, <code>SourceFolderPath</code>, <code>EnvironmentName</code>, <code>RangeStart</code>, and <code>RangeEnd</code>.</li><li>Keep <code>SourceFolderPath</code> blank unless using the optional offline/folder delivery path.</li><li>Select <strong>OK</strong> and use required parameters in source or filter steps instead of hard-coded values.</li></ol></div>
-    <div class="task-card"><h3>Append queries</h3><ol><li>In Power Query, select <strong>Home &gt; Append Queries &gt; Append Queries as New</strong>.</li><li>Choose <strong>Three or more tables</strong>.</li><li>Add each raw monthly query in order.</li><li>Name the result <code>stg_OrdersCombined</code>.</li><li>Check that columns line up and data types are consistent.</li></ol></div>
-    <div class="task-card"><h3>Disable load for staging queries</h3><ol><li>Right-click each raw or staging query.</li><li>Clear <strong>Enable load</strong>.</li><li>Leave final model-ready queries enabled.</li><li>Select <strong>Close &amp; Apply</strong> when the query set is ready.</li></ol></div>
-  </div>
-</section>
+        
+        <section><h2>Novice-friendly how-to guide</h2><div class="task-list">
+<div class="task-card"><h3>Create Power Query parameters</h3><ol><li>Open <strong>Transform data</strong>.</li><li>Select <strong>Manage Parameters &gt; New Parameter</strong>.</li><li>Create <code>RawDataBaseUrl</code>, <code>SourceFolderPath</code>, <code>EnvironmentName</code>, <code>RangeStart</code>, and <code>RangeEnd</code>.</li><li>Keep <code>SourceFolderPath</code> blank unless using offline delivery.</li></ol></div>
+<div class="task-card"><h3>Append queries</h3><ol><li>Select <strong>Home &gt; Append Queries &gt; Append Queries as New</strong>.</li><li>Choose <strong>Three or more tables</strong>.</li><li>Add each raw monthly query in order.</li><li>Name the result <code>stg_OrdersCombined</code>.</li></ol></div>
+<div class="task-card"><h3>Create a custom function</h3><ol><li>Create a Blank Query named <code>fn_CleanText</code>.</li><li>Paste the function from the answer key in Advanced Editor.</li><li>Invoke it on selected customer, channel, and product text columns.</li></ol></div>
+<div class="task-card"><h3>Use column quality and error review</h3><ol><li>Turn on column quality or profile.</li><li>Create readable <code>DataQualityIssue</code> reasons.</li><li>Reference <code>stg_OrdersCombined</code> as <code>err_OrdersReview</code>.</li><li>Disable load for the error review query.</li></ol></div>
+<div class="task-card"><h3>Disable load for staging queries</h3><ol><li>Right-click raw and staging queries.</li><li>Clear <strong>Enable load</strong>.</li><li>Leave final model-ready queries enabled.</li></ol></div>
+</div></section>
         <section><h2>Implementation reference table</h2><div class="task-card">
 <h3>Module parameter reference</h3>
 <table class="column-table"><thead><tr><th>Parameter</th><th>Type</th><th>Suggested value</th><th>Used in core Web path?</th><th>Purpose</th></tr></thead><tbody>
@@ -272,13 +248,16 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <li><strong>Open the PBIP project and Power Query.</strong><p>Open the current PBIP solution. Select <b>Transform data</b> to open Power Query Editor.</p></li>
     <li><strong>Create module parameters.</strong><p>Create five Power Query parameters: <code>RawDataBaseUrl</code> as Text with value <code>https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/</code>; <code>SourceFolderPath</code> as Text and leave it blank unless using an offline folder path; <code>EnvironmentName</code> as Text or List with current value <code>Dev</code>; <code>RangeStart</code> as Date/Time with value <code>2026-01-01 00:00:00</code>; and <code>RangeEnd</code> as Date/Time with value <code>2026-04-01 00:00:00</code>.</p></li>
     <li><strong>Load monthly order files.</strong><p>Use <b>New Source > Web</b> for each monthly order CSV. Name the raw queries <code>raw_Orders_2026_01</code>, <code>raw_Orders_2026_02</code>, and <code>raw_Orders_2026_03</code>.</p></li>
+    <li><strong>Review generated M fundamentals.</strong><p>Use the formula bar to identify applied steps and step references. Point out lists, records, and tables in the generated code, such as the option record in <code>Csv.Document</code> and the query list used by <code>Table.Combine</code>.</p></li>
     <li><strong>Add source lineage.</strong><p>In each raw monthly query, add a custom column named SourceFile with the file name, such as <code>orders-2026-01.csv</code>. This helps identify which file produced each row.</p></li>
     <li><strong>Append the monthly queries.</strong><p>Use <b>Append Queries as New</b> and append the three monthly order queries. Rename the result <code>stg_OrdersCombined</code>.</p></li>
     <li><strong>Create the final fact query.</strong><p>Reference <code>stg_OrdersCombined</code> and name the new query <code>FactOrders</code>. Use the validation pattern to keep only rows with no data quality issue, then apply explicit data types for OrderId, OrderDate, ProductCode, Quantity, UnitPrice, and SalesChannel.</p></li>
     <li><strong>Create and invoke a cleanup function.</strong><p>Create <code>fn_CleanText</code> to trim and clean nullable text values. Invoke it on <code>CustomerName</code> and <code>SalesChannel</code> in <code>FactOrders</code>, and on <code>ProductName</code>, <code>ProductCategory</code>, and <code>ProductSubcategory</code> in the product reference query.</p></li>
     <li><strong>Identify bad data.</strong><p>Use column quality/profile and safe parsing logic to find the intentional bad date and bad quantity in the March file. Create <code>err_OrdersReview</code> as a disabled-load reference query before removing invalid rows from <code>FactOrders</code>.</p></li>
+    <li><strong>Document business-rule checks.</strong><p>Keep readable reasons for missing or invalid OrderDate, non-positive Quantity, non-positive UnitPrice, and missing ProductCode so reviewers can understand what was excluded.</p></li>
     <li><strong>Load reference data.</strong><p>Use the Web connector for <code>product-category-map.csv</code>. Merge it into <code>FactOrders</code> on ProductCode or keep it as a dimension/reference table, depending on the lab design.</p></li>
     <li><strong>Prepare for incremental refresh.</strong><p>Use the existing Date/Time parameters <code>RangeStart</code> and <code>RangeEnd</code>. Filter the final fact query on OrderDate using those parameters. Document Service-side incremental refresh as Verify for Gov.</p></li>
+    <li><strong>Review native queries and source systems.</strong><p>Keep native SQL optional until source security, gateway behavior, credentials, and Azure Government support are validated. Prefer maintainable Power Query steps for the core lab.</p></li>
   </ol>
 </section>
         <section>
@@ -459,14 +438,16 @@ FilteredRows =
         <div class="checklist" data-progress="lab03">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 7 complete</p>
-          <label><input type="checkbox">Web URLs loaded</label>
-<label><input type="checkbox">Monthly queries appended</label>
-<label><input type="checkbox">Explicit types applied</label>
-<label><input type="checkbox">Five parameters documented</label>
-<label><input type="checkbox">Data quality issues found</label>
-<label><input type="checkbox">Custom function created</label>
-<label><input type="checkbox">Incremental refresh notes captured</label>
+          <p class="small"><span class="count">0</span> of 9 complete</p>
+          <label><input type="checkbox">Raw and staging queries have load disabled</label>
+<label><input type="checkbox">Final fact query has explicit data types</label>
+<label><input type="checkbox">Monthly files append with SourceFile lineage</label>
+<label><input type="checkbox">All five parameters documented</label>
+<label><input type="checkbox">Custom text cleanup function handles nulls</label>
+<label><input type="checkbox">Data quality issues identified and documented</label>
+<label><input type="checkbox">Query folding demonstrated or explained with source limitations</label>
+<label><input type="checkbox">RangeStart and RangeEnd are DateTime</label>
+<label><input type="checkbox">Service features include Gov notes</label>
         </div>
       </aside>
     </main>

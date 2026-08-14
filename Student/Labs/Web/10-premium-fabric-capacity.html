@@ -155,7 +155,8 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
           <h2>What you will produce</h2>
           <div class="panel"><ul><li>Capacity comparison</li>
-<li>Feature validation notes</li>
+<li>XMLA/paginated/large-model validation</li>
+<li>Fabric feature validation</li>
 <li>Gov-safe architecture</li>
 <li>Capacity metrics concepts</li></ul></div>
         </section>
@@ -163,90 +164,77 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
-  <h3>Define workload requirements</h3>
+  <h3>Compare licensing and capacity options</h3>
   <ul>
-    <li>Document user scale, model size, refresh, latency, governance, and integration needs.</li>
+    <li>Define user scale, model size, refresh, latency, governance, and integration needs.</li>
+<li>Compare Pro, PPU, Premium capacity, and Fabric capacity.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Compare options</h3>
+  <h3>Review XMLA endpoint</h3>
   <ul>
-    <li>Compare Pro, PPU, Premium, and Fabric capacity.</li>
-<li>Identify which capabilities require validation.</li>
+    <li>Validate capacity, tenant settings, workspace configuration, tooling, and cloud support.</li>
+<li>Document read/write and ALM use cases.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Review optional hands-on features</h3>
+  <h3>Review paginated reports and large models</h3>
   <ul>
-    <li>XMLA, paginated reports, large models, and capacity metrics are Verify for Gov.</li>
+    <li>Validate paginated report licensing, workspace support, Report Builder use, and export behavior.</li>
+<li>Document large semantic model size, memory, refresh, and storage-format considerations.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Review Fabric concepts</h3>
   <ul>
     <li>Direct Lake, OneLake, Lakehouse, Warehouse, Semantic Link, and autoscale are Commercial-focused / Verify for Gov.</li>
+<li>Document fallback paths when these features are not validated.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Choose fallback</h3>
+  <h3>Review capacity metrics and choose architecture</h3>
   <ul>
-    <li>Document Import-mode, aggregations, incremental refresh, and manual monitoring alternatives.</li>
+    <li>Map interactive workload, background workload, refresh pressure, and throttling symptoms to operational actions.</li>
+<li>Record the recommended architecture, risks, validation needs, and Gov-safe fallback.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: Licensing and capacity comparison <span class="tag">Core or module-dependent</span></h3>
-  <p>Choose architecture options based on workload requirements.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: XMLA endpoint connection where available <span class="tag">Verify for Gov</span></h3>
-  <p>See the lab README for detailed instructions.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Paginated report where available <span class="tag">Verify for Gov</span></h3>
-  <p>See the lab README for detailed instructions.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Large semantic model settings where available <span class="tag">Verify for Gov</span></h3>
-  <p>See the lab README for detailed instructions.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 5: Capacity metrics and throttling concepts <span class="tag">Verify for Gov</span></h3>
-  <p>See the lab README for detailed instructions.</p>
-</div></div>
-</section>
+        
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
-    <div class="task-card"><h3>Work through each lab step</h3><ol><li>Start from the stated starter PBIP or completed prior module solution.</li><li>Create or modify one object at a time using the exact names in the lab.</li><li>Save after each major change.</li><li>Validate the result in a simple visual, Service page, checklist, or evidence table before moving on.</li></ol></div>
-    <div class="task-card"><h3>Document validation</h3><ol><li>Record the feature or setting being tested.</li><li>Record expected behavior before testing.</li><li>Capture actual behavior after testing.</li><li>Mark tenant-dependent features as Verify for Gov if they cannot be validated hands-on.</li></ol></div>
+    <div class="task-card"><h3>Compare capacity options</h3><ol><li>Start with user count, model size, refresh frequency, latency, sharing, governance, and integration needs.</li><li>Compare Pro, PPU, Premium capacity, and Fabric capacity against those requirements.</li><li>Mark features that require tenant, license, capacity, or cloud validation.</li><li>Choose a Gov-safe fallback when a feature is not validated.</li><li>Record the recommendation and reason.</li></ol></div>
+    <div class="task-card"><h3>Review capacity metrics conceptually</h3><ol><li>Identify the capacity or workspace that would be monitored.</li><li>Review refresh duration, query duration, throttling, memory, interactive workload, background workload, and user activity.</li><li>If the capacity metrics app is unavailable, document what evidence the admin team should provide.</li></ol></div>
   </div>
 </section>
         <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Requirement</th><th>Option</th><th>Gov status</th><th>Fallback</th></tr></thead><tbody>
+<table class="column-table"><thead><tr><th>Requirement or feature</th><th>Option</th><th>Gov status</th><th>Fallback or evidence</th></tr></thead><tbody>
 <tr><td>Standard sharing</td><td>Power BI Pro</td><td>Validate tenant/license</td><td>Instructor demo if no license.</td></tr>
-<tr><td>Premium-like user features</td><td>PPU</td><td>Verify for Gov</td><td>Pro-compatible path.</td></tr>
+<tr><td>Premium-like user features</td><td>Premium Per User</td><td>Verify for Gov</td><td>Pro-compatible path.</td></tr>
 <tr><td>Enterprise scale</td><td>Premium capacity</td><td>Verify for Gov</td><td>Import model plus documented scale plan.</td></tr>
 <tr><td>Fabric workloads</td><td>Fabric capacity</td><td>Commercial-focused / Verify for Gov</td><td>Approved source plus Import model.</td></tr>
+<tr><td>ALM and external tools</td><td>XMLA endpoint</td><td>Verify for Gov</td><td>Conceptual ALM path if tooling or tenant support is blocked.</td></tr>
+<tr><td>Pixel-perfect exports</td><td>Paginated reports</td><td>Verify for Gov</td><td>Standard report export or instructor demo.</td></tr>
+<tr><td>Large semantic model</td><td>Large model storage format/capacity settings</td><td>Verify for Gov</td><td>Model reduction, aggregations, incremental refresh where validated.</td></tr>
 <tr><td>Lake-native model</td><td>Direct Lake</td><td>Commercial-focused / Verify for Gov</td><td>Import with refresh/aggregations.</td></tr>
-<tr><td>Capacity health</td><td>Capacity metrics app</td><td>Verify for Gov</td><td>Usage, refresh, Performance Analyzer.</td></tr>
+<tr><td>Data storage pattern</td><td>OneLake, Lakehouse, Warehouse</td><td>Commercial-focused / Verify for Gov</td><td>Approved source systems plus Import model.</td></tr>
+<tr><td>Notebook integration</td><td>Semantic Link</td><td>Commercial-focused / Verify for Gov</td><td>Document model metadata manually.</td></tr>
+<tr><td>Capacity elasticity</td><td>Autoscale</td><td>Commercial-focused / Verify for Gov</td><td>Capacity sizing review and operational escalation.</td></tr>
+<tr><td>Capacity health</td><td>Capacity metrics app</td><td>Verify for Gov</td><td>Usage, refresh, Performance Analyzer, and admin-provided telemetry.</td></tr>
 </tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
-    <li><strong>Define the workload.</strong><p>Write down users, model size, refresh frequency, latency needs, governance requirements, data residency needs, and integration requirements.</p></li>
-    <li><strong>Compare licensing options.</strong><p>Use the comparison table to evaluate Pro, PPU, Premium capacity, and Fabric capacity. Identify which options satisfy the workload requirements.</p></li>
-    <li><strong>Review large model needs.</strong><p>Decide whether model size, memory, refresh, or XMLA workflows require capacity-dependent settings. Mark these Verify for Gov until validated.</p></li>
-    <li><strong>Review XMLA endpoint.</strong><p>If available, connect with an approved tool and inspect metadata. If unavailable, document use cases such as ALM, external tools, and write operations.</p></li>
-    <li><strong>Review paginated report fit.</strong><p>Identify whether pixel-perfect export, invoices, statements, or operational reports justify paginated reports. Validate cloud and licensing before hands-on work.</p></li>
-    <li><strong>Review Fabric architecture.</strong><p>Explain Direct Lake, OneLake, Lakehouse, Warehouse, and Semantic Link. Treat them as Commercial-focused / Verify for Gov unless confirmed.</p></li>
+    <li><strong>Compare licensing and capacity options.</strong><p>Write down users, model size, refresh frequency, latency needs, governance requirements, data residency needs, and integration requirements. Compare Pro, PPU, Premium capacity, and Fabric capacity.</p></li>
+    <li><strong>Review XMLA endpoint.</strong><p>If available, connect with an approved tool and inspect metadata. If unavailable, document use cases such as ALM, external tools, read/write workflows, security, and admin settings.</p></li>
+    <li><strong>Review paginated report fit.</strong><p>Identify whether pixel-perfect export, invoices, statements, or operational reports justify paginated reports. Validate cloud, licensing, Report Builder, and workspace support before hands-on work.</p></li>
+    <li><strong>Review large semantic model needs.</strong><p>Decide whether model size, memory, refresh, storage format, or XMLA workflows require capacity-dependent settings. Mark these Verify for Gov until validated.</p></li>
+    <li><strong>Review Direct Lake.</strong><p>Compare Import, DirectQuery, and Direct Lake for freshness, modeling behavior, fallback options, and Gov validation needs.</p></li>
+    <li><strong>Review OneLake, Lakehouse, and Warehouse.</strong><p>Identify how data would be stored, exposed, governed, and integrated with Power BI. Treat these as Commercial-focused / Verify for Gov unless confirmed.</p></li>
+    <li><strong>Review Semantic Link.</strong><p>Discuss notebook access to semantic model metadata and data science workflows. Document security, availability, and fallback notes.</p></li>
+    <li><strong>Review capacity metrics and throttling.</strong><p>If available, inspect interactive and background workloads, refresh pressure, memory, and throttling signals. If not available, discuss expected symptoms and operational actions.</p></li>
     <li><strong>Choose a Gov-safe fallback.</strong><p>Use Import mode, aggregations, incremental refresh where validated, and standard Service monitoring when Fabric features are unavailable.</p></li>
-    <li><strong>Review capacity metrics.</strong><p>If available, inspect interactive and background workloads, refresh pressure, and throttling signals. If not available, discuss expected symptoms and actions.</p></li>
-    <li><strong>Document architecture recommendation.</strong><p>Record selected option, assumptions, validation requirements, fallback path, and risks.</p></li>
-    <li><strong>Review with stakeholders.</strong><p>Confirm that the proposed architecture aligns with licensing, security, data residency, operations, and budget constraints.</p></li>
+    <li><strong>Document architecture recommendation.</strong><p>Record selected option, assumptions, validation requirements, fallback path, risks, and stakeholder review notes.</p></li>
   </ol>
 </section>
         
@@ -259,11 +247,12 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <div class="checklist" data-progress="lab10">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <p class="small"><span class="count">0</span> of 7 complete</p>
           <label><input type="checkbox">Workload documented</label>
 <label><input type="checkbox">Capacity options compared</label>
 <label><input type="checkbox">XMLA/paginated/large model notes captured</label>
 <label><input type="checkbox">Fabric features labeled</label>
+<label><input type="checkbox">Semantic Link and autoscale labeled</label>
 <label><input type="checkbox">Capacity metrics discussed</label>
 <label><input type="checkbox">Gov-safe architecture selected</label>
         </div>

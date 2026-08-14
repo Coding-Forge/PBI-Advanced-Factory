@@ -147,127 +147,81 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <header>
       <div class="eyebrow">Lab 2 - Measures and context</div>
       <h1>Advanced DAX</h1>
-      <p class="lede">Build a maintainable DAX layer that demonstrates context transition, CALCULATE, time intelligence, semi-additive logic, ranking, dynamic titles, and optimization.</p>
+      <p class="lede">Build a tested DAX measure layer with evaluation context, CALCULATE patterns, time intelligence, semi-additive logic, calculation groups, ranking, dynamic logic, and optimization.</p>
       <div class="meta"><span>Advanced authoring</span><span>Deliverable: Trusted measure layer</span><span>PBIP-first</span></div>
     </header>
     <main class="layout">
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>Base measures</li>
+          <div class="panel"><ul><li>Base and branched measures</li>
+<li>CALCULATE filter modifiers</li>
 <li>Advanced time intelligence</li>
+<li>Semi-additive pattern</li>
 <li>Calculation groups</li>
-<li>Ranking and Top N</li>
-<li>Dynamic titles and measure switching</li></ul></div>
+<li>Ranking and dynamic metric logic</li></ul></div>
         </section>
         
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
-  <h3>Create base measures</h3>
+  <h3>Create and test base measures</h3>
   <ul>
-    <li>Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target, and variance measures.</li>
-<li>Format measures before building derived logic.</li>
+    <li>Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target Sales Amount, Sales Variance, and Sales Variance %.</li>
+<li>Format and test each measure in a simple visual before branching.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Explore context</h3>
+  <h3>Explore row and filter context</h3>
   <ul>
     <li>Use visuals and slicers to observe filter context.</li>
-<li>Use calculated-column examples only to explain row context.</li>
+<li>Create a calculated-column example only to demonstrate row context and why measures are preferred for aggregations.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Use CALCULATE patterns</h3>
+  <h3>Apply CALCULATE filter modifiers</h3>
   <ul>
-    <li>Create filter removal and KEEPFILTERS examples.</li>
-<li>Validate totals at customer, product, and date grains.</li>
+    <li>Create filter-removal, product share, and KEEPFILTERS examples.</li>
+<li>Discuss REMOVEFILTERS, ALL, ALLEXCEPT, and TREATAS so learners choose modifiers intentionally.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Add time and ranking patterns</h3>
+  <h3>Build time and semi-additive patterns</h3>
   <ul>
-    <li>Create YTD, prior year, YoY, rolling period, rank, and Top N measures.</li>
-<li>Use ALLSELECTED where slicer-aware ranking is required.</li>
+    <li>Create YTD, prior year, YoY, YoY %, and rolling 90-day measures.</li>
+<li>Review an ending-balance or last-nonblank pattern for snapshot facts.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Add ranking and dynamic logic</h3>
+  <ul>
+    <li>Create Customer Sales Rank and Is Top 5 Customer measures.</li>
+<li>Create a dynamic title and disconnected MetricSelector/SWITCH measure.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Review calculation groups</h3>
   <ul>
     <li>Use native Power BI Desktop calculation group authoring when available.</li>
-<li>Review TMDL View or Tabular Editor paths only when those workflows are validated.</li>
-<li>Compare calculation groups to separate time-intelligence measures when tooling is blocked.</li>
+<li>Review TMDL View or Tabular Editor only when those workflows are validated; otherwise compare to separate measures.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Optimize and document</h3>
   <ul>
-    <li>Use variables and measure branching.</li>
-<li>Keep DAX Studio optional and Verify for Gov.</li>
+    <li>Use variables and measure branching to reduce repeated logic.</li>
+<li>Keep DAX Studio and external tooling optional and Verify for Gov.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: Row context vs. filter context <span class="tag">Core or module-dependent</span></h3>
-  <p>Diagnose why measures evaluate differently in different visuals.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Context transition and `CALCULATE` <span class="tag">Core or module-dependent</span></h3>
-  <p>Use `CALCULATE` to intentionally modify filter context.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Advanced time intelligence <span class="tag">Core or module-dependent</span></h3>
-  <p>Create reusable time-intelligence measures.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Semi-additive measures <span class="tag">Core or module-dependent</span></h3>
-  <p>Understand measures that should not be summed across time.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 5: Dynamic Top N and ranking <span class="tag">Core or module-dependent</span></h3>
-  <p>Rank customers and filter visuals to a dynamic Top N view.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 6: Dynamic titles and measure switching <span class="tag">Core or module-dependent</span></h3>
-  <p>Make report text and metrics respond to user selections.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 7: Calculation groups for reusable time intelligence <span class="tag">Verify for Gov</span></h3>
-  <p>Reduce repeated time-intelligence measures using a calculation group.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 8: DAX optimization <span class="tag">Verify for Gov</span></h3>
-  <p>Improve readability and reduce repeated calculations.</p>
-</div></div>
-</section>
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create a measure</h3><ol><li>In Report or Model view, select the table that should store the measure.</li><li>Select <strong>Modeling &gt; New measure</strong>.</li><li>Type the measure name, equals sign, and DAX expression, such as <code>Sales Amount = SUM(FactSales[SalesAmount])</code>.</li><li>Press Enter and set formatting in the Measure tools ribbon.</li><li>Test the measure in a simple card or table before building derived measures.</li></ol></div>
-    <div class="task-card"><h3>Build a DAX test visual</h3><ol><li>Add a table or matrix visual.</li><li>Add one dimension field, such as <code>DimCustomer[CustomerName]</code>.</li><li>Add the measure being tested.</li><li>Add slicers for date, territory, or product category.</li><li>Change slicer selections and observe whether totals respond as expected.</li></ol></div>
-    <div class="task-card"><h3>Use CALCULATE safely</h3><ol><li>Start from a working base measure.</li><li>Create a new measure with <code>CALCULATE([Base Measure], filter expression)</code>.</li><li>Use <code>REMOVEFILTERS</code> when you intentionally want to ignore a dimension.</li><li>Use <code>KEEPFILTERS</code> when you want to narrow existing filters instead of replacing them.</li><li>Compare the result against the base measure in the same visual.</li></ol></div>
-    <div class="task-card"><h3>Create a calculation group</h3><ol><li>Confirm base measures such as <code>[Sales Amount]</code> and <code>[Gross Margin]</code> work first.</li><li>Open <strong>Model view</strong> in Power BI Desktop.</li><li>Select <strong>Calculation group</strong> from the ribbon.</li><li>If prompted, enable <strong>Discourage implicit measures</strong>.</li><li>Rename the calculation group table to <code>Time Intelligence</code> and the calculation group column to <code>Time Calculation</code>.</li><li>Rename the first calculation item to <code>Current</code> and set its expression to <code>SELECTEDMEASURE()</code>.</li><li>Add more calculation items from <strong>Model Explorer</strong>, then test the group with a date field and base measure.</li></ol></div>
-    <div class="task-card"><h3>Review TMDL or external-tool paths</h3><ol><li>Use <strong>TMDL View</strong> only when the Desktop/PBIP workflow is validated.</li><li>Use Tabular Editor only when external tools are approved.</li><li>Document which path was used and whether it is allowed in the target environment.</li><li>If no calculation group authoring path is validated, use separate DAX measures as the fallback.</li></ol></div>
-  </div>
-  <figure class="figure">
-    <img src="images/02-advanced-dax/CalculationGroups-annotated.png" alt="Annotated Power BI Desktop Model view showing a calculation group, its column, and calculation items.">
-    <figcaption>Calculation group authoring in Power BI Desktop Model view. The numbered callouts match the steps below.</figcaption>
-  </figure>
-  <table class="column-table">
-    <thead><tr><th>Callout</th><th>What it shows</th><th>How it maps to the steps</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td><strong>Model</strong> tab in the Data pane</td><td>Confirms you are working in the semantic model metadata, not only report fields.</td></tr>
-      <tr><td>2</td><td><strong>Calculation groups</strong> node</td><td>Shows the calculation group container created by the ribbon command.</td></tr>
-      <tr><td>3</td><td><code>Name</code> property</td><td>Rename the calculation group table to <code>Time Intelligence</code>.</td></tr>
-      <tr><td>4</td><td><strong>Calculation group column</strong></td><td>Rename this column to <code>Time Calculation</code>; this is the field users place in slicers or visuals.</td></tr>
-      <tr><td>5</td><td><strong>Calculation items</strong> folder</td><td>Use this area in Model Explorer to add more calculation items.</td></tr>
-      <tr><td>6</td><td>First calculation item</td><td>Rename the initial item to <code>Current</code> and set its expression to <code>SELECTEDMEASURE()</code>.</td></tr>
-    </tbody>
-  </table>
-</section>
+        
+        <section><h2>Novice-friendly how-to guide</h2><div class="task-list">
+<div class="task-card"><h3>Create a measure</h3><ol><li>Select the table that should store the measure.</li><li>Select <strong>Modeling &gt; New measure</strong>.</li><li>Type the measure name, equals sign, and DAX expression.</li><li>Set formatting and test in a simple visual.</li></ol></div>
+<div class="task-card"><h3>Build a DAX test visual</h3><ol><li>Add a table or matrix visual.</li><li>Add one dimension field and the measure being tested.</li><li>Add slicers for date, territory, or product category.</li><li>Change slicer selections and verify totals.</li></ol></div>
+<div class="task-card"><h3>Use CALCULATE safely</h3><ol><li>Start from a working base measure.</li><li>Use <code>REMOVEFILTERS</code> to ignore a dimension intentionally.</li><li>Use <code>ALLEXCEPT</code> only to preserve a named grain.</li><li>Use <code>KEEPFILTERS</code> to narrow existing filters.</li><li>Use <code>TREATAS</code> for intentional disconnected-table filtering.</li></ol></div>
+<div class="task-card"><h3>Create a calculation group</h3><ol><li>Confirm explicit base measures work.</li><li>Open <strong>Model view</strong> and select <strong>Calculation group</strong>.</li><li>Enable <strong>Discourage implicit measures</strong> if prompted.</li><li>Name the table <code>Time Intelligence</code> and the column <code>Time Calculation</code>.</li><li>Add calculation items and test with base measures.</li></ol></div>
+<div class="task-card"><h3>Review TMDL or external-tool paths</h3><ol><li>Use TMDL View or Tabular Editor only when validated.</li><li>If no calculation group authoring path is validated, use separate DAX measures as the fallback.</li></ol></div>
+</div><figure class="figure"><img src="images/02-advanced-dax/CalculationGroups-annotated.png" alt="Annotated Power BI Desktop Model view showing a calculation group, its column, and calculation items."><figcaption>Calculation group authoring in Power BI Desktop Model view.</figcaption></figure></section>
         <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
 <tr><td>Base measure</td><td><code>Sales Amount</code></td><td><code>SUM(FactSales[SalesAmount])</code></td><td>Totals by customer/product.</td></tr>
@@ -287,10 +241,13 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <li><strong>Create base measures first.</strong><p>Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target Sales Amount, Sales Variance, and Sales Variance %. Use simple aggregations and <code>DIVIDE</code> for percentages.</p></li>
     <li><strong>Test filter context.</strong><p>Add a matrix with CustomerName on rows and ProductCategory on columns. Add Sales Amount and Gross Margin %. Add slicers for TerritoryRegion and Year. Observe how the same measure changes under different filters.</p></li>
     <li><strong>Build CALCULATE examples.</strong><p>Create a measure that removes product filters and a product share measure that divides current sales by all-product sales. Then create a measure that uses <code>KEEPFILTERS</code> for a selected customer type.</p></li>
+    <li><strong>Compare filter modifiers.</strong><p>Discuss when to use <code>REMOVEFILTERS</code>, <code>ALL</code>, <code>ALLEXCEPT</code>, and <code>TREATAS</code>. Validate each pattern in a simple visual before reusing it in production report logic.</p></li>
     <li><strong>Create time intelligence.</strong><p>Using the Order Date table, create YTD, prior-year, year-over-year, year-over-year percent, and rolling-period measures. Validate each measure in a month-level visual.</p></li>
+    <li><strong>Review semi-additive logic.</strong><p>Discuss why inventory, backlog, headcount, or balance snapshots should not be summed across dates. Create or review an ending-balance-style last-value pattern from the answer key.</p></li>
     <li><strong>Add ranking and Top N.</strong><p>Create a Customer Sales Rank measure with <code>RANKX</code>. Add a flag for Top 5 customers and use it as a visual filter on a bar chart.</p></li>
     <li><strong>Review calculation groups.</strong><p>This optional lab is marked <strong>Verify for Gov</strong>. If the target Power BI Desktop version supports native calculation group authoring, use <b>Model view > Calculation group</b>, enable <b>Discourage implicit measures</b> if prompted, and create a <code>Time Intelligence</code> calculation group with Current, Prior Year, YoY Change, and YoY Change % items. If TMDL View, Tabular Editor, XMLA, or CI/CD workflows are validated, review those authoring paths too. If no authoring path is validated, compare the design to creating separate DAX measures for each metric/time combination.</p></li>
     <li><strong>Add dynamic report text or metric switching.</strong><p>Create a dynamic title with <code>SELECTEDVALUE</code>. Optionally create a disconnected metric selector table and a <code>SWITCH</code> measure to display a selected metric.</p></li>
+    <li><strong>Validate measure branching.</strong><p>Confirm derived measures reuse base measures rather than duplicating <code>SUM</code> logic. Check formatting, naming, and fallback behavior before using the measures on report pages.</p></li>
     <li><strong>Refactor for readability.</strong><p>Use variables for repeated logic. Branch from base measures instead of duplicating calculations. Add formatting and descriptions where appropriate.</p></li>
     <li><strong>Validate and document.</strong><p>Check totals at the customer, product, territory, and date levels. If using DAX Studio or other tools, mark them Verify for Gov unless the customer environment has been validated.</p></li>
   </ol>
@@ -376,6 +333,41 @@ RANKX (
 Is Top 5 Customer =
 IF ( [Customer Sales Rank] &lt;= 5, 1, 0 )
 
+Sales by Customer Region Grain =
+CALCULATE (
+    [Sales Amount],
+    ALLEXCEPT ( DimCustomer, DimCustomer[CustomerRegion] )
+)
+
+Segment Sales via TREATAS =
+CALCULATE (
+    [Sales Amount],
+    TREATAS ( VALUES ( DimSegment[Segment] ), BridgeCustomerSegment[Segment] )
+)
+
+Ending Balance Example =
+VAR LastVisibleDate =
+    MAX ( DimOrderDate[Date] )
+RETURN
+    CALCULATE (
+        [Sales Amount],
+        LASTNONBLANK ( DimOrderDate[Date], [Sales Amount] ),
+        DimOrderDate[Date] &lt;= LastVisibleDate
+    )
+
+Selected Metric =
+VAR MetricName =
+    SELECTEDVALUE ( MetricSelector[Metric], "Sales Amount" )
+RETURN
+    SWITCH (
+        MetricName,
+        "Sales Amount", [Sales Amount],
+        "Gross Margin", [Gross Margin],
+        "Gross Margin %", [Gross Margin %],
+        "Quantity", [Quantity],
+        [Sales Amount]
+    )
+
 Sales Title =
 VAR SelectedRegion =
     SELECTEDVALUE ( DimTerritory[TerritoryRegion], "All Regions" )
@@ -454,13 +446,15 @@ RETURN
         <div class="checklist" data-progress="lab02">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 7 complete</p>
-          <label><input type="checkbox">Base measures created</label>
+          <p class="small"><span class="count">0</span> of 9 complete</p>
+          <label><input type="checkbox">Base measures exist and are formatted</label>
 <label><input type="checkbox">CALCULATE examples validated</label>
 <label><input type="checkbox">Time intelligence works by month</label>
-<label><input type="checkbox">Calculation groups implemented or reviewed</label>
+<label><input type="checkbox">Semi-additive pattern explained or implemented</label>
 <label><input type="checkbox">Ranking/Top N works</label>
-<label><input type="checkbox">Dynamic title or metric switch created</label>
+<label><input type="checkbox">Dynamic title and metric switch created</label>
+<label><input type="checkbox">Calculation groups implemented or reviewed</label>
+<label><input type="checkbox">Variables and branching used</label>
 <label><input type="checkbox">External tooling marked Verify for Gov</label>
         </div>
       </aside>

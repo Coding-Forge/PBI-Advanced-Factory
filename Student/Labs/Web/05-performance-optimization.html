@@ -157,103 +157,82 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
           <div class="panel"><ul><li>Performance Analyzer baseline</li>
 <li>Model reduction plan</li>
 <li>DAX optimization</li>
-<li>Refresh/capacity notes</li></ul></div>
+<li>Before/after performance evidence</li></ul></div>
         </section>
         
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
-  <h3>Capture a baseline</h3>
+  <h3>Capture and benchmark a baseline</h3>
   <ul>
-    <li>Use Performance Analyzer.</li>
-<li>Record slow visuals, DAX query time, and render time.</li>
+    <li>Use Performance Analyzer to record DAX query time, visual display time, and other time.</li>
+<li>Change one thing at a time and capture before/after observations with the same interaction.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Review model size</h3>
+  <h3>Review model size and cardinality</h3>
   <ul>
-    <li>Identify unused columns and high-cardinality fields.</li>
-<li>Document date/time and precision improvements.</li>
+    <li>Identify unused columns, high-cardinality text fields, date/time columns, and excessive numeric precision.</li>
+<li>Document model-reduction recommendations before changing production models.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Optimize DAX and visuals</h3>
   <ul>
-    <li>Refactor repeated DAX with variables.</li>
-<li>Reduce low-value visuals and unnecessary interactions.</li>
+    <li>Refactor repeated DAX with variables or measure branching.</li>
+<li>Reduce low-value visuals, dense tables, unnecessary interactions, and high-cardinality visual detail.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Review aggregations</h3>
+  <h3>Review refresh and Power Query design</h3>
   <ul>
-    <li>Define a summary grain.</li>
-<li>Mark DirectQuery/source behavior as Verify for Gov.</li>
+    <li>Filter early, remove columns early, preserve folding where supported, and keep staging queries clear.</li>
+<li>Confirm RangeStart/RangeEnd and the fact date/time column for incremental refresh readiness.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Prepare refresh policy</h3>
+  <h3>Document aggregations and capacity notes</h3>
   <ul>
-    <li>Review incremental refresh parameters.</li>
-<li>Mark Service policy execution as Verify for Gov.</li>
+    <li>Define a summary grain and explain Import, DirectQuery, or hybrid tradeoffs.</li>
+<li>Mark DAX Studio, VertiPaq Analyzer, Service incremental refresh, capacity metrics, and unvalidated sources as Verify for Gov.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: Performance Analyzer <span class="tag">Core or module-dependent</span></h3>
-  <p>Measure report performance before optimizing.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Reduce model size and cardinality <span class="tag">Core or module-dependent</span></h3>
-  <p>Identify model fields that increase size or reduce compression.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: DAX Studio query timings <span class="tag">Verify for Gov</span></h3>
-  <p>Use optional external tooling for deeper DAX diagnostics.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Visual optimization <span class="tag">Core or module-dependent</span></h3>
-  <p>Reduce page-level overhead.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 5: Aggregation table <span class="tag">Gov-ready</span></h3>
-  <p>Understand how aggregations can speed summary queries.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 6: Incremental refresh policy <span class="tag">Verify for Gov</span></h3>
-  <p>Prepare and review an incremental refresh policy.</p>
-</div></div>
-</section>
+        
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
     <div class="task-card"><h3>Use Performance Analyzer</h3><ol><li>Open the report page to test.</li><li>Select <strong>View &gt; Performance Analyzer</strong>.</li><li>Select <strong>Start recording</strong>.</li><li>Refresh visuals or interact with slicers.</li><li>Expand each visual result and record DAX query time, visual display time, and other time.</li></ol></div>
+    <div class="task-card"><h3>Document before/after benchmark evidence</h3><ol><li>Record the baseline timing before changing anything.</li><li>Change one thing at a time.</li><li>Run the same interaction again.</li><li>Record the after timing, tradeoff, and remaining risk.</li></ol></div>
     <div class="task-card"><h3>Reduce model size</h3><ol><li>Review columns in Data or Model view.</li><li>Identify columns not used in relationships, measures, slicers, or visuals.</li><li>Remove unused columns in Power Query, not just hide them.</li><li>Reduce precision or split DateTime columns only when the report does not need full detail.</li></ol></div>
     <div class="task-card"><h3>Optimize a measure with variables</h3><ol><li>Copy the original measure to a notes area before changing it.</li><li>Create variables with <code>VAR</code> for repeated expressions.</li><li>Return the final result with <code>RETURN</code>.</li><li>Compare old and new results in the same visual.</li></ol></div>
+    <div class="task-card"><h3>Prepare refresh optimization</h3><ol><li>Filter rows early when the source supports it.</li><li>Remove unused columns early.</li><li>Preserve query folding where available.</li><li>Confirm <code>RangeStart</code>, <code>RangeEnd</code>, and the partition date/time column before defining incremental refresh.</li></ol></div>
   </div>
 </section>
         <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Evidence item</th><th>Where to capture</th><th>What to record</th><th>Outcome</th></tr></thead><tbody>
 <tr><td>Baseline timings</td><td>Performance Analyzer</td><td>Visual name, DAX time, display time, other time</td><td>One optimization candidate selected.</td></tr>
-<tr><td>Visual inventory</td><td>Report page</td><td>Visual count and high-cardinality visuals</td><td>Low-value visuals identified.</td></tr>
-<tr><td>Model review</td><td>Model/Data view</td><td>Unused columns, high-cardinality fields, date/time fields</td><td>Reduction plan documented.</td></tr>
+<tr><td>Before/after benchmark</td><td>Performance notes</td><td>Baseline, single change, after result, tradeoff, remaining risk</td><td>Improvement claims are evidence-based.</td></tr>
+<tr><td>Visual inventory</td><td>Report page</td><td>Visual count, high-cardinality visuals, custom visuals, cross-highlighting</td><td>Low-value overhead identified.</td></tr>
+<tr><td>Model review</td><td>Model/Data view</td><td>Unused columns, high-cardinality fields, date/time fields, precision</td><td>Reduction plan documented.</td></tr>
 <tr><td>DAX review</td><td>Measure editor</td><td>Before/after measure logic</td><td>Variables or branching added.</td></tr>
-<tr><td>Refresh review</td><td>Power Query/Service notes</td><td>Partition date, RangeStart, RangeEnd, support status</td><td>Incremental refresh readiness documented.</td></tr>
+<tr><td>Refresh review</td><td>Power Query/Service notes</td><td>Staging, early filters, removed columns, folding status, RangeStart, RangeEnd</td><td>Incremental refresh readiness documented.</td></tr>
+<tr><td>Aggregation design</td><td>Model notes</td><td>Summary grain, group-by columns, Import/DirectQuery/hybrid tradeoffs</td><td>Aggregation hit requirements documented.</td></tr>
+<tr><td>Capacity/external tools</td><td>Validation notes</td><td>DAX Studio, VertiPaq Analyzer, capacity metrics, admin monitoring status</td><td>Verify for Gov items are labeled.</td></tr>
 </tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
     <li><strong>Open the current report PBIP.</strong><p>Use the report built in the previous labs. Choose one report page that has several visuals and slicers.</p></li>
-    <li><strong>Capture a baseline.</strong><p>Open <b>View > Performance Analyzer</b>. Start recording, refresh visuals, interact with slicers, and record which visuals have high DAX query time or rendering time.</p></li>
-    <li><strong>Review visual complexity.</strong><p>Count visuals on the page. Identify visuals that duplicate information, use high-cardinality fields, or are not needed for the page objective.</p></li>
+    <li><strong>Capture a baseline.</strong><p>Open <b>View &gt; Performance Analyzer</b>. Start recording, refresh visuals, interact with slicers, and record which visuals have high DAX query time or rendering time.</p></li>
+    <li><strong>Review visual complexity.</strong><p>Count visuals on the page. Identify visuals that duplicate information, use high-cardinality fields, rely on custom visuals, or are not needed for the page objective.</p></li>
     <li><strong>Review model fields.</strong><p>Inspect fact and dimension tables for unused columns, high-cardinality text, excessive precision, and date/time fields that could be simplified.</p></li>
     <li><strong>Optimize one DAX measure.</strong><p>Choose a measure with repeated expressions or broad filter removal. Rewrite it using variables and measure branching, then compare results before and after.</p></li>
     <li><strong>Optimize visuals.</strong><p>Remove or consolidate at least one low-value visual. Disable unnecessary visual interactions if cross-filtering creates extra query load without helping the user.</p></li>
-    <li><strong>Review aggregation design.</strong><p>Define a possible aggregation grain such as Month, Product Category, and Territory. Document whether the detail table would remain Import or DirectQuery.</p></li>
-    <li><strong>Review incremental refresh.</strong><p>Confirm which fact date column would support partitioning. Document RangeStart/RangeEnd requirements and whether Service support is validated.</p></li>
+    <li><strong>Review aggregation design.</strong><p>Define a possible aggregation grain such as Month, Product Category, and Territory. Document whether the detail table would remain Import, DirectQuery, or part of a hybrid pattern.</p></li>
+    <li><strong>Review Power Query and incremental refresh.</strong><p>Confirm filtering, removed columns, staging, folding status, the fact date/time column, RangeStart/RangeEnd parameters, and whether Service support is validated.</p></li>
     <li><strong>Optional external diagnostics.</strong><p>If DAX Studio or VertiPaq Analyzer is approved, connect and compare timings/model size. If not, keep this step conceptual and mark Verify for Gov.</p></li>
+    <li><strong>Review Service and capacity monitoring.</strong><p>Where a workspace is available, review refresh history, dataset settings, and capacity metrics or admin monitoring status. Mark capacity metrics Verify for Gov unless validated.</p></li>
     <li><strong>Document results.</strong><p>Record baseline, change made, after result, tradeoff, and remaining risk. Do not claim improvement without evidence.</p></li>
   </ol>
 </section>
@@ -298,13 +277,15 @@ RETURN
         <div class="checklist" data-progress="lab05">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
-          <label><input type="checkbox">Baseline captured</label>
-<label><input type="checkbox">Model reduction plan documented</label>
-<label><input type="checkbox">DAX optimized</label>
-<label><input type="checkbox">Visual count reviewed</label>
-<label><input type="checkbox">Aggregation design documented</label>
-<label><input type="checkbox">Gov validation notes captured</label>
+          <p class="small"><span class="count">0</span> of 8 complete</p>
+          <label><input type="checkbox">Performance Analyzer baseline captured</label>
+<label><input type="checkbox">Before/after benchmark observations recorded</label>
+<label><input type="checkbox">Model size/cardinality recommendations documented</label>
+<label><input type="checkbox">DAX optimization uses variables or measure branching</label>
+<label><input type="checkbox">Visual count/interactions reviewed</label>
+<label><input type="checkbox">Aggregation table grain documented</label>
+<label><input type="checkbox">Incremental refresh parameters and policy documented</label>
+<label><input type="checkbox">DAX Studio, VertiPaq Analyzer, and capacity metrics marked Verify for Gov</label>
         </div>
       </aside>
     </main>

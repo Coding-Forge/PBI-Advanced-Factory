@@ -51,6 +51,10 @@ Usage metrics and refresh history are generally **Gov-ready**, subject to permis
 
 Learners can interpret usage data and connect it to support or adoption actions.
 
+### Concept note: Adoption tracking
+
+Adoption tracking connects usage patterns to action. When usage is high, document training and support needs so the solution remains reliable. When usage is low or declining, identify whether users need enablement, the content is hard to find, or the report is a retirement candidate.
+
 ### Exercise 2: Refresh troubleshooting
 
 **Objective:** Diagnose semantic model refresh issues.
@@ -176,6 +180,7 @@ Learners produce a draft operations runbook for the deployed solution.
 ## Validation checklist
 
 - [ ] Usage metrics reviewed or conceptually documented.
+- [ ] Adoption follow-up, training need, support signal, or retirement candidate documented.
 - [ ] Refresh troubleshooting process documented.
 - [ ] Tenant settings review completed or conceptually documented.
 - [ ] Gateway monitoring marked **Verify for Gov**.

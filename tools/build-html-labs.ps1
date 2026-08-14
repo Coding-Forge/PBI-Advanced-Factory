@@ -353,150 +353,156 @@ Keep all lab HTML styling on the Clawpilot variables. Branding should only overr
 
 $modules = @(
   @{
-    Number = "01"; File = "01-advanced-semantic-modeling.html"; Title = "Advanced Semantic Modeling"; Eyebrow = "Lab 1 - Semantic model foundation"; Level = "Advanced authoring"; Deliverable = "PBIP semantic model plan"; Summary = "Build the reusable model foundation: facts, dimensions, relationships, role-playing dates, bridge tables, and Gov-aware optional modeling features.";
-    Outcomes = @("Star schema design", "Role-playing date strategy", "Customer segment bridge pattern", "Gov notes for composite models");
+    Number = "01"; File = "01-advanced-semantic-modeling.html"; Title = "Advanced Semantic Modeling"; Eyebrow = "Lab 1 - Semantic model foundation"; Level = "Advanced authoring"; Deliverable = "PBIP semantic model plan"; Summary = "Refactor a flat export into a reusable semantic model with facts, dimensions, role-playing dates, a segment bridge, targets, and Gov-aware optional storage-mode decisions.";
+    Outcomes = @("Star schema from flat export", "Relationship setup reference", "Role-playing date tables", "Customer segment bridge", "Composite-model decision notes");
     Tasks = @(
-      @{ Title = "Connect to the raw CSV sources"; Body = @("Use Get data > Web for sales-flat, customer-segments, and targets.", "Create clearly named staging queries.") },
-      @{ Title = "Refactor into a star schema"; Body = @("Create FactSales, role-playing date tables, customer, product, territory, and target tables.", "Use the approved Power Query or DAX date table pattern, remove duplicates from dimensions, and disable load for intermediate queries.") },
-      @{ Title = "Configure relationships"; Body = @("Create one-to-many relationships into facts.", "Keep single-direction filtering unless a lab step explicitly justifies otherwise.") },
-      @{ Title = "Add role-playing dates and bridge table"; Body = @("Support Order Date and Ship Date analysis.", "Use customer-segments as BridgeCustomerSegment with DimSegment.") },
-      @{ Title = "Document optional modeling features"; Body = @("Mark composite models, DirectQuery choices, hybrid tables, and large models as Verify for Gov unless validated.", "Use Module 2 for calculation groups and Module 4 for field parameters.") }
+      @{ Title = "Import the lab CSV sources"; Body = @("Use Get data > Web for sales-flat.csv, customer-segments.csv, and targets.csv.", "Keep the raw sales query as a source reference before creating model queries.") },
+      @{ Title = "Refactor sales into facts and dimensions"; Body = @("Create FactSales, DimCustomer, DimProduct, DimProductCategory, and DimTerritory with the README column lists.", "Remove duplicate rows from dimensions and hide technical keys that are not useful to report consumers.") },
+      @{ Title = "Create date roles"; Body = @("Build DimOrderDate and DimShipDate using the approved Power Query fn_DimDate or DAX CALENDAR pattern.", "Mark date tables and connect each role to the matching FactSales date column.") },
+      @{ Title = "Configure relationships and targets"; Body = @("Create one-to-many, single-direction relationships from dimensions to facts and bridge tables.", "Use DimProductCategory for product-category target relationships instead of a many-to-many shortcut.") },
+      @{ Title = "Add customer segment bridge"; Body = @("Create BridgeCustomerSegment and DimSegment from customer-segments.csv.", "Test segment filtering without duplicating customer rows.") },
+      @{ Title = "Document optional storage choices"; Body = @("Compare Import, DirectQuery, Dual, composite, hybrid, and large-model tradeoffs.", "Keep tenant-dependent features marked Verify for Gov unless validated.") }
     );
-    Checklist = @("Raw CSVs imported with Web connector", "Fact and dimension tables created", "Relationships validate as one-to-many where expected", "Role-playing dates work", "Bridge table filters customer segment analysis", "Gov notes documented")
+    Checklist = @("Star schema created", "Fact and dimension names are clear", "Relationships validate as one-to-many where possible", "Filter direction is single unless justified", "Role-playing dates work", "Bridge table supports segment analysis", "Optional tenant-dependent features are labeled Verify for Gov", "Measures total correctly by date, product, customer, territory, and segment")
   },
   @{
-    Number = "02"; File = "02-advanced-dax.html"; Title = "Advanced DAX"; Eyebrow = "Lab 2 - Measures and context"; Level = "Advanced authoring"; Deliverable = "Trusted measure layer"; Summary = "Build a maintainable DAX layer that demonstrates context transition, CALCULATE, time intelligence, semi-additive logic, ranking, dynamic titles, and optimization.";
-    Outcomes = @("Base measures", "Advanced time intelligence", "Calculation groups", "Ranking and Top N", "Dynamic titles and measure switching");
+    Number = "02"; File = "02-advanced-dax.html"; Title = "Advanced DAX"; Eyebrow = "Lab 2 - Measures and context"; Level = "Advanced authoring"; Deliverable = "Trusted measure layer"; Summary = "Build a tested DAX measure layer with evaluation context, CALCULATE patterns, time intelligence, semi-additive logic, calculation groups, ranking, dynamic logic, and optimization.";
+    Outcomes = @("Base and branched measures", "CALCULATE filter modifiers", "Advanced time intelligence", "Semi-additive pattern", "Calculation groups", "Ranking and dynamic metric logic");
     Tasks = @(
-      @{ Title = "Create base measures"; Body = @("Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target, and variance measures.", "Format measures before building derived logic.") },
-      @{ Title = "Explore context"; Body = @("Use visuals and slicers to observe filter context.", "Use calculated-column examples only to explain row context.") },
-      @{ Title = "Use CALCULATE patterns"; Body = @("Create filter removal and KEEPFILTERS examples.", "Validate totals at customer, product, and date grains.") },
-      @{ Title = "Add time and ranking patterns"; Body = @("Create YTD, prior year, YoY, rolling period, rank, and Top N measures.", "Use ALLSELECTED where slicer-aware ranking is required.") },
-      @{ Title = "Review calculation groups"; Body = @("Use native Power BI Desktop calculation group authoring when available.", "Review TMDL View or Tabular Editor paths only when those workflows are validated.", "Compare calculation groups to separate time-intelligence measures when tooling is blocked.") },
-      @{ Title = "Optimize and document"; Body = @("Use variables and measure branching.", "Keep DAX Studio optional and Verify for Gov.") }
+      @{ Title = "Create and test base measures"; Body = @("Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target Sales Amount, Sales Variance, and Sales Variance %.", "Format and test each measure in a simple visual before branching.") },
+      @{ Title = "Explore row and filter context"; Body = @("Use visuals and slicers to observe filter context.", "Create a calculated-column example only to demonstrate row context and why measures are preferred for aggregations.") },
+      @{ Title = "Apply CALCULATE filter modifiers"; Body = @("Create filter-removal, product share, and KEEPFILTERS examples.", "Discuss REMOVEFILTERS, ALL, ALLEXCEPT, and TREATAS so learners choose modifiers intentionally.") },
+      @{ Title = "Build time and semi-additive patterns"; Body = @("Create YTD, prior year, YoY, YoY %, and rolling 90-day measures.", "Review an ending-balance or last-nonblank pattern for snapshot facts.") },
+      @{ Title = "Add ranking and dynamic logic"; Body = @("Create Customer Sales Rank and Is Top 5 Customer measures.", "Create a dynamic title and disconnected MetricSelector/SWITCH measure.") },
+      @{ Title = "Review calculation groups"; Body = @("Use native Power BI Desktop calculation group authoring when available.", "Review TMDL View or Tabular Editor only when those workflows are validated; otherwise compare to separate measures.") },
+      @{ Title = "Optimize and document"; Body = @("Use variables and measure branching to reduce repeated logic.", "Keep DAX Studio and external tooling optional and Verify for Gov.") }
     );
-    Checklist = @("Base measures created", "CALCULATE examples validated", "Time intelligence works by month", "Calculation groups implemented or reviewed", "Ranking/Top N works", "Dynamic title or metric switch created", "External tooling marked Verify for Gov")
+    Checklist = @("Base measures exist and are formatted", "CALCULATE examples validated", "Time intelligence works by month", "Semi-additive pattern explained or implemented", "Ranking/Top N works", "Dynamic title and metric switch created", "Calculation groups implemented or reviewed", "Variables and branching used", "External tooling marked Verify for Gov")
   },
   @{
-    Number = "03"; File = "03-advanced-power-query.html"; Title = "Advanced Power Query"; Eyebrow = "Lab 3 - Data shaping"; Level = "Advanced authoring"; Deliverable = "Reusable Power Query pipeline"; Summary = "Create staged, reusable Power Query transformations using raw GitHub CSVs, parameters, custom functions, data quality checks, and incremental refresh preparation.";
-    Outcomes = @("Staged queries", "Web connector sources", "Custom function", "Data quality review");
+    Number = "03"; File = "03-advanced-power-query.html"; Title = "Advanced Power Query"; Eyebrow = "Lab 3 - Data shaping"; Level = "Advanced authoring"; Deliverable = "Reusable Power Query pipeline"; Summary = "Create a staged Power Query pipeline from monthly Web CSVs with parameters, source lineage, reusable functions, data quality review, folding concepts, and incremental refresh preparation.";
+    Outcomes = @("Staged query architecture", "Parameter reference", "Folder/append pattern", "Reusable M function", "Data quality review", "Incremental refresh prep");
     Tasks = @(
-      @{ Title = "Create Web sources"; Body = @("Use the monthly order raw URLs with Get data > Web.", "Name raw queries by source month.") },
-      @{ Title = "Append and stage"; Body = @("Append monthly files into stg_OrdersCombined.", "Preserve source file lineage and disable load for staging queries.") },
-      @{ Title = "Clean and validate"; Body = @("Apply explicit types.", "Create error review logic for bad dates and quantities.") },
-      @{ Title = "Add parameters and functions"; Body = @("Create RawDataBaseUrl, SourceFolderPath, EnvironmentName, RangeStart, and RangeEnd.", "Keep SourceFolderPath blank unless using an offline/folder delivery path.", "Create fn_CleanText for reusable null-safe text cleanup.") },
-      @{ Title = "Prepare refresh concepts"; Body = @("Create RangeStart and RangeEnd parameters conceptually or hands-on.", "Mark Service incremental refresh as Verify for Gov.") }
+      @{ Title = "Create parameters and Web sources"; Body = @("Create RawDataBaseUrl, SourceFolderPath, EnvironmentName, RangeStart, and RangeEnd.", "Use Get data > Web for the three monthly order CSV files and name raw queries by source month.") },
+      @{ Title = "Append and stage monthly files"; Body = @("Add a SourceFile lineage column to each raw query.", "Append into stg_OrdersCombined and disable load for raw and staging queries.") },
+      @{ Title = "Document source switching"; Body = @("Keep the required Web-source queries pointed at RawDataBaseUrl.", "Document how EnvironmentName and optional SourceFolderPath would map to Dev/Test/Prod or offline delivery.") },
+      @{ Title = "Create reusable cleanup logic"; Body = @("Create fn_CleanText for null-safe trim, clean, and proper-case logic.", "Invoke it for customer/channel and product reference text fields.") },
+      @{ Title = "Review data quality and errors"; Body = @("Create err_OrdersReview as a disabled-load reference of stg_OrdersCombined.", "Keep valid rows in FactOrders and preserve readable DataQualityIssue reasons for excluded rows.") },
+      @{ Title = "Validate folding and refresh readiness"; Body = @("Discuss folding blockers for file sources and validate View Native Query only with a folding-capable source.", "Filter FactOrders[OrderDate] with RangeStart and RangeEnd and mark Service incremental refresh Verify for Gov.") }
     );
-    Checklist = @("Web URLs loaded", "Monthly queries appended", "Explicit types applied", "Five parameters documented", "Data quality issues found", "Custom function created", "Incremental refresh notes captured")
+    Checklist = @("Raw and staging queries have load disabled", "Final fact query has explicit data types", "Monthly files append with SourceFile lineage", "All five parameters documented", "Custom text cleanup function handles nulls", "Data quality issues identified and documented", "Query folding demonstrated or explained with source limitations", "RangeStart and RangeEnd are DateTime", "Service features include Gov notes")
   },
   @{
-    Number = "04"; File = "04-report-design-ux.html"; Title = "Report Design and UX"; Eyebrow = "Lab 4 - Guided report experience"; Level = "Advanced authoring"; Deliverable = "Interactive report pages"; Summary = "Turn the model and measures into an audience-aware report with drillthrough, tooltips, bookmarks, dynamic navigation, conditional formatting, mobile layout, and accessibility review.";
-    Outcomes = @("Executive summary page", "Drillthrough details", "Tooltip page", "Field parameters", "Mobile layout");
+    Number = "04"; File = "04-report-design-ux.html"; Title = "Report Design and UX"; Eyebrow = "Lab 4 - Guided report experience"; Level = "Advanced authoring"; Deliverable = "Interactive report pages"; Summary = "Design audience-focused report pages with clear filters, drillthrough, tooltips, bookmarks, navigation, field parameters, conditional formatting, mobile layout, and accessibility review.";
+    Outcomes = @("Audience-focused pages", "Drillthrough details", "Report page tooltip", "Bookmarks and navigation", "Field parameters and selectors", "Mobile and accessibility review");
     Tasks = @(
-      @{ Title = "Create audience pages"; Body = @("Create executive, analyst, and operational/detail pages.", "Keep each page tied to a clear user question.") },
-      @{ Title = "Add drillthrough and tooltips"; Body = @("Create Customer Detail drillthrough.", "Create a compact Sales Tooltip page.") },
-      @{ Title = "Add guided interactions"; Body = @("Use bookmarks and buttons for panels or reset states.", "Add navigation buttons with consistent placement.") },
-      @{ Title = "Add field parameters"; Body = @("Create metric and optional dimension field parameters.", "Use slicers to guide report exploration without duplicating pages.") },
-      @{ Title = "Add formatting and mobile layout"; Body = @("Use conditional formatting with documented thresholds.", "Create a mobile layout with prioritized visuals.") },
-      @{ Title = "Review accessibility"; Body = @("Add alt text, tab order, contrast, descriptive titles, and non-color cues.") }
+      @{ Title = "Plan audience pages and filters"; Body = @("Define executive, analyst, and operational/detail page purposes.", "Place slicers and page filters consistently so users understand report context.") },
+      @{ Title = "Add drillthrough and tooltips"; Body = @("Create Customer Detail drillthrough with Back navigation.", "Create and assign a compact Sales Tooltip page.") },
+      @{ Title = "Add bookmarks and navigation"; Body = @("Use Show/Hide or Reset bookmarks with intentional Data, Display, and Current page settings.", "Add page navigation buttons or a navigator with consistent labels.") },
+      @{ Title = "Add guided metric exploration"; Body = @("Create Metric Parameter and optional Dimension Parameter field parameters.", "Compare the native field parameter to a disconnected Metric Selector SWITCH pattern.") },
+      @{ Title = "Add target-driven formatting"; Body = @("Create the optional Margin Target disconnected table and measures if time allows.", "Use conditional formatting with documented thresholds and non-color cues.") },
+      @{ Title = "Create mobile and accessible experiences"; Body = @("Build a mobile layout with prioritized visuals and touch-friendly sizing.", "Add alt text, tab order, contrast checks, descriptive titles, and keyboard-friendly design.") }
     );
-    Checklist = @("Pages have clear audience", "Drillthrough works", "Tooltip page assigned", "Bookmarks work", "Field parameter works", "Mobile layout created", "Accessibility review completed")
+    Checklist = @("Report pages have clear audience and purpose", "Filters and slicers are understandable", "Drillthrough works", "Tooltip page assigned", "Bookmarks capture only intended behavior", "Navigation buttons are consistent", "Field parameter switches intended fields", "Conditional formatting has documented thresholds", "Mobile layout is readable", "Accessibility review is complete", "Personalized and AI visuals have Gov notes")
   },
   @{
     Number = "05"; File = "05-performance-optimization.html"; Title = "Performance Optimization"; Eyebrow = "Lab 5 - Measure, optimize, validate"; Level = "Advanced authoring"; Deliverable = "Performance improvement notes"; Summary = "Use an evidence-driven workflow to diagnose report, model, DAX, visual, refresh, and capacity performance.";
-    Outcomes = @("Performance Analyzer baseline", "Model reduction plan", "DAX optimization", "Refresh/capacity notes");
+    Outcomes = @("Performance Analyzer baseline", "Model reduction plan", "DAX optimization", "Before/after performance evidence");
     Tasks = @(
-      @{ Title = "Capture a baseline"; Body = @("Use Performance Analyzer.", "Record slow visuals, DAX query time, and render time.") },
-      @{ Title = "Review model size"; Body = @("Identify unused columns and high-cardinality fields.", "Document date/time and precision improvements.") },
-      @{ Title = "Optimize DAX and visuals"; Body = @("Refactor repeated DAX with variables.", "Reduce low-value visuals and unnecessary interactions.") },
-      @{ Title = "Review aggregations"; Body = @("Define a summary grain.", "Mark DirectQuery/source behavior as Verify for Gov.") },
-      @{ Title = "Prepare refresh policy"; Body = @("Review incremental refresh parameters.", "Mark Service policy execution as Verify for Gov.") }
+      @{ Title = "Capture and benchmark a baseline"; Body = @("Use Performance Analyzer to record DAX query time, visual display time, and other time.", "Change one thing at a time and capture before/after observations with the same interaction.") },
+      @{ Title = "Review model size and cardinality"; Body = @("Identify unused columns, high-cardinality text fields, date/time columns, and excessive numeric precision.", "Document model-reduction recommendations before changing production models.") },
+      @{ Title = "Optimize DAX and visuals"; Body = @("Refactor repeated DAX with variables or measure branching.", "Reduce low-value visuals, dense tables, unnecessary interactions, and high-cardinality visual detail.") },
+      @{ Title = "Review refresh and Power Query design"; Body = @("Filter early, remove columns early, preserve folding where supported, and keep staging queries clear.", "Confirm RangeStart/RangeEnd and the fact date/time column for incremental refresh readiness.") },
+      @{ Title = "Document aggregations and capacity notes"; Body = @("Define a summary grain and explain Import, DirectQuery, or hybrid tradeoffs.", "Mark DAX Studio, VertiPaq Analyzer, Service incremental refresh, capacity metrics, and unvalidated sources as Verify for Gov.") }
     );
-    Checklist = @("Baseline captured", "Model reduction plan documented", "DAX optimized", "Visual count reviewed", "Aggregation design documented", "Gov validation notes captured")
+    Checklist = @("Performance Analyzer baseline captured", "Before/after benchmark observations recorded", "Model size/cardinality recommendations documented", "DAX optimization uses variables or measure branching", "Visual count/interactions reviewed", "Aggregation table grain documented", "Incremental refresh parameters and policy documented", "DAX Studio, VertiPaq Analyzer, and capacity metrics marked Verify for Gov")
   },
   @{
     Number = "06"; File = "06-advanced-analytics-ai.html"; Title = "Advanced Analytics and AI"; Eyebrow = "Lab 6 - Scenario and AI-aware analysis"; Level = "Feature module"; Deliverable = "Analytics scenario and Gov-safe alternatives"; Summary = "Use what-if parameters as the Gov-ready core and evaluate advanced/AI features only when tenant availability is validated.";
     Outcomes = @("What-if parameter", "Driver-analysis options", "AI feature validation", "Gov-safe fallback map");
     Tasks = @(
-      @{ Title = "Create what-if scenario"; Body = @("Create Margin Adjustment %.", "Build adjusted margin measures and visuals.") },
-      @{ Title = "Evaluate advanced visuals"; Body = @("Use decomposition tree, forecasting, anomaly detection, or key influencers only if available.", "Document interpretation limitations.") },
-      @{ Title = "Review code/ML options"; Body = @("Keep Python/R and Azure ML optional.", "Document runtime, package, identity, network, and region requirements.") },
+      @{ Title = "Create what-if scenario"; Body = @("Create Margin Adjustment %.", "Build adjusted gross margin measures and visuals.") },
+      @{ Title = "Evaluate advanced visuals"; Body = @("Use decomposition tree, forecasting, anomaly detection, or key influencers only if available.", "Document interpretation limits and human validation requirements.") },
+      @{ Title = "Review code and ML options"; Body = @("Keep Python/R visuals and Azure ML optional.", "Document runtime, package, identity, network, region, data residency, and Service requirements.") },
       @{ Title = "Discuss Copilot"; Body = @("Use the conceptual section unless Copilot is validated.", "Require human review for AI-generated output.") },
-      @{ Title = "Map fallbacks"; Body = @("Provide DAX thresholds, Top N, rolling averages, and native visual alternatives.") }
+      @{ Title = "Map Gov-safe fallbacks"; Body = @("Provide matrix/drillthrough, DAX thresholds, Top N, rolling averages, prior-period comparison, and native visual alternatives.") }
     );
-    Checklist = @("What-if parameter works", "Scenario measure created", "Optional AI features labeled", "Gov-safe fallbacks documented", "Copilot treated as optional", "Human review requirement noted")
+    Checklist = @("What-if parameter works", "Scenario measures respond to parameter selection", "Optional AI/advanced visuals labeled", "Gov-safe fallback documented for each optional feature", "Python/R and Azure ML prerequisites documented if discussed", "Copilot treated as optional", "Human review requirement noted")
   },
   @{
     Number = "07"; File = "07-security-design.html"; Title = "Security Design"; Eyebrow = "Lab 7 - RLS and governance"; Level = "Governance"; Deliverable = "Security test evidence"; Summary = "Configure static and dynamic RLS, test roles, review Build permission, and document OLS, Purview, labels, external sharing, and B2B validation needs.";
     Outcomes = @("Static RLS", "Dynamic RLS", "Role testing evidence", "Security review checklist");
     Tasks = @(
-      @{ Title = "Load security mapping"; Body = @("Use Get data > Web for security-user-territory and security-role-matrix.", "Relate mapping data to DimTerritory.") },
-      @{ Title = "Create RLS roles"; Body = @("Create static region role.", "Create dynamic territory role with USERPRINCIPALNAME().") },
-      @{ Title = "Test roles"; Body = @("Test in Desktop using View as.", "Test in Service where available.") },
-      @{ Title = "Review Build permission"; Body = @("Document who can build thin reports or Analyze in Excel.", "Separate content access from data access.") },
-      @{ Title = "Document optional controls"; Body = @("Mark OLS, labels, Purview, external sharing, and B2B as Verify for Gov.") }
+      @{ Title = "Load security mapping"; Body = @("Use Get data > Web for security-user-territory and security-role-matrix.", "Relate SecurityUserTerritory to DimTerritory using TerritoryKey.") },
+      @{ Title = "Create RLS roles"; Body = @("Create the East Region static role.", "Create Dynamic Territory Security with USERPRINCIPALNAME().") },
+      @{ Title = "Test roles in Desktop and Service"; Body = @("Use View as in Desktop with sample UPNs.", "Assign users or groups to Service roles and document gaps where Service testing is unavailable.") },
+      @{ Title = "Review Build permission and sharing"; Body = @("Document who can build thin reports or Analyze in Excel.", "Separate content access, semantic model reuse, App distribution, and external/B2B sharing decisions.") },
+      @{ Title = "Document optional controls"; Body = @("Mark OLS, sensitivity labels, Purview, external sharing, and B2B as Verify for Gov unless validated.") }
     );
-    Checklist = @("Security data loaded", "Static RLS created", "Dynamic RLS created", "Desktop role test documented", "Build permission reviewed", "Gov validation notes captured")
+    Checklist = @("Security data loaded", "Static RLS created", "Dynamic RLS created", "Desktop role test documented", "Service role assignment reviewed", "Build permission behavior documented", "External sharing/B2B limitations documented", "Gov validation notes captured")
   },
   @{
     Number = "08"; File = "08-service-enterprise-deployment.html"; Title = "Service Enterprise Deployment"; Eyebrow = "Lab 8 - Publish and distribute"; Level = "Operations"; Deliverable = "Published workspace/App plan"; Summary = "Publish PBIP-authored content to the Service, configure refresh, review gateways, shared semantic models, Apps, App audiences, deployment pipelines, and endorsement.";
-    Outcomes = @("Workspace plan", "Refresh notes", "App packaging", "Endorsement checklist");
+    Outcomes = @("Workspace design and roles", "Refresh and gateway notes", "App packaging", "Endorsement checklist");
     Tasks = @(
-      @{ Title = "Prepare workspace"; Body = @("Confirm training workspace and role.", "Document dev/test/prod pattern.") },
-      @{ Title = "Publish content"; Body = @("Publish from PBIP-authored report.", "Verify report and semantic model in the Service.") },
-      @{ Title = "Configure refresh"; Body = @("Review credentials and schedule.", "Document gateway or cloud connection requirements.") },
-      @{ Title = "Review reuse and distribution"; Body = @("Create or discuss thin report/Build permission.", "Package content as an App where available.") },
-      @{ Title = "Apply governance"; Body = @("Complete promoted/certified checklist.", "Keep App audiences and deployment pipelines Verify for Gov.") }
+      @{ Title = "Plan workspace design and roles"; Body = @("Document dev/test/prod or training workspace intent, naming convention, domain/subject area, owners, and support model.", "Assign least-privileged Admin, Member, Contributor, or Viewer roles.") },
+      @{ Title = "Publish content"; Body = @("Publish from the PBIP-authored report.", "Verify the report and semantic model in the Service and record owner/workspace details.") },
+      @{ Title = "Configure refresh"; Body = @("Review credentials, privacy levels, schedule, refresh history, and ownership.", "Document gateway or cloud connection requirements.") },
+      @{ Title = "Review reuse and distribution"; Body = @("Create or discuss thin report/Build permission.", "Package content as an App and validate the consumer path where available.") },
+      @{ Title = "Apply deployment governance"; Body = @("Complete promoted/certified endorsement checklist.", "Keep App audiences and deployment pipelines Verify for Gov and document a manual promotion path if unavailable.") }
     );
-    Checklist = @("Workspace documented", "Report/model published or demoed", "Refresh reviewed", "Gateway notes captured", "App plan completed", "Endorsement checklist reviewed")
+    Checklist = @("Workspace design, role, and ownership documented", "Report/model published or demonstrated", "Refresh settings and history reviewed", "Gateway/cloud connection notes captured", "Shared semantic model and Build permission reviewed", "App distribution reviewed", "App audiences and deployment pipelines marked Verify for Gov", "Endorsement checklist completed")
   },
   @{
     Number = "09"; File = "09-monitoring-governance.html"; Title = "Monitoring and Governance"; Eyebrow = "Lab 9 - Operate and support"; Level = "Operations"; Deliverable = "Operations runbook"; Summary = "Monitor adoption, troubleshoot refresh, review tenant settings, inspect gateways, and document support operations.";
-    Outcomes = @("Usage review", "Refresh troubleshooting", "Tenant setting notes", "Operations runbook");
+    Outcomes = @("Usage and adoption review", "Refresh troubleshooting", "Tenant setting notes", "Operations runbook");
     Tasks = @(
-      @{ Title = "Review usage"; Body = @("Open usage metrics where available.", "Document adoption observations and follow-up actions.") },
+      @{ Title = "Review usage and adoption"; Body = @("Open usage metrics where available.", "Document adoption observations, training needs, support signals, and retirement candidates.") },
       @{ Title = "Troubleshoot refresh"; Body = @("Review refresh history, credentials, and gateway mapping.", "Document likely causes and next actions.") },
-      @{ Title = "Review governance settings"; Body = @("Review sharing, export, publish-to-web, external users, and certification controls.", "Use read-only review unless approved.") },
-      @{ Title = "Review optional admin signals"; Body = @("Activity logs, admin monitoring, capacity metrics, Purview, and DLP are Verify for Gov.") },
-      @{ Title = "Complete operations runbook"; Body = @("Document owners, sources, refresh, access, monitoring cadence, and incident response.") }
+      @{ Title = "Review governance settings"; Body = @("Review sharing, export, publish-to-web, external users, Build permission, and certification controls.", "Use read-only review unless approved.") },
+      @{ Title = "Review optional admin signals"; Body = @("Activity logs, admin monitoring, capacity metrics, Purview, and DLP are Verify for Gov.", "Record available evidence and access blockers.") },
+      @{ Title = "Complete operations runbook"; Body = @("Document owners, sources, refresh, access, monitoring cadence, incident response, and Azure Government validation notes.") }
     );
-    Checklist = @("Usage reviewed", "Refresh process documented", "Tenant settings reviewed", "Gateway notes captured", "Optional admin features labeled", "Runbook completed")
+    Checklist = @("Usage reviewed", "Adoption follow-up documented", "Refresh process documented", "Tenant settings reviewed", "Gateway notes captured", "Optional admin features labeled", "Runbook completed")
   },
   @{
     Number = "10"; File = "10-premium-fabric-capacity.html"; Title = "Premium, Fabric, and Capacity"; Eyebrow = "Lab 10 - Architecture decisions"; Level = "Architecture"; Deliverable = "Capacity architecture recommendation"; Summary = "Compare Pro, PPU, Premium, and Fabric capacity and evaluate XMLA, paginated reports, Direct Lake, OneLake, Semantic Link, capacity metrics, and Gov-safe alternatives.";
-    Outcomes = @("Capacity comparison", "Feature validation notes", "Gov-safe architecture", "Capacity metrics concepts");
+    Outcomes = @("Capacity comparison", "XMLA/paginated/large-model validation", "Fabric feature validation", "Gov-safe architecture", "Capacity metrics concepts");
     Tasks = @(
-      @{ Title = "Define workload requirements"; Body = @("Document user scale, model size, refresh, latency, governance, and integration needs.") },
-      @{ Title = "Compare options"; Body = @("Compare Pro, PPU, Premium, and Fabric capacity.", "Identify which capabilities require validation.") },
-      @{ Title = "Review optional hands-on features"; Body = @("XMLA, paginated reports, large models, and capacity metrics are Verify for Gov.") },
-      @{ Title = "Review Fabric concepts"; Body = @("Direct Lake, OneLake, Lakehouse, Warehouse, Semantic Link, and autoscale are Commercial-focused / Verify for Gov.") },
-      @{ Title = "Choose fallback"; Body = @("Document Import-mode, aggregations, incremental refresh, and manual monitoring alternatives.") }
+      @{ Title = "Compare licensing and capacity options"; Body = @("Define user scale, model size, refresh, latency, governance, and integration needs.", "Compare Pro, PPU, Premium capacity, and Fabric capacity.") },
+      @{ Title = "Review XMLA endpoint"; Body = @("Validate capacity, tenant settings, workspace configuration, tooling, and cloud support.", "Document read/write and ALM use cases.") },
+      @{ Title = "Review paginated reports and large models"; Body = @("Validate paginated report licensing, workspace support, Report Builder use, and export behavior.", "Document large semantic model size, memory, refresh, and storage-format considerations.") },
+      @{ Title = "Review Fabric concepts"; Body = @("Direct Lake, OneLake, Lakehouse, Warehouse, Semantic Link, and autoscale are Commercial-focused / Verify for Gov.", "Document fallback paths when these features are not validated.") },
+      @{ Title = "Review capacity metrics and choose architecture"; Body = @("Map interactive workload, background workload, refresh pressure, and throttling symptoms to operational actions.", "Record the recommended architecture, risks, validation needs, and Gov-safe fallback.") }
     );
-    Checklist = @("Workload documented", "Capacity options compared", "XMLA/paginated/large model notes captured", "Fabric features labeled", "Capacity metrics discussed", "Gov-safe architecture selected")
+    Checklist = @("Workload documented", "Capacity options compared", "XMLA/paginated/large model notes captured", "Fabric features labeled", "Semantic Link and autoscale labeled", "Capacity metrics discussed", "Gov-safe architecture selected")
   },
   @{
     Number = "11"; File = "11-automation-devops.html"; Title = "Automation and DevOps"; Eyebrow = "Lab 11 - PBIP lifecycle"; Level = "DevOps"; Deliverable = "Deployment checklist"; Summary = "Use PBIP and git as the source-control foundation, then review external tools, APIs, service principals, Fabric Git integration, and conceptual CI/CD.";
-    Outcomes = @("PBIP source review", "Git workflow", "Automation validation", "Deployment checklist");
+    Outcomes = @("Lifecycle goals", "PBIP source review", "Git workflow", "Automation validation", "Deployment checklist");
     Tasks = @(
-      @{ Title = "Review PBIP structure"; Body = @("Inspect report and semantic model source files.", "Confirm PBIX is not the source of record.") },
-      @{ Title = "Practice git workflow"; Body = @("Create a branch, make a small change, review status/diff, and commit.") },
-      @{ Title = "Review external tools"; Body = @("Tabular Editor and ALM Toolkit are Verify for Gov.", "Document XMLA and workstation policy needs.") },
-      @{ Title = "Review automation options"; Body = @("REST APIs, PowerShell, service principals, Azure DevOps, and GitHub Actions require endpoint and policy validation.") },
-      @{ Title = "Complete deployment checklist"; Body = @("Document source, security, refresh, environment config, automation validation, and release evidence.") }
+      @{ Title = "Define lifecycle goals"; Body = @("Document repeatability, reviewability, promotion, governance, and rollback expectations.", "Confirm PBIX is not the source of record.") },
+      @{ Title = "Review PBIP structure"; Body = @("Inspect report and semantic model source files.", "Identify generated or binary files that should not drive review.") },
+      @{ Title = "Practice git workflow"; Body = @("Create a branch, make a small change, review status/diff, and commit.", "Discuss pull request review, tags, releases, and rollback evidence.") },
+      @{ Title = "Review external tools and automation"; Body = @("Tabular Editor, ALM Toolkit, REST APIs, PowerShell, and service principals are Verify for Gov.", "Document XMLA, endpoint, identity, permission, and workstation policy needs.") },
+      @{ Title = "Review Fabric Git and CI/CD"; Body = @("Fabric workspace Git integration is Commercial-focused / Verify for Gov.", "Azure DevOps and GitHub Actions require endpoint, identity, network, and policy validation.") },
+      @{ Title = "Complete deployment checklist"; Body = @("Document source, security, refresh, environment config, automation validation, Azure Government validation, release evidence, and rollback path.") }
     );
-    Checklist = @("PBIP structure reviewed", "Git workflow practiced", "External tools labeled", "API/service principal validation documented", "CI/CD path selected", "Deployment checklist completed")
+    Checklist = @("Lifecycle goals documented", "PBIP structure reviewed", "Git workflow and PR/release expectations documented", "External tools labeled", "API/service principal validation documented", "Fabric Git caveats documented", "CI/CD path selected", "Gov endpoint/identity/network validation documented", "Deployment checklist completed")
   },
   @{
     Number = "12"; File = "12-capstone.html"; Title = "Capstone"; Eyebrow = "Lab 12 - Enterprise-ready solution"; Level = "Applied capstone"; Deliverable = "Validated PBIP solution package"; Summary = "Bring together modeling, DAX, report UX, performance, security, Service deployment, governance, monitoring, and lifecycle management.";
-    Outcomes = @("PBIP solution", "RLS-secured report", "Service/App plan", "Operations evidence");
+    Outcomes = @("PBIP source project", "Optimized model and DAX", "Interactive report experience", "RLS-secured deployment", "Governance and operations evidence");
     Tasks = @(
-      @{ Title = "Build the core solution"; Body = @("Create the star schema, advanced measures, report pages, and accessibility review.") },
-      @{ Title = "Secure the solution"; Body = @("Configure static and dynamic RLS.", "Document Build permission and role testing evidence.") },
-      @{ Title = "Publish and package"; Body = @("Publish where available, configure refresh/gateway notes, and package as an App where available.") },
-      @{ Title = "Govern and operate"; Body = @("Complete endorsement checklist, operations runbook, usage/refresh notes, and support ownership.") },
-      @{ Title = "Document extensions"; Body = @("Add Fabric/Git/Copilot/API/automation extensions only when validated.", "Record fallback paths for Gov delivery.") }
+      @{ Title = "Build the semantic model"; Body = @("Create fact and dimension tables, relationships, hidden technical fields, and model-grain documentation.", "Document Gov-sensitive features as Gov-ready, Verify for Gov, or Commercial-focused.") },
+      @{ Title = "Add advanced DAX"; Body = @("Create base, time-intelligence, variance, ranking/Top N, dynamic title, or measure-switching logic.", "Validate totals at multiple grains.") },
+      @{ Title = "Build the report experience"; Body = @("Create executive, analyst, detail drillthrough, tooltip, bookmark/button, conditional formatting, mobile layout, and accessibility evidence.") },
+      @{ Title = "Configure security"; Body = @("Create static and dynamic RLS, test in Desktop and Service where available, and document Build permission behavior.") },
+      @{ Title = "Publish and distribute"; Body = @("Publish from PBIP-authored content, configure credentials and refresh where available, document gateway requirements, and create or review a Power BI App.") },
+      @{ Title = "Govern and operate"; Body = @("Complete endorsement governance, operations runbook, usage metrics review, refresh history review, support ownership, and escalation path.") },
+      @{ Title = "Optional enhanced extensions"; Body = @("Add Fabric/Git/Copilot/AI/API/automation features only after validation.", "Document availability status and fallback path for every optional feature.") }
     );
-    Checklist = @("PBIP source project used", "Model/DAX/report complete", "RLS tested", "Service/App path documented", "Governance/runbook complete", "Rubric submitted")
+    Checklist = @("PBIP source project used", "Semantic model follows star schema principles", "Advanced DAX measures validated", "Report UX and accessibility complete", "Static and dynamic RLS tested", "Service/App path completed or documented", "Refresh and gateway requirements documented", "Endorsement checklist complete", "Operations runbook complete", "Monitoring and support tasks documented", "Optional enhanced features validated and labeled", "Rubric and evidence package submitted")
   }
 )
 
@@ -614,120 +620,41 @@ function RenderLabSequence($moduleNumber) {
 function RenderHowToGuide($moduleNumber) {
   switch ($moduleNumber) {
     "01" { return @'
-<section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create a relationship in Model view</h3><ol><li>Select <strong>Model view</strong> on the left rail.</li><li>Drag the primary-key column from the dimension table to the matching foreign-key column on the fact table.</li><li>In the relationship dialog, confirm cardinality is <strong>One to many</strong>, cross-filter direction is <strong>Single</strong>, and <strong>Make this relationship active</strong> is checked.</li><li>Select <strong>Save</strong>, then verify the relationship line points from the dimension to the fact.</li></ol></div>
-    <div class="task-card"><h3>Evaluate composite model choices</h3><ol><li>Start from the business need: freshness, performance, source load, and security.</li><li>Identify tables that should stay Import for performance.</li><li>Identify tables that might require DirectQuery for freshness.</li><li>Document gateway, connector, tenant, and source limitations before changing storage mode.</li></ol></div>
-  </div>
-</section>
-<section>
-  <h2>Deeper Understanding Challenge</h2>
-  <div class="task-card">
-    <h3>Build a disconnected margin target selector</h3>
-    <p>Create a Power Query what-if table that lets users choose the margin target used for KPI status and conditional formatting.</p>
-    <ol>
-      <li>Create a blank Power Query named <code>Margin Target</code>.</li>
-      <li>Use <code>#table</code> to create margin targets such as 20%, 25%, 30%, 35%, and 40%.</li>
-      <li>Load the table without creating relationships.</li>
-      <li>Create DAX measures for selected target, margin variance, status label, and status color.</li>
-      <li>Add <code>Margin Target[MarginTargetLabel]</code> to a slicer and use the measures in cards or a matrix.</li>
-    </ol>
-    <pre class="code"><code>let
-    Source =
-        #table(
-            type table [MarginTargetLabel = text, MarginTargetValue = number, SortOrder = Int64.Type],
-            {
-                {"20%", 0.20, 0},
-                {"25%", 0.25, 1},
-                {"30%", 0.30, 2},
-                {"35%", 0.35, 3},
-                {"40%", 0.40, 4}
-            }
-        )
-in
-    Source</code></pre>
-    <pre class="code"><code>Selected Margin Target =
-SELECTEDVALUE ( 'Margin Target'[MarginTargetValue], 0.30 )
-
-Gross Margin vs Target =
-[Gross Margin %] - [Selected Margin Target]
-
-Margin Target Status =
-VAR Difference = [Gross Margin vs Target]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( [Gross Margin %] ), "No margin data",
-        Difference &gt;= 0.05, "Above target",
-        Difference &gt;= 0, "At target",
-        Difference &gt;= -0.05, "Near target",
-        "Below target"
-    )</code></pre>
-  </div>
-</section>
+<section><h2>Novice-friendly how-to guide</h2><div class="task-list">
+<div class="task-card"><h3>Reference a raw query into facts and dimensions</h3><ol><li>Right-click <code>raw_SalesFlat</code> and choose <strong>Reference</strong>.</li><li>Rename the new query to <code>FactSales</code>, <code>DimCustomer</code>, <code>DimProduct</code>, or <code>DimTerritory</code>.</li><li>Keep or remove columns to match the README table.</li><li>Remove duplicate rows from dimensions only.</li></ol></div>
+<div class="task-card"><h3>Create DimProductCategory</h3><ol><li>Reference <code>DimProduct</code>.</li><li>Rename the query <code>DimProductCategory</code>.</li><li>Remove <code>ProductKey</code>, <code>ProductName</code>, and <code>ProductSubcategory</code>.</li><li>Keep only <code>ProductCategory</code>, confirm text type, and remove duplicates.</li></ol></div>
+<div class="task-card"><h3>Create date role tables</h3><ol><li>Use the approved <code>fn_DimDate</code> or DAX <code>CALENDAR</code> pattern.</li><li>Create <code>DimOrderDate</code> and <code>DimShipDate</code>.</li><li>Mark each table as a date table.</li><li>Relate each role table to the matching fact date column.</li></ol></div>
+<div class="task-card"><h3>Create relationships in Model view</h3><ol><li>Drag each dimension primary key to the matching fact or bridge foreign key.</li><li>Confirm one-to-many cardinality, single cross-filter direction, and active status.</li><li>Use <code>DimProductCategory</code> for target category relationships.</li></ol></div>
+<div class="task-card"><h3>Evaluate composite model choices</h3><ol><li>Identify Import, DirectQuery, and Dual candidates.</li><li>Document freshness, performance, source-load, gateway, and tenant constraints.</li><li>Keep composite, DirectQuery, hybrid, and large-model work marked Verify for Gov unless validated.</li></ol></div>
+</div></section>
 '@ }
     "02" { return @'
-<section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create a measure</h3><ol><li>In Report or Model view, select the table that should store the measure.</li><li>Select <strong>Modeling &gt; New measure</strong>.</li><li>Type the measure name, equals sign, and DAX expression, such as <code>Sales Amount = SUM(FactSales[SalesAmount])</code>.</li><li>Press Enter and set formatting in the Measure tools ribbon.</li><li>Test the measure in a simple card or table before building derived measures.</li></ol></div>
-    <div class="task-card"><h3>Build a DAX test visual</h3><ol><li>Add a table or matrix visual.</li><li>Add one dimension field, such as <code>DimCustomer[CustomerName]</code>.</li><li>Add the measure being tested.</li><li>Add slicers for date, territory, or product category.</li><li>Change slicer selections and observe whether totals respond as expected.</li></ol></div>
-    <div class="task-card"><h3>Use CALCULATE safely</h3><ol><li>Start from a working base measure.</li><li>Create a new measure with <code>CALCULATE([Base Measure], filter expression)</code>.</li><li>Use <code>REMOVEFILTERS</code> when you intentionally want to ignore a dimension.</li><li>Use <code>KEEPFILTERS</code> when you want to narrow existing filters instead of replacing them.</li><li>Compare the result against the base measure in the same visual.</li></ol></div>
-    <div class="task-card"><h3>Create a calculation group</h3><ol><li>Confirm base measures such as <code>[Sales Amount]</code> and <code>[Gross Margin]</code> work first.</li><li>Open <strong>Model view</strong> in Power BI Desktop.</li><li>Select <strong>Calculation group</strong> from the ribbon.</li><li>If prompted, enable <strong>Discourage implicit measures</strong>.</li><li>Rename the calculation group table to <code>Time Intelligence</code> and the calculation group column to <code>Time Calculation</code>.</li><li>Rename the first calculation item to <code>Current</code> and set its expression to <code>SELECTEDMEASURE()</code>.</li><li>Add more calculation items from <strong>Model Explorer</strong>, then test the group with a date field and base measure.</li></ol></div>
-    <div class="task-card"><h3>Review TMDL or external-tool paths</h3><ol><li>Use <strong>TMDL View</strong> only when the Desktop/PBIP workflow is validated.</li><li>Use Tabular Editor only when external tools are approved.</li><li>Document which path was used and whether it is allowed in the target environment.</li><li>If no calculation group authoring path is validated, use separate DAX measures as the fallback.</li></ol></div>
-  </div>
-  <figure class="figure">
-    <img src="images/02-advanced-dax/CalculationGroups-annotated.png" alt="Annotated Power BI Desktop Model view showing a calculation group, its column, and calculation items.">
-    <figcaption>Calculation group authoring in Power BI Desktop Model view. The numbered callouts match the steps below.</figcaption>
-  </figure>
-  <table class="column-table">
-    <thead><tr><th>Callout</th><th>What it shows</th><th>How it maps to the steps</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td><strong>Model</strong> tab in the Data pane</td><td>Confirms you are working in the semantic model metadata, not only report fields.</td></tr>
-      <tr><td>2</td><td><strong>Calculation groups</strong> node</td><td>Shows the calculation group container created by the ribbon command.</td></tr>
-      <tr><td>3</td><td><code>Name</code> property</td><td>Rename the calculation group table to <code>Time Intelligence</code>.</td></tr>
-      <tr><td>4</td><td><strong>Calculation group column</strong></td><td>Rename this column to <code>Time Calculation</code>; this is the field users place in slicers or visuals.</td></tr>
-      <tr><td>5</td><td><strong>Calculation items</strong> folder</td><td>Use this area in Model Explorer to add more calculation items.</td></tr>
-      <tr><td>6</td><td>First calculation item</td><td>Rename the initial item to <code>Current</code> and set its expression to <code>SELECTEDMEASURE()</code>.</td></tr>
-    </tbody>
-  </table>
-</section>
+<section><h2>Novice-friendly how-to guide</h2><div class="task-list">
+<div class="task-card"><h3>Create a measure</h3><ol><li>Select the table that should store the measure.</li><li>Select <strong>Modeling &gt; New measure</strong>.</li><li>Type the measure name, equals sign, and DAX expression.</li><li>Set formatting and test in a simple visual.</li></ol></div>
+<div class="task-card"><h3>Build a DAX test visual</h3><ol><li>Add a table or matrix visual.</li><li>Add one dimension field and the measure being tested.</li><li>Add slicers for date, territory, or product category.</li><li>Change slicer selections and verify totals.</li></ol></div>
+<div class="task-card"><h3>Use CALCULATE safely</h3><ol><li>Start from a working base measure.</li><li>Use <code>REMOVEFILTERS</code> to ignore a dimension intentionally.</li><li>Use <code>ALLEXCEPT</code> only to preserve a named grain.</li><li>Use <code>KEEPFILTERS</code> to narrow existing filters.</li><li>Use <code>TREATAS</code> for intentional disconnected-table filtering.</li></ol></div>
+<div class="task-card"><h3>Create a calculation group</h3><ol><li>Confirm explicit base measures work.</li><li>Open <strong>Model view</strong> and select <strong>Calculation group</strong>.</li><li>Enable <strong>Discourage implicit measures</strong> if prompted.</li><li>Name the table <code>Time Intelligence</code> and the column <code>Time Calculation</code>.</li><li>Add calculation items and test with base measures.</li></ol></div>
+<div class="task-card"><h3>Review TMDL or external-tool paths</h3><ol><li>Use TMDL View or Tabular Editor only when validated.</li><li>If no calculation group authoring path is validated, use separate DAX measures as the fallback.</li></ol></div>
+</div><figure class="figure"><img src="images/02-advanced-dax/CalculationGroups-annotated.png" alt="Annotated Power BI Desktop Model view showing a calculation group, its column, and calculation items."><figcaption>Calculation group authoring in Power BI Desktop Model view.</figcaption></figure></section>
 '@ }
     "03" { return @'
-<section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create Power Query parameters</h3><ol><li>Open <strong>Transform data</strong> to launch Power Query.</li><li>Select <strong>Manage Parameters &gt; New Parameter</strong>.</li><li>Create <code>RawDataBaseUrl</code>, <code>SourceFolderPath</code>, <code>EnvironmentName</code>, <code>RangeStart</code>, and <code>RangeEnd</code>.</li><li>Keep <code>SourceFolderPath</code> blank unless using the optional offline/folder delivery path.</li><li>Select <strong>OK</strong> and use required parameters in source or filter steps instead of hard-coded values.</li></ol></div>
-    <div class="task-card"><h3>Append queries</h3><ol><li>In Power Query, select <strong>Home &gt; Append Queries &gt; Append Queries as New</strong>.</li><li>Choose <strong>Three or more tables</strong>.</li><li>Add each raw monthly query in order.</li><li>Name the result <code>stg_OrdersCombined</code>.</li><li>Check that columns line up and data types are consistent.</li></ol></div>
-    <div class="task-card"><h3>Disable load for staging queries</h3><ol><li>Right-click each raw or staging query.</li><li>Clear <strong>Enable load</strong>.</li><li>Leave final model-ready queries enabled.</li><li>Select <strong>Close &amp; Apply</strong> when the query set is ready.</li></ol></div>
-  </div>
-</section>
+<section><h2>Novice-friendly how-to guide</h2><div class="task-list">
+<div class="task-card"><h3>Create Power Query parameters</h3><ol><li>Open <strong>Transform data</strong>.</li><li>Select <strong>Manage Parameters &gt; New Parameter</strong>.</li><li>Create <code>RawDataBaseUrl</code>, <code>SourceFolderPath</code>, <code>EnvironmentName</code>, <code>RangeStart</code>, and <code>RangeEnd</code>.</li><li>Keep <code>SourceFolderPath</code> blank unless using offline delivery.</li></ol></div>
+<div class="task-card"><h3>Append queries</h3><ol><li>Select <strong>Home &gt; Append Queries &gt; Append Queries as New</strong>.</li><li>Choose <strong>Three or more tables</strong>.</li><li>Add each raw monthly query in order.</li><li>Name the result <code>stg_OrdersCombined</code>.</li></ol></div>
+<div class="task-card"><h3>Create a custom function</h3><ol><li>Create a Blank Query named <code>fn_CleanText</code>.</li><li>Paste the function from the answer key in Advanced Editor.</li><li>Invoke it on selected customer, channel, and product text columns.</li></ol></div>
+<div class="task-card"><h3>Use column quality and error review</h3><ol><li>Turn on column quality or profile.</li><li>Create readable <code>DataQualityIssue</code> reasons.</li><li>Reference <code>stg_OrdersCombined</code> as <code>err_OrdersReview</code>.</li><li>Disable load for the error review query.</li></ol></div>
+<div class="task-card"><h3>Disable load for staging queries</h3><ol><li>Right-click raw and staging queries.</li><li>Clear <strong>Enable load</strong>.</li><li>Leave final model-ready queries enabled.</li></ol></div>
+</div></section>
 '@ }
     "04" { return @'
-<section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create a drillthrough page</h3><ol><li>Add a new report page and rename it <code>Customer Detail</code>.</li><li>In the Visualizations pane, find the <strong>Drill-through</strong> field well.</li><li>Drag <code>DimCustomer[CustomerName]</code> into the drill-through field well.</li><li>Add visuals that explain the selected customer.</li><li>Return to another page, right-click a customer, and choose the drillthrough page.</li></ol></div>
-    <div class="task-card"><h3>Create a tooltip page</h3><ol><li>Add a new page and open the Format page settings.</li><li>Set page type to <strong>Tooltip</strong>.</li><li>Build a small summary using a few KPIs or a compact trend.</li><li>Select the visual that should use the tooltip and assign the tooltip page in the visual format settings.</li></ol></div>
-    <div class="task-card"><h3>Review accessibility</h3><ol><li>Add descriptive visual titles.</li><li>Add alt text for important visuals.</li><li>Open <strong>View &gt; Selection</strong> and set a logical tab order.</li><li>Check color contrast and avoid using color as the only signal.</li></ol></div>
-    <div class="task-card"><h3>Create a field parameter</h3><ol><li>Select <strong>Modeling &gt; New parameter &gt; Fields</strong>.</li><li>Name it <code>Metric Parameter</code>.</li><li>Select approved measures such as <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code>.</li><li>Keep <strong>Add slicer to this page</strong> selected and choose <strong>Create</strong>.</li><li>Add the generated parameter field to a visual's values well and use the slicer to switch metrics.</li></ol></div>
-  </div>
-</section>
-<section>
-  <h2>Deeper Understanding Challenge</h2>
-  <div class="task-card">
-    <h3>Build a disconnected metric selector</h3>
-    <p>Compare native field parameters with a Power Query selector table and a DAX <code>SWITCH</code> measure.</p>
-    <ol>
-      <li>Create a blank Power Query named <code>Metric Selector</code>.</li>
-      <li>Use <code>#table</code> to create rows for Sales Amount, Gross Margin, Gross Margin %, and Quantity.</li>
-      <li>Load the table without creating relationships.</li>
-      <li>Create a DAX measure named <code>Selected Metric Value</code> using <code>SELECTEDVALUE</code> and <code>SWITCH</code>.</li>
-      <li>Add <code>Metric Selector[Metric]</code> to a slicer and <code>Selected Metric Value</code> to a visual.</li>
-      <li>Compare the behavior to the native field parameter visual.</li>
-    </ol>
-    <pre class="code"><code>let
+<section><h2>Novice-friendly how-to guide</h2><div class="task-list">
+<div class="task-card"><h3>Plan audience pages and filters</h3><ol><li>Write the audience and decision question for each page.</li><li>Use executive, analyst, and operational/detail purposes to decide visuals.</li><li>Place slicers consistently and label them clearly.</li><li>Avoid hidden or conflicting filter states.</li></ol></div>
+<div class="task-card"><h3>Create a drillthrough page</h3><ol><li>Add a page named <code>Customer Detail</code>.</li><li>Add <code>DimCustomer[CustomerName]</code> to the Drill-through field well.</li><li>Add customer visuals and a Back button.</li><li>Test by right-clicking a customer on another page.</li></ol></div>
+<div class="task-card"><h3>Create a tooltip page</h3><ol><li>Add a page and set page type to <strong>Tooltip</strong>.</li><li>Build compact KPIs or a trend.</li><li>Assign the tooltip page to a main visual.</li></ol></div>
+<div class="task-card"><h3>Create a field parameter</h3><ol><li>Select <strong>Modeling &gt; New parameter &gt; Fields</strong>.</li><li>Name it <code>Metric Parameter</code>.</li><li>Select <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code>.</li><li>Add the generated parameter field to a visual.</li></ol></div>
+<div class="task-card"><h3>Review accessibility</h3><ol><li>Add descriptive titles and alt text.</li><li>Set a logical tab order.</li><li>Check contrast and avoid color-only meaning.</li><li>Confirm keyboard users can follow the report flow.</li></ol></div>
+</div></section>
+<section><h2>Deeper Understanding Challenge</h2><div class="task-card"><h3>Build a disconnected metric selector</h3><p>Compare native field parameters with a Power Query selector table and a DAX <code>SWITCH</code> measure.</p><ol><li>Create a blank Power Query named <code>Metric Selector</code>.</li><li>Use <code>#table</code> to create rows for Sales Amount, Gross Margin, Gross Margin %, and Quantity.</li><li>Load the table without relationships.</li><li>Create <code>Selected Metric Value</code> using <code>SELECTEDVALUE</code> and <code>SWITCH</code>.</li></ol><pre class="code"><code>let
     Source =
         #table(
             type table [Metric = text, SortOrder = Int64.Type],
@@ -739,8 +666,7 @@ RETURN
             }
         )
 in
-    Source</code></pre>
-    <pre class="code"><code>Selected Metric Value =
+    Source</code></pre><pre class="code"><code>Selected Metric Value =
 VAR SelectedMetric =
     SELECTEDVALUE ( 'Metric Selector'[Metric], "Sales Amount" )
 RETURN
@@ -751,17 +677,17 @@ RETURN
         "Gross Margin %", [Gross Margin %],
         "Quantity", [Quantity],
         [Sales Amount]
-    )</code></pre>
-  </div>
-</section>
+    )</code></pre></div></section>
 '@ }
     "05" { return @'
 <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
     <div class="task-card"><h3>Use Performance Analyzer</h3><ol><li>Open the report page to test.</li><li>Select <strong>View &gt; Performance Analyzer</strong>.</li><li>Select <strong>Start recording</strong>.</li><li>Refresh visuals or interact with slicers.</li><li>Expand each visual result and record DAX query time, visual display time, and other time.</li></ol></div>
+    <div class="task-card"><h3>Document before/after benchmark evidence</h3><ol><li>Record the baseline timing before changing anything.</li><li>Change one thing at a time.</li><li>Run the same interaction again.</li><li>Record the after timing, tradeoff, and remaining risk.</li></ol></div>
     <div class="task-card"><h3>Reduce model size</h3><ol><li>Review columns in Data or Model view.</li><li>Identify columns not used in relationships, measures, slicers, or visuals.</li><li>Remove unused columns in Power Query, not just hide them.</li><li>Reduce precision or split DateTime columns only when the report does not need full detail.</li></ol></div>
     <div class="task-card"><h3>Optimize a measure with variables</h3><ol><li>Copy the original measure to a notes area before changing it.</li><li>Create variables with <code>VAR</code> for repeated expressions.</li><li>Return the final result with <code>RETURN</code>.</li><li>Compare old and new results in the same visual.</li></ol></div>
+    <div class="task-card"><h3>Prepare refresh optimization</h3><ol><li>Filter rows early when the source supports it.</li><li>Remove unused columns early.</li><li>Preserve query folding where available.</li><li>Confirm <code>RangeStart</code>, <code>RangeEnd</code>, and the partition date/time column before defining incremental refresh.</li></ol></div>
   </div>
 </section>
 '@ }
@@ -781,7 +707,57 @@ RETURN
   <div class="task-list">
     <div class="task-card"><h3>Create a static RLS role</h3><ol><li>Select <strong>Modeling &gt; Manage roles</strong>.</li><li>Select <strong>New</strong> and name the role <code>East Region</code>.</li><li>Select the territory table.</li><li>Add a filter such as <code>[TerritoryRegion] = "East"</code>.</li><li>Save the role and test it with <strong>View as</strong>.</li></ol></div>
     <div class="task-card"><h3>Create a dynamic RLS role</h3><ol><li>Load the security mapping table.</li><li>Create the relationship from the security table to the secured dimension.</li><li>Open <strong>Manage roles</strong> and create <code>Dynamic Territory Security</code>.</li><li>Filter the security table with <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>.</li><li>Use <strong>View as</strong> with sample UPNs to confirm access.</li></ol></div>
+    <div class="task-card"><h3>Assign Service roles safely</h3><ol><li>Publish only to an approved training workspace.</li><li>Assign users or groups to RLS roles.</li><li>Check workspace role implications before testing.</li><li>Use App distribution for consumers when available instead of broad workspace access.</li></ol></div>
     <div class="task-card"><h3>Test roles</h3><ol><li>Select <strong>Modeling &gt; View as</strong>.</li><li>Choose the role to test.</li><li>For dynamic RLS, enter a sample user principal name.</li><li>Record what data is visible and compare it to the expected mapping table.</li></ol></div>
+  </div>
+</section>
+'@ }
+    "08" { return @'
+<section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Plan workspace design and roles</h3><ol><li>Identify whether the workspace is development, test, production, or training-only.</li><li>Use a naming convention that includes domain or subject area where appropriate.</li><li>Record content owner and support owner.</li><li>Assign the least-privileged workspace role: Admin, Member, Contributor, or Viewer.</li><li>Prefer App distribution for consumers instead of adding viewers directly to production workspaces.</li></ol></div>
+    <div class="task-card"><h3>Publish a report</h3><ol><li>Open the PBIP-authored report in Power BI Desktop.</li><li>Sign in with the approved training account.</li><li>Select <strong>Home &gt; Publish</strong>.</li><li>Choose the target workspace.</li><li>Open the report in the Power BI Service and confirm the report and semantic model are present.</li></ol></div>
+    <div class="task-card"><h3>Review refresh settings</h3><ol><li>Open the workspace in the Power BI Service.</li><li>Find the semantic model and open <strong>Settings</strong>.</li><li>Review credentials, privacy levels, gateway or cloud connection, schedule, and refresh history.</li><li>Document anything that cannot be configured in the training tenant.</li></ol></div>
+    <div class="task-card"><h3>Package content as an App</h3><ol><li>Select workspace content for the App.</li><li>Configure name, description, navigation, and consumers.</li><li>Publish or update the App.</li><li>Validate the consumer experience where available.</li></ol></div>
+  </div>
+</section>
+'@ }
+    "09" { return @'
+<section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Review usage metrics</h3><ol><li>Open the report or App in the Power BI Service.</li><li>Open usage metrics when tenant policy and permissions allow it.</li><li>Review views, unique viewers, page usage, and trends.</li><li>Document adoption observations, training needs, support signals, and retirement candidates.</li><li>If usage metrics are unavailable, record the tenant, license, or permission blocker.</li></ol></div>
+    <div class="task-card"><h3>Review refresh history</h3><ol><li>Open the workspace and select the semantic model.</li><li>Open refresh history or semantic model settings.</li><li>Record recent success/failure status, duration, and recipients.</li><li>For failures, capture the error summary, credential/gateway clue, likely cause, and next action.</li></ol></div>
+    <div class="task-card"><h3>Complete runbook evidence</h3><ol><li>Record content inventory, owners, sources, access model, monitoring cadence, and incident paths.</li><li>Mark activity logs, audit logs, admin monitoring, capacity metrics, Purview, and DLP as Verify for Gov unless validated.</li></ol></div>
+  </div>
+</section>
+'@ }
+    "10" { return @'
+<section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Compare capacity options</h3><ol><li>Start with user count, model size, refresh frequency, latency, sharing, governance, and integration needs.</li><li>Compare Pro, PPU, Premium capacity, and Fabric capacity against those requirements.</li><li>Mark features that require tenant, license, capacity, or cloud validation.</li><li>Choose a Gov-safe fallback when a feature is not validated.</li><li>Record the recommendation and reason.</li></ol></div>
+    <div class="task-card"><h3>Review capacity metrics conceptually</h3><ol><li>Identify the capacity or workspace that would be monitored.</li><li>Review refresh duration, query duration, throttling, memory, interactive workload, background workload, and user activity.</li><li>If the capacity metrics app is unavailable, document what evidence the admin team should provide.</li></ol></div>
+  </div>
+</section>
+'@ }
+    "11" { return @'
+<section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Review PBIP source structure</h3><ol><li>Open the PBIP project folder in File Explorer or VS Code.</li><li>Locate the <code>.pbip</code> file.</li><li>Locate the <code>.Report</code> and <code>.SemanticModel</code> folders.</li><li>Open JSON or TMDL files as text to understand what is source-controlled.</li><li>Do not edit generated files unless the lab explicitly tells you to.</li></ol></div>
+    <div class="task-card"><h3>Practice a basic git workflow</h3><ol><li>Open a terminal at the repo root.</li><li>Run <code>git status</code>.</li><li>Create or switch to the working branch chosen for the lab.</li><li>Make a small documented change.</li><li>Run <code>git diff</code> to review it.</li><li>Commit only the intended files.</li></ol></div>
+    <div class="task-card"><h3>Validate automation boundaries</h3><ol><li>Identify endpoint, identity, network, tenant setting, and permission requirements.</li><li>Mark REST APIs, PowerShell, service principals, XMLA, Fabric Git, and CI/CD as Verify for Gov unless approved.</li></ol></div>
+  </div>
+</section>
+'@ }
+    "12" { return @'
+<section>
+  <h2>Novice-friendly how-to guide</h2>
+  <div class="task-list">
+    <div class="task-card"><h3>Work through the capstone safely</h3><ol><li>Start from the capstone starter PBIP or completed solution from the previous lab.</li><li>Complete one capability at a time: model, DAX, report UX, security, deployment, governance, and monitoring.</li><li>Save after each major milestone.</li><li>Validate each capability with the rubric before moving to the next one.</li><li>Record evidence as you go instead of waiting until the end.</li></ol></div>
+    <div class="task-card"><h3>Package capstone evidence</h3><ol><li>Include the PBIP source project.</li><li>Include screenshots or notes for relationships, report pages, RLS tests, refresh/deployment settings, and governance decisions.</li><li>Complete the validation rubric.</li><li>Mark optional unvalidated features as Verify for Gov or conceptual-only.</li></ol></div>
   </div>
 </section>
 '@ }
@@ -799,6 +775,30 @@ RETURN
 
 function RenderImplementationReference($moduleNumber) {
   switch ($moduleNumber) {
+    "01" { return @'
+<section><h2>Implementation reference table</h2><div class="task-card"><h3>Fact and dimension column reference</h3>
+<table class="column-table"><thead><tr><th>Query</th><th>Columns to keep</th><th>Validation</th></tr></thead><tbody>
+<tr><td><code>FactSales</code></td><td><code>SalesOrderLineKey</code>, <code>OrderDate</code>, <code>ShipDate</code>, <code>InvoiceDate</code>, <code>CustomerKey</code>, <code>ProductKey</code>, <code>TerritoryKey</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>UnitCost</code>, <code>SalesAmount</code>, <code>GrossMargin</code></td><td>Transaction grain remains one row per sales order line.</td></tr>
+<tr><td><code>DimCustomer</code></td><td><code>CustomerKey</code>, <code>CustomerName</code>, <code>CustomerType</code>, <code>CustomerState</code>, <code>CustomerRegion</code></td><td>Duplicate customer rows removed.</td></tr>
+<tr><td><code>DimProduct</code></td><td><code>ProductKey</code>, <code>ProductName</code>, <code>ProductCategory</code>, <code>ProductSubcategory</code></td><td>Product rows stay at product grain.</td></tr>
+<tr><td><code>DimProductCategory</code></td><td><code>ProductCategory</code></td><td>One row per category for slicers and targets.</td></tr>
+<tr><td><code>DimTerritory</code></td><td><code>TerritoryKey</code>, <code>TerritoryName</code>, <code>TerritoryRegion</code></td><td>Duplicate territory rows removed.</td></tr>
+<tr><td><code>BridgeCustomerSegment</code></td><td><code>CustomerKey</code>, <code>Segment</code></td><td>Multi-segment customer mapping.</td></tr>
+<tr><td><code>DimSegment</code></td><td><code>Segment</code></td><td>Distinct segment list.</td></tr>
+</tbody></table><h3>Relationship reference</h3>
+<table class="column-table"><thead><tr><th>From</th><th>To</th><th>Cardinality</th><th>Direction</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>DimCustomer[CustomerKey]</code></td><td><code>FactSales[CustomerKey]</code></td><td>One-to-many</td><td>Single</td><td>Customer filters sales.</td></tr>
+<tr><td><code>DimProduct[ProductKey]</code></td><td><code>FactSales[ProductKey]</code></td><td>One-to-many</td><td>Single</td><td>Product filters sales.</td></tr>
+<tr><td><code>DimTerritory[TerritoryKey]</code></td><td><code>FactSales[TerritoryKey]</code></td><td>One-to-many</td><td>Single</td><td>Territory filters sales.</td></tr>
+<tr><td><code>DimOrderDate[Date]</code></td><td><code>FactSales[OrderDate]</code></td><td>One-to-many</td><td>Single</td><td>Primary date path.</td></tr>
+<tr><td><code>DimShipDate[Date]</code></td><td><code>FactSales[ShipDate]</code></td><td>One-to-many</td><td>Single</td><td>Ship-date role path.</td></tr>
+<tr><td><code>DimTerritory[TerritoryKey]</code></td><td><code>FactTargets[TerritoryKey]</code></td><td>One-to-many</td><td>Single</td><td>Targets by territory.</td></tr>
+<tr><td><code>DimProductCategory[ProductCategory]</code></td><td><code>DimProduct[ProductCategory]</code></td><td>One-to-many</td><td>Single</td><td>Category filters products.</td></tr>
+<tr><td><code>DimProductCategory[ProductCategory]</code></td><td><code>FactTargets[ProductCategory]</code></td><td>One-to-many</td><td>Single</td><td>Avoids many-to-many target relationship.</td></tr>
+<tr><td><code>DimSegment[Segment]</code></td><td><code>BridgeCustomerSegment[Segment]</code></td><td>One-to-many</td><td>Single</td><td>Segments filter the bridge.</td></tr>
+<tr><td><code>DimCustomer[CustomerKey]</code></td><td><code>BridgeCustomerSegment[CustomerKey]</code></td><td>One-to-many</td><td>Single</td><td>Customer filters bridge rows.</td></tr>
+</tbody></table></div></section>
+'@ }
     "02" { return @'
 <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
@@ -834,24 +834,31 @@ function RenderImplementationReference($moduleNumber) {
 </tbody></table></div></section>
 '@ }
     "04" { return @'
-<section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Page or feature</th><th>Exact name</th><th>Required fields/measures</th><th>Validation</th></tr></thead><tbody>
-<tr><td>Page</td><td><code>Executive Summary</code></td><td><code>Sales Amount</code>, <code>Gross Margin %</code>, <code>Sales Variance</code>, <code>Quantity</code></td><td>Executive KPIs visible.</td></tr>
-<tr><td>Page</td><td><code>Analyst Exploration</code></td><td>Date, territory, product, customer, segment slicers</td><td>Slicers affect visuals.</td></tr>
-<tr><td>Drillthrough page</td><td><code>Customer Detail</code></td><td><code>CustomerName</code> drillthrough field plus transaction table</td><td>Right-click customer opens detail.</td></tr>
-<tr><td>Tooltip page</td><td><code>Sales Tooltip</code></td><td>Compact sales/margin KPIs and trend</td><td>Hover displays tooltip.</td></tr>
-<tr><td>Bookmarks</td><td>Show/hide or reset state</td><td>Buttons and bookmark settings</td><td>Only intended visuals change.</td></tr>
+<section><h2>Implementation reference table</h2><div class="task-card"><table class="column-table"><thead><tr><th>Page or feature</th><th>Exact name</th><th>Required fields/measures</th><th>Validation</th></tr></thead><tbody>
+<tr><td>Page</td><td><code>Executive Summary</code></td><td><code>Sales Amount</code>, <code>Gross Margin %</code>, <code>Sales Variance</code>, <code>Quantity</code></td><td>Executive KPIs and exceptions are visible.</td></tr>
+<tr><td>Page</td><td><code>Analyst Exploration</code></td><td>Date, territory, product, customer, and segment slicers</td><td>Slicers are clear and affect intended visuals.</td></tr>
+<tr><td>Operational/detail page</td><td>Operational or detail page</td><td>Monitoring visuals, exception list, or detail table</td><td>Page answers a specific action question.</td></tr>
+<tr><td>Drillthrough page</td><td><code>Customer Detail</code></td><td><code>DimCustomer[CustomerName]</code>, KPI cards, transaction table</td><td>Right-click opens filtered detail and Back returns.</td></tr>
+<tr><td>Tooltip page</td><td><code>Sales Tooltip</code></td><td>Compact sales/margin KPIs and trend</td><td>Hover displays contextual information.</td></tr>
+<tr><td>Bookmarks</td><td>Show/hide or reset state</td><td>Buttons plus Data, Display, Current page settings</td><td>Only intended visuals or filters change.</td></tr>
+<tr><td>Field parameter</td><td><code>Metric Parameter</code></td><td><code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, <code>[Quantity]</code></td><td>Slicer switches the visual metric.</td></tr>
+<tr><td>Optional field parameter</td><td><code>Dimension Parameter</code></td><td><code>DimProductCategory[ProductCategory]</code>, <code>DimTerritory[TerritoryRegion]</code>, <code>DimSegment[Segment]</code></td><td>Slicer switches axis or rows.</td></tr>
+<tr><td>Conditional formatting</td><td>Margin or variance thresholds</td><td>Status, color, or icon rules with written meaning</td><td>Color is not the only cue.</td></tr>
 <tr><td>Mobile layout</td><td>Mobile canvas</td><td>Highest-value KPIs and visuals</td><td>Readable in mobile preview.</td></tr>
+<tr><td>Accessibility review</td><td>Alt text, tab order, contrast, titles</td><td>Selection pane and visual formatting settings</td><td>Keyboard and screen-reader path documented.</td></tr>
 </tbody></table></div></section>
 '@ }
     "05" { return @'
 <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Evidence item</th><th>Where to capture</th><th>What to record</th><th>Outcome</th></tr></thead><tbody>
 <tr><td>Baseline timings</td><td>Performance Analyzer</td><td>Visual name, DAX time, display time, other time</td><td>One optimization candidate selected.</td></tr>
-<tr><td>Visual inventory</td><td>Report page</td><td>Visual count and high-cardinality visuals</td><td>Low-value visuals identified.</td></tr>
-<tr><td>Model review</td><td>Model/Data view</td><td>Unused columns, high-cardinality fields, date/time fields</td><td>Reduction plan documented.</td></tr>
+<tr><td>Before/after benchmark</td><td>Performance notes</td><td>Baseline, single change, after result, tradeoff, remaining risk</td><td>Improvement claims are evidence-based.</td></tr>
+<tr><td>Visual inventory</td><td>Report page</td><td>Visual count, high-cardinality visuals, custom visuals, cross-highlighting</td><td>Low-value overhead identified.</td></tr>
+<tr><td>Model review</td><td>Model/Data view</td><td>Unused columns, high-cardinality fields, date/time fields, precision</td><td>Reduction plan documented.</td></tr>
 <tr><td>DAX review</td><td>Measure editor</td><td>Before/after measure logic</td><td>Variables or branching added.</td></tr>
-<tr><td>Refresh review</td><td>Power Query/Service notes</td><td>Partition date, RangeStart, RangeEnd, support status</td><td>Incremental refresh readiness documented.</td></tr>
+<tr><td>Refresh review</td><td>Power Query/Service notes</td><td>Staging, early filters, removed columns, folding status, RangeStart, RangeEnd</td><td>Incremental refresh readiness documented.</td></tr>
+<tr><td>Aggregation design</td><td>Model notes</td><td>Summary grain, group-by columns, Import/DirectQuery/hybrid tradeoffs</td><td>Aggregation hit requirements documented.</td></tr>
+<tr><td>Capacity/external tools</td><td>Validation notes</td><td>DAX Studio, VertiPaq Analyzer, capacity metrics, admin monitoring status</td><td>Verify for Gov items are labeled.</td></tr>
 </tbody></table></div></section>
 '@ }
     "06" { return @'
@@ -859,11 +866,13 @@ function RenderImplementationReference($moduleNumber) {
 <table class="column-table"><thead><tr><th>Feature</th><th>Status</th><th>What to create or review</th><th>Fallback</th></tr></thead><tbody>
 <tr><td>What-if parameter</td><td>Gov-ready</td><td><code>Margin Adjustment %</code> and adjusted margin measure</td><td>Required core path.</td></tr>
 <tr><td>Decomposition tree</td><td>Verify for Gov</td><td>Driver analysis by territory/product/customer/segment</td><td>Matrix plus drillthrough.</td></tr>
-<tr><td>Forecasting/anomaly</td><td>Verify for Gov</td><td>Line chart analytics options</td><td>Rolling average and DAX thresholds.</td></tr>
+<tr><td>Forecasting</td><td>Verify for Gov</td><td>Line chart Analytics pane forecast</td><td>Rolling average and prior-period comparison.</td></tr>
+<tr><td>Anomaly detection</td><td>Verify for Gov</td><td>Unusual trend identification on supported visuals</td><td>DAX threshold flags.</td></tr>
 <tr><td>Key influencers</td><td>Verify for Gov</td><td>AI visual for outcome analysis</td><td>Top N and ranked comparisons.</td></tr>
 <tr><td>Python/R</td><td>Verify for Gov</td><td>Approved runtime/packages only</td><td>Native visuals.</td></tr>
-<tr><td>Azure ML</td><td>Verify for Gov</td><td>Validated workspace/identity/network</td><td>Static scored output.</td></tr>
-<tr><td>Copilot</td><td>Commercial-focused / Verify for Gov</td><td>Conceptual unless validated</td><td>Human-authored explanation.</td></tr>
+<tr><td>Azure ML</td><td>Verify for Gov</td><td>Validated workspace/identity/network/region</td><td>Static scored output.</td></tr>
+<tr><td>Copilot</td><td>Commercial-focused / Verify for Gov</td><td>Conceptual unless tenant, capacity, licensing, and data boundaries are validated</td><td>Human-authored explanation.</td></tr>
+<tr><td>Decision framework</td><td>Required documentation</td><td>Available, approved, residency acceptable, fallback identified</td><td>Use non-AI path when any answer is no.</td></tr>
 </tbody></table></div></section>
 '@ }
     "07" { return @'
@@ -874,17 +883,25 @@ function RenderImplementationReference($moduleNumber) {
 <tr><td>Relationship</td><td>Security to territory</td><td><code>SecurityUserTerritory[TerritoryKey]</code> to <code>DimTerritory[TerritoryKey]</code></td><td>Territory filters sales.</td></tr>
 <tr><td>Static role</td><td><code>East Region</code></td><td>Filter <code>DimTerritory</code> to East region or keys</td><td>Only East data visible.</td></tr>
 <tr><td>Dynamic role</td><td><code>Dynamic Territory Security</code></td><td><code>[UserPrincipalName] = USERPRINCIPALNAME()</code></td><td>Mapped UPN sees expected territories.</td></tr>
+<tr><td>Service role assignment</td><td>RLS role membership</td><td>Assign approved users or groups after publishing</td><td>Test as role where available.</td></tr>
+<tr><td>Build permission</td><td>Semantic model reuse</td><td>Grant only to approved thin-report or Analyze in Excel users</td><td>Downstream access risk documented.</td></tr>
+<tr><td>Sharing and B2B</td><td>External access path</td><td>Direct sharing, Apps, workspace access, guest users</td><td>Verify for Gov and tenant policy documented.</td></tr>
+<tr><td>OLS/labels/Purview</td><td>Optional controls</td><td>Tooling, capacity, MIP/Purview, DLP, export behavior</td><td>Verify for Gov unless validated.</td></tr>
 </tbody></table></div></section>
 '@ }
     "08" { return @'
 <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Service item</th><th>Configuration</th><th>Permission</th><th>Evidence</th></tr></thead><tbody>
-<tr><td>Workspace</td><td>Training workspace selected</td><td>Contributor or higher</td><td>Workspace name and role.</td></tr>
+<tr><td>Workspace design</td><td>Dev/test/prod or training intent, domain/subject area, naming convention, owner, support owner</td><td>Workspace Admin to configure</td><td>Workspace plan documented.</td></tr>
+<tr><td>Workspace roles</td><td>Admin, Member, Contributor, Viewer assigned by least privilege</td><td>Admin</td><td>Role and rationale recorded.</td></tr>
 <tr><td>Report</td><td>PBIP-authored report published</td><td>Contributor or higher</td><td>Report appears in workspace.</td></tr>
-<tr><td>Semantic model</td><td>Credentials, refresh, ownership reviewed</td><td>Owner or workspace role</td><td>Settings notes.</td></tr>
-<tr><td>Gateway</td><td>Cluster, source, credential owner documented if needed</td><td>Gateway admin/data source user</td><td>Gateway notes.</td></tr>
-<tr><td>App</td><td>Name, navigation, consumers configured</td><td>Member or Admin</td><td>App published or demoed.</td></tr>
-<tr><td>Pipeline</td><td>Dev/test/prod reviewed if available</td><td>Pipeline/workspace access</td><td>Verify for Gov status.</td></tr>
+<tr><td>Semantic model</td><td>Credentials, privacy levels, refresh, ownership reviewed</td><td>Owner or workspace role</td><td>Settings notes.</td></tr>
+<tr><td>Gateway/cloud connection</td><td>Cluster, source mapping, credential owner, network path, or cloud connection documented if needed</td><td>Gateway admin/data source user</td><td>Gateway or cloud notes.</td></tr>
+<tr><td>Shared semantic model</td><td>Build permission and thin-report pattern reviewed</td><td>Semantic model owner or workspace role</td><td>Reuse implications documented.</td></tr>
+<tr><td>App</td><td>Name, description, navigation, consumers configured</td><td>Member or Admin</td><td>App published or demoed.</td></tr>
+<tr><td>App audiences</td><td>Audience-specific content where available</td><td>Member or Admin</td><td>Verify for Gov status.</td></tr>
+<tr><td>Deployment pipeline</td><td>Dev/test/prod stages and deployment rules reviewed if available</td><td>Pipeline/workspace access</td><td>Verify for Gov status or manual path.</td></tr>
+<tr><td>Endorsement</td><td>Promoted/certified ownership, refresh, security, quality, support evidence</td><td>Tenant governance policy</td><td>Checklist completed.</td></tr>
 </tbody></table></div></section>
 '@ }
     "09" { return @'
@@ -892,45 +909,57 @@ function RenderImplementationReference($moduleNumber) {
 <table class="column-table"><thead><tr><th>Runbook area</th><th>Fields to complete</th><th>Source</th></tr></thead><tbody>
 <tr><td>Content inventory</td><td>Workspace, App, report, semantic model, PBIP path</td><td>Service and repository.</td></tr>
 <tr><td>Ownership</td><td>Business owner, technical owner, support contact</td><td>Project governance.</td></tr>
+<tr><td>Adoption tracking</td><td>Usage pattern, training need, support signal, retirement candidate, follow-up owner</td><td>Usage metrics, App metrics, support queue, stakeholder feedback.</td></tr>
 <tr><td>Data sources</td><td>Source type, gateway required, credential owner</td><td>Semantic model settings.</td></tr>
 <tr><td>Refresh</td><td>Schedule, duration, recipients, retry path</td><td>Refresh settings/history.</td></tr>
 <tr><td>Access</td><td>Workspace roles, App consumers, Build, RLS/OLS</td><td>Workspace/App/model settings.</td></tr>
+<tr><td>Monitoring cadence</td><td>Usage, refresh, gateway, capacity, compliance, owner review rhythm</td><td>Operations model.</td></tr>
 <tr><td>Incident response</td><td>Access, refresh, data quality, performance paths</td><td>Support model.</td></tr>
 </tbody></table></div></section>
 '@ }
     "10" { return @'
 <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Requirement</th><th>Option</th><th>Gov status</th><th>Fallback</th></tr></thead><tbody>
+<table class="column-table"><thead><tr><th>Requirement or feature</th><th>Option</th><th>Gov status</th><th>Fallback or evidence</th></tr></thead><tbody>
 <tr><td>Standard sharing</td><td>Power BI Pro</td><td>Validate tenant/license</td><td>Instructor demo if no license.</td></tr>
-<tr><td>Premium-like user features</td><td>PPU</td><td>Verify for Gov</td><td>Pro-compatible path.</td></tr>
+<tr><td>Premium-like user features</td><td>Premium Per User</td><td>Verify for Gov</td><td>Pro-compatible path.</td></tr>
 <tr><td>Enterprise scale</td><td>Premium capacity</td><td>Verify for Gov</td><td>Import model plus documented scale plan.</td></tr>
 <tr><td>Fabric workloads</td><td>Fabric capacity</td><td>Commercial-focused / Verify for Gov</td><td>Approved source plus Import model.</td></tr>
+<tr><td>ALM and external tools</td><td>XMLA endpoint</td><td>Verify for Gov</td><td>Conceptual ALM path if tooling or tenant support is blocked.</td></tr>
+<tr><td>Pixel-perfect exports</td><td>Paginated reports</td><td>Verify for Gov</td><td>Standard report export or instructor demo.</td></tr>
+<tr><td>Large semantic model</td><td>Large model storage format/capacity settings</td><td>Verify for Gov</td><td>Model reduction, aggregations, incremental refresh where validated.</td></tr>
 <tr><td>Lake-native model</td><td>Direct Lake</td><td>Commercial-focused / Verify for Gov</td><td>Import with refresh/aggregations.</td></tr>
-<tr><td>Capacity health</td><td>Capacity metrics app</td><td>Verify for Gov</td><td>Usage, refresh, Performance Analyzer.</td></tr>
+<tr><td>Data storage pattern</td><td>OneLake, Lakehouse, Warehouse</td><td>Commercial-focused / Verify for Gov</td><td>Approved source systems plus Import model.</td></tr>
+<tr><td>Notebook integration</td><td>Semantic Link</td><td>Commercial-focused / Verify for Gov</td><td>Document model metadata manually.</td></tr>
+<tr><td>Capacity elasticity</td><td>Autoscale</td><td>Commercial-focused / Verify for Gov</td><td>Capacity sizing review and operational escalation.</td></tr>
+<tr><td>Capacity health</td><td>Capacity metrics app</td><td>Verify for Gov</td><td>Usage, refresh, Performance Analyzer, and admin-provided telemetry.</td></tr>
 </tbody></table></div></section>
 '@ }
     "11" { return @'
 <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Artifact</th><th>Action</th><th>Gov status</th><th>Evidence</th></tr></thead><tbody>
-<tr><td>PBIP source</td><td>Keep report/model source in git</td><td>Gov-ready</td><td>Commit ID and changed files.</td></tr>
+<tr><td>Lifecycle goals</td><td>Document repeatability, reviewability, promotion, governance, and rollback</td><td>Gov-ready</td><td>Checklist notes and rollback path.</td></tr>
+<tr><td>PBIP source</td><td>Keep report/model source in git</td><td>Gov-ready</td><td>Repo path and changed files.</td></tr>
 <tr><td>PBIX output</td><td>Generate only when needed</td><td>Gov-ready</td><td>Output artifact note.</td></tr>
-<tr><td>Pull request</td><td>Review model, report, DAX, RLS, sources</td><td>Gov-ready</td><td>Review notes.</td></tr>
+<tr><td>Branch and pull request</td><td>Review model, report, DAX, RLS, sources, and generated changes</td><td>Gov-ready</td><td>Review notes, release tag, or rollback note.</td></tr>
 <tr><td>External tools</td><td>Use Tabular Editor/ALM Toolkit only if approved</td><td>Verify for Gov</td><td>Policy/XMLA validation.</td></tr>
-<tr><td>Automation</td><td>REST API, PowerShell, service principal, CI/CD</td><td>Verify for Gov</td><td>Endpoint, identity, and permission notes.</td></tr>
-<tr><td>Fabric Git</td><td>Use only if workspace Git is available</td><td>Commercial-focused / Verify for Gov</td><td>Workspace Git validation.</td></tr>
+<tr><td>Automation</td><td>REST API, PowerShell, service principal, CI/CD</td><td>Verify for Gov</td><td>Endpoint, identity, permission, runner, and network notes.</td></tr>
+<tr><td>Fabric Git</td><td>Use only if workspace Git is available</td><td>Commercial-focused / Verify for Gov</td><td>Workspace Git branching, folder, sync, conflict, and item-support validation.</td></tr>
+<tr><td>Azure Government boundary</td><td>Validate cloud endpoint, authority, network path, tenant settings, and customer policy</td><td>Verify for Gov</td><td>Environment validation notes.</td></tr>
 </tbody></table></div></section>
 '@ }
     "12" { return @'
 <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Area</th><th>Required artifact</th><th>Validation evidence</th></tr></thead><tbody>
-<tr><td>Source control</td><td>PBIP project</td><td>Repo path, branch, commit ID.</td></tr>
-<tr><td>Semantic model</td><td>Fact/dimension model</td><td>Relationship diagram or notes.</td></tr>
-<tr><td>DAX</td><td>Measure layer</td><td>Measure list and validation visuals.</td></tr>
-<tr><td>Report UX</td><td>Executive, analyst, detail, tooltip, mobile pages</td><td>Screenshots or review notes.</td></tr>
-<tr><td>Security</td><td>Static and dynamic RLS</td><td>Role test results.</td></tr>
-<tr><td>Service</td><td>Published report/model and App plan</td><td>Workspace/App/refresh evidence or gap.</td></tr>
-<tr><td>Governance</td><td>Endorsement checklist and runbook</td><td>Completed documents.</td></tr>
+<tr><td>Source control</td><td>PBIP project</td><td>Repository path and source review notes.</td></tr>
+<tr><td>Semantic model</td><td>Fact/dimension model</td><td>Relationship diagram or model-grain notes.</td></tr>
+<tr><td>DAX</td><td>Base, time, variance, ranking/Top N, dynamic logic</td><td>Measure list and validation visuals.</td></tr>
+<tr><td>Report UX</td><td>Executive, analyst, detail, tooltip, bookmark/button, conditional formatting, mobile pages</td><td>Screenshots or review notes plus accessibility checks.</td></tr>
+<tr><td>Security</td><td>Static and dynamic RLS</td><td>Desktop and Service role test results where available.</td></tr>
+<tr><td>Service distribution</td><td>Published report/model, refresh settings, gateway notes, App plan</td><td>Workspace/App/refresh evidence or documented gap.</td></tr>
+<tr><td>Governance and operations</td><td>Endorsement checklist, operations runbook, monitoring/support notes</td><td>Completed documents and support ownership.</td></tr>
+<tr><td>Enhanced extensions</td><td>Fabric/Git/Copilot/AI/API/automation feature notes</td><td>Availability status, validation evidence, and fallback path.</td></tr>
 <tr><td>Gov readiness</td><td>Feature status notes</td><td>Gov-ready, Verify for Gov, Commercial-focused labels.</td></tr>
+<tr><td>Submission</td><td>Validation rubric and evidence package</td><td>Completed rubric plus screenshots/notes.</td></tr>
 </tbody></table></div></section>
 '@ }
     default { return "" }
@@ -1020,6 +1049,41 @@ RANKX (
 
 Is Top 5 Customer =
 IF ( [Customer Sales Rank] &lt;= 5, 1, 0 )
+
+Sales by Customer Region Grain =
+CALCULATE (
+    [Sales Amount],
+    ALLEXCEPT ( DimCustomer, DimCustomer[CustomerRegion] )
+)
+
+Segment Sales via TREATAS =
+CALCULATE (
+    [Sales Amount],
+    TREATAS ( VALUES ( DimSegment[Segment] ), BridgeCustomerSegment[Segment] )
+)
+
+Ending Balance Example =
+VAR LastVisibleDate =
+    MAX ( DimOrderDate[Date] )
+RETURN
+    CALCULATE (
+        [Sales Amount],
+        LASTNONBLANK ( DimOrderDate[Date], [Sales Amount] ),
+        DimOrderDate[Date] &lt;= LastVisibleDate
+    )
+
+Selected Metric =
+VAR MetricName =
+    SELECTEDVALUE ( MetricSelector[Metric], "Sales Amount" )
+RETURN
+    SWITCH (
+        MetricName,
+        "Sales Amount", [Sales Amount],
+        "Gross Margin", [Gross Margin],
+        "Gross Margin %", [Gross Margin %],
+        "Quantity", [Quantity],
+        [Sales Amount]
+    )
 
 Sales Title =
 VAR SelectedRegion =
@@ -1547,10 +1611,13 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
     <li><strong>Create base measures first.</strong><p>Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target Sales Amount, Sales Variance, and Sales Variance %. Use simple aggregations and <code>DIVIDE</code> for percentages.</p></li>
     <li><strong>Test filter context.</strong><p>Add a matrix with CustomerName on rows and ProductCategory on columns. Add Sales Amount and Gross Margin %. Add slicers for TerritoryRegion and Year. Observe how the same measure changes under different filters.</p></li>
     <li><strong>Build CALCULATE examples.</strong><p>Create a measure that removes product filters and a product share measure that divides current sales by all-product sales. Then create a measure that uses <code>KEEPFILTERS</code> for a selected customer type.</p></li>
+    <li><strong>Compare filter modifiers.</strong><p>Discuss when to use <code>REMOVEFILTERS</code>, <code>ALL</code>, <code>ALLEXCEPT</code>, and <code>TREATAS</code>. Validate each pattern in a simple visual before reusing it in production report logic.</p></li>
     <li><strong>Create time intelligence.</strong><p>Using the Order Date table, create YTD, prior-year, year-over-year, year-over-year percent, and rolling-period measures. Validate each measure in a month-level visual.</p></li>
+    <li><strong>Review semi-additive logic.</strong><p>Discuss why inventory, backlog, headcount, or balance snapshots should not be summed across dates. Create or review an ending-balance-style last-value pattern from the answer key.</p></li>
     <li><strong>Add ranking and Top N.</strong><p>Create a Customer Sales Rank measure with <code>RANKX</code>. Add a flag for Top 5 customers and use it as a visual filter on a bar chart.</p></li>
     <li><strong>Review calculation groups.</strong><p>This optional lab is marked <strong>Verify for Gov</strong>. If the target Power BI Desktop version supports native calculation group authoring, use <b>Model view > Calculation group</b>, enable <b>Discourage implicit measures</b> if prompted, and create a <code>Time Intelligence</code> calculation group with Current, Prior Year, YoY Change, and YoY Change % items. If TMDL View, Tabular Editor, XMLA, or CI/CD workflows are validated, review those authoring paths too. If no authoring path is validated, compare the design to creating separate DAX measures for each metric/time combination.</p></li>
     <li><strong>Add dynamic report text or metric switching.</strong><p>Create a dynamic title with <code>SELECTEDVALUE</code>. Optionally create a disconnected metric selector table and a <code>SWITCH</code> measure to display a selected metric.</p></li>
+    <li><strong>Validate measure branching.</strong><p>Confirm derived measures reuse base measures rather than duplicating <code>SUM</code> logic. Check formatting, naming, and fallback behavior before using the measures on report pages.</p></li>
     <li><strong>Refactor for readability.</strong><p>Use variables for repeated logic. Branch from base measures instead of duplicating calculations. Add formatting and descriptions where appropriate.</p></li>
     <li><strong>Validate and document.</strong><p>Check totals at the customer, product, territory, and date levels. If using DAX Studio or other tools, mark them Verify for Gov unless the customer environment has been validated.</p></li>
   </ol>
@@ -1563,13 +1630,16 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
     <li><strong>Open the PBIP project and Power Query.</strong><p>Open the current PBIP solution. Select <b>Transform data</b> to open Power Query Editor.</p></li>
     <li><strong>Create module parameters.</strong><p>Create five Power Query parameters: <code>RawDataBaseUrl</code> as Text with value <code>https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/</code>; <code>SourceFolderPath</code> as Text and leave it blank unless using an offline folder path; <code>EnvironmentName</code> as Text or List with current value <code>Dev</code>; <code>RangeStart</code> as Date/Time with value <code>2026-01-01 00:00:00</code>; and <code>RangeEnd</code> as Date/Time with value <code>2026-04-01 00:00:00</code>.</p></li>
     <li><strong>Load monthly order files.</strong><p>Use <b>New Source > Web</b> for each monthly order CSV. Name the raw queries <code>raw_Orders_2026_01</code>, <code>raw_Orders_2026_02</code>, and <code>raw_Orders_2026_03</code>.</p></li>
+    <li><strong>Review generated M fundamentals.</strong><p>Use the formula bar to identify applied steps and step references. Point out lists, records, and tables in the generated code, such as the option record in <code>Csv.Document</code> and the query list used by <code>Table.Combine</code>.</p></li>
     <li><strong>Add source lineage.</strong><p>In each raw monthly query, add a custom column named SourceFile with the file name, such as <code>orders-2026-01.csv</code>. This helps identify which file produced each row.</p></li>
     <li><strong>Append the monthly queries.</strong><p>Use <b>Append Queries as New</b> and append the three monthly order queries. Rename the result <code>stg_OrdersCombined</code>.</p></li>
     <li><strong>Create the final fact query.</strong><p>Reference <code>stg_OrdersCombined</code> and name the new query <code>FactOrders</code>. Use the validation pattern to keep only rows with no data quality issue, then apply explicit data types for OrderId, OrderDate, ProductCode, Quantity, UnitPrice, and SalesChannel.</p></li>
     <li><strong>Create and invoke a cleanup function.</strong><p>Create <code>fn_CleanText</code> to trim and clean nullable text values. Invoke it on <code>CustomerName</code> and <code>SalesChannel</code> in <code>FactOrders</code>, and on <code>ProductName</code>, <code>ProductCategory</code>, and <code>ProductSubcategory</code> in the product reference query.</p></li>
     <li><strong>Identify bad data.</strong><p>Use column quality/profile and safe parsing logic to find the intentional bad date and bad quantity in the March file. Create <code>err_OrdersReview</code> as a disabled-load reference query before removing invalid rows from <code>FactOrders</code>.</p></li>
+    <li><strong>Document business-rule checks.</strong><p>Keep readable reasons for missing or invalid OrderDate, non-positive Quantity, non-positive UnitPrice, and missing ProductCode so reviewers can understand what was excluded.</p></li>
     <li><strong>Load reference data.</strong><p>Use the Web connector for <code>product-category-map.csv</code>. Merge it into <code>FactOrders</code> on ProductCode or keep it as a dimension/reference table, depending on the lab design.</p></li>
     <li><strong>Prepare for incremental refresh.</strong><p>Use the existing Date/Time parameters <code>RangeStart</code> and <code>RangeEnd</code>. Filter the final fact query on OrderDate using those parameters. Document Service-side incremental refresh as Verify for Gov.</p></li>
+    <li><strong>Review native queries and source systems.</strong><p>Keep native SQL optional until source security, gateway behavior, credentials, and Azure Government support are validated. Prefer maintainable Power Query steps for the core lab.</p></li>
   </ol>
 </section>
 '@ }
@@ -1579,13 +1649,16 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
   <ol class="steps">
     <li><strong>Open the report PBIP.</strong><p>Start from the model and measures created in earlier labs. Confirm that Sales Amount, Gross Margin, variance, date, customer, product, territory, and segment fields are available.</p></li>
     <li><strong>Create the executive summary page.</strong><p>Add KPI cards for Sales Amount, Gross Margin %, Sales Variance, and Quantity. Add a trend visual and one high-level breakdown such as sales by territory.</p></li>
+    <li><strong>Plan audience-driven report pages.</strong><p>Write the primary audience and decision question for each page. Keep executive, analyst, and operational/detail pages distinct so interactivity reduces cognitive load instead of adding confusion.</p></li>
     <li><strong>Create the analyst exploration page.</strong><p>Add slicers for date, territory, product category, and customer type. Add visuals that allow comparison across customer, product, territory, and segment.</p></li>
+    <li><strong>Validate slicers and filters.</strong><p>Place slicers consistently, use page-level filters where appropriate, and verify users can explain which filters are active before interpreting the visuals.</p></li>
     <li><strong>Create a drillthrough page.</strong><p>Add a page named Customer Detail. Add CustomerName to the Drillthrough field well. Add KPI cards, a transaction table, and a Back button. Test drillthrough from a customer visual.</p></li>
     <li><strong>Create a report page tooltip.</strong><p>Add a page named Sales Tooltip. Change the page size to Tooltip and enable it as a tooltip page. Add compact KPIs and a small trend visual, then assign it to a visual on the main page.</p></li>
     <li><strong>Add bookmarks and buttons.</strong><p>Create a show/hide panel or reset-state interaction. Open the Bookmarks pane, capture the intended state, and check whether Data, Display, and Current Page should be enabled.</p></li>
     <li><strong>Add navigation.</strong><p>Add page navigation buttons or a navigator visual. Keep placement consistent across report pages and use plain labels that learners can understand.</p></li>
     <li><strong>Add field parameters.</strong><p>Select <b>Modeling > New parameter > Fields</b>. Create a <code>Metric Parameter</code> with approved measures such as Sales Amount, Gross Margin, Gross Margin %, and Quantity. Add the generated parameter field to a visual and use the slicer to switch metrics. Optionally create a <code>Dimension Parameter</code> for Product Category, Territory, and Segment.</p></li>
     <li><strong>Apply conditional formatting.</strong><p>Choose one business threshold, such as negative variance or low margin. Apply color/icon formatting and document what the threshold means.</p></li>
+    <li><strong>Build the margin target challenge.</strong><p>If time allows, create the disconnected <code>Margin Target</code> table and DAX measures for selected target, variance to target, status, and status color. Use the status alongside conditional formatting so color is not the only cue.</p></li>
     <li><strong>Create mobile layout.</strong><p>Open Mobile layout view. Add only the highest-value visuals, enlarge touch targets, and avoid dense tables unless necessary.</p></li>
     <li><strong>Run accessibility review.</strong><p>Add alt text, review tab order, check contrast, verify visual titles, and ensure color is not the only way meaning is communicated.</p></li>
   </ol>
@@ -1596,14 +1669,15 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
     <li><strong>Open the current report PBIP.</strong><p>Use the report built in the previous labs. Choose one report page that has several visuals and slicers.</p></li>
-    <li><strong>Capture a baseline.</strong><p>Open <b>View > Performance Analyzer</b>. Start recording, refresh visuals, interact with slicers, and record which visuals have high DAX query time or rendering time.</p></li>
-    <li><strong>Review visual complexity.</strong><p>Count visuals on the page. Identify visuals that duplicate information, use high-cardinality fields, or are not needed for the page objective.</p></li>
+    <li><strong>Capture a baseline.</strong><p>Open <b>View &gt; Performance Analyzer</b>. Start recording, refresh visuals, interact with slicers, and record which visuals have high DAX query time or rendering time.</p></li>
+    <li><strong>Review visual complexity.</strong><p>Count visuals on the page. Identify visuals that duplicate information, use high-cardinality fields, rely on custom visuals, or are not needed for the page objective.</p></li>
     <li><strong>Review model fields.</strong><p>Inspect fact and dimension tables for unused columns, high-cardinality text, excessive precision, and date/time fields that could be simplified.</p></li>
     <li><strong>Optimize one DAX measure.</strong><p>Choose a measure with repeated expressions or broad filter removal. Rewrite it using variables and measure branching, then compare results before and after.</p></li>
     <li><strong>Optimize visuals.</strong><p>Remove or consolidate at least one low-value visual. Disable unnecessary visual interactions if cross-filtering creates extra query load without helping the user.</p></li>
-    <li><strong>Review aggregation design.</strong><p>Define a possible aggregation grain such as Month, Product Category, and Territory. Document whether the detail table would remain Import or DirectQuery.</p></li>
-    <li><strong>Review incremental refresh.</strong><p>Confirm which fact date column would support partitioning. Document RangeStart/RangeEnd requirements and whether Service support is validated.</p></li>
+    <li><strong>Review aggregation design.</strong><p>Define a possible aggregation grain such as Month, Product Category, and Territory. Document whether the detail table would remain Import, DirectQuery, or part of a hybrid pattern.</p></li>
+    <li><strong>Review Power Query and incremental refresh.</strong><p>Confirm filtering, removed columns, staging, folding status, the fact date/time column, RangeStart/RangeEnd parameters, and whether Service support is validated.</p></li>
     <li><strong>Optional external diagnostics.</strong><p>If DAX Studio or VertiPaq Analyzer is approved, connect and compare timings/model size. If not, keep this step conceptual and mark Verify for Gov.</p></li>
+    <li><strong>Review Service and capacity monitoring.</strong><p>Where a workspace is available, review refresh history, dataset settings, and capacity metrics or admin monitoring status. Mark capacity metrics Verify for Gov unless validated.</p></li>
     <li><strong>Document results.</strong><p>Record baseline, change made, after result, tradeoff, and remaining risk. Do not claim improvement without evidence.</p></li>
   </ol>
 </section>
@@ -1630,14 +1704,15 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
     <li><strong>Open the PBIP model.</strong><p>Confirm DimTerritory and FactSales exist and that territory filters flow to sales.</p></li>
-    <li><strong>Load security mapping files.</strong><p>Use <b>Get data > Web</b> for security-user-territory and security-role-matrix. Rename the mapping table <code>SecurityUserTerritory</code>.</p></li>
+    <li><strong>Load security mapping files.</strong><p>Use <b>Get data &gt; Web</b> for security-user-territory and security-role-matrix. Rename the mapping table <code>SecurityUserTerritory</code>.</p></li>
     <li><strong>Create relationships.</strong><p>Relate SecurityUserTerritory[TerritoryKey] to DimTerritory[TerritoryKey]. Validate that filtering a territory filters sales.</p></li>
-    <li><strong>Create static RLS.</strong><p>Open <b>Modeling > Manage roles</b>. Create a role named East Region and filter DimTerritory to the East region or the matching territory keys.</p></li>
+    <li><strong>Create static RLS.</strong><p>Open <b>Modeling &gt; Manage roles</b>. Create a role named East Region and filter DimTerritory to the East region or the matching territory keys.</p></li>
     <li><strong>Create dynamic RLS.</strong><p>Create a role named Dynamic Territory Security. Filter SecurityUserTerritory with <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>.</p></li>
     <li><strong>Test in Desktop.</strong><p>Use <b>View as</b>. Test the static role, then test the dynamic role by entering a synthetic UPN from the mapping file. Verify that only mapped territories are visible.</p></li>
     <li><strong>Document expected access.</strong><p>Use security-role-matrix to record which personas should see which territories and whether Build permission is intended.</p></li>
-    <li><strong>Test in Service where available.</strong><p>Publish to a training workspace, assign users or groups to roles, and test as role. If Service access is unavailable, document this as a validation gap.</p></li>
+    <li><strong>Assign and test roles in Service where available.</strong><p>Publish to a training workspace, assign users or groups to RLS roles, check workspace role implications, and test as role. If Service access is unavailable, document this as a validation gap.</p></li>
     <li><strong>Review Build permission.</strong><p>Explain who can build thin reports or Analyze in Excel from the semantic model. Document the risk of granting Build too broadly.</p></li>
+    <li><strong>Review sharing and external users.</strong><p>Compare direct sharing, Apps, workspace access, and B2B guest access. Keep external sharing and B2B as Verify for Gov unless validated by tenant policy.</p></li>
     <li><strong>Review optional controls.</strong><p>Keep OLS, sensitivity labels, Purview, external sharing, and B2B as Verify for Gov unless validated in the customer tenant.</p></li>
   </ol>
 </section>
@@ -1646,11 +1721,12 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
 <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
-    <li><strong>Confirm workspace access.</strong><p>Identify the training workspace and your role. You need appropriate permission to publish, configure refresh, or create Apps.</p></li>
+    <li><strong>Plan workspace design.</strong><p>Identify whether the workspace represents development, test, production, or a training-only environment. Record naming convention, domain or subject area, owner, and support owner.</p></li>
+    <li><strong>Confirm workspace roles.</strong><p>Identify your role and the intended least-privileged roles for Admin, Member, Contributor, and Viewer users. You need appropriate permission to publish, configure refresh, or create Apps.</p></li>
     <li><strong>Publish the PBIP-authored report.</strong><p>Open the report in Power BI Desktop and publish to the training workspace. Verify both the report and semantic model appear in the Service.</p></li>
     <li><strong>Review semantic model settings.</strong><p>Open semantic model settings. Review data source credentials, privacy settings, refresh history, and ownership.</p></li>
     <li><strong>Configure scheduled refresh where supported.</strong><p>Set credentials and a refresh schedule. If the data source uses raw GitHub URLs, validate anonymous Web refresh behavior in the Service.</p></li>
-    <li><strong>Document gateway requirements.</strong><p>If a source is on-premises or network-restricted, identify gateway cluster, data source mapping, credentials, and owner. If no gateway is needed, document why.</p></li>
+    <li><strong>Document gateway or cloud connection requirements.</strong><p>If a source is on-premises or network-restricted, identify gateway cluster, data source mapping, credentials, and owner. If no gateway is needed, document why.</p></li>
     <li><strong>Create a thin report scenario.</strong><p>Grant Build permission where appropriate and create or discuss a thin report connected to the shared semantic model.</p></li>
     <li><strong>Package as an App.</strong><p>Select workspace content, configure name/description/navigation, assign consumers, publish or update the App, and validate consumer experience.</p></li>
     <li><strong>Review App audiences.</strong><p>If available, create multiple audiences and tailor content. If not validated, keep this optional and mark Verify for Gov.</p></li>
@@ -1664,14 +1740,15 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
     <li><strong>Start from a published report.</strong><p>Use the report and semantic model published in Lab 8, or follow an instructor demo if you do not have workspace access.</p></li>
-    <li><strong>Open usage metrics.</strong><p>Review views, unique viewers, page usage, and trends. Document adoption observations and one follow-up action.</p></li>
+    <li><strong>Open usage metrics.</strong><p>Review views, unique viewers, page usage, App usage, and trends. Document adoption observations and one follow-up action.</p></li>
+    <li><strong>Interpret adoption signals.</strong><p>Identify training needs, support signals, and possible retirement candidates from high-use, low-use, or declining usage patterns.</p></li>
     <li><strong>Review refresh history.</strong><p>Open the semantic model refresh history. Record the last status, duration, and any failure details.</p></li>
     <li><strong>Check credentials and source settings.</strong><p>Review data source credentials, privacy settings, and whether a gateway is required. Do not change production settings unless approved.</p></li>
     <li><strong>Review tenant settings.</strong><p>If you have admin access, review sharing, export, publish-to-web, certification, external users, and Build permission settings. Otherwise, use instructor screenshots or conceptual review.</p></li>
     <li><strong>Inspect gateway health where available.</strong><p>Review gateway cluster status, data source mappings, credential ownership, version, and escalation path.</p></li>
     <li><strong>Review optional admin signals.</strong><p>Activity logs, audit logs, admin monitoring workspace, capacity metrics, Purview, and DLP require permissions and tenant validation. Record what is available and what is blocked.</p></li>
     <li><strong>Complete the operations runbook.</strong><p>Document content inventory, owners, sources, refresh schedule, access model, monitoring cadence, incident response, and Azure Government validation notes.</p></li>
-    <li><strong>Define support process.</strong><p>Identify who handles refresh failures, access issues, data quality problems, performance issues, and enhancement requests.</p></li>
+    <li><strong>Define support process.</strong><p>Identify who handles refresh failures, access issues, data quality problems, performance issues, enhancement requests, and adoption follow-up.</p></li>
     <li><strong>Document gaps.</strong><p>For anything you cannot access, document the validation gap and the owner who can confirm it later.</p></li>
   </ol>
 </section>
@@ -1680,16 +1757,16 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
 <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
-    <li><strong>Define the workload.</strong><p>Write down users, model size, refresh frequency, latency needs, governance requirements, data residency needs, and integration requirements.</p></li>
-    <li><strong>Compare licensing options.</strong><p>Use the comparison table to evaluate Pro, PPU, Premium capacity, and Fabric capacity. Identify which options satisfy the workload requirements.</p></li>
-    <li><strong>Review large model needs.</strong><p>Decide whether model size, memory, refresh, or XMLA workflows require capacity-dependent settings. Mark these Verify for Gov until validated.</p></li>
-    <li><strong>Review XMLA endpoint.</strong><p>If available, connect with an approved tool and inspect metadata. If unavailable, document use cases such as ALM, external tools, and write operations.</p></li>
-    <li><strong>Review paginated report fit.</strong><p>Identify whether pixel-perfect export, invoices, statements, or operational reports justify paginated reports. Validate cloud and licensing before hands-on work.</p></li>
-    <li><strong>Review Fabric architecture.</strong><p>Explain Direct Lake, OneLake, Lakehouse, Warehouse, and Semantic Link. Treat them as Commercial-focused / Verify for Gov unless confirmed.</p></li>
+    <li><strong>Compare licensing and capacity options.</strong><p>Write down users, model size, refresh frequency, latency needs, governance requirements, data residency needs, and integration requirements. Compare Pro, PPU, Premium capacity, and Fabric capacity.</p></li>
+    <li><strong>Review XMLA endpoint.</strong><p>If available, connect with an approved tool and inspect metadata. If unavailable, document use cases such as ALM, external tools, read/write workflows, security, and admin settings.</p></li>
+    <li><strong>Review paginated report fit.</strong><p>Identify whether pixel-perfect export, invoices, statements, or operational reports justify paginated reports. Validate cloud, licensing, Report Builder, and workspace support before hands-on work.</p></li>
+    <li><strong>Review large semantic model needs.</strong><p>Decide whether model size, memory, refresh, storage format, or XMLA workflows require capacity-dependent settings. Mark these Verify for Gov until validated.</p></li>
+    <li><strong>Review Direct Lake.</strong><p>Compare Import, DirectQuery, and Direct Lake for freshness, modeling behavior, fallback options, and Gov validation needs.</p></li>
+    <li><strong>Review OneLake, Lakehouse, and Warehouse.</strong><p>Identify how data would be stored, exposed, governed, and integrated with Power BI. Treat these as Commercial-focused / Verify for Gov unless confirmed.</p></li>
+    <li><strong>Review Semantic Link.</strong><p>Discuss notebook access to semantic model metadata and data science workflows. Document security, availability, and fallback notes.</p></li>
+    <li><strong>Review capacity metrics and throttling.</strong><p>If available, inspect interactive and background workloads, refresh pressure, memory, and throttling signals. If not available, discuss expected symptoms and operational actions.</p></li>
     <li><strong>Choose a Gov-safe fallback.</strong><p>Use Import mode, aggregations, incremental refresh where validated, and standard Service monitoring when Fabric features are unavailable.</p></li>
-    <li><strong>Review capacity metrics.</strong><p>If available, inspect interactive and background workloads, refresh pressure, and throttling signals. If not available, discuss expected symptoms and actions.</p></li>
-    <li><strong>Document architecture recommendation.</strong><p>Record selected option, assumptions, validation requirements, fallback path, and risks.</p></li>
-    <li><strong>Review with stakeholders.</strong><p>Confirm that the proposed architecture aligns with licensing, security, data residency, operations, and budget constraints.</p></li>
+    <li><strong>Document architecture recommendation.</strong><p>Record selected option, assumptions, validation requirements, fallback path, risks, and stakeholder review notes.</p></li>
   </ol>
 </section>
 '@ }
@@ -1697,16 +1774,19 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
 <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
+    <li><strong>Define lifecycle management goals.</strong><p>Document repeatability, reviewability, environment promotion, governance, and rollback expectations for Power BI delivery.</p></li>
     <li><strong>Open the repository.</strong><p>Confirm the Power BI work is being done in PBIP format and that PBIX is not the source of record.</p></li>
     <li><strong>Inspect PBIP structure.</strong><p>Review report and semantic model folders. Identify files that represent report definitions, model metadata, relationships, measures, and data sources.</p></li>
     <li><strong>Practice a git workflow.</strong><p>Create a feature branch, make a small metadata or report change, run <code>git status</code>, review the changed files, and commit with a clear message.</p></li>
-    <li><strong>Discuss pull request review.</strong><p>Identify what reviewers should check: model changes, measures, data sources, parameters, RLS, report pages, and unintended generated changes.</p></li>
-    <li><strong>Review Tabular Editor and ALM Toolkit.</strong><p>If approved, demonstrate model inspection or comparison. If not approved, document required XMLA, workstation, and tenant validations.</p></li>
-    <li><strong>Review REST API and PowerShell options.</strong><p>Identify target workspace, cloud endpoint, permissions, deployment operations, and tenant settings. Keep hands-on automation optional until validated.</p></li>
+    <li><strong>Discuss pull request and release review.</strong><p>Identify what reviewers should check: model changes, measures, data sources, parameters, RLS, report pages, unintended generated changes, release notes, tags, and rollback evidence.</p></li>
+    <li><strong>Review Tabular Editor and ALM Toolkit.</strong><p>If approved, demonstrate model inspection or comparison. If not approved, document required XMLA, workstation, customer policy, and tenant validations.</p></li>
+    <li><strong>Review REST API deployment options.</strong><p>Identify target workspace, cloud endpoint, permissions, import/export/refresh operations, and tenant settings. Keep hands-on API deployment optional until validated.</p></li>
+    <li><strong>Review PowerShell administration.</strong><p>Identify approved modules, endpoint configuration, required permissions, and common administration commands. Record endpoint and cloud validation.</p></li>
     <li><strong>Review service principal requirements.</strong><p>Document app registration, admin setting approval, security group scoping, workspace role, and secret/certificate storage.</p></li>
-    <li><strong>Review Fabric Git integration.</strong><p>If available, discuss workspace sync. If unavailable, use local PBIP plus git as the Gov-safe path.</p></li>
-    <li><strong>Review CI/CD concepts.</strong><p>Walk through the Azure DevOps and GitHub Actions conceptual pipelines. Identify validation, authentication, deployment, smoke test, and evidence stages.</p></li>
-    <li><strong>Complete deployment checklist.</strong><p>Record source control, model/report validation, environment configuration, automation validation, Azure Government validation, and release evidence.</p></li>
+    <li><strong>Review Fabric Git integration.</strong><p>If available, discuss workspace-connected git, branch and folder selection, sync status, conflict behavior, and Commercial/Gov caveats. If unavailable, use local PBIP plus git as the Gov-safe path.</p></li>
+    <li><strong>Review CI/CD concepts.</strong><p>Walk through the Azure DevOps and GitHub Actions conceptual pipelines. Identify validation, package, authentication, deployment, configuration, smoke test, and evidence stages.</p></li>
+    <li><strong>Validate Azure Government boundaries.</strong><p>Record endpoint, identity, network, customer policy, and feature availability requirements before relying on automation.</p></li>
+    <li><strong>Complete deployment checklist.</strong><p>Record source control, model/report validation, environment configuration, automation validation, Azure Government validation, release evidence, and rollback path.</p></li>
   </ol>
 </section>
 '@ }
@@ -1714,16 +1794,14 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
 <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
-    <li><strong>Prepare the PBIP project.</strong><p>Open or create the capstone PBIP project in <code>pbi-local\</code>. Confirm it is source-controlled and using the raw GitHub CSV sources or approved alternatives.</p></li>
-    <li><strong>Build the semantic model.</strong><p>Create fact and dimension tables, relationships, role-playing dates, and segment/security tables. Hide technical columns and document model grain.</p></li>
-    <li><strong>Create the measure layer.</strong><p>Add base measures, time intelligence, variance, ranking/Top N, dynamic titles, and any scenario measures required by the report.</p></li>
-    <li><strong>Build the report experience.</strong><p>Create executive, analyst, and detail pages. Add drillthrough, tooltip page, bookmarks, navigation, conditional formatting, mobile layout, and accessibility review.</p></li>
-    <li><strong>Configure security.</strong><p>Create static and dynamic RLS, test roles in Desktop, and document expected versus actual results. Test in Service if available.</p></li>
-    <li><strong>Optimize and validate.</strong><p>Use Performance Analyzer, check model/cardinality issues, review DAX readability, and document before/after observations for any optimization.</p></li>
-    <li><strong>Publish and package.</strong><p>Publish where a training workspace is available. Configure refresh/credentials, document gateway requirements, and package the report as an App where available.</p></li>
-    <li><strong>Govern and operate.</strong><p>Complete the endorsement checklist, operations runbook, usage/refresh review, access model, support ownership, and escalation path.</p></li>
-    <li><strong>Add optional extensions only when validated.</strong><p>Fabric, Direct Lake, OneLake, Copilot, AI visuals, deployment pipelines, APIs, service principals, XMLA, and capacity metrics must be validated before hands-on use.</p></li>
-    <li><strong>Submit evidence.</strong><p>Submit PBIP source, rubric, screenshots/notes, RLS test evidence, refresh/App/governance evidence, operations runbook, and Azure Government readiness notes.</p></li>
+    <li><strong>Task 1: Build the semantic model.</strong><p>Open or create the capstone PBIP project. Import or connect to approved synthetic workshop data, create fact and dimension tables, configure relationships, hide technical fields, document model grain, and label Gov-sensitive features.</p></li>
+    <li><strong>Task 2: Add advanced DAX.</strong><p>Create base measures, time-intelligence measures, variance measures, ranking or Top N measures, dynamic title or measure-switching logic, and validate totals at multiple grains.</p></li>
+    <li><strong>Task 3: Build the report experience.</strong><p>Create executive summary, analyst exploration, detail drillthrough, and tooltip pages. Add bookmarks, buttons, conditional formatting, mobile layout, and accessibility checks.</p></li>
+    <li><strong>Task 4: Configure security.</strong><p>Import or create a security mapping table, create static and dynamic RLS with <code>USERPRINCIPALNAME()</code>, test roles in Desktop and Service where available, and document Build permission behavior.</p></li>
+    <li><strong>Task 5: Publish and distribute.</strong><p>Publish from PBIP-authored content where a training workspace is available. Configure credentials and scheduled refresh where available, document gateway requirements, create or review a Power BI App, and document consumers and workspace roles.</p></li>
+    <li><strong>Task 6: Govern and operate.</strong><p>Complete endorsement governance, operations runbook, usage metrics review, refresh history review, support ownership, business ownership, and escalation path.</p></li>
+    <li><strong>Task 7: Optional enhanced extensions.</strong><p>Add Fabric workspace Git integration, Direct Lake, OneLake, Copilot, AI-assisted authoring, deployment pipelines, REST APIs, service principals, XMLA, external tools, or capacity metrics only after validation. Document availability status and fallback path for every optional feature.</p></li>
+    <li><strong>Submit evidence.</strong><p>Submit PBIP source, validation rubric, screenshots/notes, RLS test evidence, refresh/App/governance evidence, operations runbook, and Azure Government readiness notes.</p></li>
   </ol>
 </section>
 '@ }

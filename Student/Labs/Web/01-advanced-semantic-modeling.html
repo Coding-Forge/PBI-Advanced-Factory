@@ -147,17 +147,18 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <header>
       <div class="eyebrow">Lab 1 - Semantic model foundation</div>
       <h1>Advanced Semantic Modeling</h1>
-      <p class="lede">Build the reusable model foundation: facts, dimensions, relationships, role-playing dates, bridge tables, and Gov-aware optional modeling features.</p>
+      <p class="lede">Refactor a flat export into a reusable semantic model with facts, dimensions, role-playing dates, a segment bridge, targets, and Gov-aware optional storage-mode decisions.</p>
       <div class="meta"><span>Advanced authoring</span><span>Deliverable: PBIP semantic model plan</span><span>PBIP-first</span></div>
     </header>
     <main class="layout">
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>Star schema design</li>
-<li>Role-playing date strategy</li>
-<li>Customer segment bridge pattern</li>
-<li>Gov notes for composite models</li></ul></div>
+          <div class="panel"><ul><li>Star schema from flat export</li>
+<li>Relationship setup reference</li>
+<li>Role-playing date tables</li>
+<li>Customer segment bridge</li>
+<li>Composite-model decision notes</li></ul></div>
         </section>
         <section>
   <h2>Source files</h2>
@@ -170,114 +171,78 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
-  <h3>Connect to the raw CSV sources</h3>
+  <h3>Import the lab CSV sources</h3>
   <ul>
-    <li>Use Get data &gt; Web for sales-flat, customer-segments, and targets.</li>
-<li>Create clearly named staging queries.</li>
+    <li>Use Get data &gt; Web for sales-flat.csv, customer-segments.csv, and targets.csv.</li>
+<li>Keep the raw sales query as a source reference before creating model queries.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Refactor into a star schema</h3>
+  <h3>Refactor sales into facts and dimensions</h3>
   <ul>
-    <li>Create FactSales, role-playing date tables, customer, product, territory, and target tables.</li>
-<li>Use the approved Power Query or DAX date table pattern, remove duplicates from dimensions, and disable load for intermediate queries.</li>
+    <li>Create FactSales, DimCustomer, DimProduct, DimProductCategory, and DimTerritory with the README column lists.</li>
+<li>Remove duplicate rows from dimensions and hide technical keys that are not useful to report consumers.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Configure relationships</h3>
+  <h3>Create date roles</h3>
   <ul>
-    <li>Create one-to-many relationships into facts.</li>
-<li>Keep single-direction filtering unless a lab step explicitly justifies otherwise.</li>
+    <li>Build DimOrderDate and DimShipDate using the approved Power Query fn_DimDate or DAX CALENDAR pattern.</li>
+<li>Mark date tables and connect each role to the matching FactSales date column.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Add role-playing dates and bridge table</h3>
+  <h3>Configure relationships and targets</h3>
   <ul>
-    <li>Support Order Date and Ship Date analysis.</li>
-<li>Use customer-segments as BridgeCustomerSegment with DimSegment.</li>
+    <li>Create one-to-many, single-direction relationships from dimensions to facts and bridge tables.</li>
+<li>Use DimProductCategory for product-category target relationships instead of a many-to-many shortcut.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Document optional modeling features</h3>
+  <h3>Add customer segment bridge</h3>
   <ul>
-    <li>Mark composite models, DirectQuery choices, hybrid tables, and large models as Verify for Gov unless validated.</li>
-<li>Use Lab 02 for calculation groups and Lab 04 for field parameters.</li>
+    <li>Create BridgeCustomerSegment and DimSegment from customer-segments.csv.</li>
+<li>Test segment filtering without duplicating customer rows.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Document optional storage choices</h3>
+  <ul>
+    <li>Compare Import, DirectQuery, Dual, composite, hybrid, and large-model tradeoffs.</li>
+<li>Keep tenant-dependent features marked Verify for Gov unless validated.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: Star schema refactor <span class="tag">Core or module-dependent</span></h3>
-  <p>Convert a flat sales export into a dimensional model.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Role-playing dimensions <span class="tag">Core or module-dependent</span></h3>
-  <p>Support analysis by order date and ship date.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Bridge table pattern <span class="tag">Core or module-dependent</span></h3>
-  <p>Model customers that can belong to multiple segments.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Composite model or DirectQuery comparison <span class="tag">Verify for Gov</span></h3>
-  <p>Compare Import, DirectQuery, Dual, and composite model design choices.</p>
-</div></div>
-</section>
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create a relationship in Model view</h3><ol><li>Select <strong>Model view</strong> on the left rail.</li><li>Drag the primary-key column from the dimension table to the matching foreign-key column on the fact table.</li><li>In the relationship dialog, confirm cardinality is <strong>One to many</strong>, cross-filter direction is <strong>Single</strong>, and <strong>Make this relationship active</strong> is checked.</li><li>Select <strong>Save</strong>, then verify the relationship line points from the dimension to the fact.</li></ol></div>
-    <div class="task-card"><h3>Evaluate composite model choices</h3><ol><li>Start from the business need: freshness, performance, source load, and security.</li><li>Identify tables that should stay Import for performance.</li><li>Identify tables that might require DirectQuery for freshness.</li><li>Document gateway, connector, tenant, and source limitations before changing storage mode.</li></ol></div>
-  </div>
-</section>
-<section>
-  <h2>Deeper Understanding Challenge</h2>
-  <div class="task-card">
-    <h3>Build a disconnected margin target selector</h3>
-    <p>Create a Power Query what-if table that lets users choose the margin target used for KPI status and conditional formatting.</p>
-    <ol>
-      <li>Create a blank Power Query named <code>Margin Target</code>.</li>
-      <li>Use <code>#table</code> to create margin targets such as 20%, 25%, 30%, 35%, and 40%.</li>
-      <li>Load the table without creating relationships.</li>
-      <li>Create DAX measures for selected target, margin variance, status label, and status color.</li>
-      <li>Add <code>Margin Target[MarginTargetLabel]</code> to a slicer and use the measures in cards or a matrix.</li>
-    </ol>
-    <pre class="code"><code>let
-    Source =
-        #table(
-            type table [MarginTargetLabel = text, MarginTargetValue = number, SortOrder = Int64.Type],
-            {
-                {"20%", 0.20, 0},
-                {"25%", 0.25, 1},
-                {"30%", 0.30, 2},
-                {"35%", 0.35, 3},
-                {"40%", 0.40, 4}
-            }
-        )
-in
-    Source</code></pre>
-    <pre class="code"><code>Selected Margin Target =
-SELECTEDVALUE ( 'Margin Target'[MarginTargetValue], 0.30 )
-
-Gross Margin vs Target =
-[Gross Margin %] - [Selected Margin Target]
-
-Margin Target Status =
-VAR Difference = [Gross Margin vs Target]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( [Gross Margin %] ), "No margin data",
-        Difference &gt;= 0.05, "Above target",
-        Difference &gt;= 0, "At target",
-        Difference &gt;= -0.05, "Near target",
-        "Below target"
-    )</code></pre>
-  </div>
-</section>
         
+        <section><h2>Novice-friendly how-to guide</h2><div class="task-list">
+<div class="task-card"><h3>Reference a raw query into facts and dimensions</h3><ol><li>Right-click <code>raw_SalesFlat</code> and choose <strong>Reference</strong>.</li><li>Rename the new query to <code>FactSales</code>, <code>DimCustomer</code>, <code>DimProduct</code>, or <code>DimTerritory</code>.</li><li>Keep or remove columns to match the README table.</li><li>Remove duplicate rows from dimensions only.</li></ol></div>
+<div class="task-card"><h3>Create DimProductCategory</h3><ol><li>Reference <code>DimProduct</code>.</li><li>Rename the query <code>DimProductCategory</code>.</li><li>Remove <code>ProductKey</code>, <code>ProductName</code>, and <code>ProductSubcategory</code>.</li><li>Keep only <code>ProductCategory</code>, confirm text type, and remove duplicates.</li></ol></div>
+<div class="task-card"><h3>Create date role tables</h3><ol><li>Use the approved <code>fn_DimDate</code> or DAX <code>CALENDAR</code> pattern.</li><li>Create <code>DimOrderDate</code> and <code>DimShipDate</code>.</li><li>Mark each table as a date table.</li><li>Relate each role table to the matching fact date column.</li></ol></div>
+<div class="task-card"><h3>Create relationships in Model view</h3><ol><li>Drag each dimension primary key to the matching fact or bridge foreign key.</li><li>Confirm one-to-many cardinality, single cross-filter direction, and active status.</li><li>Use <code>DimProductCategory</code> for target category relationships.</li></ol></div>
+<div class="task-card"><h3>Evaluate composite model choices</h3><ol><li>Identify Import, DirectQuery, and Dual candidates.</li><li>Document freshness, performance, source-load, gateway, and tenant constraints.</li><li>Keep composite, DirectQuery, hybrid, and large-model work marked Verify for Gov unless validated.</li></ol></div>
+</div></section>
+        <section><h2>Implementation reference table</h2><div class="task-card"><h3>Fact and dimension column reference</h3>
+<table class="column-table"><thead><tr><th>Query</th><th>Columns to keep</th><th>Validation</th></tr></thead><tbody>
+<tr><td><code>FactSales</code></td><td><code>SalesOrderLineKey</code>, <code>OrderDate</code>, <code>ShipDate</code>, <code>InvoiceDate</code>, <code>CustomerKey</code>, <code>ProductKey</code>, <code>TerritoryKey</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>UnitCost</code>, <code>SalesAmount</code>, <code>GrossMargin</code></td><td>Transaction grain remains one row per sales order line.</td></tr>
+<tr><td><code>DimCustomer</code></td><td><code>CustomerKey</code>, <code>CustomerName</code>, <code>CustomerType</code>, <code>CustomerState</code>, <code>CustomerRegion</code></td><td>Duplicate customer rows removed.</td></tr>
+<tr><td><code>DimProduct</code></td><td><code>ProductKey</code>, <code>ProductName</code>, <code>ProductCategory</code>, <code>ProductSubcategory</code></td><td>Product rows stay at product grain.</td></tr>
+<tr><td><code>DimProductCategory</code></td><td><code>ProductCategory</code></td><td>One row per category for slicers and targets.</td></tr>
+<tr><td><code>DimTerritory</code></td><td><code>TerritoryKey</code>, <code>TerritoryName</code>, <code>TerritoryRegion</code></td><td>Duplicate territory rows removed.</td></tr>
+<tr><td><code>BridgeCustomerSegment</code></td><td><code>CustomerKey</code>, <code>Segment</code></td><td>Multi-segment customer mapping.</td></tr>
+<tr><td><code>DimSegment</code></td><td><code>Segment</code></td><td>Distinct segment list.</td></tr>
+</tbody></table><h3>Relationship reference</h3>
+<table class="column-table"><thead><tr><th>From</th><th>To</th><th>Cardinality</th><th>Direction</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>DimCustomer[CustomerKey]</code></td><td><code>FactSales[CustomerKey]</code></td><td>One-to-many</td><td>Single</td><td>Customer filters sales.</td></tr>
+<tr><td><code>DimProduct[ProductKey]</code></td><td><code>FactSales[ProductKey]</code></td><td>One-to-many</td><td>Single</td><td>Product filters sales.</td></tr>
+<tr><td><code>DimTerritory[TerritoryKey]</code></td><td><code>FactSales[TerritoryKey]</code></td><td>One-to-many</td><td>Single</td><td>Territory filters sales.</td></tr>
+<tr><td><code>DimOrderDate[Date]</code></td><td><code>FactSales[OrderDate]</code></td><td>One-to-many</td><td>Single</td><td>Primary date path.</td></tr>
+<tr><td><code>DimShipDate[Date]</code></td><td><code>FactSales[ShipDate]</code></td><td>One-to-many</td><td>Single</td><td>Ship-date role path.</td></tr>
+<tr><td><code>DimTerritory[TerritoryKey]</code></td><td><code>FactTargets[TerritoryKey]</code></td><td>One-to-many</td><td>Single</td><td>Targets by territory.</td></tr>
+<tr><td><code>DimProductCategory[ProductCategory]</code></td><td><code>DimProduct[ProductCategory]</code></td><td>One-to-many</td><td>Single</td><td>Category filters products.</td></tr>
+<tr><td><code>DimProductCategory[ProductCategory]</code></td><td><code>FactTargets[ProductCategory]</code></td><td>One-to-many</td><td>Single</td><td>Avoids many-to-many target relationship.</td></tr>
+<tr><td><code>DimSegment[Segment]</code></td><td><code>BridgeCustomerSegment[Segment]</code></td><td>One-to-many</td><td>Single</td><td>Segments filter the bridge.</td></tr>
+<tr><td><code>DimCustomer[CustomerKey]</code></td><td><code>BridgeCustomerSegment[CustomerKey]</code></td><td>One-to-many</td><td>Single</td><td>Customer filters bridge rows.</td></tr>
+</tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
@@ -468,13 +433,15 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
         <div class="checklist" data-progress="lab01">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
-          <label><input type="checkbox">Raw CSVs imported with Web connector</label>
-<label><input type="checkbox">Fact and dimension tables created</label>
-<label><input type="checkbox">Relationships validate as one-to-many where expected</label>
+          <p class="small"><span class="count">0</span> of 8 complete</p>
+          <label><input type="checkbox">Star schema created</label>
+<label><input type="checkbox">Fact and dimension names are clear</label>
+<label><input type="checkbox">Relationships validate as one-to-many where possible</label>
+<label><input type="checkbox">Filter direction is single unless justified</label>
 <label><input type="checkbox">Role-playing dates work</label>
-<label><input type="checkbox">Bridge table filters customer segment analysis</label>
-<label><input type="checkbox">Gov notes documented</label>
+<label><input type="checkbox">Bridge table supports segment analysis</label>
+<label><input type="checkbox">Optional tenant-dependent features are labeled Verify for Gov</label>
+<label><input type="checkbox">Measures total correctly by date, product, customer, territory, and segment</label>
         </div>
       </aside>
     </main>

@@ -132,4 +132,5 @@ Only use these extensions when the target tenant and customer policy have been v
 - [ ] Operations runbook is complete.
 - [ ] Monitoring and support tasks are documented.
 - [ ] Optional commercial-enhanced features are clearly marked and validated.
+- [ ] Validation rubric and evidence package are completed.
 

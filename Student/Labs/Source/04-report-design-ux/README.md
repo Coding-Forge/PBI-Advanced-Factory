@@ -47,6 +47,14 @@ Build report artifacts as PBIP projects. PBIP is the source-controlled format fo
 - Lab 02 DAX measures.
 - Power BI Desktop.
 
+### Concept note: advanced UX principles
+
+Treat each report page as a decision interface. Put the audience's question first, reduce cognitive load with clear page structure, and use interactivity only when it helps the user decide what to do next. Avoid adding slicers, buttons, or visuals that compete with the primary task.
+
+### Concept note: audience-driven pages and filters
+
+Use different page purposes for different audiences: executives need high-level status and exceptions, analysts need exploration paths, and operational users need monitoring and detail. Place slicers consistently, prefer clear page-level filters for shared context, and avoid hidden filter combinations that make results hard to explain.
+
 ### Exercise 1: Drillthrough
 
 **Objective:** Add a detail path from summary analysis to entity detail.

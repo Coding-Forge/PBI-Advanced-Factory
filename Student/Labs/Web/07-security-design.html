@@ -172,62 +172,44 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
   <h3>Load security mapping</h3>
   <ul>
     <li>Use Get data &gt; Web for security-user-territory and security-role-matrix.</li>
-<li>Relate mapping data to DimTerritory.</li>
+<li>Relate SecurityUserTerritory to DimTerritory using TerritoryKey.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Create RLS roles</h3>
   <ul>
-    <li>Create static region role.</li>
-<li>Create dynamic territory role with USERPRINCIPALNAME().</li>
+    <li>Create the East Region static role.</li>
+<li>Create Dynamic Territory Security with USERPRINCIPALNAME().</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Test roles</h3>
+  <h3>Test roles in Desktop and Service</h3>
   <ul>
-    <li>Test in Desktop using View as.</li>
-<li>Test in Service where available.</li>
+    <li>Use View as in Desktop with sample UPNs.</li>
+<li>Assign users or groups to Service roles and document gaps where Service testing is unavailable.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Review Build permission</h3>
+  <h3>Review Build permission and sharing</h3>
   <ul>
     <li>Document who can build thin reports or Analyze in Excel.</li>
-<li>Separate content access from data access.</li>
+<li>Separate content access, semantic model reuse, App distribution, and external/B2B sharing decisions.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Document optional controls</h3>
   <ul>
-    <li>Mark OLS, labels, Purview, external sharing, and B2B as Verify for Gov.</li>
+    <li>Mark OLS, sensitivity labels, Purview, external sharing, and B2B as Verify for Gov unless validated.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: Static RLS <span class="tag">Core or module-dependent</span></h3>
-  <p>Create a role that filters data to one territory or region.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Dynamic RLS <span class="tag">Core or module-dependent</span></h3>
-  <p>Create user-specific access using a security mapping table.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Testing roles in Desktop and Service <span class="tag">Core or module-dependent</span></h3>
-  <p>Validate security before production.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Build permission behavior <span class="tag">Core or module-dependent</span></h3>
-  <p>Understand downstream semantic model access.</p>
-</div></div>
-</section>
+        
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
     <div class="task-card"><h3>Create a static RLS role</h3><ol><li>Select <strong>Modeling &gt; Manage roles</strong>.</li><li>Select <strong>New</strong> and name the role <code>East Region</code>.</li><li>Select the territory table.</li><li>Add a filter such as <code>[TerritoryRegion] = "East"</code>.</li><li>Save the role and test it with <strong>View as</strong>.</li></ol></div>
     <div class="task-card"><h3>Create a dynamic RLS role</h3><ol><li>Load the security mapping table.</li><li>Create the relationship from the security table to the secured dimension.</li><li>Open <strong>Manage roles</strong> and create <code>Dynamic Territory Security</code>.</li><li>Filter the security table with <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>.</li><li>Use <strong>View as</strong> with sample UPNs to confirm access.</li></ol></div>
+    <div class="task-card"><h3>Assign Service roles safely</h3><ol><li>Publish only to an approved training workspace.</li><li>Assign users or groups to RLS roles.</li><li>Check workspace role implications before testing.</li><li>Use App distribution for consumers when available instead of broad workspace access.</li></ol></div>
     <div class="task-card"><h3>Test roles</h3><ol><li>Select <strong>Modeling &gt; View as</strong>.</li><li>Choose the role to test.</li><li>For dynamic RLS, enter a sample user principal name.</li><li>Record what data is visible and compare it to the expected mapping table.</li></ol></div>
   </div>
 </section>
@@ -238,19 +220,24 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td>Relationship</td><td>Security to territory</td><td><code>SecurityUserTerritory[TerritoryKey]</code> to <code>DimTerritory[TerritoryKey]</code></td><td>Territory filters sales.</td></tr>
 <tr><td>Static role</td><td><code>East Region</code></td><td>Filter <code>DimTerritory</code> to East region or keys</td><td>Only East data visible.</td></tr>
 <tr><td>Dynamic role</td><td><code>Dynamic Territory Security</code></td><td><code>[UserPrincipalName] = USERPRINCIPALNAME()</code></td><td>Mapped UPN sees expected territories.</td></tr>
+<tr><td>Service role assignment</td><td>RLS role membership</td><td>Assign approved users or groups after publishing</td><td>Test as role where available.</td></tr>
+<tr><td>Build permission</td><td>Semantic model reuse</td><td>Grant only to approved thin-report or Analyze in Excel users</td><td>Downstream access risk documented.</td></tr>
+<tr><td>Sharing and B2B</td><td>External access path</td><td>Direct sharing, Apps, workspace access, guest users</td><td>Verify for Gov and tenant policy documented.</td></tr>
+<tr><td>OLS/labels/Purview</td><td>Optional controls</td><td>Tooling, capacity, MIP/Purview, DLP, export behavior</td><td>Verify for Gov unless validated.</td></tr>
 </tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
     <li><strong>Open the PBIP model.</strong><p>Confirm DimTerritory and FactSales exist and that territory filters flow to sales.</p></li>
-    <li><strong>Load security mapping files.</strong><p>Use <b>Get data > Web</b> for security-user-territory and security-role-matrix. Rename the mapping table <code>SecurityUserTerritory</code>.</p></li>
+    <li><strong>Load security mapping files.</strong><p>Use <b>Get data &gt; Web</b> for security-user-territory and security-role-matrix. Rename the mapping table <code>SecurityUserTerritory</code>.</p></li>
     <li><strong>Create relationships.</strong><p>Relate SecurityUserTerritory[TerritoryKey] to DimTerritory[TerritoryKey]. Validate that filtering a territory filters sales.</p></li>
-    <li><strong>Create static RLS.</strong><p>Open <b>Modeling > Manage roles</b>. Create a role named East Region and filter DimTerritory to the East region or the matching territory keys.</p></li>
+    <li><strong>Create static RLS.</strong><p>Open <b>Modeling &gt; Manage roles</b>. Create a role named East Region and filter DimTerritory to the East region or the matching territory keys.</p></li>
     <li><strong>Create dynamic RLS.</strong><p>Create a role named Dynamic Territory Security. Filter SecurityUserTerritory with <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>.</p></li>
     <li><strong>Test in Desktop.</strong><p>Use <b>View as</b>. Test the static role, then test the dynamic role by entering a synthetic UPN from the mapping file. Verify that only mapped territories are visible.</p></li>
     <li><strong>Document expected access.</strong><p>Use security-role-matrix to record which personas should see which territories and whether Build permission is intended.</p></li>
-    <li><strong>Test in Service where available.</strong><p>Publish to a training workspace, assign users or groups to roles, and test as role. If Service access is unavailable, document this as a validation gap.</p></li>
+    <li><strong>Assign and test roles in Service where available.</strong><p>Publish to a training workspace, assign users or groups to RLS roles, check workspace role implications, and test as role. If Service access is unavailable, document this as a validation gap.</p></li>
     <li><strong>Review Build permission.</strong><p>Explain who can build thin reports or Analyze in Excel from the semantic model. Document the risk of granting Build too broadly.</p></li>
+    <li><strong>Review sharing and external users.</strong><p>Compare direct sharing, Apps, workspace access, and B2B guest access. Keep external sharing and B2B as Verify for Gov unless validated by tenant policy.</p></li>
     <li><strong>Review optional controls.</strong><p>Keep OLS, sensitivity labels, Purview, external sharing, and B2B as Verify for Gov unless validated in the customer tenant.</p></li>
   </ol>
 </section>
@@ -286,12 +273,14 @@ jordan.rep@contoso.example       // T04</code></pre>
         <div class="checklist" data-progress="lab07">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <p class="small"><span class="count">0</span> of 8 complete</p>
           <label><input type="checkbox">Security data loaded</label>
 <label><input type="checkbox">Static RLS created</label>
 <label><input type="checkbox">Dynamic RLS created</label>
 <label><input type="checkbox">Desktop role test documented</label>
-<label><input type="checkbox">Build permission reviewed</label>
+<label><input type="checkbox">Service role assignment reviewed</label>
+<label><input type="checkbox">Build permission behavior documented</label>
+<label><input type="checkbox">External sharing/B2B limitations documented</label>
 <label><input type="checkbox">Gov validation notes captured</label>
         </div>
       </aside>

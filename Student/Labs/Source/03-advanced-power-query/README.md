@@ -80,6 +80,10 @@ Create these five parameters during Lab 03. The required Web-source path uses `R
 
 Only the final model-ready query is loaded. Intermediate queries remain available for development and troubleshooting.
 
+### Concept note: M language fundamentals
+
+Every Power Query transformation is an M step that references the previous step by name. The generated UI usually creates tables, but M can also work with lists and records, such as the list passed to `Table.Combine` or the record of options passed to `Csv.Document`. When a generated step becomes hard to read, rename the step and review the formula bar before hand-editing in Advanced Editor.
+
 ### Exercise 2: Folder combine
 
 **Objective:** Combine monthly files safely.
@@ -241,6 +245,10 @@ ValidRows =
 
 Learners can distinguish between silently removing bad data and explicitly reviewing data quality issues.
 
+### Concept note: business-rule checks
+
+Technical type errors are only one kind of data quality issue. Add readable checks for business rules such as non-positive quantities, missing product codes, or invalid dates, and keep `err_OrdersReview` available so reviewers can see which rows were excluded and why.
+
 ### Exercise 6: Query folding
 
 > **Azure Government note:** Query folding is marked **Gov-ready / Verify for source**. The concept is core Power Query, but hands-on folding validation requires a connector and source that support folding in the target environment.
@@ -258,6 +266,10 @@ Learners can distinguish between silently removing bad data and explicitly revie
 ### Expected result
 
 Learners can explain why folding improves performance and why it must be validated per source.
+
+### Concept note: native queries and source systems
+
+Native queries can push complex logic to a source system, but they also make the report dependent on source SQL, gateway configuration, identity, and security review. Prefer maintainable Power Query steps for the core lab. Use native queries only when the source, folding behavior, credentials, and Azure Government support have been validated.
 
 ### Exercise 7: Incremental refresh preparation
 

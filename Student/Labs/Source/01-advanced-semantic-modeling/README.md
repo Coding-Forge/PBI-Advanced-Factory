@@ -18,6 +18,10 @@ The required labs are **Gov-ready** because they use local CSV files and core Po
 
 Use **Get data > Web** in Power BI Desktop and paste the raw URL for each CSV.
 
+### Concept note: from reporting exports to analytical models
+
+The flat sales export is useful as source data, but it is not the final analytical model. The lab separates repeated text attributes into dimensions, preserves transaction grain in `FactSales`, and makes hidden grain differences visible before relationships are created. This separation is what lets the same governed model support multiple reports without duplicating business logic.
+
 ## Novice-friendly how-to guide
 
 This module includes detailed how-to sections for the steps that are easiest for newer Power BI authors to miss:
@@ -130,6 +134,10 @@ erDiagram
 ### Expected result
 
 The model has one central fact table and clean dimensions with single-direction filtering into the fact table.
+
+### Concept note: lab walkthrough validation
+
+Before moving to role-playing dates, pause and verify the target model shape: `FactSales` should contain transaction-grain rows, dimension tables should contain distinct attribute rows, keys should be hidden where they are not useful to report consumers, and each relationship should be intentional. Keep optional commercial-enhanced paths, such as composite models or hybrid tables, separate from the required Gov-ready model.
 
 ### Exercise 2: Role-playing dimensions
 

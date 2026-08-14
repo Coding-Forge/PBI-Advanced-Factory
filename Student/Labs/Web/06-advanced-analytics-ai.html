@@ -166,21 +166,21 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
   <h3>Create what-if scenario</h3>
   <ul>
     <li>Create Margin Adjustment %.</li>
-<li>Build adjusted margin measures and visuals.</li>
+<li>Build adjusted gross margin measures and visuals.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Evaluate advanced visuals</h3>
   <ul>
     <li>Use decomposition tree, forecasting, anomaly detection, or key influencers only if available.</li>
-<li>Document interpretation limitations.</li>
+<li>Document interpretation limits and human validation requirements.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Review code/ML options</h3>
+  <h3>Review code and ML options</h3>
   <ul>
-    <li>Keep Python/R and Azure ML optional.</li>
-<li>Document runtime, package, identity, network, and region requirements.</li>
+    <li>Keep Python/R visuals and Azure ML optional.</li>
+<li>Document runtime, package, identity, network, region, data residency, and Service requirements.</li>
   </ul>
 </div>
 <div class="task-card">
@@ -191,44 +191,13 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
   </ul>
 </div>
 <div class="task-card">
-  <h3>Map fallbacks</h3>
+  <h3>Map Gov-safe fallbacks</h3>
   <ul>
-    <li>Provide DAX thresholds, Top N, rolling averages, and native visual alternatives.</li>
+    <li>Provide matrix/drillthrough, DAX thresholds, Top N, rolling averages, prior-period comparison, and native visual alternatives.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: What-if parameters <span class="tag">Core or module-dependent</span></h3>
-  <p>Build a scenario analysis experience.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Decomposition tree where available <span class="tag">Verify for Gov</span></h3>
-  <p>Explore drivers behind a metric.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Forecasting where available <span class="tag">Verify for Gov</span></h3>
-  <p>Add forecast context to a trend.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Key influencers where available <span class="tag">Verify for Gov</span></h3>
-  <p>Explore possible drivers of an outcome.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 5: Optional Python or R visuals <span class="tag">Verify for Gov</span></h3>
-  <p>Understand when code-based visuals are appropriate.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 6: Optional Azure Machine Learning integration <span class="tag">Verify for Gov</span></h3>
-  <p>Understand scored data integration options.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 7: Copilot conceptual section <span class="tag">Commercial-focused</span></h3>
-  <p>Understand potential Copilot use cases and governance controls.</p>
-</div></div>
-</section>
+        
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
@@ -241,11 +210,13 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <table class="column-table"><thead><tr><th>Feature</th><th>Status</th><th>What to create or review</th><th>Fallback</th></tr></thead><tbody>
 <tr><td>What-if parameter</td><td>Gov-ready</td><td><code>Margin Adjustment %</code> and adjusted margin measure</td><td>Required core path.</td></tr>
 <tr><td>Decomposition tree</td><td>Verify for Gov</td><td>Driver analysis by territory/product/customer/segment</td><td>Matrix plus drillthrough.</td></tr>
-<tr><td>Forecasting/anomaly</td><td>Verify for Gov</td><td>Line chart analytics options</td><td>Rolling average and DAX thresholds.</td></tr>
+<tr><td>Forecasting</td><td>Verify for Gov</td><td>Line chart Analytics pane forecast</td><td>Rolling average and prior-period comparison.</td></tr>
+<tr><td>Anomaly detection</td><td>Verify for Gov</td><td>Unusual trend identification on supported visuals</td><td>DAX threshold flags.</td></tr>
 <tr><td>Key influencers</td><td>Verify for Gov</td><td>AI visual for outcome analysis</td><td>Top N and ranked comparisons.</td></tr>
 <tr><td>Python/R</td><td>Verify for Gov</td><td>Approved runtime/packages only</td><td>Native visuals.</td></tr>
-<tr><td>Azure ML</td><td>Verify for Gov</td><td>Validated workspace/identity/network</td><td>Static scored output.</td></tr>
-<tr><td>Copilot</td><td>Commercial-focused / Verify for Gov</td><td>Conceptual unless validated</td><td>Human-authored explanation.</td></tr>
+<tr><td>Azure ML</td><td>Verify for Gov</td><td>Validated workspace/identity/network/region</td><td>Static scored output.</td></tr>
+<tr><td>Copilot</td><td>Commercial-focused / Verify for Gov</td><td>Conceptual unless tenant, capacity, licensing, and data boundaries are validated</td><td>Human-authored explanation.</td></tr>
+<tr><td>Decision framework</td><td>Required documentation</td><td>Available, approved, residency acceptable, fallback identified</td><td>Use non-AI path when any answer is no.</td></tr>
 </tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
@@ -298,11 +269,12 @@ RETURN
         <div class="checklist" data-progress="lab06">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <p class="small"><span class="count">0</span> of 7 complete</p>
           <label><input type="checkbox">What-if parameter works</label>
-<label><input type="checkbox">Scenario measure created</label>
-<label><input type="checkbox">Optional AI features labeled</label>
-<label><input type="checkbox">Gov-safe fallbacks documented</label>
+<label><input type="checkbox">Scenario measures respond to parameter selection</label>
+<label><input type="checkbox">Optional AI/advanced visuals labeled</label>
+<label><input type="checkbox">Gov-safe fallback documented for each optional feature</label>
+<label><input type="checkbox">Python/R and Azure ML prerequisites documented if discussed</label>
 <label><input type="checkbox">Copilot treated as optional</label>
 <label><input type="checkbox">Human review requirement noted</label>
         </div>

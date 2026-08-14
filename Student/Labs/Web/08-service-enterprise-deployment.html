@@ -154,8 +154,8 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>Workspace plan</li>
-<li>Refresh notes</li>
+          <div class="panel"><ul><li>Workspace design and roles</li>
+<li>Refresh and gateway notes</li>
 <li>App packaging</li>
 <li>Endorsement checklist</li></ul></div>
         </section>
@@ -163,23 +163,23 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
-  <h3>Prepare workspace</h3>
+  <h3>Plan workspace design and roles</h3>
   <ul>
-    <li>Confirm training workspace and role.</li>
-<li>Document dev/test/prod pattern.</li>
+    <li>Document dev/test/prod or training workspace intent, naming convention, domain/subject area, owners, and support model.</li>
+<li>Assign least-privileged Admin, Member, Contributor, or Viewer roles.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Publish content</h3>
   <ul>
-    <li>Publish from PBIP-authored report.</li>
-<li>Verify report and semantic model in the Service.</li>
+    <li>Publish from the PBIP-authored report.</li>
+<li>Verify the report and semantic model in the Service and record owner/workspace details.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Configure refresh</h3>
   <ul>
-    <li>Review credentials and schedule.</li>
+    <li>Review credentials, privacy levels, schedule, refresh history, and ownership.</li>
 <li>Document gateway or cloud connection requirements.</li>
   </ul>
 </div>
@@ -187,69 +187,49 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
   <h3>Review reuse and distribution</h3>
   <ul>
     <li>Create or discuss thin report/Build permission.</li>
-<li>Package content as an App where available.</li>
+<li>Package content as an App and validate the consumer path where available.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Apply governance</h3>
+  <h3>Apply deployment governance</h3>
   <ul>
-    <li>Complete promoted/certified checklist.</li>
-<li>Keep App audiences and deployment pipelines Verify for Gov.</li>
+    <li>Complete promoted/certified endorsement checklist.</li>
+<li>Keep App audiences and deployment pipelines Verify for Gov and document a manual promotion path if unavailable.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: Publish report and semantic model <span class="tag">Core or module-dependent</span></h3>
-  <p>Publish workshop content to a governed workspace.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Scheduled refresh <span class="tag">Core or module-dependent</span></h3>
-  <p>Configure refresh and credentials.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Gateway-backed refresh <span class="tag">Verify for Gov</span></h3>
-  <p>Understand gateway-backed refresh.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Shared semantic model and thin report <span class="tag">Core or module-dependent</span></h3>
-  <p>Separate model ownership from report creation.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 5: Power BI App distribution <span class="tag">Core or module-dependent</span></h3>
-  <p>Package content for consumers.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 6: Promoted and certified content governance <span class="tag">Core or module-dependent</span></h3>
-  <p>Review endorsement requirements.</p>
-</div></div>
-</section>
+        
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
-    <div class="task-card"><h3>Work through each lab step</h3><ol><li>Start from the stated starter PBIP or completed prior module solution.</li><li>Create or modify one object at a time using the exact names in the lab.</li><li>Save after each major change.</li><li>Validate the result in a simple visual, Service page, checklist, or evidence table before moving on.</li></ol></div>
-    <div class="task-card"><h3>Document validation</h3><ol><li>Record the feature or setting being tested.</li><li>Record expected behavior before testing.</li><li>Capture actual behavior after testing.</li><li>Mark tenant-dependent features as Verify for Gov if they cannot be validated hands-on.</li></ol></div>
+    <div class="task-card"><h3>Plan workspace design and roles</h3><ol><li>Identify whether the workspace is development, test, production, or training-only.</li><li>Use a naming convention that includes domain or subject area where appropriate.</li><li>Record content owner and support owner.</li><li>Assign the least-privileged workspace role: Admin, Member, Contributor, or Viewer.</li><li>Prefer App distribution for consumers instead of adding viewers directly to production workspaces.</li></ol></div>
+    <div class="task-card"><h3>Publish a report</h3><ol><li>Open the PBIP-authored report in Power BI Desktop.</li><li>Sign in with the approved training account.</li><li>Select <strong>Home &gt; Publish</strong>.</li><li>Choose the target workspace.</li><li>Open the report in the Power BI Service and confirm the report and semantic model are present.</li></ol></div>
+    <div class="task-card"><h3>Review refresh settings</h3><ol><li>Open the workspace in the Power BI Service.</li><li>Find the semantic model and open <strong>Settings</strong>.</li><li>Review credentials, privacy levels, gateway or cloud connection, schedule, and refresh history.</li><li>Document anything that cannot be configured in the training tenant.</li></ol></div>
+    <div class="task-card"><h3>Package content as an App</h3><ol><li>Select workspace content for the App.</li><li>Configure name, description, navigation, and consumers.</li><li>Publish or update the App.</li><li>Validate the consumer experience where available.</li></ol></div>
   </div>
 </section>
         <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Service item</th><th>Configuration</th><th>Permission</th><th>Evidence</th></tr></thead><tbody>
-<tr><td>Workspace</td><td>Training workspace selected</td><td>Contributor or higher</td><td>Workspace name and role.</td></tr>
+<tr><td>Workspace design</td><td>Dev/test/prod or training intent, domain/subject area, naming convention, owner, support owner</td><td>Workspace Admin to configure</td><td>Workspace plan documented.</td></tr>
+<tr><td>Workspace roles</td><td>Admin, Member, Contributor, Viewer assigned by least privilege</td><td>Admin</td><td>Role and rationale recorded.</td></tr>
 <tr><td>Report</td><td>PBIP-authored report published</td><td>Contributor or higher</td><td>Report appears in workspace.</td></tr>
-<tr><td>Semantic model</td><td>Credentials, refresh, ownership reviewed</td><td>Owner or workspace role</td><td>Settings notes.</td></tr>
-<tr><td>Gateway</td><td>Cluster, source, credential owner documented if needed</td><td>Gateway admin/data source user</td><td>Gateway notes.</td></tr>
-<tr><td>App</td><td>Name, navigation, consumers configured</td><td>Member or Admin</td><td>App published or demoed.</td></tr>
-<tr><td>Pipeline</td><td>Dev/test/prod reviewed if available</td><td>Pipeline/workspace access</td><td>Verify for Gov status.</td></tr>
+<tr><td>Semantic model</td><td>Credentials, privacy levels, refresh, ownership reviewed</td><td>Owner or workspace role</td><td>Settings notes.</td></tr>
+<tr><td>Gateway/cloud connection</td><td>Cluster, source mapping, credential owner, network path, or cloud connection documented if needed</td><td>Gateway admin/data source user</td><td>Gateway or cloud notes.</td></tr>
+<tr><td>Shared semantic model</td><td>Build permission and thin-report pattern reviewed</td><td>Semantic model owner or workspace role</td><td>Reuse implications documented.</td></tr>
+<tr><td>App</td><td>Name, description, navigation, consumers configured</td><td>Member or Admin</td><td>App published or demoed.</td></tr>
+<tr><td>App audiences</td><td>Audience-specific content where available</td><td>Member or Admin</td><td>Verify for Gov status.</td></tr>
+<tr><td>Deployment pipeline</td><td>Dev/test/prod stages and deployment rules reviewed if available</td><td>Pipeline/workspace access</td><td>Verify for Gov status or manual path.</td></tr>
+<tr><td>Endorsement</td><td>Promoted/certified ownership, refresh, security, quality, support evidence</td><td>Tenant governance policy</td><td>Checklist completed.</td></tr>
 </tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
-    <li><strong>Confirm workspace access.</strong><p>Identify the training workspace and your role. You need appropriate permission to publish, configure refresh, or create Apps.</p></li>
+    <li><strong>Plan workspace design.</strong><p>Identify whether the workspace represents development, test, production, or a training-only environment. Record naming convention, domain or subject area, owner, and support owner.</p></li>
+    <li><strong>Confirm workspace roles.</strong><p>Identify your role and the intended least-privileged roles for Admin, Member, Contributor, and Viewer users. You need appropriate permission to publish, configure refresh, or create Apps.</p></li>
     <li><strong>Publish the PBIP-authored report.</strong><p>Open the report in Power BI Desktop and publish to the training workspace. Verify both the report and semantic model appear in the Service.</p></li>
     <li><strong>Review semantic model settings.</strong><p>Open semantic model settings. Review data source credentials, privacy settings, refresh history, and ownership.</p></li>
     <li><strong>Configure scheduled refresh where supported.</strong><p>Set credentials and a refresh schedule. If the data source uses raw GitHub URLs, validate anonymous Web refresh behavior in the Service.</p></li>
-    <li><strong>Document gateway requirements.</strong><p>If a source is on-premises or network-restricted, identify gateway cluster, data source mapping, credentials, and owner. If no gateway is needed, document why.</p></li>
+    <li><strong>Document gateway or cloud connection requirements.</strong><p>If a source is on-premises or network-restricted, identify gateway cluster, data source mapping, credentials, and owner. If no gateway is needed, document why.</p></li>
     <li><strong>Create a thin report scenario.</strong><p>Grant Build permission where appropriate and create or discuss a thin report connected to the shared semantic model.</p></li>
     <li><strong>Package as an App.</strong><p>Select workspace content, configure name/description/navigation, assign consumers, publish or update the App, and validate consumer experience.</p></li>
     <li><strong>Review App audiences.</strong><p>If available, create multiple audiences and tailor content. If not validated, keep this optional and mark Verify for Gov.</p></li>
@@ -267,13 +247,15 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <div class="checklist" data-progress="lab08">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
-          <label><input type="checkbox">Workspace documented</label>
-<label><input type="checkbox">Report/model published or demoed</label>
-<label><input type="checkbox">Refresh reviewed</label>
-<label><input type="checkbox">Gateway notes captured</label>
-<label><input type="checkbox">App plan completed</label>
-<label><input type="checkbox">Endorsement checklist reviewed</label>
+          <p class="small"><span class="count">0</span> of 8 complete</p>
+          <label><input type="checkbox">Workspace design, role, and ownership documented</label>
+<label><input type="checkbox">Report/model published or demonstrated</label>
+<label><input type="checkbox">Refresh settings and history reviewed</label>
+<label><input type="checkbox">Gateway/cloud connection notes captured</label>
+<label><input type="checkbox">Shared semantic model and Build permission reviewed</label>
+<label><input type="checkbox">App distribution reviewed</label>
+<label><input type="checkbox">App audiences and deployment pipelines marked Verify for Gov</label>
+<label><input type="checkbox">Endorsement checklist completed</label>
         </div>
       </aside>
     </main>

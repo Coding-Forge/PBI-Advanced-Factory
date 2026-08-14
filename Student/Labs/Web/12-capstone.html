@@ -154,44 +154,58 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>PBIP solution</li>
-<li>RLS-secured report</li>
-<li>Service/App plan</li>
-<li>Operations evidence</li></ul></div>
+          <div class="panel"><ul><li>PBIP source project</li>
+<li>Optimized model and DAX</li>
+<li>Interactive report experience</li>
+<li>RLS-secured deployment</li>
+<li>Governance and operations evidence</li></ul></div>
         </section>
         
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
-  <h3>Build the core solution</h3>
+  <h3>Build the semantic model</h3>
   <ul>
-    <li>Create the star schema, advanced measures, report pages, and accessibility review.</li>
+    <li>Create fact and dimension tables, relationships, hidden technical fields, and model-grain documentation.</li>
+<li>Document Gov-sensitive features as Gov-ready, Verify for Gov, or Commercial-focused.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Secure the solution</h3>
+  <h3>Add advanced DAX</h3>
   <ul>
-    <li>Configure static and dynamic RLS.</li>
-<li>Document Build permission and role testing evidence.</li>
+    <li>Create base, time-intelligence, variance, ranking/Top N, dynamic title, or measure-switching logic.</li>
+<li>Validate totals at multiple grains.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Publish and package</h3>
+  <h3>Build the report experience</h3>
   <ul>
-    <li>Publish where available, configure refresh/gateway notes, and package as an App where available.</li>
+    <li>Create executive, analyst, detail drillthrough, tooltip, bookmark/button, conditional formatting, mobile layout, and accessibility evidence.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Configure security</h3>
+  <ul>
+    <li>Create static and dynamic RLS, test in Desktop and Service where available, and document Build permission behavior.</li>
+  </ul>
+</div>
+<div class="task-card">
+  <h3>Publish and distribute</h3>
+  <ul>
+    <li>Publish from PBIP-authored content, configure credentials and refresh where available, document gateway requirements, and create or review a Power BI App.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Govern and operate</h3>
   <ul>
-    <li>Complete endorsement checklist, operations runbook, usage/refresh notes, and support ownership.</li>
+    <li>Complete endorsement governance, operations runbook, usage metrics review, refresh history review, support ownership, and escalation path.</li>
   </ul>
 </div>
 <div class="task-card">
-  <h3>Document extensions</h3>
+  <h3>Optional enhanced extensions</h3>
   <ul>
-    <li>Add Fabric/Git/Copilot/API/automation extensions only when validated.</li>
-<li>Record fallback paths for Gov delivery.</li>
+    <li>Add Fabric/Git/Copilot/AI/API/automation features only after validation.</li>
+<li>Document availability status and fallback path for every optional feature.</li>
   </ul>
 </div></div>
         </section>
@@ -199,34 +213,34 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
-    <div class="task-card"><h3>Work through each lab step</h3><ol><li>Start from the stated starter PBIP or completed prior module solution.</li><li>Create or modify one object at a time using the exact names in the lab.</li><li>Save after each major change.</li><li>Validate the result in a simple visual, Service page, checklist, or evidence table before moving on.</li></ol></div>
-    <div class="task-card"><h3>Document validation</h3><ol><li>Record the feature or setting being tested.</li><li>Record expected behavior before testing.</li><li>Capture actual behavior after testing.</li><li>Mark tenant-dependent features as Verify for Gov if they cannot be validated hands-on.</li></ol></div>
+    <div class="task-card"><h3>Work through the capstone safely</h3><ol><li>Start from the capstone starter PBIP or completed solution from the previous lab.</li><li>Complete one capability at a time: model, DAX, report UX, security, deployment, governance, and monitoring.</li><li>Save after each major milestone.</li><li>Validate each capability with the rubric before moving to the next one.</li><li>Record evidence as you go instead of waiting until the end.</li></ol></div>
+    <div class="task-card"><h3>Package capstone evidence</h3><ol><li>Include the PBIP source project.</li><li>Include screenshots or notes for relationships, report pages, RLS tests, refresh/deployment settings, and governance decisions.</li><li>Complete the validation rubric.</li><li>Mark optional unvalidated features as Verify for Gov or conceptual-only.</li></ol></div>
   </div>
 </section>
         <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Area</th><th>Required artifact</th><th>Validation evidence</th></tr></thead><tbody>
-<tr><td>Source control</td><td>PBIP project</td><td>Repo path, branch, commit ID.</td></tr>
-<tr><td>Semantic model</td><td>Fact/dimension model</td><td>Relationship diagram or notes.</td></tr>
-<tr><td>DAX</td><td>Measure layer</td><td>Measure list and validation visuals.</td></tr>
-<tr><td>Report UX</td><td>Executive, analyst, detail, tooltip, mobile pages</td><td>Screenshots or review notes.</td></tr>
-<tr><td>Security</td><td>Static and dynamic RLS</td><td>Role test results.</td></tr>
-<tr><td>Service</td><td>Published report/model and App plan</td><td>Workspace/App/refresh evidence or gap.</td></tr>
-<tr><td>Governance</td><td>Endorsement checklist and runbook</td><td>Completed documents.</td></tr>
+<tr><td>Source control</td><td>PBIP project</td><td>Repository path and source review notes.</td></tr>
+<tr><td>Semantic model</td><td>Fact/dimension model</td><td>Relationship diagram or model-grain notes.</td></tr>
+<tr><td>DAX</td><td>Base, time, variance, ranking/Top N, dynamic logic</td><td>Measure list and validation visuals.</td></tr>
+<tr><td>Report UX</td><td>Executive, analyst, detail, tooltip, bookmark/button, conditional formatting, mobile pages</td><td>Screenshots or review notes plus accessibility checks.</td></tr>
+<tr><td>Security</td><td>Static and dynamic RLS</td><td>Desktop and Service role test results where available.</td></tr>
+<tr><td>Service distribution</td><td>Published report/model, refresh settings, gateway notes, App plan</td><td>Workspace/App/refresh evidence or documented gap.</td></tr>
+<tr><td>Governance and operations</td><td>Endorsement checklist, operations runbook, monitoring/support notes</td><td>Completed documents and support ownership.</td></tr>
+<tr><td>Enhanced extensions</td><td>Fabric/Git/Copilot/AI/API/automation feature notes</td><td>Availability status, validation evidence, and fallback path.</td></tr>
 <tr><td>Gov readiness</td><td>Feature status notes</td><td>Gov-ready, Verify for Gov, Commercial-focused labels.</td></tr>
+<tr><td>Submission</td><td>Validation rubric and evidence package</td><td>Completed rubric plus screenshots/notes.</td></tr>
 </tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
-    <li><strong>Prepare the PBIP project.</strong><p>Open or create the capstone PBIP project in <code>pbi-local\</code>. Confirm it is source-controlled and using the raw GitHub CSV sources or approved alternatives.</p></li>
-    <li><strong>Build the semantic model.</strong><p>Create fact and dimension tables, relationships, role-playing dates, and segment/security tables. Hide technical columns and document model grain.</p></li>
-    <li><strong>Create the measure layer.</strong><p>Add base measures, time intelligence, variance, ranking/Top N, dynamic titles, and any scenario measures required by the report.</p></li>
-    <li><strong>Build the report experience.</strong><p>Create executive, analyst, and detail pages. Add drillthrough, tooltip page, bookmarks, navigation, conditional formatting, mobile layout, and accessibility review.</p></li>
-    <li><strong>Configure security.</strong><p>Create static and dynamic RLS, test roles in Desktop, and document expected versus actual results. Test in Service if available.</p></li>
-    <li><strong>Optimize and validate.</strong><p>Use Performance Analyzer, check model/cardinality issues, review DAX readability, and document before/after observations for any optimization.</p></li>
-    <li><strong>Publish and package.</strong><p>Publish where a training workspace is available. Configure refresh/credentials, document gateway requirements, and package the report as an App where available.</p></li>
-    <li><strong>Govern and operate.</strong><p>Complete the endorsement checklist, operations runbook, usage/refresh review, access model, support ownership, and escalation path.</p></li>
-    <li><strong>Add optional extensions only when validated.</strong><p>Fabric, Direct Lake, OneLake, Copilot, AI visuals, deployment pipelines, APIs, service principals, XMLA, and capacity metrics must be validated before hands-on use.</p></li>
-    <li><strong>Submit evidence.</strong><p>Submit PBIP source, rubric, screenshots/notes, RLS test evidence, refresh/App/governance evidence, operations runbook, and Azure Government readiness notes.</p></li>
+    <li><strong>Task 1: Build the semantic model.</strong><p>Open or create the capstone PBIP project. Import or connect to approved synthetic workshop data, create fact and dimension tables, configure relationships, hide technical fields, document model grain, and label Gov-sensitive features.</p></li>
+    <li><strong>Task 2: Add advanced DAX.</strong><p>Create base measures, time-intelligence measures, variance measures, ranking or Top N measures, dynamic title or measure-switching logic, and validate totals at multiple grains.</p></li>
+    <li><strong>Task 3: Build the report experience.</strong><p>Create executive summary, analyst exploration, detail drillthrough, and tooltip pages. Add bookmarks, buttons, conditional formatting, mobile layout, and accessibility checks.</p></li>
+    <li><strong>Task 4: Configure security.</strong><p>Import or create a security mapping table, create static and dynamic RLS with <code>USERPRINCIPALNAME()</code>, test roles in Desktop and Service where available, and document Build permission behavior.</p></li>
+    <li><strong>Task 5: Publish and distribute.</strong><p>Publish from PBIP-authored content where a training workspace is available. Configure credentials and scheduled refresh where available, document gateway requirements, create or review a Power BI App, and document consumers and workspace roles.</p></li>
+    <li><strong>Task 6: Govern and operate.</strong><p>Complete endorsement governance, operations runbook, usage metrics review, refresh history review, support ownership, business ownership, and escalation path.</p></li>
+    <li><strong>Task 7: Optional enhanced extensions.</strong><p>Add Fabric workspace Git integration, Direct Lake, OneLake, Copilot, AI-assisted authoring, deployment pipelines, REST APIs, service principals, XMLA, external tools, or capacity metrics only after validation. Document availability status and fallback path for every optional feature.</p></li>
+    <li><strong>Submit evidence.</strong><p>Submit PBIP source, validation rubric, screenshots/notes, RLS test evidence, refresh/App/governance evidence, operations runbook, and Azure Government readiness notes.</p></li>
   </ol>
 </section>
         
@@ -239,13 +253,19 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <div class="checklist" data-progress="lab12">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <p class="small"><span class="count">0</span> of 12 complete</p>
           <label><input type="checkbox">PBIP source project used</label>
-<label><input type="checkbox">Model/DAX/report complete</label>
-<label><input type="checkbox">RLS tested</label>
-<label><input type="checkbox">Service/App path documented</label>
-<label><input type="checkbox">Governance/runbook complete</label>
-<label><input type="checkbox">Rubric submitted</label>
+<label><input type="checkbox">Semantic model follows star schema principles</label>
+<label><input type="checkbox">Advanced DAX measures validated</label>
+<label><input type="checkbox">Report UX and accessibility complete</label>
+<label><input type="checkbox">Static and dynamic RLS tested</label>
+<label><input type="checkbox">Service/App path completed or documented</label>
+<label><input type="checkbox">Refresh and gateway requirements documented</label>
+<label><input type="checkbox">Endorsement checklist complete</label>
+<label><input type="checkbox">Operations runbook complete</label>
+<label><input type="checkbox">Monitoring and support tasks documented</label>
+<label><input type="checkbox">Optional enhanced features validated and labeled</label>
+<label><input type="checkbox">Rubric and evidence package submitted</label>
         </div>
       </aside>
     </main>

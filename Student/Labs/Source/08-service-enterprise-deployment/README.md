@@ -6,6 +6,14 @@ These labs cover Service deployment, refresh, gateways, shared semantic models, 
 
 ## Novice-friendly how-to guide
 
+### Plan workspace design and roles
+
+1. Identify whether the workspace represents development, test, production, or a training-only environment.
+2. Use a clear naming convention that includes domain or subject area when appropriate.
+3. Record the content owner and support owner.
+4. Assign the least-privileged workspace role: Admin, Member, Contributor, or Viewer.
+5. Prefer App distribution for consumers instead of adding viewers directly to production workspaces.
+
 ### Publish a report
 
 1. Open the PBIP-authored report in Power BI Desktop.
@@ -43,6 +51,8 @@ PBIP is the source-controlled format for workshop development. Publish from PBIP
 ### Exercise 1: Publish report and semantic model
 
 **Objective:** Publish workshop content to a governed workspace.
+
+**Concept note:** A production deployment normally uses separate development, test, and production workspaces with clear naming, ownership, and role assignments. In a training tenant, document the intended production pattern even if you publish to a single workshop workspace.
 
 ### Tasks
 

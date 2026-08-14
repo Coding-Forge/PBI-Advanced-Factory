@@ -4,6 +4,10 @@
 
 These labs teach PBIP source control and introduce optional automation patterns for validated environments.
 
+### Concept note: Lifecycle management goals
+
+A production Power BI lifecycle should be repeatable, reviewable, governable, and recoverable. Use PBIP and git to make changes visible, support promotion between environments, and preserve rollback evidence when a deployment needs to be reversed.
+
 ## Novice-friendly how-to guide
 
 ### Review PBIP source structure
@@ -69,6 +73,10 @@ Learners understand why PBIP supports code review better than PBIX.
 
 Learners can use a basic source-control workflow for PBIP content.
 
+### Concept note: Branches, pull requests, and releases
+
+Branches isolate work, commits create reviewable checkpoints, pull requests focus peer review on intentional model/report changes, and tags or release notes help operations teams identify what was promoted and how to roll back.
+
 ### Exercise 3: Tabular Editor workflow where available
 
 > **Azure Government note:** Tabular Editor is **Verify for Gov**. Validate workstation policy, XMLA, tenant settings, and customer approval.
@@ -131,7 +139,12 @@ Learners can use a basic source-control workflow for PBIP content.
 1. Connect workspace to git.
 2. Select branch and folder.
 3. Review sync status.
-4. Commit workspace changes.
+4. Review branching and workspace sync behavior.
+5. Commit workspace changes.
+
+### Concept note: Workspace-connected Git caveats
+
+Fabric workspace Git integration changes where synchronization happens: workspace items can connect directly to a branch and folder. Validate branching behavior, item support, sync direction, conflict handling, and Commercial/Gov availability before relying on it for release management.
 
 ### Exercise 5: Conceptual CI/CD pipeline for Azure DevOps
 
@@ -157,6 +170,10 @@ Learners can use a basic source-control workflow for PBIP content.
 4. Identify authentication approach.
 5. Add Gov validation notes.
 
+### Concept note: Azure Government automation boundaries
+
+For Azure Government delivery, validate cloud endpoints, identity authority, network path, tenant settings, approved tooling, and feature availability before using APIs, service principals, XMLA, Fabric Git integration, or CI/CD runners.
+
 ### Exercise 7: Deployment checklist
 
 **Objective:** Validate readiness before deployment.
@@ -172,13 +189,15 @@ Learners can use a basic source-control workflow for PBIP content.
 
 ## Validation checklist
 
+- [ ] Lifecycle goals and rollback evidence documented.
 - [ ] PBIP structure reviewed.
-- [ ] Git workflow practiced.
+- [ ] Git workflow, branch, pull request, and release expectations documented.
 - [ ] External tools marked **Verify for Gov**.
 - [ ] REST APIs marked **Verify for Gov**.
 - [ ] PowerShell marked **Verify for Gov**.
 - [ ] Service principals marked **Verify for Gov**.
-- [ ] Fabric Git integration marked **Commercial-focused / Verify for Gov**.
+- [ ] Fabric Git integration branching and sync caveats marked **Commercial-focused / Verify for Gov**.
 - [ ] Azure DevOps and GitHub Actions marked **Verify for Gov**.
+- [ ] Azure Government endpoints, identity, network, and policy validation documented.
 - [ ] Deployment checklist completed.
 

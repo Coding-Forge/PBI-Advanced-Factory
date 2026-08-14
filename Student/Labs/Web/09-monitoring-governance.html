@@ -154,7 +154,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>Usage review</li>
+          <div class="panel"><ul><li>Usage and adoption review</li>
 <li>Refresh troubleshooting</li>
 <li>Tenant setting notes</li>
 <li>Operations runbook</li></ul></div>
@@ -163,10 +163,10 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
           <h2>Walkthrough tasks</h2>
           <div class="task-list"><div class="task-card">
-  <h3>Review usage</h3>
+  <h3>Review usage and adoption</h3>
   <ul>
     <li>Open usage metrics where available.</li>
-<li>Document adoption observations and follow-up actions.</li>
+<li>Document adoption observations, training needs, support signals, and retirement candidates.</li>
   </ul>
 </div>
 <div class="task-card">
@@ -179,7 +179,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <div class="task-card">
   <h3>Review governance settings</h3>
   <ul>
-    <li>Review sharing, export, publish-to-web, external users, and certification controls.</li>
+    <li>Review sharing, export, publish-to-web, external users, Build permission, and certification controls.</li>
 <li>Use read-only review unless approved.</li>
   </ul>
 </div>
@@ -187,67 +187,49 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
   <h3>Review optional admin signals</h3>
   <ul>
     <li>Activity logs, admin monitoring, capacity metrics, Purview, and DLP are Verify for Gov.</li>
+<li>Record available evidence and access blockers.</li>
   </ul>
 </div>
 <div class="task-card">
   <h3>Complete operations runbook</h3>
   <ul>
-    <li>Document owners, sources, refresh, access, monitoring cadence, and incident response.</li>
+    <li>Document owners, sources, refresh, access, monitoring cadence, incident response, and Azure Government validation notes.</li>
   </ul>
 </div></div>
         </section>
-        <section>
-  <h2>Module lab sequence</h2>
-  <p class="small">This sequence is generated from the matching lab README so the Markdown and HTML paths expose the same numbered labs.</p>
-  <div class="lab-sequence"><div class="task-card">
-  <h3>Lab 1: Usage metrics <span class="tag">Core or module-dependent</span></h3>
-  <p>Interpret report adoption and usage.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 2: Refresh troubleshooting <span class="tag">Core or module-dependent</span></h3>
-  <p>Diagnose semantic model refresh issues.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 3: Tenant setting review <span class="tag">Core or module-dependent</span></h3>
-  <p>Understand tenant settings that affect governance.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 4: Gateway monitoring <span class="tag">Verify for Gov</span></h3>
-  <p>Review gateway health and mappings.</p>
-</div>
-<div class="task-card">
-  <h3>Lab 5: Operations runbook <span class="tag">Core or module-dependent</span></h3>
-  <p>Create a support-ready runbook.</p>
-</div></div>
-</section>
+        
         <section>
   <h2>Novice-friendly how-to guide</h2>
   <div class="task-list">
-    <div class="task-card"><h3>Work through each lab step</h3><ol><li>Start from the stated starter PBIP or completed prior module solution.</li><li>Create or modify one object at a time using the exact names in the lab.</li><li>Save after each major change.</li><li>Validate the result in a simple visual, Service page, checklist, or evidence table before moving on.</li></ol></div>
-    <div class="task-card"><h3>Document validation</h3><ol><li>Record the feature or setting being tested.</li><li>Record expected behavior before testing.</li><li>Capture actual behavior after testing.</li><li>Mark tenant-dependent features as Verify for Gov if they cannot be validated hands-on.</li></ol></div>
+    <div class="task-card"><h3>Review usage metrics</h3><ol><li>Open the report or App in the Power BI Service.</li><li>Open usage metrics when tenant policy and permissions allow it.</li><li>Review views, unique viewers, page usage, and trends.</li><li>Document adoption observations, training needs, support signals, and retirement candidates.</li><li>If usage metrics are unavailable, record the tenant, license, or permission blocker.</li></ol></div>
+    <div class="task-card"><h3>Review refresh history</h3><ol><li>Open the workspace and select the semantic model.</li><li>Open refresh history or semantic model settings.</li><li>Record recent success/failure status, duration, and recipients.</li><li>For failures, capture the error summary, credential/gateway clue, likely cause, and next action.</li></ol></div>
+    <div class="task-card"><h3>Complete runbook evidence</h3><ol><li>Record content inventory, owners, sources, access model, monitoring cadence, and incident paths.</li><li>Mark activity logs, audit logs, admin monitoring, capacity metrics, Purview, and DLP as Verify for Gov unless validated.</li></ol></div>
   </div>
 </section>
         <section><h2>Implementation reference table</h2><div class="task-card">
 <table class="column-table"><thead><tr><th>Runbook area</th><th>Fields to complete</th><th>Source</th></tr></thead><tbody>
 <tr><td>Content inventory</td><td>Workspace, App, report, semantic model, PBIP path</td><td>Service and repository.</td></tr>
 <tr><td>Ownership</td><td>Business owner, technical owner, support contact</td><td>Project governance.</td></tr>
+<tr><td>Adoption tracking</td><td>Usage pattern, training need, support signal, retirement candidate, follow-up owner</td><td>Usage metrics, App metrics, support queue, stakeholder feedback.</td></tr>
 <tr><td>Data sources</td><td>Source type, gateway required, credential owner</td><td>Semantic model settings.</td></tr>
 <tr><td>Refresh</td><td>Schedule, duration, recipients, retry path</td><td>Refresh settings/history.</td></tr>
 <tr><td>Access</td><td>Workspace roles, App consumers, Build, RLS/OLS</td><td>Workspace/App/model settings.</td></tr>
+<tr><td>Monitoring cadence</td><td>Usage, refresh, gateway, capacity, compliance, owner review rhythm</td><td>Operations model.</td></tr>
 <tr><td>Incident response</td><td>Access, refresh, data quality, performance paths</td><td>Support model.</td></tr>
 </tbody></table></div></section>
         <section>
   <h2>Detailed step-by-step procedure</h2>
   <ol class="steps">
     <li><strong>Start from a published report.</strong><p>Use the report and semantic model published in Lab 8, or follow an instructor demo if you do not have workspace access.</p></li>
-    <li><strong>Open usage metrics.</strong><p>Review views, unique viewers, page usage, and trends. Document adoption observations and one follow-up action.</p></li>
+    <li><strong>Open usage metrics.</strong><p>Review views, unique viewers, page usage, App usage, and trends. Document adoption observations and one follow-up action.</p></li>
+    <li><strong>Interpret adoption signals.</strong><p>Identify training needs, support signals, and possible retirement candidates from high-use, low-use, or declining usage patterns.</p></li>
     <li><strong>Review refresh history.</strong><p>Open the semantic model refresh history. Record the last status, duration, and any failure details.</p></li>
     <li><strong>Check credentials and source settings.</strong><p>Review data source credentials, privacy settings, and whether a gateway is required. Do not change production settings unless approved.</p></li>
     <li><strong>Review tenant settings.</strong><p>If you have admin access, review sharing, export, publish-to-web, certification, external users, and Build permission settings. Otherwise, use instructor screenshots or conceptual review.</p></li>
     <li><strong>Inspect gateway health where available.</strong><p>Review gateway cluster status, data source mappings, credential ownership, version, and escalation path.</p></li>
     <li><strong>Review optional admin signals.</strong><p>Activity logs, audit logs, admin monitoring workspace, capacity metrics, Purview, and DLP require permissions and tenant validation. Record what is available and what is blocked.</p></li>
     <li><strong>Complete the operations runbook.</strong><p>Document content inventory, owners, sources, refresh schedule, access model, monitoring cadence, incident response, and Azure Government validation notes.</p></li>
-    <li><strong>Define support process.</strong><p>Identify who handles refresh failures, access issues, data quality problems, performance issues, and enhancement requests.</p></li>
+    <li><strong>Define support process.</strong><p>Identify who handles refresh failures, access issues, data quality problems, performance issues, enhancement requests, and adoption follow-up.</p></li>
     <li><strong>Document gaps.</strong><p>For anything you cannot access, document the validation gap and the owner who can confirm it later.</p></li>
   </ol>
 </section>
@@ -261,8 +243,9 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <div class="checklist" data-progress="lab09">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 6 complete</p>
+          <p class="small"><span class="count">0</span> of 7 complete</p>
           <label><input type="checkbox">Usage reviewed</label>
+<label><input type="checkbox">Adoption follow-up documented</label>
 <label><input type="checkbox">Refresh process documented</label>
 <label><input type="checkbox">Tenant settings reviewed</label>
 <label><input type="checkbox">Gateway notes captured</label>

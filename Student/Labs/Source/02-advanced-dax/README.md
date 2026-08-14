@@ -77,6 +77,10 @@ Learners can explain why the same measure returns different values across visual
 
 Learners can explain filter replacement, filter removal, and filter preservation.
 
+### Concept note: choosing filter modifiers
+
+Use `REMOVEFILTERS` when a measure should ignore one table or column, `ALL` when you also need the returned table behavior for iteration or ranking, `ALLEXCEPT` when a calculation should clear most filters but preserve a named grain, and `TREATAS` when a disconnected selection must be applied to a model column. Test each pattern in a simple visual before using it in a production measure.
+
 ### Exercise 3: Advanced time intelligence
 
 **Objective:** Create reusable time-intelligence measures.
@@ -108,6 +112,10 @@ Learners can branch time-intelligence measures from a trusted base measure.
 ### Expected result
 
 Learners can identify semi-additive scenarios and choose an appropriate last-value or last-nonblank pattern.
+
+### Concept note: measure branching and naming
+
+Keep base measures short, formatted, and reusable. Build derived measures such as variance, share, time intelligence, and rankings from those base measures instead of repeating `SUM` expressions. Consistent names and simple test visuals make it easier to spot context mistakes before a measure is reused across pages.
 
 ### Exercise 5: Dynamic Top N and ranking
 
