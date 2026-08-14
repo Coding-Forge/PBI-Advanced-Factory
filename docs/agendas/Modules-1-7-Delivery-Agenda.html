@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Advanced Power BI - Modules 1-7 Delivery Agenda</title>
+<style>
+  @page { size: Letter; margin: 0; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    margin: 0;
+    color: #1D2433;
+    background: #F4F7FB;
+  }
+  .cover {
+    background: linear-gradient(135deg, #1E2761 0%, #10163D 100%);
+    color: #fff;
+    padding: 70px 60px;
+  }
+  .cover .kicker {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0BA5C7;
+    margin-bottom: 14px;
+  }
+  .cover h1 {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0 0 14px 0;
+    line-height: 1.15;
+  }
+  .cover .meta {
+    font-size: 13.5px;
+    color: #C9D4EE;
+    line-height: 1.7;
+  }
+  .cover .meta strong { color: #fff; }
+  .content {
+    padding: 34px 46px 50px 46px;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1E2761;
+    border-bottom: 3px solid #0BA5C7;
+    padding-bottom: 6px;
+    margin: 28px 0 6px 0;
+  }
+  h2:first-of-type { margin-top: 0; }
+  h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1E2761;
+    margin: 18px 0 6px 0;
+  }
+  p {
+    font-size: 11.5px;
+    line-height: 1.55;
+    margin: 4px 0 10px 0;
+    color: #333;
+  }
+  code {
+    background: #E9EEF7;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: Consolas, monospace;
+    font-size: 10.5px;
+  }
+  .agenda-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 16px 0;
+    font-size: 10.3px;
+  }
+  .agenda-table th {
+    background: #1E2761;
+    color: #fff;
+    text-align: left;
+    padding: 7px 8px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .agenda-table td {
+    padding: 7px 8px;
+    border-bottom: 1px solid #E3E8F2;
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .agenda-table tr:nth-child(even) td { background: #FAFBFE; }
+  .agenda-table tr.break-row td {
+    background: #FFF4DE !important;
+    font-weight: 700;
+    color: #8A5B00;
+  }
+  .note-list {
+    margin: 4px 0 14px 0;
+    padding-left: 18px;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: #333;
+  }
+  .note-list li { margin-bottom: 6px; }
+  .footer-bar {
+    position: running(footer);
+  }
+  .page-footer {
+    text-align: center;
+    font-size: 9.5px;
+    color: #8A93A6;
+    padding: 14px 0 30px 0;
+  }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <div class="kicker">Advanced Power BI &middot; Delivery Agenda</div>
+    <h1>Modules 1&ndash;7 Delivery Agenda</h1>
+    <div class="meta">
+      <strong>Delivery window:</strong> 10:00 AM &ndash; 3:00 PM daily, 30-minute break at 12:00&ndash;12:30 PM<br>
+      <strong>Scope:</strong> Modules 1&ndash;7 (Advanced Semantic Modeling &rarr; Security Design)<br>
+      <strong>Format:</strong> 3-day standard workshop, adaptable to a compressed single day
+    </div>
+  </div>
+  <div class="content">
+    <p>This agenda sequences Modules 1–7 across three delivery days. Each day balances short presentation/demo blocks with hands-on lab time, and ends with a checkpoint so learners leave with a working, validated artifact before moving to the next day.</p>
+<h2>Day 1 — Power Query & Semantic Model Foundation</h2>
+<p><strong>Modules covered:</strong> Module 3 (Advanced Power Query), Module 1 (Advanced Semantic Modeling)</p>
+<table class="agenda-table">
+      <thead><tr><th>Time</th><th>Format</th><th>Topic</th><th>Outcome</th></tr></thead>
+      <tbody><tr><td>10:00–10:15</td><td>Presentation</td><td>Welcome, goals, environment check, PBIP-first workflow</td><td>Learners understand the workshop flow, files, and expected deliverables.</td></tr>
+<tr><td>10:15–10:45</td><td>Presentation + demo</td><td>Module 3 overview: Power Query staging patterns and source parameters</td><td>Learners understand raw, staging, function, error-review, and final load queries.</td></tr>
+<tr><td>10:45–11:45</td><td>Lab</td><td>Module 3 exercises 1–3: Advanced Power Query</td><td>Learners create parameters, load monthly files, append staging queries, and preserve source lineage.</td></tr>
+<tr><td>11:45–12:00</td><td>Discussion</td><td>Data quality strategy</td><td>Learners understand why invalid rows should be reviewed before removal.</td></tr>
+<tr class="break-row"><td><strong>12:00–12:30</strong></td><td><strong>Break</strong></td><td><strong>Midday break</strong></td><td></td></tr>
+<tr><td>12:30–1:15</td><td>Lab</td><td>Module 3 exercises 4–7: Advanced Power Query</td><td>Learners create a cleansing function, an error-review query, a fact load query, and incremental refresh prep parameters.</td></tr>
+<tr><td>1:15–1:45</td><td>Presentation + demo</td><td>Module 1 overview: star schema, grain, keys, relationship design</td><td>Learners understand how the flat file becomes a reusable semantic model.</td></tr>
+<tr><td>1:45–2:45</td><td>Lab</td><td>Module 1 exercises 1–2: Advanced Semantic Modeling</td><td>Learners create fact/dimension tables, date tables, and role-playing date relationships.</td></tr>
+<tr><td>2:45–3:00</td><td>Review</td><td>Day 1 checkpoint and Q&A</td><td>Learners confirm data prep and model foundation are ready for Day 2.</td></tr></tbody>
+    </table>
+<h2>Day 2 — Advanced DAX & Interactive Report Design</h2>
+<p><strong>Modules covered:</strong> Module 2 (Advanced DAX), Module 4 (Report Design & UX)</p>
+<table class="agenda-table">
+      <thead><tr><th>Time</th><th>Format</th><th>Topic</th><th>Outcome</th></tr></thead>
+      <tbody><tr><td>10:00–10:15</td><td>Review</td><td>Day 1 recap and model validation</td><td>Learners confirm relationships, date tables, and source queries are working.</td></tr>
+<tr><td>10:15–10:45</td><td>Presentation + demo</td><td>Module 2 overview: DAX evaluation context and base measures</td><td>Learners understand filter context, row context, and measure branching.</td></tr>
+<tr><td>10:45–11:45</td><td>Lab</td><td>Module 2 exercises 1–3: Advanced DAX</td><td>Learners create base measures, <code>CALCULATE</code> patterns, and time-intelligence measures.</td></tr>
+<tr><td>11:45–12:00</td><td>Discussion</td><td>DAX validation habits</td><td>Learners practice testing measures in simple visuals before adding complexity.</td></tr>
+<tr class="break-row"><td><strong>12:00–12:30</strong></td><td><strong>Break</strong></td><td><strong>Midday break</strong></td><td></td></tr>
+<tr><td>12:30–1:15</td><td>Lab</td><td>Module 2 exercises 4–8: Advanced DAX</td><td>Learners build semi-additive patterns, Top N/ranking, calculation groups, dynamic titles, and optimization passes.</td></tr>
+<tr><td>1:15–1:45</td><td>Presentation + demo</td><td>Module 4 overview: report UX patterns</td><td>Learners understand drillthrough, tooltips, bookmarks, navigation, and field parameters.</td></tr>
+<tr><td>1:45–2:45</td><td>Lab</td><td>Module 4 exercises 1–5: Report Design & UX</td><td>Learners build guided report interactions and field parameters for metric/dimension switching.</td></tr>
+<tr><td>2:45–3:00</td><td>Review</td><td>Day 2 checkpoint and Q&A</td><td>Learners confirm measures and report interactions are ready for optimization, analytics, and security topics.</td></tr></tbody>
+    </table>
+<h2>Day 3 — Report Polish, Performance, Analytics & Security</h2>
+<p><strong>Modules covered:</strong> Module 4 (cont'd), Module 5 (Performance Optimization), Module 6 (Advanced Analytics & AI), Module 7 (Security Design)</p>
+<table class="agenda-table">
+      <thead><tr><th>Time</th><th>Format</th><th>Topic</th><th>Outcome</th></tr></thead>
+      <tbody><tr><td>10:00–10:15</td><td>Review</td><td>Day 2 recap and report validation</td><td>Learners confirm visuals, measures, and interaction patterns are working.</td></tr>
+<tr><td>10:15–10:45</td><td>Lab</td><td>Module 4 exercises 6–8: Report Design & UX</td><td>Learners complete conditional formatting, mobile layout, and an accessibility review.</td></tr>
+<tr><td>10:45–11:20</td><td>Presentation + demo</td><td>Module 5 overview: Performance Analyzer, model size, DAX optimization</td><td>Learners understand how to capture a performance baseline before changing the report.</td></tr>
+<tr><td>11:20–12:00</td><td>Lab</td><td>Module 5: Performance Optimization</td><td>Learners capture performance evidence, review model size, and optimize one DAX or visual pattern.</td></tr>
+<tr class="break-row"><td><strong>12:00–12:30</strong></td><td><strong>Break</strong></td><td><strong>Midday break</strong></td><td></td></tr>
+<tr><td>12:30–1:00</td><td>Presentation + demo</td><td>Module 6 overview: scenario analysis and analytics/AI-assisted features</td><td>Learners understand what-if parameters, advanced analytics visuals, and cloud-dependent fallback patterns.</td></tr>
+<tr><td>1:00–1:30</td><td>Lab</td><td>Module 6: Advanced Analytics & AI-Assisted Insights</td><td>Learners build a what-if scenario; advanced AI visuals covered per the cloud-availability matrix (see note below).</td></tr>
+<tr><td>1:30–2:00</td><td>Presentation + discussion</td><td>Module 7 overview: security design and RLS patterns</td><td>Learners understand static RLS, dynamic RLS, testing, and Build-permission considerations.</td></tr>
+<tr><td>2:00–2:45</td><td>Lab</td><td>Module 7 exercises 1–3: Security Design</td><td>Learners create or review static/dynamic RLS and test roles in Desktop and/or Service where available.</td></tr>
+<tr><td>2:45–3:00</td><td>Closeout</td><td>Wrap-up, optional follow-on modules, Q&A, action items</td><td>Customer leaves with a completed Modules 1–7 path, validation notes, and recommended next steps.</td></tr></tbody>
+    </table>
+<h2>Notes for the instructor</h2>
+<ul class="note-list"><li><strong>Module 6 cloud dependency:</strong> Decomposition tree, forecasting, key influencers, Python/R visuals, and Azure Machine Learning integration are Commercial-only per the *Exercise Cloud Coverage Matrix*. In Government (GCC High) or DoD deliveries, treat these as <strong>Not Covered</strong> and replace with the what-if scenario exercise plus a walkthrough/discussion of the concepts instead of hands-on labs.</li><li><strong>Compressing to a single day:</strong> If this agenda needs to fit a 1-day briefing instead of 3 days, do not try to force all seven modules into 5 hours of hands-on time. Instead, right-size the scope during scoping — for example, run only Modules 1, 2, and 4 hands-on, and demo the rest (3, 5, 6, 7) at a conceptual level. Confirm the final scope with the customer before the delivery date.</li><li><strong>If a lab runs long</strong>, move to the next module's starter file rather than letting learners fall behind — do not extend past the 3:00 PM end time.</li><li><strong>Tenant readiness</strong>: Mark any Service, Fabric, Copilot, XMLA, external-tool, or deployment-pipeline content as conceptual-only unless it has been validated in the delivery tenant.</li><li>Copy this agenda for each customer engagement and adjust dates, audience emphasis, and lab depth as needed.</li></ul>
+  </div>
+  <div class="page-footer">Advanced Power BI &middot; Modules 1&ndash;7 Delivery Agenda &middot; For instructor and scheduling use</div>
+</body>
+</html>
