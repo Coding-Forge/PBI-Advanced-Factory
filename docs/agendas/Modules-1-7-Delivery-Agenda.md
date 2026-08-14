@@ -2,7 +2,7 @@
 
 **Delivery window:** 10:00 AM – 3:00 PM daily, with a 30-minute break at 12:00–12:30 PM
 **Scope:** Modules 1–7 (Advanced Semantic Modeling → Security Design)
-**Format:** 3-day standard workshop (also adaptable to a compressed single day — see notes below)
+**Format:** 3-day standard workshop
 
 This agenda sequences Modules 1–7 across three delivery days. Each day balances short presentation/demo blocks with hands-on lab time, and ends with a checkpoint so learners leave with a working, validated artifact before moving to the next day.
 
@@ -56,17 +56,7 @@ This agenda sequences Modules 1–7 across three delivery days. Each day balance
 | 11:20–12:00 | Lab | Module 5: Performance Optimization | Learners capture performance evidence, review model size, and optimize one DAX or visual pattern. |
 | **12:00–12:30** | **Break** | **Midday break** | |
 | 12:30–1:00 | Presentation + demo | Module 6 overview: scenario analysis and analytics/AI-assisted features | Learners understand what-if parameters, advanced analytics visuals, and cloud-dependent fallback patterns. |
-| 1:00–1:30 | Lab | Module 6: Advanced Analytics & AI-Assisted Insights | Learners build a what-if scenario; advanced AI visuals covered per the cloud-availability matrix (see note below). |
+| 1:00–1:30 | Lab | Module 6: Advanced Analytics & AI-Assisted Insights | Learners build a what-if scenario and explore advanced analytics visuals. |
 | 1:30–2:00 | Presentation + discussion | Module 7 overview: security design and RLS patterns | Learners understand static RLS, dynamic RLS, testing, and Build-permission considerations. |
 | 2:00–2:45 | Lab | Module 7 exercises 1–3: Security Design | Learners create or review static/dynamic RLS and test roles in Desktop and/or Service where available. |
 | 2:45–3:00 | Closeout | Wrap-up, optional follow-on modules, Q&A, action items | Customer leaves with a completed Modules 1–7 path, validation notes, and recommended next steps. |
-
----
-
-## Notes for the instructor
-
-- **Module 6 cloud dependency:** Decomposition tree, forecasting, key influencers, Python/R visuals, and Azure Machine Learning integration are Commercial-only per the *Exercise Cloud Coverage Matrix*. In Government (GCC High) or DoD deliveries, treat these as **Not Covered** and replace with the what-if scenario exercise plus a walkthrough/discussion of the concepts instead of hands-on labs.
-- **Compressing to a single day:** If this agenda needs to fit a 1-day briefing instead of 3 days, do not try to force all seven modules into 5 hours of hands-on time. Instead, right-size the scope during scoping — for example, run only Modules 1, 2, and 4 hands-on, and demo the rest (3, 5, 6, 7) at a conceptual level. Confirm the final scope with the customer before the delivery date.
-- **If a lab runs long**, move to the next module's starter file rather than letting learners fall behind — do not extend past the 3:00 PM end time.
-- **Tenant readiness**: Mark any Service, Fabric, Copilot, XMLA, external-tool, or deployment-pipeline content as conceptual-only unless it has been validated in the delivery tenant.
-- Copy this agenda for each customer engagement and adjust dates, audience emphasis, and lab depth as needed.

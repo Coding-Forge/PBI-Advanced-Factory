@@ -258,7 +258,7 @@ def build_html():
     <div class="meta">
       <strong>Delivery window:</strong> 10:00 AM &ndash; 3:00 PM daily, 30-minute break at 12:00&ndash;12:30 PM<br>
       <strong>Scope:</strong> Modules 1&ndash;7 (Advanced Semantic Modeling &rarr; Security Design)<br>
-      <strong>Format:</strong> 3-day standard workshop, adaptable to a compressed single day
+      <strong>Format:</strong> 3-day standard workshop
     </div>
   </div>
   <div class="content">
