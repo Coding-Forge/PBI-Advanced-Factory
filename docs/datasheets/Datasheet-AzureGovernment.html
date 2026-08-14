@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Power BI - Azure Government (GCC High) Datasheet</title>
+<style>
+  @page { size: Letter; margin: 0; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    margin: 0;
+    color: #1A1A1A;
+    background: #F3F5FB;
+  }
+  .page {
+    width: 8.5in;
+    height: 11in;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ---------- PAGE 1 ---------- */
+  .hero {
+    background: linear-gradient(135deg, #1E2761 0%, #2C3E7A 65%, #3E6B9A 130%);
+    color: #ffffff;
+    padding: 0.55in 0.6in 0.5in 0.6in;
+    position: relative;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: #CADCFC22;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    right: 40px;
+    bottom: -120px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: #3E6B9A33;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    font-weight: 700;
+    color: #CADCFC;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-size: 34px;
+    line-height: 1.15;
+    margin: 0 0 8px 0;
+    font-weight: 800;
+    max-width: 6.3in;
+  }
+  .hero .sub {
+    font-size: 15px;
+    color: #E7EEF7;
+    max-width: 6.0in;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+  }
+  .cloud-chip {
+    display: inline-block;
+    margin-top: 16px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 0.28in;
+    padding: 0.24in 0.6in;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E7E7E7;
+  }
+  .stat {
+    flex: 1;
+    text-align: left;
+  }
+  .stat .num {
+    font-size: 30px;
+    font-weight: 800;
+    color: #1E2761;
+    line-height: 1;
+  }
+  .stat .label {
+    font-size: 11px;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+  }
+  .stat-divider {
+    width: 1px;
+    background: #E2E2E2;
+  }
+
+  .section {
+    padding: 0.2in 0.6in 0 0.6in;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #1E2761;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: "";
+    width: 22px;
+    height: 4px;
+    background: #3E6B9A;
+    display: inline-block;
+    border-radius: 2px;
+  }
+
+  .module-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+  }
+  .module-card {
+    display: flex;
+    gap: 9px;
+    background: #FFFFFF;
+    border: 1px solid #E4E7EC;
+    border-radius: 8px;
+    padding: 7px 10px;
+  }
+  .module-num {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    background: #1E2761;
+    border-radius: 6px;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .module-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 2px;
+  }
+  .module-desc {
+    font-size: 9.3px;
+    color: #555;
+    line-height: 1.3;
+  }
+
+  .footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1E2761;
+    color: #fff;
+    font-size: 9.5px;
+    padding: 9px 0.6in;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.3px;
+  }
+
+  /* ---------- PAGE 2 ---------- */
+  .p2-header {
+    background: #1E2761;
+    color: #fff;
+    padding: 0.4in 0.6in 0.3in 0.6in;
+  }
+  .p2-header h2 {
+    margin: 0 0 4px 0;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  .p2-header .sub {
+    font-size: 12.5px;
+    color: #CADCFC;
+  }
+
+  .delivery-row {
+    display: flex;
+    gap: 12px;
+    padding: 0.3in 0.6in 0 0.6in;
+  }
+  .delivery-card {
+    flex: 1;
+    background: #FFFFFF;
+    border: 1px solid #E4E7EC;
+    border-top: 4px solid #3E6B9A;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .delivery-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1E2761;
+    margin-bottom: 4px;
+  }
+  .delivery-meta {
+    font-size: 10px;
+    font-weight: 700;
+    color: #3E6B9A;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .delivery-desc {
+    font-size: 10.5px;
+    color: #444;
+    line-height: 1.45;
+  }
+
+  .two-col {
+    display: flex;
+    gap: 0.3in;
+    padding: 0.28in 0.6in 0 0.6in;
+  }
+  .col {
+    flex: 1;
+  }
+  .info-card {
+    background: #FFFFFF;
+    border: 1px solid #E4E7EC;
+    border-radius: 8px;
+    padding: 14px 16px;
+    height: 100%;
+  }
+  .info-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: #1E2761;
+    font-weight: 800;
+  }
+  .info-card p {
+    font-size: 10.8px;
+    color: #444;
+    line-height: 1.5;
+    margin: 0 0 8px 0;
+  }
+  .info-card ul {
+    margin: 0;
+    padding-left: 16px;
+  }
+  .info-card li {
+    font-size: 10.5px;
+    color: #333;
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+
+  .legend-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .legend-pill {
+    flex: 1;
+    border-radius: 6px;
+    padding: 7px 9px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .pill-green { background: #2E7D32; }
+  .pill-amber { background: #B8860B; }
+  .pill-gray { background: #757575; }
+
+  .cta {
+    margin: 0.28in 0.6in 0 0.6in;
+    background: linear-gradient(120deg, #1E2761, #2C3E7A);
+    color: #fff;
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cta .cta-title {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 3px;
+  }
+  .cta .cta-sub {
+    font-size: 10.5px;
+    color: #CADCFC;
+  }
+  .cta .cta-badge {
+    background: #3E6B9A;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .flow-strip {
+    margin: 0.26in 0.6in 0 0.6in;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    background: #FFFFFF;
+    border: 1px solid #E4E7EC;
+    border-left: 4px solid #3E6B9A;
+    border-radius: 6px;
+    padding: 7px 11px;
+    font-size: 9.8px;
+    font-weight: 700;
+    color: #1E2761;
+  }
+  .flow-arrow {
+    color: #3E6B9A;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .capstone-band {
+    margin: 0.26in 0.6in 0 0.6in;
+    background: #FFFFFF;
+    border: 1px solid #E4E7EC;
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .capstone-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    border-radius: 10px;
+    background: #1E2761;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .capstone-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1E2761;
+    margin-bottom: 5px;
+  }
+  .capstone-desc {
+    font-size: 10.5px;
+    color: #444;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="hero">
+    <div class="eyebrow">GOVERNMENT COMMUNITY CLOUD HIGH TRACK</div>
+    <h1>Advanced Power BI<br>Training Program</h1>
+    <div class="sub">An 11-module, capstone-driven curriculum that takes report authors and platform teams from advanced modeling and DAX through enterprise deployment, governance, and DevOps &mdash; purpose-built for Azure Government (GCC High) delivery.</div>
+    <div class="cloud-chip">CLOUD TRACK: AZURE GOVERNMENT (GCC HIGH)</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="num">11</div><div class="label">Core training modules</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="num">1&ndash;5</div><div class="label">Day delivery options</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="num">40+</div><div class="label">Hands-on guided labs</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="num">1</div><div class="label">Capstone solution build</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Who this training is for</div>
+    <div class="module-card" style="grid-column: span 2; margin-bottom: 14px;">
+      <div class="module-body"><div class="module-desc" style="font-size: 11.5px;">Public sector, defense-adjacent contractors, and regulated-industry BI teams operating in GCC High tenants who need advanced authoring and governance skills validated for sovereign cloud constraints.</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Curriculum at a glance</div>
+    <div class="module-grid">
+      
+        <div class="module-card">
+          <div class="module-num">01</div>
+          <div class="module-body">
+            <div class="module-title">Advanced Semantic Modeling</div>
+            <div class="module-desc">Star schemas, relationships, composite models, aggregations, and large-model design.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">02</div>
+          <div class="module-body">
+            <div class="module-title">Advanced DAX</div>
+            <div class="module-desc">Filter/row context, CALCULATE patterns, time intelligence, ranking, dynamic measures.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">03</div>
+          <div class="module-body">
+            <div class="module-title">Advanced Power Query</div>
+            <div class="module-desc">Query folding, parameters, custom functions, staging patterns, incremental refresh prep.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">04</div>
+          <div class="module-body">
+            <div class="module-title">Report Design & UX</div>
+            <div class="module-desc">Drillthrough, tooltip pages, bookmarks, navigation, field parameters, mobile & accessibility.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">05</div>
+          <div class="module-body">
+            <div class="module-title">Performance Optimization</div>
+            <div class="module-desc">Performance Analyzer, DAX Studio, VertiPaq concepts, cardinality and model tuning.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">06</div>
+          <div class="module-body">
+            <div class="module-title">Advanced Analytics & AI</div>
+            <div class="module-desc">What-if parameters, key influencers, decomposition tree, forecasting, AI-assisted insights.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">07</div>
+          <div class="module-body">
+            <div class="module-title">Security Design</div>
+            <div class="module-desc">Static & dynamic row-level security, object-level security, sensitivity labels, sharing controls.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">08</div>
+          <div class="module-body">
+            <div class="module-title">Service Enterprise Deployment</div>
+            <div class="module-desc">Workspaces, Apps, deployment pipelines, gateways, scheduled refresh at scale.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">09</div>
+          <div class="module-body">
+            <div class="module-title">Monitoring & Governance</div>
+            <div class="module-desc">Usage metrics, activity logs, admin portal, capacity metrics, adoption tracking.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">10</div>
+          <div class="module-body">
+            <div class="module-title">Premium, Fabric & Capacity</div>
+            <div class="module-desc">XMLA endpoint, Direct Lake, OneLake, paginated reports, capacity planning.</div>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">11</div>
+          <div class="module-body">
+            <div class="module-title">Automation & DevOps</div>
+            <div class="module-desc">PBIP source control, REST APIs, service principals, Tabular Editor, CI/CD lifecycle.</div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <div>Advanced Power BI &middot; Azure Government (GCC High) Datasheet</div>
+    <div>Page 1 of 2</div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="p2-header">
+    <h2>Flexible Delivery Formats</h2>
+    <div class="sub">Choose the depth that matches your audience &mdash; every format maps directly to the same 11-module curriculum.</div>
+  </div>
+
+  <div class="delivery-row">
+    
+        <div class="delivery-card">
+          <div class="delivery-title">1-Day Executive Briefing</div>
+          <div class="delivery-meta">6 hours &middot; Leadership & architects</div>
+          <div class="delivery-desc">Guided tour of modeling, DAX, report UX, security, and enterprise delivery considerations. Demo-driven with a short applied exercise.</div>
+        </div>
+
+        <div class="delivery-card">
+          <div class="delivery-title">3-Day Standard Workshop</div>
+          <div class="delivery-meta">3 x 5 hours &middot; Report authors & analysts</div>
+          <div class="delivery-desc">Hands-on Modules 1-7: modeling, DAX, Power Query, report UX, performance, analytics, and security, using the full lab set.</div>
+        </div>
+
+        <div class="delivery-card">
+          <div class="delivery-title">5-Day Extended Workshop</div>
+          <div class="delivery-meta">5 x 5 hours &middot; BI developers & platform owners</div>
+          <div class="delivery-desc">Full Modules 1-11 plus capstone: adds Service deployment, monitoring/governance, capacity architecture, and DevOps lifecycle.</div>
+        </div>
+  </div>
+
+  <div class="two-col">
+    <div class="col">
+      <div class="info-card">
+        <h3>Azure Government (GCC High) delivery notes</h3>
+        <p>Every advanced feature is labeled Gov-ready, Verify-for-Gov, or Commercial-focused so instructors and learners always know what to validate in-tenant before relying on it operationally.</p>
+        
+        <div class="legend-row">
+          <div class="legend-pill pill-green">GOV-READY</div>
+          <div class="legend-pill pill-amber">VERIFY FOR GOV</div>
+          <div class="legend-pill pill-gray">COMMERCIAL-FOCUSED</div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="info-card">
+        <h3>Track highlights for this cloud</h3>
+        <ul>
+          <li>Feature-by-feature Gov-ready / Verify-for-Gov labeling</li>
+<li>Dynamic RLS validated against Entra ID (Gov) identity formats</li>
+<li>Gov-safe alternates for Fabric, Copilot, and AI visual features</li>
+<li>Sovereign cloud data residency and export-control awareness</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-strip">
+    <div class="flow-step">Power Query</div><div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">Semantic Model</div><div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">DAX</div><div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">Report UX</div><div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">Performance &amp; Security</div><div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">Service Deployment</div><div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">Governance</div><div class="flow-arrow">&rarr;</div>
+    <div class="flow-step">DevOps</div><div class="flow-arrow">&rarr;</div>
+    <div class="flow-step" style="border-left-color: #1E2761; background:#1E2761; color:#fff;">Capstone</div>
+  </div>
+
+  <div class="capstone-band">
+    <div class="capstone-icon">&#9733;</div>
+    <div>
+      <div class="capstone-title">Capstone: Enterprise-Ready Power BI Solution</div>
+      <div class="capstone-desc">Learners apply the full lifecycle end to end &mdash; an optimized semantic model, advanced DAX, an interactive report with drillthrough and mobile layout, static &amp; dynamic RLS, Service publishing, scheduled refresh, and packaging as a governed Power BI App, all validated against Azure Government (GCC High) constraints.</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <div class="cta-title">Ready to schedule Azure Government (GCC High) delivery?</div>
+      <div class="cta-sub">Delivered with Gov-ready lab paths first; commercial-only features are covered conceptually with Gov-safe alternates.</div>
+    </div>
+    <div class="cta-badge">CONTACT YOUR DELIVERY LEAD</div>
+  </div>
+
+  <div class="footer-bar">
+    <div>Advanced Power BI &middot; Azure Government (GCC High) Datasheet</div>
+    <div>Page 2 of 2</div>
+  </div>
+</div>
+
+</body>
+</html>
