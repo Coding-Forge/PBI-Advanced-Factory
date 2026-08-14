@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exercise Cloud Coverage Matrix</title>
+<style>
+  @page { size: Letter landscape; margin: 0; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    margin: 0;
+    color: #1A1A1A;
+    background: #F4F6F9;
+  }
+  .page {
+    width: 11in;
+    height: 8.5in;
+    position: relative;
+  }
+  .cover {
+    background: linear-gradient(135deg, #0B2545 0%, #13315C 55%, #1E2761 100%);
+    color: #fff;
+    padding: 0.5in 0.65in;
+    height: 8.5in;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: "";
+    position: absolute;
+    right: -100px;
+    top: -100px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: #00B4D822;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    font-weight: 700;
+    color: #90E0EF;
+    margin-bottom: 12px;
+  }
+  .cover h1 {
+    font-size: 38px;
+    font-weight: 800;
+    margin: 0 0 14px 0;
+    max-width: 8in;
+    line-height: 1.15;
+  }
+  .cover .sub {
+    font-size: 15px;
+    color: #E7EEF7;
+    max-width: 7.5in;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+  }
+  .legend-grid {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .legend-card {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .legend-card .badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 14px;
+    font-size: 11px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .legend-card p {
+    font-size: 11.5px;
+    color: #E7EEF7;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .badge-ready { background: #2E7D32; }
+  .badge-verify { background: #B8860B; }
+  .badge-none { background: #757575; }
+
+  .howto {
+    margin-top: 34px;
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.06);
+    border-left: 4px solid #00B4D8;
+    padding: 14px 18px;
+    border-radius: 6px;
+    max-width: 8in;
+  }
+  .howto div { font-size: 12px; color: #E7EEF7; line-height: 1.6; }
+  .howto strong { color: #fff; }
+
+  /* Table pages */
+  .table-header {
+    background: #0B2545;
+    color: #fff;
+    padding: 0.28in 0.5in 0.18in 0.5in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .table-header h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+  }
+  .table-header .cols {
+    display: flex;
+    gap: 10px;
+  }
+  .col-chip {
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.6px;
+  }
+  thead th {
+    background: #E9EDF3;
+    color: #0B2545;
+    text-align: left;
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 6px 10px;
+    border-bottom: 2px solid #C9D3E0;
+  }
+  th.stat-cell, td.stat-cell { text-align: center; width: 1.15in; }
+  td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #E4E7EC;
+    vertical-align: top;
+  }
+  tr.module-row td {
+    background: #1E2761;
+    color: #fff;
+    font-weight: 800;
+    font-size: 10.5px;
+    padding: 6px 10px;
+    letter-spacing: 0.3px;
+  }
+  .ex-cell { font-weight: 600; color: #1A1A1A; }
+  .note { font-size: 8.6px; color: #777; font-weight: 400; margin-top: 2px; font-style: italic; }
+  .pill {
+    display: inline-block;
+    padding: 2.5px 9px;
+    border-radius: 10px;
+    font-size: 8.6px;
+    font-weight: 800;
+    color: #fff;
+    min-width: 0.85in;
+  }
+  .s-ready { background: #2E7D32; }
+  .s-verify { background: #B8860B; }
+  .s-none { background: #757575; }
+
+  .footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0B2545;
+    color: #fff;
+    font-size: 9px;
+    padding: 7px 0.5in;
+    display: flex;
+    justify-content: space-between;
+  }
+  .table-page { position: relative; height: 8.5in; padding-bottom: 0.3in; }
+  .table-body-wrap { padding: 0 0.5in; }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="page">
+  <div class="cover">
+    <div class="eyebrow">CSAM CROSS-CLOUD PLANNING TOOL</div>
+    <h1>Advanced Power BI<br>Exercise Cloud Coverage Matrix</h1>
+    <div class="sub">Every hands-on exercise across all 11 training modules, cross-filtered against Azure Commercial, Azure Government (GCC High), and Azure DoD delivery &mdash; so a CSAM can scope a customer-ready agenda before the engagement, and instructors know exactly what to verify live in-tenant.</div>
+
+    <div class="legend-grid">
+      <div class="legend-card">
+        <div class="badge badge-ready">READY</div>
+        <p>Runs as-is in this cloud today under normal licensing and tenant settings.</p>
+      </div>
+      <div class="legend-card">
+        <div class="badge badge-verify">VERIFY</div>
+        <p>May work, but the instructor must confirm live in the target tenant before relying on it &mdash; licensing, region, preview status, or capacity dependent.</p>
+      </div>
+      <div class="legend-card">
+        <div class="badge badge-none">NOT COVERED</div>
+        <p>Not expected to be available in this cloud. Deliver conceptually or substitute the documented alternate exercise.</p>
+      </div>
+    </div>
+
+    <div class="howto">
+      <div><strong>How to use this matrix:</strong> Filter by target cloud to build a customer-specific agenda, flag every VERIFY item for the instructor to confirm in a pre-delivery tenant check, and swap NOT COVERED items for the suggested alternate before finalizing the statement of work.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE PAGES -->
+<div class="page">
+  <div class="table-page">
+    <div class="table-header">
+      <h2>Exercise-Level Cloud Coverage</h2>
+      <div class="cols">
+        <div class="col-chip">COMMERCIAL</div>
+        <div class="col-chip">GOVERNMENT (GCC HIGH)</div>
+        <div class="col-chip">DOD</div>
+      </div>
+    </div>
+    <div class="table-body-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Exercise</th>
+            <th class="stat-cell">Commercial</th>
+            <th class="stat-cell">Government</th>
+            <th class="stat-cell">DoD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="module-row"><td colspan="5">Module 01 &middot; Advanced Semantic Modeling</td></tr>
+
+            <tr>
+              <td class="ex-cell">Build a star schema from a flat sales dataset</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Refactor a weak model into fact/dimension tables</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Add role-playing date dimensions</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Compare Import, DirectQuery, and composite models<div class="note">Validate connector/gateway support in tenant</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Hybrid tables & advanced incremental refresh<div class="note">Requires Premium/PPU/Fabric capacity validation</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Large semantic model handling<div class="note">Capacity/licensing dependent</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 02 &middot; Advanced DAX</td></tr>
+
+            <tr>
+              <td class="ex-cell">Diagnose incorrect totals from context misunderstanding</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Build a measure branching pattern</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Create advanced time intelligence measures</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Build dynamic Top N / ranking visuals</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Optimize slow measures with variables</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">DAX Studio external tool session<div class="note">Local tool; Service/XMLA access depends on tenant policy</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 03 &middot; Advanced Power Query</td></tr>
+
+            <tr>
+              <td class="ex-cell">Build a staged Power Query pipeline</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Prove whether a query folds</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Convert repeated steps into a custom function</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Add parameters for dev/test/prod source switching</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Prepare a table for incremental refresh<div class="note">Confirm refresh policy support in DoD capacity</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Cloud dataflows / Dataflows Gen2<div class="note">Fabric-dependent; typically unavailable in DoD</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 04 &middot; Report Design & UX</td></tr>
+
+            <tr>
+              <td class="ex-cell">Add drillthrough from summary to detail</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Build a bookmark-driven guided analysis</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Create report page tooltips</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Design executive summary + analyst detail pages</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Create a mobile-optimized report layout<div class="note">Validate mobile app policy for DoD users</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Personalized visuals<div class="note">Depends on Service feature availability and tenant settings</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">AI-assisted / preview visuals<div class="note">Often commercial-first; confirm before use</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 05 &middot; Performance Optimization</td></tr>
+
+            <tr>
+              <td class="ex-cell">Use Performance Analyzer to find slow visuals</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Reduce model size by lowering cardinality</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Use DAX Studio to compare measure performance<div class="note">Local tool; Service model access depends on XMLA/tenant</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Create an aggregation table over DirectQuery<div class="note">Validate source/DirectQuery support</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Configure incremental refresh and test policy<div class="note">Licensing/workspace/capacity dependent</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Capacity metrics review<div class="note">Telemetry availability varies by cloud/capacity type</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 06 &middot; Advanced Analytics & AI</td></tr>
+
+            <tr>
+              <td class="ex-cell">Build a what-if parameter scenario analysis</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Use decomposition tree for driver analysis<div class="note">Confirm visual availability/tenant settings</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Add forecasting to a time-series visual<div class="note">Validate feature and data residency requirements</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Key influencers visual<div class="note">AI feature availability may differ in Gov/DoD clouds</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Python/R visuals<div class="note">Depends on Desktop config, package policy, Service support</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Azure Machine Learning integration<div class="note">Depends on Azure cloud/region/workspace/network/identity</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Copilot / AI-assisted authoring<div class="note">Treat as conceptual unless confirmed in sovereign tenant</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 07 &middot; Security Design</td></tr>
+
+            <tr>
+              <td class="ex-cell">Implement static and dynamic RLS</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Test RLS roles in Desktop and Service</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Demonstrate Build permission effects</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Object-level security (OLS)<div class="note">Often requires XMLA-compatible tooling and capacity</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Add sensitivity labels<div class="note">Requires Purview Information Protection configuration/cloud support</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Review export/sharing governance settings<div class="note">Confirm B2B/GCC High/DoD sharing policy</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 08 &middot; Service Enterprise Deployment</td></tr>
+
+            <tr>
+              <td class="ex-cell">Publish a report and semantic model to a workspace</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Configure scheduled refresh and credentials</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Configure a gateway-backed data source</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Create an App with audience targeting<div class="note">Confirm Service parity in target cloud</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Configure deployment pipelines<div class="note">Requires compatible licensing/capacity and Service availability</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Promote/certify a semantic model<div class="note">Requires tenant endorsement settings and governance process</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 09 &middot; Monitoring & Governance</td></tr>
+
+            <tr>
+              <td class="ex-cell">Interpret usage metrics for a deployed report</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Troubleshoot a failed refresh</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Review tenant settings affecting export/sharing</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Inspect gateway status and data source mappings</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Activity logs and audit logs review<div class="note">Requires admin permissions and audit configuration</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Capacity metrics app walkthrough<div class="note">Confirm for Premium/Fabric capacity type and cloud</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Purview integration and DLP policies<div class="note">Depends on M365/Purview cloud, licensing, tenant config</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 10 &middot; Premium, Fabric & Capacity</td></tr>
+
+            <tr>
+              <td class="ex-cell">Compare Pro, PPU, Premium, and Fabric capacity<div class="note">Validate SKU, tenant, and cloud availability</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Connect to a semantic model via XMLA endpoint<div class="note">Requires compatible capacity and admin settings</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Publish and manage a paginated report<div class="note">Usually supported; validate cloud and licensing</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Demonstrate Direct Lake / OneLake / Lakehouse concepts<div class="note">Fabric service parity in sovereign clouds must be confirmed</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Analyze capacity metrics and autoscale behavior<div class="note">Validate availability and licensing before including</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module 11 &middot; Automation & DevOps</td></tr>
+
+            <tr>
+              <td class="ex-cell">Save a report as PBIP and review file structure</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Use source control to track report/model changes</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Deploy content using a scripted REST API approach<div class="note">Validate endpoint/permission/service principal behavior in target cloud</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Compare ALM Toolkit changes between model versions<div class="note">Local tool; Service connectivity depends on XMLA/tenant policy</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Git integration in Fabric workspaces<div class="note">Do not require in Gov/DoD labs unless confirmed</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Conceptual CI/CD pipeline (Azure DevOps/GitHub Actions)<div class="note">Depends on network, identity, API endpoint, platform policy</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+            </tr>
+<tr class="module-row"><td colspan="5">Module CAP &middot; Capstone: Enterprise-Ready Solution</td></tr>
+
+            <tr>
+              <td class="ex-cell">Full Gov-ready path (model, DAX, report, RLS, publish, refresh, App)</td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+            </tr>
+
+            <tr>
+              <td class="ex-cell">Optional: Fabric Git integration, Direct Lake, Copilot, deployment pipelines<div class="note">Optional commercial-enhanced path only</div></td>
+              <td class="stat-cell"><span class="pill s-ready">READY</span></td>
+              <td class="stat-cell"><span class="pill s-verify">VERIFY</span></td>
+              <td class="stat-cell"><span class="pill s-none">NOT COVERED</span></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-bar">
+      <div>Advanced Power BI &middot; Exercise Cloud Coverage Matrix</div>
+      <div>For CSAM and instructor planning use</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

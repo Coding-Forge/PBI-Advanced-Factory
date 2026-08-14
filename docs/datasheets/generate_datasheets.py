@@ -59,13 +59,13 @@ THEMES = {
         "bg": "#F3F5FB",
         "card_bg": "#FFFFFF",
         "audience": "Public sector, defense-adjacent contractors, and regulated-industry BI teams operating in GCC High tenants who need advanced authoring and governance skills validated for sovereign cloud constraints.",
-        "availability_note": "Every advanced feature is labeled Gov-ready, Verify-for-Gov, or Commercial-focused so instructors and learners always know what to validate in-tenant before relying on it operationally.",
-        "compliance": "Delivered with Gov-ready lab paths first; commercial-only features are covered conceptually with Gov-safe alternates.",
+        "availability_note": "Every advanced feature is labeled Gov-ready, Verify with Instructor, or Not Covered so instructors and learners always know what to confirm in-tenant during delivery.",
+        "compliance": "Delivered with Gov-ready lab paths first; any feature not yet confirmed for this tenant is flagged for the instructor to verify live or substitute an alternate exercise.",
         "show_gov_legend": True,
         "special_topics": [
-            "Feature-by-feature Gov-ready / Verify-for-Gov labeling",
+            "Feature-by-feature Gov-ready / Verify-with-Instructor labeling",
             "Dynamic RLS validated against Entra ID (Gov) identity formats",
-            "Gov-safe alternates for Fabric, Copilot, and AI visual features",
+            "Instructor-verified alternates for Fabric, Copilot, and AI visual features",
             "Sovereign cloud data residency and export-control awareness",
         ],
     },
@@ -80,14 +80,14 @@ THEMES = {
         "bg": "#F5F5F4",
         "card_bg": "#FFFFFF",
         "audience": "DoD mission owners, uniformed and civilian BI developers, and contractor support teams operating in Azure DoD/IL5 tenants who need rigorously validated, mission-ready reporting skills.",
-        "availability_note": "The DoD track defaults to the most conservative Gov-ready path. Commercial-only or preview features are treated as conceptual-only unless explicitly confirmed available in the target Azure DoD tenant and authorized for use.",
-        "compliance": "Delivered against Azure DoD (IL5) constraints; assumes no dependency on commercial-only or preview services unless separately authorized.",
+        "availability_note": "The DoD track defaults to the most conservative Gov-ready path. Any feature not already confirmed for the target tenant is treated as conceptual-only until the instructor verifies it live or authorizes an alternate exercise.",
+        "compliance": "Delivered against Azure DoD (IL5) constraints; the instructor verifies each flagged feature in-tenant before it is used operationally.",
         "show_gov_legend": True,
         "special_topics": [
             "Conservative-by-default Gov-ready lab paths for every module",
             "Static and dynamic RLS hardened for mission data segregation",
             "Export-control and data-handling awareness built into report UX labs",
-            "Conceptual-only coverage of Fabric/Copilot pending tenant authorization",
+            "Instructor-verified, conceptual-only coverage of Fabric/Copilot pending tenant authorization",
         ],
     },
 }
@@ -127,8 +127,8 @@ def render_html(theme):
     legend_html = """
         <div class="legend-row">
           <div class="legend-pill pill-green">GOV-READY</div>
-          <div class="legend-pill pill-amber">VERIFY FOR GOV</div>
-          <div class="legend-pill pill-gray">COMMERCIAL-FOCUSED</div>
+          <div class="legend-pill pill-amber">VERIFY WITH INSTRUCTOR</div>
+          <div class="legend-pill pill-gray">NOT COVERED</div>
         </div>""" if t.get("show_gov_legend") else ""
 
     html = f"""<!DOCTYPE html>
@@ -529,7 +529,7 @@ def render_html(theme):
     <div class="stat-divider"></div>
     <div class="stat"><div class="num">1&ndash;5</div><div class="label">Day delivery options</div></div>
     <div class="stat-divider"></div>
-    <div class="stat"><div class="num">40+</div><div class="label">Hands-on guided labs</div></div>
+    <div class="stat"><div class="num">40+</div><div class="label">Hands-on guided exercises</div></div>
     <div class="stat-divider"></div>
     <div class="stat"><div class="num">1</div><div class="label">Capstone solution build</div></div>
   </div>
