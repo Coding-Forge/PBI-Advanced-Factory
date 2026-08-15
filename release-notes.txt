@@ -1,0 +1,3 @@
+﻿Student release for the three-day delivery track (Modules 1-7): Advanced Semantic Modeling, Advanced DAX, Advanced Power Query, Report Design and UX, Performance Optimization, Advanced Analytics and AI-Assisted Insights, and Security Design.
+
+Includes the pbi-stepwise cumulative reference build. Modules 8-12 are excluded; see the full-delivery release for the complete progressive workshop.

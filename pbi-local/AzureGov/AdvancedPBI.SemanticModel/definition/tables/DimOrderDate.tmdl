@@ -1,8 +1,10 @@
 table DimOrderDate
 	lineageTag: 90529fde-26dd-475b-9384-c85b96b0bf4c
+	dataCategory: Time
 
 	column Date
 		dataType: dateTime
+		isKey
 		formatString: Long Date
 		lineageTag: 899a919d-8527-4b37-806c-f1c6b0c96616
 		summarizeBy: none

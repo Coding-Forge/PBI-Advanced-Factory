@@ -78,5 +78,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7e136bd6de210bce20c2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Gross Margin vs Target"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

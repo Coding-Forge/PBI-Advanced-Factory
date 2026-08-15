@@ -146,5 +146,79 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "27d36cd5b3c82e886d28",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimTerritory"
+              }
+            },
+            "Property": "TerritoryName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "561beefcb9a1ce35d6df",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimProductCategory"
+              }
+            },
+            "Property": "ProductCategory"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "eb9adf5e7085b439a75a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Gross Margin %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "831be5c8c971aee6e458",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Gross Margin vs Target"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f00b86cbba30d409d800",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Margin Target Status"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
