@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -148,7 +157,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <div class="eyebrow">Lab 2 - Measures and context</div>
       <h1>Advanced DAX</h1>
       <p class="lede">Build a tested DAX measure layer with evaluation context, CALCULATE patterns, time intelligence, semi-additive logic, calculation groups, ranking, dynamic logic, and optimization.</p>
-      <div class="meta"><span>Advanced authoring</span><span>Deliverable: Trusted measure layer</span><span>PBIP-first</span></div>
+      <div class="meta"><span>Advanced authoring</span><span>Deliverable: Trusted measure layer</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
@@ -161,95 +170,195 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <li>Calculation groups</li>
 <li>Ranking and dynamic metric logic</li></ul></div>
         </section>
-        
         <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Create and test base measures</h3>
-  <ul>
-    <li>Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target Sales Amount, Sales Variance, and Sales Variance %.</li>
-<li>Format and test each measure in a simple visual before branching.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Explore row and filter context</h3>
-  <ul>
-    <li>Use visuals and slicers to observe filter context.</li>
-<li>Create a calculated-column example only to demonstrate row context and why measures are preferred for aggregations.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Apply CALCULATE filter modifiers</h3>
-  <ul>
-    <li>Create filter-removal, product share, and KEEPFILTERS examples.</li>
-<li>Discuss REMOVEFILTERS, ALL, ALLEXCEPT, and TREATAS so learners choose modifiers intentionally.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Build time and semi-additive patterns</h3>
-  <ul>
-    <li>Create YTD, prior year, YoY, YoY %, and rolling 90-day measures.</li>
-<li>Review an ending-balance or last-nonblank pattern for snapshot facts.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Add ranking and dynamic logic</h3>
-  <ul>
-    <li>Create Customer Sales Rank and Is Top 5 Customer measures.</li>
-<li>Create a dynamic title and disconnected MetricSelector/SWITCH measure.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review calculation groups</h3>
-  <ul>
-    <li>Use native Power BI Desktop calculation group authoring when available.</li>
-<li>Review TMDL View or Tabular Editor only when those workflows are validated; otherwise compare to separate measures.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Optimize and document</h3>
-  <ul>
-    <li>Use variables and measure branching to reduce repeated logic.</li>
-<li>Keep DAX Studio and external tooling optional and Verify for Gov.</li>
-  </ul>
-</div></div>
-        </section>
-        
-        <section><h2>Novice-friendly how-to guide</h2><div class="task-list">
-<div class="task-card"><h3>Create a measure</h3><ol><li>Select the table that should store the measure.</li><li>Select <strong>Modeling &gt; New measure</strong>.</li><li>Type the measure name, equals sign, and DAX expression.</li><li>Set formatting and test in a simple visual.</li></ol></div>
-<div class="task-card"><h3>Build a DAX test visual</h3><ol><li>Add a table or matrix visual.</li><li>Add one dimension field and the measure being tested.</li><li>Add slicers for date, territory, or product category.</li><li>Change slicer selections and verify totals.</li></ol></div>
-<div class="task-card"><h3>Use CALCULATE safely</h3><ol><li>Start from a working base measure.</li><li>Use <code>REMOVEFILTERS</code> to ignore a dimension intentionally.</li><li>Use <code>ALLEXCEPT</code> only to preserve a named grain.</li><li>Use <code>KEEPFILTERS</code> to narrow existing filters.</li><li>Use <code>TREATAS</code> for intentional disconnected-table filtering.</li></ol></div>
-<div class="task-card"><h3>Create a calculation group</h3><ol><li>Confirm explicit base measures work.</li><li>Open <strong>Model view</strong> and select <strong>Calculation group</strong>.</li><li>Enable <strong>Discourage implicit measures</strong> if prompted.</li><li>Name the table <code>Time Intelligence</code> and the column <code>Time Calculation</code>.</li><li>Add calculation items and test with base measures.</li></ol></div>
-<div class="task-card"><h3>Review TMDL or external-tool paths</h3><ol><li>Use TMDL View or Tabular Editor only when validated.</li><li>If no calculation group authoring path is validated, use separate DAX measures as the fallback.</li></ol></div>
-</div><figure class="figure"><img src="images/02-advanced-dax/CalculationGroups-annotated.png" alt="Annotated Power BI Desktop Model view showing a calculation group, its column, and calculation items."><figcaption>Calculation group authoring in Power BI Desktop Model view.</figcaption></figure></section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
+  <h2>Step-by-step walkthrough</h2>
+  <ol class="steps">
+    <li><strong>Open the Lab 01 semantic model and confirm prerequisites.</strong>
+      <ol>
+        <li>Open Power BI Desktop.</li>
+        <li>Click <b>File &gt; Open report</b>, or open the workshop file from <code>pbi-local\</code>.</li>
+        <li>Open the completed Lab 01 model before you create any new DAX.</li>
+        <li>In the Fields pane or Model view, confirm <code>FactSales</code>, <code>FactTargets</code>, <code>DimOrderDate</code>, <code>DimCustomer</code>, <code>DimProduct</code>, <code>DimTerritory</code>, <code>DimSegment</code>, and <code>BridgeCustomerSegment</code> are present and related correctly.</li>
+      </ol>
+    </li>
+    <li><strong>Create or choose a measure home and add the base measures first.</strong>
+      <ol>
+        <li>In <b>Report view</b> or <b>Model view</b>, select the table that should store your measures.</li>
+        <li>On the <b>Modeling</b> ribbon, click <b>New measure</b>.</li>
+        <li>Type the DAX formula for the measure, then press <b>Enter</b>.</li>
+        <li>Repeat the same <b>Modeling &gt; New measure</b> flow until all base and variance measures below exist.</li>
+        <li>Use the <b>Measure tools</b> ribbon to apply currency, whole-number, or percentage formatting before moving on.</li>
+      </ol>
+      <table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
 <tr><td>Base measure</td><td><code>Sales Amount</code></td><td><code>SUM(FactSales[SalesAmount])</code></td><td>Totals by customer/product.</td></tr>
 <tr><td>Base measure</td><td><code>Quantity</code></td><td><code>SUM(FactSales[Quantity])</code></td><td>Totals by product.</td></tr>
 <tr><td>Base measure</td><td><code>Gross Margin</code></td><td><code>SUM(FactSales[GrossMargin])</code></td><td>Totals by territory.</td></tr>
 <tr><td>Derived measure</td><td><code>Gross Margin %</code></td><td><code>DIVIDE([Gross Margin], [Sales Amount])</code></td><td>Formatted as percentage.</td></tr>
 <tr><td>Target measure</td><td><code>Target Sales Amount</code></td><td><code>SUM(FactTargets[TargetSalesAmount])</code></td><td>Totals by month/category.</td></tr>
-<tr><td>Variance measures</td><td><code>Sales Variance</code>, <code>Sales Variance %</code></td><td>Actual minus target; percent uses <code>DIVIDE</code></td><td>No divide-by-zero errors.</td></tr>
-<tr><td>Time measures</td><td><code>Sales YTD</code>, <code>Sales Prior Year</code>, <code>Sales YoY</code></td><td>Use <code>DimOrderDate[Date]</code></td><td>Validate by month.</td></tr>
-<tr><td>Ranking measure</td><td><code>Customer Sales Rank</code></td><td><code>RANKX</code> over <code>DimCustomer[CustomerName]</code></td><td>Rank respects slicers.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Open the PBIP model from Lab 1.</strong><p>Confirm the model has FactSales, dimensions, date tables, targets, and segment tables. Do not start DAX work until the relationships are correct.</p></li>
-    <li><strong>Create a measure table.</strong><p>In Power BI Desktop, create or choose a table to hold measures. Name measures consistently and place them in display folders if your model supports it.</p></li>
-    <li><strong>Create base measures first.</strong><p>Create Sales Amount, Quantity, Gross Margin, Gross Margin %, Target Sales Amount, Sales Variance, and Sales Variance %. Use simple aggregations and <code>DIVIDE</code> for percentages.</p></li>
-    <li><strong>Test filter context.</strong><p>Add a matrix with CustomerName on rows and ProductCategory on columns. Add Sales Amount and Gross Margin %. Add slicers for TerritoryRegion and Year. Observe how the same measure changes under different filters.</p></li>
-    <li><strong>Build CALCULATE examples.</strong><p>Create a measure that removes product filters and a product share measure that divides current sales by all-product sales. Then create a measure that uses <code>KEEPFILTERS</code> for a selected customer type.</p></li>
-    <li><strong>Compare filter modifiers.</strong><p>Discuss when to use <code>REMOVEFILTERS</code>, <code>ALL</code>, <code>ALLEXCEPT</code>, and <code>TREATAS</code>. Validate each pattern in a simple visual before reusing it in production report logic.</p></li>
-    <li><strong>Create time intelligence.</strong><p>Using the Order Date table, create YTD, prior-year, year-over-year, year-over-year percent, and rolling-period measures. Validate each measure in a month-level visual.</p></li>
-    <li><strong>Review semi-additive logic.</strong><p>Discuss why inventory, backlog, headcount, or balance snapshots should not be summed across dates. Create or review an ending-balance-style last-value pattern from the answer key.</p></li>
-    <li><strong>Add ranking and Top N.</strong><p>Create a Customer Sales Rank measure with <code>RANKX</code>. Add a flag for Top 5 customers and use it as a visual filter on a bar chart.</p></li>
-    <li><strong>Review calculation groups.</strong><p>This optional lab is marked <strong>Verify for Gov</strong>. If the target Power BI Desktop version supports native calculation group authoring, use <b>Model view > Calculation group</b>, enable <b>Discourage implicit measures</b> if prompted, and create a <code>Time Intelligence</code> calculation group with Current, Prior Year, YoY Change, and YoY Change % items. If TMDL View, Tabular Editor, XMLA, or CI/CD workflows are validated, review those authoring paths too. If no authoring path is validated, compare the design to creating separate DAX measures for each metric/time combination.</p></li>
-    <li><strong>Add dynamic report text or metric switching.</strong><p>Create a dynamic title with <code>SELECTEDVALUE</code>. Optionally create a disconnected metric selector table and a <code>SWITCH</code> measure to display a selected metric.</p></li>
-    <li><strong>Validate measure branching.</strong><p>Confirm derived measures reuse base measures rather than duplicating <code>SUM</code> logic. Check formatting, naming, and fallback behavior before using the measures on report pages.</p></li>
-    <li><strong>Refactor for readability.</strong><p>Use variables for repeated logic. Branch from base measures instead of duplicating calculations. Add formatting and descriptions where appropriate.</p></li>
-    <li><strong>Validate and document.</strong><p>Check totals at the customer, product, territory, and date levels. If using DAX Studio or other tools, mark them Verify for Gov unless the customer environment has been validated.</p></li>
+<tr><td>Variance measure</td><td><code>Sales Variance</code></td><td><code>[Sales Amount] - [Target Sales Amount]</code></td><td>Positive when actual exceeds target.</td></tr>
+<tr><td>Variance measure</td><td><code>Sales Variance %</code></td><td><code>DIVIDE([Sales Variance], [Target Sales Amount])</code></td><td>No divide-by-zero errors; formatted as percentage.</td></tr>
+</tbody></table>
+    </li>
+    <li><strong>Build a simple DAX test visual and observe filter context.</strong>
+      <ol>
+        <li>Insert a <b>Matrix</b> visual on a report page.</li>
+        <li>Add <code>DimCustomer[CustomerName]</code> to <b>Rows</b>.</li>
+        <li>Add <code>DimProduct[ProductCategory]</code> to <b>Columns</b>.</li>
+        <li>Add <code>[Sales Amount]</code> and <code>[Gross Margin %]</code> to <b>Values</b>.</li>
+        <li>Add slicers for <code>DimTerritory[TerritoryRegion]</code> and Year from <code>DimOrderDate</code>.</li>
+        <li>Change slicer selections and compare detail rows, subtotals, and grand totals so you can explain how filter context changes the same measure result.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — what is filter context?</summary>
+        <div class="fyi-body">Every cell in a visual (each row, column, subtotal, or grand total) applies its own combination of filters from slicers, rows, columns, and page/report filters. A measure re-evaluates for each of those combinations. That is why the same <code>[Sales Amount]</code> measure can show a different number in every cell of the matrix — it is not one calculation, it is one formula evaluated many times, once per filter context.</div>
+      </details>
+    </li>
+    <li><strong>Create a row-context-only example, then compare it to measures.</strong><p>Create one small calculated column example only to demonstrate row context, review why it evaluates row by row, then return to measures for report aggregations so learners can see why measures are the preferred pattern for reusable analytics.</p>
+      <details class="callout fyi">
+        <summary>FYI — row context vs. filter context.</summary>
+        <div class="fyi-body">A calculated column evaluates once per row of its own table (row context) and that value is stored permanently in the model. A measure has no fixed row — it recalculates on demand using whatever filter context the visual currently applies. Use calculated columns sparingly (for slicer/axis fields), and prefer measures for anything that should react to slicers, so your model stays flexible and refresh times stay predictable.</div>
+      </details>
+    </li>
+    <li><strong>Create <code>CALCULATE</code> measures that intentionally change filters.</strong>
+      <ol>
+        <li>Select your measure table and click <b>Modeling &gt; New measure</b>.</li>
+        <li>Create a measure that removes product filters so you can compare filtered sales to all-product sales.</li>
+        <li>Create a product-share measure that divides current sales by the unfiltered product total.</li>
+        <li>Create a measure that uses <code>KEEPFILTERS</code> to narrow the calculation to a selected customer type without replacing other filters.</li>
+        <li>Test each measure in the same matrix and slicers before you reuse it anywhere else.</li>
+      </ol>
+      <p>Discuss the intent of <code>REMOVEFILTERS</code>, <code>ALL</code>, <code>ALLEXCEPT</code>, and <code>TREATAS</code> while you test so learners choose filter modifiers deliberately instead of by trial and error.</p>
+      <details class="callout fyi">
+        <summary>FYI — why <code>CALCULATE</code> and its filter modifiers matter.</summary>
+        <div class="fyi-body"><p style="margin:8px 0 0;"><code>CALCULATE</code> is the only DAX function that can change filter context — every filter modifier below is really just an argument to <code>CALCULATE</code>. Knowing which one to reach for keeps a measure predictable instead of "trial and error":</p>
+        <ul style="margin:8px 0 0; padding-left:20px; color:var(--cp-text-muted);">
+          <li><b>CALCULATE</b> evaluates an expression in a new filter context that you define — it is the mechanism behind almost every advanced measure in this lab.</li>
+          <li><b>REMOVEFILTERS(&lt;table or column&gt;)</b> clears filters from just the table/column you name, so the rest of the report's filters (region, date, etc.) still apply. Use it when you need one dimension to stop filtering without losing every other slicer.</li>
+          <li><b>ALL(&lt;table or column&gt;)</b> behaves like <code>REMOVEFILTERS</code> in most measures but also changes row context for iterators — use it when you need an unfiltered total to compare against (like a percent-of-total).</li>
+          <li><b>ALLEXCEPT(&lt;table&gt;, &lt;column(s)&gt;)</b> removes every filter on a table <i>except</i> the column(s) you list. It is a shortcut for "clear everything on this dimension except one attribute" instead of writing several <code>REMOVEFILTERS</code> calls.</li>
+          <li><b>KEEPFILTERS(&lt;condition&gt;)</b> adds a filter without replacing the existing one on that column. Without it, a hardcoded condition like <code>DimCustomer[CustomerType] = "Enterprise"</code> would overwrite (not intersect with) whatever the user already sliced — so results would stop respecting other active slicers.</li>
+          <li><b>TREATAS(&lt;table&gt;, &lt;columns&gt;)</b> applies the values of one table as a filter on columns in another table, even when there is no physical relationship. Reach for it for virtual relationships (e.g., filtering by a disconnected selector table) instead of adding a real, always-on relationship.</li>
+        </ul></div>
+      </details>
+      <p>Try to write each measure yourself first. Open the answer key below only if you get stuck or want to compare your formula.</p>
+      <details class="answer-key">
+        <summary>Answer key: filter-modifying measures</summary>
+        <div class="answer-key__body">
+          <table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
+<tr><td>Filter-removed measure</td><td><code>Sales All Products</code></td><td><code>CALCULATE([Sales Amount], REMOVEFILTERS(DimProduct))</code></td><td>Value stays constant no matter which product is sliced.</td></tr>
+<tr><td>Share measure</td><td><code>Product Sales Share</code></td><td><code>DIVIDE([Sales Amount], [Sales All Products])</code></td><td>Shares across all products sum to 100%.</td></tr>
+<tr><td>KEEPFILTERS measure</td><td><code>Enterprise Customer Sales</code></td><td><code>CALCULATE([Sales Amount], KEEPFILTERS(DimCustomer[CustomerType] = "Enterprise"))</code></td><td>Still respects other active slicers (region, date, etc.).</td></tr>
+</tbody></table>
+        </div>
+      </details>
+    </li>
+    <li><strong>Create and validate time-intelligence measures.</strong>
+      <ol>
+        <li>Confirm <code>DimOrderDate</code> is the trusted date table for these measures.</li>
+        <li>Create <code>Sales YTD</code>, <code>Sales Prior Year</code>, <code>Sales YoY</code>, <code>Sales YoY %</code>, and <code>Sales Rolling 90 Days</code> with <b>Modeling &gt; New measure</b>.</li>
+        <li>Add a month-level visual that uses <code>DimOrderDate[Date]</code> or a month attribute from the date table.</li>
+        <li>Place the new time measures in that visual and verify the month-by-month results before moving to the next pattern.</li>
+      </ol>
+      <table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
+<tr><td>Time measure</td><td><code>Sales YTD</code></td><td><code>TOTALYTD([Sales Amount], DimOrderDate[Date])</code></td><td>Resets each January; validate by month.</td></tr>
+<tr><td>Time measure</td><td><code>Sales Prior Year</code></td><td><code>CALCULATE([Sales Amount], SAMEPERIODLASTYEAR(DimOrderDate[Date]))</code></td><td>Matches last year's same month.</td></tr>
+<tr><td>Time measure</td><td><code>Sales YoY</code></td><td><code>[Sales Amount] - [Sales Prior Year]</code></td><td>Positive when this year exceeds last year.</td></tr>
+<tr><td>Time measure</td><td><code>Sales YoY %</code></td><td><code>DIVIDE([Sales YoY], [Sales Prior Year])</code></td><td>No divide-by-zero errors; formatted as percentage.</td></tr>
+<tr><td>Time measure</td><td><code>Sales Rolling 90 Days</code></td><td><code>VAR LastVisibleDate = MAX(DimOrderDate[Date]) RETURN CALCULATE([Sales Amount], DATESINPERIOD(DimOrderDate[Date], LastVisibleDate, -90, DAY))</code></td><td>Window moves with the visible date context.</td></tr>
+</tbody></table>
+      <details class="callout fyi">
+        <summary>FYI — why time intelligence needs a marked date table.</summary>
+        <div class="fyi-body">Functions like <code>TOTALYTD</code>, <code>SAMEPERIODLASTYEAR</code>, and <code>DATESINPERIOD</code> only work correctly against a contiguous, one-row-per-day date table that Power BI recognizes as a <b>Date table</b> (Model view &gt; table &gt; "Mark as date table"). Using a raw transaction date column instead can silently skip dates with no sales, breaking prior-year and rolling-window math. That is why step 1 confirms <code>DimOrderDate</code> before you write any of these measures.</div>
+      </details>
+    </li>
+    <li><strong>Review a semi-additive pattern before you sum snapshot-style data.</strong><p>Discuss why inventory, backlog, headcount, or balance snapshots should not be summed across dates. Create or review an ending-balance or last-nonblank pattern from the answer key so learners can recognize when a last-value calculation is required.</p>
+      <details class="callout fyi">
+        <summary>FYI — additive vs. semi-additive measures.</summary>
+        <div class="fyi-body"><code>Sales Amount</code> is <i>additive</i>: summing across dates gives a meaningful total (total sales for the quarter). A snapshot value like inventory-on-hand or headcount is <i>semi-additive</i>: it can be summed across products or locations, but summing it across dates produces a meaningless number (you would be adding the same warehouse's balance to itself on different days). The fix is to pick one representative day's value — usually the last day in the selected period — with a pattern such as <code>CALCULATE([Balance], LASTDATE(DimDate[Date]))</code> instead of <code>SUM</code>.</div>
+      </details>
+    </li>
+    <li><strong>Create ranking and Top N logic.</strong>
+      <ol>
+        <li>Create <code>Customer Sales Rank</code> with <code>RANKX</code> over <code>DimCustomer[CustomerName]</code>.</li>
+        <li>Create <code>Is Top 5 Customer</code> as a flag measure.</li>
+        <li>Add a customer bar chart that uses <code>[Sales Amount]</code>.</li>
+        <li>Drag <code>[Is Top 5 Customer]</code> into the visual-level filters and keep only the Top 5 result.</li>
+        <li>Compare the behavior with slicers applied so learners can see the difference between report context and a fully unfiltered ranking.</li>
+      </ol>
+      <table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
+<tr><td>Ranking measure</td><td><code>Customer Sales Rank</code></td><td><code>RANKX(ALLSELECTED(DimCustomer[CustomerName]), [Sales Amount], , DESC, DENSE)</code></td><td>Rank respects slicers.</td></tr>
+<tr><td>Flag measure</td><td><code>Is Top 5 Customer</code></td><td><code>IF([Customer Sales Rank] &lt;= 5, 1, 0)</code></td><td>Returns 1 only for the current Top 5.</td></tr>
+</tbody></table>
+      <details class="callout fyi">
+        <summary>FYI — why <code>RANKX</code> uses <code>ALLSELECTED</code>, not <code>ALL</code>.</summary>
+        <div class="fyi-body"><code>RANKX</code> needs a list of customers to rank against. If you used <code>ALL(DimCustomer[CustomerName])</code>, the rank would always be computed against every customer in the model, ignoring any slicer the report user applied. <code>ALLSELECTED</code> instead ranks against whatever customers are currently visible after slicers are applied, so "rank 1" always means "top of what I'm looking at right now" — the behavior most report users expect.</div>
+      </details>
+    </li>
+    <li><strong>Add dynamic report text and optional metric switching.</strong>
+      <ol>
+        <li>Select your measure table and click <b>Modeling &gt; New measure</b>.</li>
+        <li>Create a <code>Report Title</code> measure that reads the current territory region and year slicer selections, with a readable fallback for each (see the exact formula in the table below).</li>
+        <li>Select the matrix visual you built earlier.</li>
+        <li>In the <b>Format visual</b> pane, expand <b>General &gt; Title</b> and confirm the title toggle is on.</li>
+        <li>Click the <b>fx</b> (function) icon next to the <b>Text</b> field under Title.</li>
+        <li>In the <b>Format by</b> dropdown, choose <b>Field value</b>, then pick <code>[Report Title]</code> from the field list, and click <b>OK</b>.</li>
+        <li>Change the <code>DimTerritory[TerritoryRegion]</code> and Year slicers and confirm the visual's title text updates automatically.</li>
+        <li>Clear both slicers and confirm the title falls back to the readable "All Regions" / "All Years" text instead of showing blank.</li>
+        <li>Select both slicers with a multi-select (Ctrl-click two regions) and confirm the fallback text still appears instead of an error.</li>
+      </ol>
+      <p><strong>Optional: add a disconnected metric switch.</strong></p>
+      <ol>
+        <li>On the <b>Modeling</b> ribbon, click <b>New table</b>, then paste in a small table named <code>MetricSelector</code> using <b>Enter data</b>-style DAX (see the table below for the exact rows).</li>
+        <li>Confirm <code>MetricSelector</code> has no relationship lines drawn to it in <b>Model view</b> — it must stay disconnected from every other table.</li>
+        <li>Add a slicer to the report page and bind it to <code>MetricSelector[MetricName]</code>.</li>
+        <li>Set the slicer to single-select in the Format pane so only one metric can be chosen at a time.</li>
+        <li>Create a <code>Selected Metric</code> measure that uses <code>SELECTEDVALUE</code> on <code>MetricSelector[MetricName]</code> inside a <code>SWITCH</code> that returns <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, or <code>[Gross Margin %]</code> depending on the chosen row, with a fallback branch.</li>
+        <li>Add <code>[Selected Metric]</code> to a new Card visual and test it with one metric selected, then with the slicer cleared, to confirm the fallback branch of <code>SWITCH</code> runs instead of returning blank.</li>
+      </ol>
+      <table class="column-table"><thead><tr><th>Item to create</th><th>Exact name</th><th>Pattern or fields</th><th>Validation</th></tr></thead><tbody>
+<tr><td>Dynamic title measure</td><td><code>Report Title</code></td><td><code>VAR SelectedRegion = SELECTEDVALUE(DimTerritory[TerritoryRegion], "All Regions") VAR SelectedYear = SELECTEDVALUE(DimOrderDate[Year], "All Years") RETURN SelectedRegion &amp; " Sales Overview – " &amp; SelectedYear</code></td><td>Reads "All Regions Sales Overview – All Years" with no slicers applied.</td></tr>
+<tr><td>Disconnected table</td><td><code>MetricSelector</code></td><td><code>MetricSelector = DATATABLE("MetricName", STRING, "SortOrder", INTEGER, {{"Sales Amount", 1}, {"Gross Margin", 2}, {"Gross Margin %", 3}})</code></td><td>Loads with 3 rows and no relationship lines in Model view.</td></tr>
+<tr><td>Metric switch measure</td><td><code>Selected Metric</code></td><td><code>SWITCH(SELECTEDVALUE(MetricSelector[MetricName], "Sales Amount"), "Sales Amount", [Sales Amount], "Gross Margin", [Gross Margin], "Gross Margin %", [Gross Margin %], [Sales Amount])</code></td><td>Card updates when the slicer selection changes; shows Sales Amount when cleared.</td></tr>
+</tbody></table>
+      <details class="callout fyi">
+        <summary>FYI — why <code>SELECTEDVALUE</code> needs a fallback.</summary>
+        <div class="fyi-body"><code>SELECTEDVALUE(&lt;column&gt;, &lt;alternate result&gt;)</code> returns the single selected value only when exactly one value is in context. With zero or multiple values selected (nothing picked, or a multi-select slicer) it returns the alternate result instead of blank or an error. Always supply a readable fallback such as "All Regions" or "Multiple Selections" so the title never looks broken in front of a stakeholder.</div>
+      </details>
+      <details class="callout fyi">
+        <summary>FYI — why <code>MetricSelector</code> must stay disconnected.</summary>
+        <div class="fyi-body">If <code>MetricSelector</code> had a relationship to another table, Power BI would try to use it to filter the model, which is not what you want — it exists only so a slicer can read its <code>MetricName</code> values. The <code>SWITCH</code> measure is what actually reacts to the slicer, by checking which row is selected and returning a different existing measure each time. This "disconnected table + SWITCH" pattern is the standard way to let a report user change which metric a visual displays without duplicating every visual once per metric.</div>
+      </details>
+    </li>
+    <li><strong>Review calculation groups only on a validated authoring path.</strong>
+      <ol>
+        <li>Confirm your base measures work before you add any calculation group logic.</li>
+        <li>Open <b>Model view</b>.</li>
+        <li>On the ribbon, click <b>Calculation group</b>.</li>
+        <li>If prompted, enable <b>Discourage implicit measures</b>.</li>
+        <li>Rename the calculation group table to <code>Time Intelligence</code>, rename the column to <code>Time Calculation</code>, and rename the first item to <code>Current</code>.</li>
+        <li>Set the <code>Current</code> expression to <code>SELECTEDMEASURE()</code>, then add items such as <code>Prior Year</code>, <code>YoY Change</code>, and <code>YoY Change %</code>.</li>
+        <li>Test <code>Time Intelligence[Time Calculation]</code> against <code>[Sales Amount]</code> and <code>[Gross Margin]</code> in a visual.</li>
+      </ol>
+      <p>This path is <strong>Verify for Gov</strong>. Review TMDL View, Tabular Editor, XMLA, or CI/CD workflows only when the customer environment supports them; otherwise compare the design to separate DAX measures.</p>
+      <details class="callout fyi">
+        <summary>FYI — why calculation groups instead of more measures.</summary>
+        <div class="fyi-body">Without a calculation group, showing "Prior Year", "YoY Change", and "YoY Change %" for every base measure (<code>Sales Amount</code>, <code>Gross Margin</code>, etc.) means writing 3 extra measures per base measure — the count multiplies fast. A calculation group defines the time-intelligence logic once with <code>SELECTEDMEASURE()</code> as a placeholder, and it applies that logic to whichever measure a report author drops into the visual, so the measure list stays small and consistent.</div>
+      </details>
+      <figure class="figure"><img src="images/02-advanced-dax/CalculationGroups-annotated.png" alt="Annotated Power BI Desktop Model view showing a calculation group, its column, and calculation items."><figcaption>Calculation group authoring in Power BI Desktop Model view.</figcaption></figure>
+    </li>
+    <li><strong>Refactor, validate, and document the final measure layer.</strong>
+      <ol>
+        <li>Rewrite any repeated logic with variables.</li>
+        <li>Confirm derived measures branch from existing base measures instead of repeating <code>SUM</code> logic.</li>
+        <li>Check totals at customer, product, territory, and date grain.</li>
+        <li>Review formatting, descriptions, and fallback behavior before the measures are reused on report pages.</li>
+        <li>If you use DAX Studio or another external tool, label that path <strong>Verify for Gov</strong> unless the environment has already been validated.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why <code>VAR</code>/<code>RETURN</code> and base-measure reuse matter.</summary>
+        <div class="fyi-body">A <code>VAR</code> stores an expression's result once so DAX does not recompute it every time it is referenced later in the same measure — this improves both readability and performance in patterns like <code>Sales Rolling 90 Days</code>. Likewise, building <code>Sales Variance</code> from <code>[Sales Amount] - [Target Sales Amount]</code> (existing measures) instead of retyping the underlying <code>SUM</code> expressions means a future change to the base logic (a new filter, a bug fix) automatically flows through every measure built on top of it.</div>
+      </details>
+    </li>
   </ol>
 </section>
         <section>
@@ -460,7 +569,7 @@ RETURN
       </aside>
     </main>
     <nav class="bottomnav"><a href="01-advanced-semantic-modeling.html">Previous</a><a href="jeopardy/lab02.html">Jeopardy review</a><a href="03-advanced-power-query.html">Next</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>

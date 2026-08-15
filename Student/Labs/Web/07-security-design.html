@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -148,7 +157,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <div class="eyebrow">Lab 7 - RLS and governance</div>
       <h1>Security Design</h1>
       <p class="lede">Configure static and dynamic RLS, test roles, review Build permission, and document OLS, Purview, labels, external sharing, and B2B validation needs.</p>
-      <div class="meta"><span>Governance</span><span>Deliverable: Security test evidence</span><span>PBIP-first</span></div>
+      <div class="meta"><span>Governance</span><span>Deliverable: Security test evidence</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
@@ -160,61 +169,43 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <li>Security review checklist</li></ul></div>
         </section>
         <section>
-  <h2>Source files</h2>
+  <h2 id="source-files">Source files</h2>
   <div class="urls">
     <div class="urlcard"><strong>security-user-territory.csv</strong><code class="code" id="u1">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-user-territory.csv</code><button class="copy" data-copy="u1">Copy URL</button></div>
     <div class="urlcard"><strong>security-role-matrix.csv</strong><code class="code" id="u2">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/security/security-role-matrix.csv</code><button class="copy" data-copy="u2">Copy URL</button></div>
   </div>
 </section>
-        <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Load security mapping</h3>
-  <ul>
-    <li>Use Get data &gt; Web for security-user-territory and security-role-matrix.</li>
-<li>Relate SecurityUserTerritory to DimTerritory using TerritoryKey.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Create RLS roles</h3>
-  <ul>
-    <li>Create the East Region static role.</li>
-<li>Create Dynamic Territory Security with USERPRINCIPALNAME().</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Test roles in Desktop and Service</h3>
-  <ul>
-    <li>Use View as in Desktop with sample UPNs.</li>
-<li>Assign users or groups to Service roles and document gaps where Service testing is unavailable.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review Build permission and sharing</h3>
-  <ul>
-    <li>Document who can build thin reports or Analyze in Excel.</li>
-<li>Separate content access, semantic model reuse, App distribution, and external/B2B sharing decisions.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Document optional controls</h3>
-  <ul>
-    <li>Mark OLS, sensitivity labels, Purview, external sharing, and B2B as Verify for Gov unless validated.</li>
-  </ul>
-</div></div>
-        </section>
-        
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create a static RLS role</h3><ol><li>Select <strong>Modeling &gt; Manage roles</strong>.</li><li>Select <strong>New</strong> and name the role <code>East Region</code>.</li><li>Select the territory table.</li><li>Add a filter such as <code>[TerritoryRegion] = "East"</code>.</li><li>Save the role and test it with <strong>View as</strong>.</li></ol></div>
-    <div class="task-card"><h3>Create a dynamic RLS role</h3><ol><li>Load the security mapping table.</li><li>Create the relationship from the security table to the secured dimension.</li><li>Open <strong>Manage roles</strong> and create <code>Dynamic Territory Security</code>.</li><li>Filter the security table with <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>.</li><li>Use <strong>View as</strong> with sample UPNs to confirm access.</li></ol></div>
-    <div class="task-card"><h3>Assign Service roles safely</h3><ol><li>Publish only to an approved training workspace.</li><li>Assign users or groups to RLS roles.</li><li>Check workspace role implications before testing.</li><li>Use App distribution for consumers when available instead of broad workspace access.</li></ol></div>
-    <div class="task-card"><h3>Test roles</h3><ol><li>Select <strong>Modeling &gt; View as</strong>.</li><li>Choose the role to test.</li><li>For dynamic RLS, enter a sample user principal name.</li><li>Record what data is visible and compare it to the expected mapping table.</li></ol></div>
-  </div>
-</section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Security item</th><th>Exact name</th><th>Configuration</th><th>Validation</th></tr></thead><tbody>
+                <section>
+  <h2>Step-by-step walkthrough</h2>
+  <ol class="steps">
+    <li><strong>Continue from your Lab 06 report.</strong>
+      <ol>
+        <li>Open Power BI Desktop.</li>
+        <li>Open the same Power BI file you completed through Lab 06, from <code>pbi-local\</code> or your saved workshop solution folder. Keep working in that same file.</li>
+        <li>Confirm <code>DimTerritory</code> and <code>FactSales</code> already exist in the model.</li>
+        <li>Click a territory slicer or territory value on a test page and confirm the sales visuals already respond before you add security.</li>
+      </ol>
+    </li>
+    <li><strong>Import <code>security-user-territory.csv</code> from the web.</strong>
+      <ol>
+        <li>On the <b>Home</b> ribbon, click <b>Get data</b>, then click <b>Web</b>.</li>
+        <li>Paste the <code>security-user-territory.csv</code> URL from the <a href="#source-files">Source files</a> section above, then click <b>OK</b>.</li>
+        <li>If prompted for authentication, choose <b>Anonymous</b> and click <b>Connect</b>.</li>
+        <li>In the Navigator preview, click <b>Transform data</b>.</li>
+        <li>In Power Query, rename the query to <code>SecurityUserTerritory</code>.</li>
+      </ol>
+    </li>
+    <li><strong>Import <code>security-role-matrix.csv</code> from the web.</strong>
+      <ol>
+        <li>In Power Query, click <b>Home &gt; New Source &gt; Web</b>.</li>
+        <li>Paste the <code>security-role-matrix.csv</code> URL from the <a href="#source-files">Source files</a> section, then click <b>OK</b>.</li>
+        <li>If prompted again, choose <b>Anonymous</b> and click <b>Connect</b>.</li>
+        <li>Rename the new query to <code>SecurityRoleMatrix</code>.</li>
+        <li>Keep this second table as documentation for expected persona access, even if you do not use it to filter the model directly.</li>
+      </ol>
+    </li>
+    <li><strong>Confirm the security tables and load them.</strong><p>Before closing Power Query, make sure the mapping table contains the expected user, territory, and access columns, then click <b>Home &gt; Close &amp; Apply</b> to load the data.</p>
+      <table class="column-table"><thead><tr><th>Security item</th><th>Exact name</th><th>Configuration</th><th>Validation</th></tr></thead><tbody>
 <tr><td>Mapping table</td><td><code>SecurityUserTerritory</code></td><td><code>UserPrincipalName</code>, <code>DisplayName</code>, <code>TerritoryKey</code>, <code>TerritoryName</code>, <code>AccessLevel</code></td><td>Rows loaded from Web URL.</td></tr>
 <tr><td>Role matrix</td><td><code>SecurityRoleMatrix</code></td><td>Persona/access documentation table</td><td>Used as documentation, not filtering.</td></tr>
 <tr><td>Relationship</td><td>Security to territory</td><td><code>SecurityUserTerritory[TerritoryKey]</code> to <code>DimTerritory[TerritoryKey]</code></td><td>Territory filters sales.</td></tr>
@@ -224,23 +215,85 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td>Build permission</td><td>Semantic model reuse</td><td>Grant only to approved thin-report or Analyze in Excel users</td><td>Downstream access risk documented.</td></tr>
 <tr><td>Sharing and B2B</td><td>External access path</td><td>Direct sharing, Apps, workspace access, guest users</td><td>Verify for Gov and tenant policy documented.</td></tr>
 <tr><td>OLS/labels/Purview</td><td>Optional controls</td><td>Tooling, capacity, MIP/Purview, DLP, export behavior</td><td>Verify for Gov unless validated.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Open the PBIP model.</strong><p>Confirm <code>DimTerritory</code> and <code>FactSales</code> exist and that filtering DimTerritory (for example, by clicking a slicer value) already changes the sales visuals on a test page.</p></li>
-    <li><strong>Load security mapping files.</strong><p>Select <b>Home &gt; Get data &gt; Web</b> and paste the raw URLs for <code>security-user-territory.csv</code> and <code>security-role-matrix.csv</code>. Rename the first query's table <code>SecurityUserTerritory</code> and keep the second, <code>SecurityRoleMatrix</code>, as reference documentation (not necessarily loaded into the model).</p></li>
-    <li><strong>Create relationships.</strong><p>In Model view, drag from <code>SecurityUserTerritory[TerritoryKey]</code> to <code>DimTerritory[TerritoryKey]</code> to create the relationship. Confirm the cardinality shows many-to-one from SecurityUserTerritory to DimTerritory. Test by adding a table with UserPrincipalName and TerritoryName and confirming the mapping looks correct.</p></li>
-    <li><strong>Create static RLS.</strong><p>Open <b>Modeling &gt; Manage roles</b>, select <b>Create</b>, and name the role <code>East Region</code>. Select the <code>DimTerritory</code> table and enter a DAX filter such as <code>DimTerritory[TerritoryRegion] = "East"</code> (or filter by specific TerritoryKey values), then select <b>Save</b>.</p></li>
-    <li><strong>Create dynamic RLS.</strong><p>In Manage roles, select <b>Create</b> again and name the role <code>Dynamic Territory Security</code>. Select the <code>SecurityUserTerritory</code> table and enter the filter <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>, then Save.</p></li>
-    <li><strong>Test in Desktop.</strong><p>Select <b>Modeling &gt; View as</b>, check the static role first and confirm only the expected territory's data appears report-wide. Then check the dynamic role, enter a synthetic UPN copied from the <code>SecurityUserTerritory</code> mapping file (for example, one of the sample UPNs in the answer key), select OK, and verify only that user's mapped territories are visible.</p>
-      <div class="figure"><figcaption><strong>Suggested illustration:</strong> screenshot of the "View as roles" dialog with the dynamic role and a test UPN entered, next to the resulting filtered report page.</figcaption></div>
+</tbody></table>
+      <details class="callout fyi">
+        <summary>FYI — why the mapping table exists.</summary>
+        <div class="fyi-body"><code>SecurityUserTerritory</code> is the bridge between identity and business data: it tells Power BI which <code>UserPrincipalName</code> can see which <code>TerritoryKey</code>. Keeping <code>SecurityRoleMatrix</code> as documentation separately helps you explain the intended access model without turning every governance note into an active filter path.</div>
+      </details>
     </li>
-    <li><strong>Document expected access.</strong><p>Use <code>security-role-matrix.csv</code> as a reference to record, for each persona/role, which territories they should see and whether they should also have Build permission on the semantic model.</p></li>
-    <li><strong>Assign and test roles in Service where available.</strong><p>Publish to a training workspace, open the semantic model's Security settings, add the appropriate users or security groups to each role, and use <b>Test as role</b> in the Service to confirm behavior matches Desktop. If Service access is unavailable in this environment, write down this step as a documented validation gap rather than skipping it silently.</p></li>
-    <li><strong>Review Build permission.</strong><p>In the semantic model's manage permissions/access list, review who currently has Build permission, and explain in your notes what Build permission allows (creating thin reports or using Analyze in Excel against this model) and the risk of granting it too broadly (for example, to an entire large security group).</p></li>
-    <li><strong>Review sharing and external users.</strong><p>Compare direct report sharing, Power BI Apps, workspace access, and Microsoft Entra B2B guest access as distribution options, and note which of these your organization actually allows. Keep external sharing and B2B guest access marked Verify for Gov unless tenant policy has explicitly validated them.</p></li>
-    <li><strong>Review optional controls.</strong><p>Discuss Object-Level Security (OLS), sensitivity labels, Microsoft Purview integration, external sharing, and B2B guest access as further layers of control, keeping each one marked Verify for Gov until validated against the specific customer tenant's policies.</p></li>
+    <li><strong>Create the relationship from the security table to the territory dimension.</strong>
+      <ol>
+        <li>Switch to <b>Model</b> view.</li>
+        <li>Drag <code>SecurityUserTerritory[TerritoryKey]</code> onto <code>DimTerritory[TerritoryKey]</code>.</li>
+        <li>In the relationship dialog, confirm the relationship is many-to-one from <code>SecurityUserTerritory</code> to <code>DimTerritory</code>, then click <b>OK</b>.</li>
+        <li>Add a quick table visual with <code>UserPrincipalName</code> and <code>TerritoryName</code> if you want to confirm the mapping rows look correct before creating roles.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why RLS filters propagate through relationships.</summary>
+        <div class="fyi-body">The role does not need a direct filter on <code>FactSales</code> because a filter on <code>DimTerritory</code> can flow through the existing model relationships to the fact table. If that path is broken, inactive, or modeled in the wrong direction, the role may validate syntactically but still expose unexpected rows.</div>
+      </details>
+    </li>
+    <li><strong>Create the static <code>East Region</code> role.</strong>
+      <ol>
+        <li>On the <b>Modeling</b> ribbon, click <b>Manage roles</b>.</li>
+        <li>Click <b>Create</b> or <b>New</b>, then name the role <code>East Region</code>.</li>
+        <li>Select the <code>DimTerritory</code> table.</li>
+        <li>Enter a DAX filter such as <code>DimTerritory[TerritoryRegion] = "East"</code> or a specific territory-key filter.</li>
+        <li>Click <b>Save</b>.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — static RLS vs. dynamic RLS.</summary>
+        <div class="fyi-body">A static role like <code>East Region</code> is easy to understand and great for a small, fixed audience, but it does not scale well when every territory or persona needs its own role. Dynamic RLS centralizes that logic in data, so you maintain rows in <code>SecurityUserTerritory</code> instead of proliferating dozens of nearly identical roles.</div>
+      </details>
+    </li>
+    <li><strong>Create the dynamic <code>Dynamic Territory Security</code> role.</strong>
+      <ol>
+        <li>Stay in <b>Manage roles</b> and click <b>Create</b> again.</li>
+        <li>Name the new role <code>Dynamic Territory Security</code>.</li>
+        <li>Select the <code>SecurityUserTerritory</code> table.</li>
+        <li>Enter the filter <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>.</li>
+        <li>Click <b>Save</b>.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why <code>USERPRINCIPALNAME()</code> is the usual dynamic RLS pattern.</summary>
+        <div class="fyi-body">The function returns the current signed-in identity, so the role filter can match that value against <code>SecurityUserTerritory[UserPrincipalName]</code> and automatically return only the mapped territories. This keeps one role reusable for <code>alex.manager@contoso.example</code>, <code>casey.lead@contoso.example</code>, and every other approved user without editing DAX per person.</div>
+      </details>
+    </li>
+    <li><strong>Test both roles in Power BI Desktop.</strong>
+      <ol>
+        <li>On the <b>Modeling</b> ribbon, click <b>View as</b>.</li>
+        <li>Check the <code>East Region</code> role first, click <b>OK</b>, and confirm only East-region data is visible across the report.</li>
+        <li>Open <b>View as</b> again, check <code>Dynamic Territory Security</code>, and enter a sample UPN from <code>SecurityUserTerritory</code> or the answer key below.</li>
+        <li>Click <b>OK</b> and confirm the report shows only the territories mapped to that user.</li>
+        <li>Record what data is visible for a one-territory user and for a multi-territory user.</li>
+      </ol>
+      <figure class="figure"><img src="images/07-security-design/ViewAs.png" alt="Power BI Desktop View as roles dialog with the Dynamic Territory Security role checked and a sample UPN entered."><figcaption>"View as roles" dialog with the dynamic role and test UPN entered.</figcaption></figure>
+      <details class="callout fyi">
+        <summary>FYI — Desktop testing is necessary, but not the whole story.</summary>
+        <div class="fyi-body"><b>View as</b> is the fastest way to prove that the role logic filters <code>DimTerritory</code> and <code>FactSales</code> correctly, especially for one-territory versus multi-territory users. Still, Service testing matters too because published role assignments, group membership, and identity behavior are enforced there, not just in Desktop.</div>
+      </details>
+    </li>
+    <li><strong>Document expected access and Build permission decisions.</strong><p>Use <code>SecurityRoleMatrix</code> to record which personas should see which territories and whether they should also receive Build permission on the semantic model for thin reports or Analyze in Excel.</p>
+      <details class="callout fyi">
+        <summary>FYI — why Build permission is a separate decision from RLS.</summary>
+        <div class="fyi-body">RLS controls which rows a user can see when they query the model, but <b>Build</b> controls whether they can create new reports, Analyze in Excel, or otherwise reuse that semantic model downstream. A persona may be allowed to view a report safely without being allowed to build new artifacts on top of the same dataset.</div>
+      </details>
+    </li>
+    <li><strong>Assign and test roles in the Service where available.</strong>
+      <ol>
+        <li>Publish the model only to an approved training workspace.</li>
+        <li>Open the semantic model in the Service and go to its <b>Security</b> settings.</li>
+        <li>Add the appropriate approved users or security groups to each RLS role.</li>
+        <li>Use <b>Test as role</b> if it is available and confirm the Service behavior matches your Desktop tests.</li>
+        <li>If Service access is unavailable in this environment, document that as a validation gap instead of implying Service testing was completed.</li>
+      </ol>
+    </li>
+    <li><strong>Review sharing paths and optional controls.</strong><p>Compare direct sharing, App distribution, workspace access, and Microsoft Entra B2B guest access as separate decisions, then keep external sharing, B2B, OLS, sensitivity labels, and Microsoft Purview integration marked <b>Verify for Gov</b> unless the customer tenant has explicitly validated them.</p>
+      <details class="callout fyi">
+        <summary>FYI — what optional controls add beyond basic RLS.</summary>
+        <div class="fyi-body">RLS limits rows, but it does not hide sensitive columns, classify exported data, or automatically satisfy external-sharing policy. That is where controls like OLS, sensitivity labels, Purview, DLP, and B2B governance matter: they address different layers of risk that row filters alone do not solve.</div>
+      </details>
+    </li>
   </ol>
 </section>
         <section>
@@ -288,7 +341,7 @@ jordan.rep@contoso.example       // T04</code></pre>
       </aside>
     </main>
     <nav class="bottomnav"><a href="06-advanced-analytics-ai.html">Previous</a><a href="jeopardy/lab07.html">Jeopardy review</a><a href="08-service-enterprise-deployment.html">Next</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>

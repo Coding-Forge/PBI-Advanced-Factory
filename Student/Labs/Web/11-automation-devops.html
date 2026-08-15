@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -160,89 +169,101 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <li>Automation validation</li>
 <li>Deployment checklist</li></ul></div>
         </section>
-        
+
         <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Define lifecycle goals</h3>
-  <ul>
-    <li>Document repeatability, reviewability, promotion, governance, and rollback expectations.</li>
-<li>Confirm PBIX is not the source of record.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review PBIP structure</h3>
-  <ul>
-    <li>Inspect report and semantic model source files.</li>
-<li>Identify generated or binary files that should not drive review.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Practice git workflow</h3>
-  <ul>
-    <li>Create a branch, make a small change, review status/diff, and commit.</li>
-<li>Discuss pull request review, tags, releases, and rollback evidence.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review external tools and automation</h3>
-  <ul>
-    <li>Tabular Editor, ALM Toolkit, REST APIs, PowerShell, and service principals are Verify for Gov.</li>
-<li>Document XMLA, endpoint, identity, permission, and workstation policy needs.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review Fabric Git and CI/CD</h3>
-  <ul>
-    <li>Fabric workspace Git integration is Commercial-focused / Verify for Gov.</li>
-<li>Azure DevOps and GitHub Actions require endpoint, identity, network, and policy validation.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Complete deployment checklist</h3>
-  <ul>
-    <li>Document source, security, refresh, environment config, automation validation, Azure Government validation, release evidence, and rollback path.</li>
-  </ul>
-</div></div>
+          <h2>Step-by-step walkthrough</h2>
+          <ol class="steps">
+            <li><strong>Define lifecycle management goals.</strong><p>Write down what “good” looks like for this project&apos;s delivery process before you change anything: repeatable builds, reviewable changes, a clear promotion path across environments, governance sign-off points, and a rollback plan if a release goes wrong. Also note that PBIP plus git is the source-of-record path for this workshop, while a <code>.pbix</code> file is only an output artifact when you explicitly need one.</p>
+              <details class="callout fyi">
+        <summary>FYI — why lifecycle goals come first.</summary>
+        <div class="fyi-body">Automation only helps when the team agrees on the release standard up front. If you do not define promotion, approval, and rollback expectations before building scripts or pipelines, you usually automate confusion and make failures harder to unwind.</div>
+      </details></li>
+            <li><strong>Open the PBIP repository and confirm what is source-controlled.</strong>
+              <ol>
+                <li>Open the workshop repository containing the PBIP project you completed through Lab 10, in File Explorer or VS Code.</li>
+                <li>Locate the project&apos;s <code>.pbip</code> file, then locate the matching <code>.Report</code> and <code>.SemanticModel</code> folders beside it.</li>
+                <li>Confirm the folder you plan to commit contains text-based PBIP assets, not a standalone <code>.pbix</code> file acting as the source of record.</li>
+                <li>If a <code>.pbix</code> exists, treat it as a generated output you create only when needed for packaging or handoff.</li>
+              </ol>
+              <details class="callout fyi">
+        <summary>FYI — why PBIP is better for source control than <code>.pbix</code>.</summary>
+        <div class="fyi-body">A PBIP project breaks the report and semantic model into text files such as <code>report.json</code>, <code>model.tmdl</code>, and table definitions, so git can show exactly what changed. A single <code>.pbix</code> behaves more like a packaged artifact: good for opening or handing off, but much harder for a team to diff, review, merge, and troubleshoot.</div>
+      </details>
+            </li>
+            <li><strong>Inspect the PBIP file structure.</strong>
+              <ol>
+                <li>Open <code>.Report/definition</code> and review the <code>pages</code>, <code>report.json</code>, and <code>bookmarks</code> content.</li>
+                <li>Open <code>.SemanticModel/definition</code> and review the <code>tables</code>, <code>relationships.tmdl</code>, and <code>model.tmdl</code> files.</li>
+                <li>Open one table <code>.tmdl</code> file and identify where columns, measures, and model metadata are stored as plain text.</li>
+                <li>Note any generated or binary outputs you would avoid editing directly unless the lab explicitly requires it.</li>
+              </ol>
+            </li>
+            <li><strong>Practice a basic git workflow on the PBIP project.</strong>
+              <ol>
+                <li>Open a terminal at the repository root and run <code>git status</code>.</li>
+                <li>Create a working branch with <code>git checkout -b my-lab11-change</code>.</li>
+                <li>Make one small, low-risk change, such as editing a measure description, updating report text, or adding a simple page element.</li>
+                <li>Run <code>git status</code> again to see which PBIP files changed.</li>
+                <li>Run <code>git diff</code> and review the exact line-by-line changes before you stage anything.</li>
+                <li>Stage only the intended files with <code>git add &lt;path&gt;</code>.</li>
+                <li>Create a descriptive commit with <code>git commit -m "Document lab11 PBIP change"</code>.</li>
+              </ol>
+              <details class="callout fyi">
+        <summary>FYI — why branches, diffs, and pull requests matter for PBIP.</summary>
+        <div class="fyi-body">Even a small measure description or page-text change can affect training content, report behavior, or deployment packaging. Using a branch plus <code>git diff</code> lets you prove exactly what changed before the commit, and a pull request gives another reviewer a safe checkpoint before those PBIP files become the new source of record.</div>
+      </details>
+            </li>
+            <li><strong>Review pull request, release, and rollback expectations.</strong><p>List what a reviewer should check before approving a Power BI pull request: model and relationship changes, new or modified measures, data source connection strings, parameters, RLS role definitions, report page changes, unexpected auto-generated diffs such as GUID churn, release notes, version tags, and clear evidence that the change can be rolled back if needed.</p></li>
+            <li><strong>Review Tabular Editor and ALM Toolkit only if they are approved.</strong>
+              <ol>
+                <li>If External Tools are approved in your environment, open the PBIP project in Power BI Desktop.</li>
+                <li>Click <b>External Tools</b> &gt; <b>Tabular Editor</b> to inspect tables, measures, and model metadata, then save only approved metadata changes.</li>
+                <li>If you need to compare model versions and the tool is approved, launch <b>ALM Toolkit</b>, compare the source and target semantic models, and review the generated change script before you apply anything.</li>
+                <li>If either tool is not approved, document the XMLA endpoint access, workstation software approval, tenant settings, and customer policy sign-off required before using it.</li>
+              </ol>
+              <details class="callout fyi">
+        <summary>FYI — why external tools are powerful but controlled.</summary>
+        <div class="fyi-body">Tabular Editor and ALM Toolkit work directly against semantic model metadata, which is why they are so valuable for bulk edits, comparisons, and deployment scripts. That same power means they can bypass the slower safety of manual clicks in Desktop, so XMLA access, tenant settings, and approval boundaries matter before you let them touch production content.</div>
+      </details>
+            </li>
+            <li><strong>Review REST API deployment options.</strong><p>Identify the target workspace ID, the correct Power BI REST API or Fabric API cloud endpoint for your tenant, the authentication method you would use, and which operations you would automate such as import, export, or refresh. Keep the API path conceptual in this lab unless endpoint, permission, and policy validation are already complete.</p></li>
+            <li><strong>Review PowerShell administration requirements.</strong><p>Document which PowerShell modules are approved, such as <code>MicrosoftPowerBIMgmt</code>, confirm the correct cloud endpoint for your tenant, note the admin permissions required for tenant-level cmdlets, and list a few example administration tasks such as listing workspaces or triggering a refresh.</p></li>
+            <li><strong>Review service principal requirements.</strong><p>Document the Entra ID app registration, tenant-admin approval, security-group scoping, workspace role assignment, and secure secret or certificate storage required before a service principal can be used for automation. Do not treat “all users” access or plain-text secret storage as acceptable.</p>
+              <details class="callout fyi">
+        <summary>FYI — why service principals are the usual automation identity.</summary>
+        <div class="fyi-body">A pipeline or script needs a non-human identity that can keep working when a developer is offline, leaves the project, or has MFA prompts. A scoped service principal gives you that machine identity without tying deployments to one person&apos;s account, but only if you keep its permissions narrow and its secret or certificate storage secure.</div>
+      </details></li>
+            <li><strong>Review Fabric workspace Git integration if your tenant exposes it.</strong>
+              <ol>
+                <li>Open the target workspace in the Power BI Service or Fabric portal.</li>
+                <li>Open <b>Workspace settings</b> &gt; <b>Git integration</b>.</li>
+                <li>If the feature is available, connect the workspace to the approved repository, branch, and folder, then review how incoming changes, outgoing changes, sync status, and conflicts are displayed.</li>
+                <li>If the feature is unavailable or unapproved, record that the fallback path for this workshop is the local PBIP-plus-git workflow you already practiced.</li>
+              </ol>
+            </li>
+            <li><strong>Review conceptual CI/CD stages.</strong><p>Walk through the order of a conceptual Azure DevOps or GitHub Actions pipeline: validate PBIP content, package the release, authenticate with an approved identity, deploy with the correct API, apply environment-specific configuration, run smoke tests, and store logs or screenshots as audit evidence. Azure DevOps and GitHub Actions stay in the Verify-for-Gov bucket until endpoints, identities, runners, network paths, and tenant policy are validated.</p>
+              <details class="callout fyi">
+        <summary>FYI — why CI/CD is more than just deployment.</summary>
+        <div class="fyi-body">The deployment step is only one stage in a healthy pipeline. Validation, environment-specific configuration, smoke tests, and saved evidence are what keep a Dev/Test/Prod release repeatable — otherwise automation can push the wrong connection, miss a broken semantic model, or leave no proof of what was released.</div>
+      </details></li>
+            <li><strong>Validate Azure Government boundaries for every automation option.</strong><p>For PBIP, external tools, REST APIs, PowerShell, service principals, Fabric Git, and CI/CD, record the allowed cloud endpoint, identity authority, network path, tenant settings, and customer policy constraints. Do not rely on any Verify-for-Gov or Commercial-focused feature until those checks are complete.</p></li>
+            <li><strong>Complete the deployment checklist and capture evidence.</strong><p>Use this checklist as the final sequence for release readiness so you do not lose any lifecycle detail while the earlier overview sections are removed.</p>
+              <table class="column-table">
+                <thead><tr><th>Artifact</th><th>Action</th><th>Gov status</th><th>Evidence</th></tr></thead>
+                <tbody>
+                  <tr><td>Lifecycle goals</td><td>Document repeatability, reviewability, promotion, governance, and rollback.</td><td>Gov-ready</td><td>Checklist notes and rollback path.</td></tr>
+                  <tr><td>PBIP source</td><td>Keep report and semantic model source in git.</td><td>Gov-ready</td><td>Repository path and changed files.</td></tr>
+                  <tr><td>PBIX output</td><td>Generate only when needed.</td><td>Gov-ready</td><td>Output artifact note.</td></tr>
+                  <tr><td>Branch and pull request</td><td>Review model, report, DAX, RLS, sources, and generated changes.</td><td>Gov-ready</td><td>Review notes, release tag, or rollback note.</td></tr>
+                  <tr><td>External tools</td><td>Use Tabular Editor and ALM Toolkit only if approved.</td><td>Verify for Gov</td><td>Policy and XMLA validation.</td></tr>
+                  <tr><td>Automation</td><td>Review REST API, PowerShell, service principal, and CI/CD requirements.</td><td>Verify for Gov</td><td>Endpoint, identity, permission, runner, and network notes.</td></tr>
+                  <tr><td>Fabric Git</td><td>Use only if workspace Git integration is available.</td><td>Commercial-focused / Verify for Gov</td><td>Workspace Git branching, folder, sync, conflict, and item-support validation.</td></tr>
+                  <tr><td>Azure Government boundary</td><td>Validate cloud endpoint, authority, network path, tenant settings, and customer policy.</td><td>Verify for Gov</td><td>Environment validation notes.</td></tr>
+                </tbody>
+              </table>
+            </li>
+          </ol>
         </section>
-        
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Review PBIP source structure</h3><ol><li>Open the PBIP project folder in File Explorer or VS Code.</li><li>Locate the <code>.pbip</code> file.</li><li>Locate the <code>.Report</code> and <code>.SemanticModel</code> folders.</li><li>Open JSON or TMDL files as text to understand what is source-controlled.</li><li>Do not edit generated files unless the lab explicitly tells you to.</li></ol></div>
-    <div class="task-card"><h3>Practice a basic git workflow</h3><ol><li>Open a terminal at the repo root.</li><li>Run <code>git status</code>.</li><li>Create or switch to the working branch chosen for the lab.</li><li>Make a small documented change.</li><li>Run <code>git diff</code> to review it.</li><li>Commit only the intended files.</li></ol></div>
-    <div class="task-card"><h3>Validate automation boundaries</h3><ol><li>Identify endpoint, identity, network, tenant setting, and permission requirements.</li><li>Mark REST APIs, PowerShell, service principals, XMLA, Fabric Git, and CI/CD as Verify for Gov unless approved.</li></ol></div>
-  </div>
-</section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Artifact</th><th>Action</th><th>Gov status</th><th>Evidence</th></tr></thead><tbody>
-<tr><td>Lifecycle goals</td><td>Document repeatability, reviewability, promotion, governance, and rollback</td><td>Gov-ready</td><td>Checklist notes and rollback path.</td></tr>
-<tr><td>PBIP source</td><td>Keep report/model source in git</td><td>Gov-ready</td><td>Repo path and changed files.</td></tr>
-<tr><td>PBIX output</td><td>Generate only when needed</td><td>Gov-ready</td><td>Output artifact note.</td></tr>
-<tr><td>Branch and pull request</td><td>Review model, report, DAX, RLS, sources, and generated changes</td><td>Gov-ready</td><td>Review notes, release tag, or rollback note.</td></tr>
-<tr><td>External tools</td><td>Use Tabular Editor/ALM Toolkit only if approved</td><td>Verify for Gov</td><td>Policy/XMLA validation.</td></tr>
-<tr><td>Automation</td><td>REST API, PowerShell, service principal, CI/CD</td><td>Verify for Gov</td><td>Endpoint, identity, permission, runner, and network notes.</td></tr>
-<tr><td>Fabric Git</td><td>Use only if workspace Git is available</td><td>Commercial-focused / Verify for Gov</td><td>Workspace Git branching, folder, sync, conflict, and item-support validation.</td></tr>
-<tr><td>Azure Government boundary</td><td>Validate cloud endpoint, authority, network path, tenant settings, and customer policy</td><td>Verify for Gov</td><td>Environment validation notes.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Define lifecycle management goals.</strong><p>Write down what "good" looks like for this project's delivery process: repeatable builds, reviewable changes, a clear promotion path across environments, governance sign-off points, and a rollback plan if a release goes wrong.</p></li>
-    <li><strong>Open the repository.</strong><p>Open the project's git repository and confirm the Power BI work is authored and stored in PBIP format (a <code>.Report</code> folder and a <code>.SemanticModel</code> folder with TMDL/JSON files), and that no <code>.pbix</code> file is being treated as the source of record.</p></li>
-    <li><strong>Inspect PBIP structure.</strong><p>Open the <code>.Report/definition</code> folder and note the <code>pages</code>, <code>report.json</code>, and <code>bookmarks</code> structure. Open the <code>.SemanticModel/definition</code> folder and note the <code>tables</code>, <code>relationships.tmdl</code>, and <code>model.tmdl</code> files. Open one table's <code>.tmdl</code> file and identify where columns, measures, and relationships are defined as plain text.</p></li>
-    <li><strong>Practice a git workflow.</strong><p>Run <code>git checkout -b my-lab11-change</code> to create a feature branch. Make a small, low-risk change (for example, edit a measure's description or add a new report page). Run <code>git status</code> to see which files changed, run <code>git diff</code> to review exactly what changed line by line, then run <code>git add</code> and <code>git commit -m "..."</code> with a clear, descriptive commit message.</p></li>
-    <li><strong>Discuss pull request and release review.</strong><p>List what a reviewer should check before approving a Power BI pull request: model/relationship changes, new or modified measures, data source connection strings, parameters, RLS role definitions, report page changes, any unexpected auto-generated diffs (like GUID churn), a clear release note, a version tag, and evidence that a rollback is possible if needed.</p></li>
-    <li><strong>Review Tabular Editor and ALM Toolkit.</strong><p>If these tools are approved for use in your environment, open the semantic model in Tabular Editor to inspect objects, or use ALM Toolkit to compare two versions of the model and generate a change script. If not approved, document the XMLA endpoint access, workstation software approval, customer policy sign-off, and tenant validation that would be required before introducing them.</p></li>
-    <li><strong>Review REST API deployment options.</strong><p>Identify the target workspace ID, the correct Power BI REST API or Fabric API cloud endpoint for your tenant (commercial vs. Gov), the permissions/scopes required, and which operations (import, export, refresh) you would automate. Keep hands-on API deployment optional in this lab until the endpoint and permissions have been validated.</p></li>
-    <li><strong>Review PowerShell administration.</strong><p>Identify which PowerShell modules are approved (for example, MicrosoftPowerBIMgmt), confirm the correct API endpoint is configured for your cloud, note the admin permissions required to run tenant-level cmdlets, and list 2-3 common administration commands (such as listing workspaces or triggering a refresh) you would use.</p></li>
-    <li><strong>Review service principal requirements.</strong><p>Document the steps to register an app in Microsoft Entra ID, get the registration approved by a tenant admin, scope it to a specific security group (not "all users"), assign it the correct workspace role, and store its client secret or certificate securely (such as in a key vault, not in plain text).</p></li>
-    <li><strong>Review Fabric Git integration.</strong><p>If available, connect a workspace to a git repository/branch/folder via <b>Workspace settings &gt; Git integration</b>, and review how sync status, incoming/outgoing changes, and conflicts are displayed. If unavailable in your tenant/cloud, use the local PBIP-plus-git workflow from this lab as the Gov-safe equivalent.</p></li>
-    <li><strong>Review CI/CD concepts.</strong><p>Walk through a conceptual Azure DevOps or GitHub Actions pipeline for Power BI: a validation stage (lint/check PBIP), a package stage, an authentication stage (service principal login), a deployment stage (API call to import/publish), a configuration stage (per-environment parameters), a smoke-test stage (confirm the report loads and refreshes), and an evidence stage (store logs/screenshots for audit).</p></li>
-    <li><strong>Validate Azure Government boundaries.</strong><p>For every automation step above, record the correct Gov cloud endpoint, the identity/authentication method allowed in Gov, network restrictions, customer policy constraints, and whether the specific feature (Git integration, deployment pipelines, REST API) is confirmed available in Azure Government before relying on it.</p></li>
-    <li><strong>Complete deployment checklist.</strong><p>Confirm and record: source control is in place and PBIP-based, model/report changes have been validated (opens cleanly, measures work), environment-specific configuration is documented, any automation has been validated in a test run, Azure Government validation notes are current, release evidence is saved, and a rollback path is documented.</p></li>
-  </ol>
-</section>
         
         <section>
           <h2>Azure Government note</h2>

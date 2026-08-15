@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -147,8 +156,8 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <header>
       <div class="eyebrow">Lab 8 - Publish and distribute</div>
       <h1>Service Enterprise Deployment</h1>
-      <p class="lede">Publish PBIP-authored content to the Service, configure refresh, review gateways, shared semantic models, Apps, App audiences, deployment pipelines, and endorsement.</p>
-      <div class="meta"><span>Operations</span><span>Deliverable: Published workspace/App plan</span><span>PBIP-first</span></div>
+      <p class="lede">Publish your Power BI file to the Service, configure refresh, review gateways, shared semantic models, Apps, App audiences, deployment pipelines, and endorsement.</p>
+      <div class="meta"><span>Operations</span><span>Deliverable: Published workspace/App plan</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
@@ -161,58 +170,21 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         </section>
         
         <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Plan workspace design and roles</h3>
-  <ul>
-    <li>Document dev/test/prod or training workspace intent, naming convention, domain/subject area, owners, and support model.</li>
-<li>Assign least-privileged Admin, Member, Contributor, or Viewer roles.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Publish content</h3>
-  <ul>
-    <li>Publish from the PBIP-authored report.</li>
-<li>Verify the report and semantic model in the Service and record owner/workspace details.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Configure refresh</h3>
-  <ul>
-    <li>Review credentials, privacy levels, schedule, refresh history, and ownership.</li>
-<li>Document gateway or cloud connection requirements.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review reuse and distribution</h3>
-  <ul>
-    <li>Create or discuss thin report/Build permission.</li>
-<li>Package content as an App and validate the consumer path where available.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Apply deployment governance</h3>
-  <ul>
-    <li>Complete promoted/certified endorsement checklist.</li>
-<li>Keep App audiences and deployment pipelines Verify for Gov and document a manual promotion path if unavailable.</li>
-  </ul>
-</div></div>
-        </section>
-        
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Plan workspace design and roles</h3><ol><li>Identify whether the workspace is development, test, production, or training-only.</li><li>Use a naming convention that includes domain or subject area where appropriate.</li><li>Record content owner and support owner.</li><li>Assign the least-privileged workspace role: Admin, Member, Contributor, or Viewer.</li><li>Prefer App distribution for consumers instead of adding viewers directly to production workspaces.</li></ol></div>
-    <div class="task-card"><h3>Publish a report</h3><ol><li>Open the PBIP-authored report in Power BI Desktop.</li><li>Sign in with the approved training account.</li><li>Select <strong>Home &gt; Publish</strong>.</li><li>Choose the target workspace.</li><li>Open the report in the Power BI Service and confirm the report and semantic model are present.</li></ol></div>
-    <div class="task-card"><h3>Review refresh settings</h3><ol><li>Open the workspace in the Power BI Service.</li><li>Find the semantic model and open <strong>Settings</strong>.</li><li>Review credentials, privacy levels, gateway or cloud connection, schedule, and refresh history.</li><li>Document anything that cannot be configured in the training tenant.</li></ol></div>
-    <div class="task-card"><h3>Package content as an App</h3><ol><li>Select workspace content for the App.</li><li>Configure name, description, navigation, and consumers.</li><li>Publish or update the App.</li><li>Validate the consumer experience where available.</li></ol></div>
-  </div>
-</section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Service item</th><th>Configuration</th><th>Permission</th><th>Evidence</th></tr></thead><tbody>
+  <h2>Step-by-step walkthrough</h2>
+  <ol class="steps">
+    <li><strong>Open the training workspace and record the deployment plan.</strong>
+      <ol>
+        <li>In Power BI Service, click <b>Workspaces</b> in the left navigation, then open the workspace you will use for this lab.</li>
+        <li>At the top of the workspace, record whether this workspace represents development, test, production, or a training-only environment.</li>
+        <li>Click <b>Access</b> and confirm your own workspace role before you continue.</li>
+        <li>Write down the workspace naming convention, domain or subject area, content owner, and support owner.</li>
+        <li>Decide the least-privileged role each collaborator should receive: <b>Admin</b>, <b>Member</b>, <b>Contributor</b>, or <b>Viewer</b>.</li>
+      </ol>
+      <p>Use the checklist below as the working reference for the rest of the lab so you capture the same configuration, permissions, and evidence in one place.</p>
+      <table class="column-table"><thead><tr><th>Service item</th><th>Configuration</th><th>Permission</th><th>Evidence</th></tr></thead><tbody>
 <tr><td>Workspace design</td><td>Dev/test/prod or training intent, domain/subject area, naming convention, owner, support owner</td><td>Workspace Admin to configure</td><td>Workspace plan documented.</td></tr>
 <tr><td>Workspace roles</td><td>Admin, Member, Contributor, Viewer assigned by least privilege</td><td>Admin</td><td>Role and rationale recorded.</td></tr>
-<tr><td>Report</td><td>PBIP-authored report published</td><td>Contributor or higher</td><td>Report appears in workspace.</td></tr>
+<tr><td>Report</td><td>Report published from your Power BI file</td><td>Contributor or higher</td><td>Report appears in workspace.</td></tr>
 <tr><td>Semantic model</td><td>Credentials, privacy levels, refresh, ownership reviewed</td><td>Owner or workspace role</td><td>Settings notes.</td></tr>
 <tr><td>Gateway/cloud connection</td><td>Cluster, source mapping, credential owner, network path, or cloud connection documented if needed</td><td>Gateway admin/data source user</td><td>Gateway or cloud notes.</td></tr>
 <tr><td>Shared semantic model</td><td>Build permission and thin-report pattern reviewed</td><td>Semantic model owner or workspace role</td><td>Reuse implications documented.</td></tr>
@@ -220,21 +192,115 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td>App audiences</td><td>Audience-specific content where available</td><td>Member or Admin</td><td>Verify for Gov status.</td></tr>
 <tr><td>Deployment pipeline</td><td>Dev/test/prod stages and deployment rules reviewed if available</td><td>Pipeline/workspace access</td><td>Verify for Gov status or manual path.</td></tr>
 <tr><td>Endorsement</td><td>Promoted/certified ownership, refresh, security, quality, support evidence</td><td>Tenant governance policy</td><td>Checklist completed.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Plan workspace design.</strong><p>Decide whether this workspace represents development, test, production, or a training-only environment. Write down a naming convention (for example, <code>PBI-Adv-Training-Dev</code>), the domain/subject area it belongs to, the workspace owner, and who the support owner will be if issues arise.</p></li>
-    <li><strong>Confirm workspace roles.</strong><p>Open workspace access settings and identify your own role, then decide the least-privileged role for each other person who needs access: Admin, Member, Contributor, or Viewer. Confirm you personally have at least Contributor to publish and Admin/Member to configure refresh or create Apps.</p></li>
-    <li><strong>Publish the PBIP-authored report.</strong><p>In Power BI Desktop, select <b>Home &gt; Publish</b>, choose the target training workspace, and wait for the publish to complete. Open the workspace in the browser and confirm both the report and its semantic model appear in the content list.</p></li>
-    <li><strong>Review semantic model settings.</strong><p>Open the semantic model's <b>Settings</b> page in the Service. Review the data source credentials section, the privacy level setting, the refresh history tab (even if empty so far), and the ownership field at the top.</p></li>
-    <li><strong>Configure scheduled refresh where supported.</strong><p>On the same Settings page, expand <b>Data source credentials</b> and set/edit credentials for each Web source, then expand <b>Scheduled refresh</b>, turn it on, and pick a frequency and time zone. If the data source uses raw GitHub URLs, run a manual refresh first to validate anonymous Web access works from the Service before relying on the schedule.</p></li>
-    <li><strong>Document gateway or cloud connection requirements.</strong><p>If any source were on-premises or network-restricted (not the case for this training's public GitHub CSVs, but document the pattern), you would need to identify the gateway cluster, the data source mapping within that gateway, the stored credentials, and the gateway owner. Since this lab's sources are public web files, write down explicitly why no gateway is required here.</p></li>
-    <li><strong>Create a thin report scenario.</strong><p>In workspace access settings, confirm or grant <b>Build</b> permission to the intended analyst audience on the semantic model. Then, from Power BI Service or Desktop, choose <b>Get data &gt; Power BI semantic models</b>, connect to the published model, and create a new thin report against it to demonstrate the shared-model pattern.</p></li>
-    <li><strong>Package as an App.</strong><p>In the workspace, select <b>Create app</b>. On the Setup tab, add a name, description, and logo/theme color. On the Navigation tab, arrange which reports/pages appear and in what order. On the Audience tab, add the intended consumers or security group. Select <b>Publish app</b> and then open the app link to validate the consumer experience.</p></li>
-    <li><strong>Review App audiences.</strong><p>If your license/tenant supports multiple audiences, add a second audience on the Audience tab and tailor which content that audience can see. If this hasn't been validated in your tenant, keep it optional and mark it Verify for Gov in your notes.</p></li>
-    <li><strong>Review deployment pipelines.</strong><p>If Deployment pipelines are available, open <b>Workspace &gt; Deployment pipelines</b>, map Development/Test/Production workspaces, and review any deployment rules (such as different data source parameters per stage). If unavailable, document the manual promotion path you would use instead (for example, republish PBIP to each workspace in order with reviewed changes).</p></li>
-    <li><strong>Complete endorsement checklist.</strong><p>Before marking the semantic model Promoted or Certified, gather evidence for ownership, refresh reliability, security (RLS/roles configured and tested), data quality, and support process, then record that evidence in your workspace or lab notes.</p></li>
+</tbody></table>
+      <details class="callout fyi">
+        <summary>FYI — why workspace role selection matters.</summary>
+        <div class="fyi-body"><p style="margin:8px 0 0;">This is where day-to-day governance starts. <b>Admin</b> can manage the workspace and access, <b>Member</b> can publish and update App content, <b>Contributor</b> can create and update content without fully administering the workspace, and <b>Viewer</b> can consume content only. If too many people get Member or Admin, support and change control quickly become unclear.</p></div>
+      </details>
+    </li>
+    <li><strong>Publish the report from Power BI Desktop.</strong>
+      <ol>
+        <li>Open the same Power BI file you completed through Lab 07 (including static/dynamic RLS) in Power BI Desktop. Do not start a new file.</li>
+        <li>Confirm you are signed in with the approved training account.</li>
+        <li>On the <b>Home</b> ribbon, click <b>Publish</b>.</li>
+        <li>In the publish dialog, select the target training workspace, then click <b>Select</b>.</li>
+        <li>Wait for the publish confirmation, then click the option to open the item in the Service or switch back to the browser and open the workspace.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — publish is not the same as sharing.</summary>
+        <div class="fyi-body">Publishing from Power BI Desktop creates or updates the report and semantic model inside a workspace so the team has a governed source to manage. Sharing a direct link is more ad hoc, while publishing an <b>App</b> later gives consumers a curated navigation experience without granting them workspace authoring access.</div>
+      </details>
+    </li>
+    <li><strong>Verify the report and semantic model in the Service.</strong>
+      <ol>
+        <li>In the workspace content list, confirm the published report appears.</li>
+        <li>In the same list, confirm the matching semantic model appears.</li>
+        <li>Open the report once to confirm it loads in the browser.</li>
+        <li>Record the workspace name, report name, semantic model name, and owner details in your notes.</li>
+      </ol>
+    </li>
+    <li><strong>Open the semantic model settings page.</strong>
+      <ol>
+        <li>Return to the workspace content list.</li>
+        <li>Locate the semantic model that was published with the report.</li>
+        <li>Click the semantic model <b>More options</b> menu (...), then click <b>Settings</b>.</li>
+        <li>Review the owner field, data source credentials section, privacy level setting, and refresh history area.</li>
+      </ol>
+    </li>
+    <li><strong>Review credentials and scheduled refresh where supported.</strong>
+      <ol>
+        <li>On the settings page, expand <b>Data source credentials</b>.</li>
+        <li>For each source, click <b>Edit credentials</b> or confirm the existing credentials and privacy settings.</li>
+        <li>Expand <b>Scheduled refresh</b>, turn the schedule on if your tenant allows it, then choose the required frequency, time zone, and notification recipients.</li>
+        <li>Click <b>Apply</b> or <b>Save</b> if you made changes.</li>
+        <li>Run a manual refresh and return to <b>Refresh history</b> to confirm the result before you rely on the schedule.</li>
+      </ol>
+      <p>If the training tenant blocks one of these options, document the exact blocker instead of forcing the change.</p>
+      <details class="callout fyi">
+        <summary>FYI — why refresh validation comes before go-live.</summary>
+        <div class="fyi-body">A published semantic model is only useful if the Service can authenticate to every source on a schedule. <b>Refresh history</b> tells you whether credentials, privacy settings, source access, or a gateway/cloud connection are working in practice, which is why a successful manual refresh is better evidence than just seeing the schedule turned on.</div>
+      </details>
+    </li>
+    <li><strong>Document whether a gateway or cloud connection is required.</strong><p>Review the lab's data sources and note whether they are public cloud URLs or on-premises or network-restricted sources. For this workshop's public GitHub-hosted CSV pattern, record that no gateway is required. If a gateway-backed source were introduced later, capture the expected gateway cluster, data source mapping, credential owner, and network path before enabling refresh.</p></li>
+    <li><strong>Review the shared semantic model and thin-report pattern.</strong>
+      <ol>
+        <li>From the semantic model menu in the Service, open <b>Manage permissions</b> or the permissions page available in your tenant.</li>
+        <li>Confirm the intended analyst or group has <b>Build</b> permission, or document that this permission must be granted by the model owner.</li>
+        <li>In Power BI Service or Power BI Desktop, choose the option to create a new report from an existing Power BI semantic model.</li>
+        <li>Select the published semantic model, create a simple thin report, and save or publish it back to the workspace if your environment allows it.</li>
+      </ol>
+      <p>Record why the shared-model pattern separates semantic model governance from report authoring.</p>
+      <details class="callout fyi">
+        <summary>FYI — why <b>Build</b> permission matters.</summary>
+        <div class="fyi-body"><b>Build</b> is what allows another author to create a new report from this published semantic model without giving them full ownership of the model itself. That separation is important because it lets one team govern calculations, RLS, and refresh centrally while other teams create thin reports that stay consistent with the same trusted data definition.</div>
+      </details>
+    </li>
+    <li><strong>Package the workspace content as an App.</strong>
+      <ol>
+        <li>Return to the workspace and click <b>Create app</b> or <b>Update app</b>.</li>
+        <li>On the <b>Setup</b> tab, enter the App name, description, and any branding fields used in your tenant.</li>
+        <li>On the <b>Navigation</b> tab, choose which reports or pages appear and arrange them in the order consumers should see them.</li>
+        <li>On the <b>Audience</b> tab, add the intended users or security group.</li>
+        <li>Click <b>Publish app</b> or <b>Update app</b>, then open the app link to validate the consumer experience.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why distribute through an App instead of the workspace.</summary>
+        <div class="fyi-body">The workspace is the authoring and administration area; the App is the polished consumer-facing package. Publishing the App lets you control navigation, audience membership, and what end users see, while the workspace can still hold drafts, support artifacts, or content that should stay hidden from consumers.</div>
+      </details>
+    </li>
+    <li><strong>Review App audiences if the tenant supports them.</strong>
+      <ol>
+        <li>While editing the App, stay on the <b>Audience</b> tab.</li>
+        <li>Add another audience if the feature is available in your tenant.</li>
+        <li>Assign different content or navigation options to that audience and save the changes.</li>
+      </ol>
+      <p>If multiple audiences are not available or not validated in Azure Government for this tenant, mark the feature <b>Verify for Gov</b> in your notes and keep the hands-on portion optional.</p>
+    </li>
+    <li><strong>Review deployment pipelines or document the manual promotion path.</strong>
+      <ol>
+        <li>If deployment pipelines are enabled, open <b>Deployment pipelines</b> from the workspace or Service navigation.</li>
+        <li>Create or open a pipeline, then map the Development, Test, and Production workspaces.</li>
+        <li>Review any deployment rules, such as different parameters or connections by stage, before promoting content.</li>
+        <li>Deploy to the next stage only if your instructor or tenant permissions allow it.</li>
+      </ol>
+      <p>If pipelines are unavailable, write down the manual promotion sequence you would use instead, such as reviewed republish from your Power BI file into each workspace in order.</p>
+      <details class="callout fyi">
+        <summary>FYI — why deployment pipelines use Development, Test, and Production stages.</summary>
+        <div class="fyi-body">Pipelines reduce the risk of treating production as the first place content is tested. Stage-specific rules let you keep the same report and semantic model design while swapping items like parameters or connections by environment, so promotion is more repeatable than manually republishing and hoping every setting matches.</div>
+      </details>
+    </li>
+    <li><strong>Complete the endorsement governance review.</strong>
+      <ol>
+        <li>Return to the semantic model or report settings page and identify the endorsement option available in your tenant.</li>
+        <li>Gather evidence for ownership, refresh reliability, security configuration, data quality, and support readiness.</li>
+        <li>Decide whether the item is only eligible for <b>Promoted</b> or is ready for <b>Certified</b>, based on your governance policy.</li>
+        <li>Record the evidence and any gaps in your lab notes, even if endorsement changes cannot be made in the training tenant.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why endorsement affects trust and discoverability.</summary>
+        <div class="fyi-body"><b>Promoted</b> signals that a content owner recommends the item for broader reuse, while <b>Certified</b> usually means it has passed a formal governance review. In a large tenant, that distinction helps analysts find the semantic models and reports that are most likely to be accurate, supported, and safe to build on.</div>
+      </details>
+    </li>
   </ol>
 </section>
         
@@ -260,7 +326,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       </aside>
     </main>
     <nav class="bottomnav"><a href="07-security-design.html">Previous</a><a href="jeopardy/lab08.html">Jeopardy review</a><a href="09-monitoring-governance.html">Next</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>

@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -148,7 +157,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <div class="eyebrow">Lab 3 - Data shaping</div>
       <h1>Advanced Power Query</h1>
       <p class="lede">Create a staged Power Query pipeline from monthly Web CSVs with parameters, source lineage, reusable functions, data quality review, folding concepts, and incremental refresh preparation.</p>
-      <div class="meta"><span>Advanced authoring</span><span>Deliverable: Reusable Power Query pipeline</span><span>PBIP-first</span></div>
+      <div class="meta"><span>Advanced authoring</span><span>Deliverable: Reusable Power Query pipeline</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
@@ -162,7 +171,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <li>Incremental refresh prep</li></ul></div>
         </section>
         <section>
-  <h2>Source files</h2>
+  <h2 id="source-files">Source files</h2>
   <div class="urls">
     <div class="urlcard"><strong>orders-2026-01.csv</strong><code class="code" id="u1">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-01.csv</code><button class="copy" data-copy="u1">Copy URL</button></div>
     <div class="urlcard"><strong>orders-2026-02.csv</strong><code class="code" id="u2">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-orders/orders-2026-02.csv</code><button class="copy" data-copy="u2">Copy URL</button></div>
@@ -171,68 +180,131 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
   </div>
 </section>
         <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Create parameters and Web sources</h3>
-  <ul>
-    <li>Create RawDataBaseUrl, SourceFolderPath, EnvironmentName, RangeStart, and RangeEnd.</li>
-<li>Use Get data &gt; Web for the three monthly order CSV files and name raw queries by source month.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Append and stage monthly files</h3>
-  <ul>
-    <li>Add a SourceFile lineage column to each raw query.</li>
-<li>Append into stg_OrdersCombined and disable load for raw and staging queries.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Document source switching</h3>
-  <ul>
-    <li>Keep the required Web-source queries pointed at RawDataBaseUrl.</li>
-<li>Document how EnvironmentName and optional SourceFolderPath would map to Dev/Test/Prod or offline delivery.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Create reusable cleanup logic</h3>
-  <ul>
-    <li>Create fn_CleanText for null-safe trim, clean, and proper-case logic.</li>
-<li>Invoke it for customer/channel and product reference text fields.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review data quality and errors</h3>
-  <ul>
-    <li>Create err_OrdersReview as a disabled-load reference of stg_OrdersCombined.</li>
-<li>Keep valid rows in FactOrders and preserve readable DataQualityIssue reasons for excluded rows.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Validate folding and refresh readiness</h3>
-  <ul>
-    <li>Discuss folding blockers for file sources and validate View Native Query only with a folding-capable source.</li>
-<li>Filter FactOrders[OrderDate] with RangeStart and RangeEnd and mark Service incremental refresh Verify for Gov.</li>
-  </ul>
-</div></div>
-        </section>
-        
-        <section><h2>Novice-friendly how-to guide</h2><div class="task-list">
-<div class="task-card"><h3>Create Power Query parameters</h3><ol><li>Open <strong>Transform data</strong>.</li><li>Select <strong>Manage Parameters &gt; New Parameter</strong>.</li><li>Create <code>RawDataBaseUrl</code>, <code>SourceFolderPath</code>, <code>EnvironmentName</code>, <code>RangeStart</code>, and <code>RangeEnd</code>.</li><li>Keep <code>SourceFolderPath</code> blank unless using offline delivery.</li></ol></div>
-<div class="task-card"><h3>Append queries</h3><ol><li>Select <strong>Home &gt; Append Queries &gt; Append Queries as New</strong>.</li><li>Choose <strong>Three or more tables</strong>.</li><li>Add each raw monthly query in order.</li><li>Name the result <code>stg_OrdersCombined</code>.</li></ol></div>
-<div class="task-card"><h3>Create a custom function</h3><ol><li>Create a Blank Query named <code>fn_CleanText</code>.</li><li>Paste the function from the answer key in Advanced Editor.</li><li>Invoke it on selected customer, channel, and product text columns.</li></ol></div>
-<div class="task-card"><h3>Use column quality and error review</h3><ol><li>Turn on column quality or profile.</li><li>Create readable <code>DataQualityIssue</code> reasons.</li><li>Reference <code>stg_OrdersCombined</code> as <code>err_OrdersReview</code>.</li><li>Disable load for the error review query.</li></ol></div>
-<div class="task-card"><h3>Disable load for staging queries</h3><ol><li>Right-click raw and staging queries.</li><li>Clear <strong>Enable load</strong>.</li><li>Leave final model-ready queries enabled.</li></ol></div>
-</div></section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<h3>Module parameter reference</h3>
-<table class="column-table"><thead><tr><th>Parameter</th><th>Type</th><th>Suggested value</th><th>Used in core Web path?</th><th>Purpose</th></tr></thead><tbody>
+  <h2>Step-by-step walkthrough</h2>
+  <ol class="steps">
+    <li><strong>Open or create your Power BI file, then open Power Query Editor.</strong>
+      <ol>
+        <li>Open Power BI Desktop.</li>
+        <li>If you are continuing the workshop solution, open the file in <code>pbi-local\</code>; otherwise create a new blank Power BI file first.</li>
+        <li>On the <b>Home</b> ribbon, click <b>Transform data</b> to open Power Query Editor.</li>
+      </ol>
+    </li>
+    <li><strong>Create the five Lab 03 parameters before you import data.</strong>
+      <ol>
+        <li>In Power Query Editor, click <b>Home &gt; Manage Parameters &gt; New Parameter</b>.</li>
+        <li>Create the first parameter, click <b>OK</b>, then repeat the same command until all five parameters below exist.</li>
+        <li>Leave <code>SourceFolderPath</code> blank unless you are intentionally demonstrating an offline local-folder alternative.</li>
+      </ol>
+      <table class="column-table"><thead><tr><th>Parameter</th><th>Type</th><th>Suggested value</th><th>Used in core Web path?</th><th>Purpose</th></tr></thead><tbody>
 <tr><td><code>RawDataBaseUrl</code></td><td>Text</td><td><code>https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/</code></td><td>Yes</td><td>Base path for raw GitHub CSV files.</td></tr>
 <tr><td><code>SourceFolderPath</code></td><td>Text</td><td>Blank, or a local folder path for offline delivery</td><td>No</td><td>Optional folder connector placeholder for instructor/offline scenarios.</td></tr>
 <tr><td><code>EnvironmentName</code></td><td>Text or List</td><td><code>Dev</code></td><td>Yes, as documentation/concept</td><td>Introduces Dev/Test/Prod source switching without changing the required Web-source path.</td></tr>
 <tr><td><code>RangeStart</code></td><td>Date/Time</td><td><code>2026-01-01 00:00:00</code></td><td>Yes, for incremental refresh prep</td><td>Lower bound for incremental refresh filtering.</td></tr>
 <tr><td><code>RangeEnd</code></td><td>Date/Time</td><td><code>2026-04-01 00:00:00</code></td><td>Yes, for incremental refresh prep</td><td>Upper bound for incremental refresh filtering.</td></tr>
 </tbody></table>
-<table class="column-table"><thead><tr><th>Query</th><th>Source</th><th>Load enabled?</th><th>Required output</th></tr></thead><tbody>
+      <details class="callout fyi">
+        <summary>FYI — why parameterize sources.</summary>
+        <div class="fyi-body">Parameters such as <code>RawDataBaseUrl</code>, <code>EnvironmentName</code>, <code>RangeStart</code>, and <code>RangeEnd</code> keep the M logic reusable instead of hardcoding values in multiple queries. When the file location or refresh window changes, you update one controlled input instead of editing every <code>Web.Contents</code> or filter step by hand. That lowers maintenance risk and makes the query behavior easier to explain and test.</div>
+      </details>
+    </li>
+    <li><strong>Import <code>orders-2026-01.csv</code> from the web.</strong>
+      <ol>
+        <li>In Power Query Editor, click <b>Home &gt; New Source &gt; Web</b>.</li>
+        <li>Paste the <code>orders-2026-01.csv</code> URL from the <a href="#source-files">Source files</a> section above, then click <b>OK</b>.</li>
+        <li>If prompted for authentication, choose <b>Anonymous</b> and click <b>Connect</b>.</li>
+        <li>Rename the new query <code>raw_Orders_2026_01</code>.</li>
+      </ol>
+    </li>
+    <li><strong>Import <code>orders-2026-02.csv</code> from the web.</strong>
+      <ol>
+        <li>Click <b>Home &gt; New Source &gt; Web</b>.</li>
+        <li>Paste the <code>orders-2026-02.csv</code> URL from the <a href="#source-files">Source files</a> section, then click <b>OK</b>.</li>
+        <li>Choose <b>Anonymous</b> and click <b>Connect</b> if the credential prompt appears again.</li>
+        <li>Rename the new query <code>raw_Orders_2026_02</code>.</li>
+      </ol>
+    </li>
+    <li><strong>Import <code>orders-2026-03.csv</code> from the web.</strong>
+      <ol>
+        <li>Click <b>Home &gt; New Source &gt; Web</b>.</li>
+        <li>Paste the <code>orders-2026-03.csv</code> URL from the <a href="#source-files">Source files</a> section, then click <b>OK</b>.</li>
+        <li>Choose <b>Anonymous</b> and click <b>Connect</b> if prompted.</li>
+        <li>Rename the new query <code>raw_Orders_2026_03</code>.</li>
+      </ol>
+    </li>
+    <li><strong>Review the generated M steps before you transform anything.</strong><p>Turn on the formula bar if it is hidden, then inspect how each query uses steps such as <code>Source</code> and <code>Promoted Headers</code>. Call out that M can work with records and lists as well as tables, which becomes important when you use <code>Csv.Document</code>, parameters, and <code>Table.Combine</code>.</p></li>
+    <li><strong>Add source-lineage columns to the raw monthly queries.</strong>
+      <ol>
+        <li>Select <code>raw_Orders_2026_01</code>.</li>
+        <li>Click <b>Add Column &gt; Custom Column</b>, name the column <code>SourceFile</code>, enter the file name <code>orders-2026-01.csv</code> as the custom value, then click <b>OK</b>.</li>
+        <li>Repeat the same <b>Add Column &gt; Custom Column</b> flow in <code>raw_Orders_2026_02</code> and <code>raw_Orders_2026_03</code>, using the matching file name in each query.</li>
+      </ol>
+    </li>
+    <li><strong>Append the monthly queries into one staging query.</strong>
+      <ol>
+        <li>On the <b>Home</b> ribbon, click <b>Append Queries &gt; Append Queries as New</b>.</li>
+        <li>Choose <b>Three or more tables</b>.</li>
+        <li>Add <code>raw_Orders_2026_01</code>, <code>raw_Orders_2026_02</code>, and <code>raw_Orders_2026_03</code> to the append list in month order.</li>
+        <li>Click <b>OK</b>, then rename the appended query <code>stg_OrdersCombined</code>.</li>
+        <li>Confirm the appended result keeps a consistent schema across all three files.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — append vs. merge.</summary>
+        <div class="fyi-body">Appending stacks rows from <code>raw_Orders_2026_01</code>, <code>raw_Orders_2026_02</code>, and <code>raw_Orders_2026_03</code> into one longer fact-style table, which is exactly what monthly snapshots need. A merge is different: it joins columns from another table based on matching keys. If you used merge here, you would widen the dataset instead of building the combined transaction history needed for <code>FactOrders</code>.</div>
+      </details>
+    </li>
+    <li><strong>Create the reusable text-cleanup function and invoke it where needed.</strong>
+      <ol>
+        <li>Click <b>Home &gt; New Source &gt; Blank Query</b>.</li>
+        <li>Rename the query <code>fn_CleanText</code>.</li>
+        <li>Open <b>Home &gt; Advanced Editor</b>, paste the function from the answer key, then click <b>Done</b>.</li>
+        <li>Invoke the function for <code>CustomerName</code> and <code>SalesChannel</code> in <code>FactOrders</code>.</li>
+        <li>Invoke the same function for <code>ProductName</code>, <code>ProductCategory</code>, and <code>ProductSubcategory</code> in <code>dim_ProductCategory</code>.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why turn cleanup logic into <code>fn_CleanText</code>.</summary>
+        <div class="fyi-body">Putting trim/clean/proper-case logic in a function gives <code>FactOrders</code> and <code>dim_ProductCategory</code> one shared definition of "clean text." If you later change the rule, you update the function once instead of hunting through several separate custom steps. This also demonstrates that Power Query can package repeated logic into reusable M functions, not just click-generated table steps.</div>
+      </details>
+    </li>
+    <li><strong>Create <code>err_OrdersReview</code> so invalid rows stay reviewable.</strong>
+      <ol>
+        <li>Right-click <code>stg_OrdersCombined</code> and choose <b>Reference</b>.</li>
+        <li>Rename the new query <code>err_OrdersReview</code>.</li>
+        <li>Add a <code>DataQualityIssue</code> column that records readable reasons such as missing or invalid <code>OrderDate</code>, missing or non-positive <code>Quantity</code>, missing or non-positive <code>UnitPrice</code>, and missing <code>ProductCode</code>.</li>
+        <li>Filter the query so only rows with a populated <code>DataQualityIssue</code> remain.</li>
+        <li>Use column quality or column profile views to confirm the intentional bad rows from the March file are visible here.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why separate error review from the final fact.</summary>
+        <div class="fyi-body">Referencing <code>stg_OrdersCombined</code> into <code>err_OrdersReview</code> preserves bad rows for investigation instead of silently deleting them. The <code>try ... otherwise</code> pattern lets you test values such as <code>OrderDate</code>, <code>Quantity</code>, and <code>UnitPrice</code> without breaking refresh when one row is malformed. This is safer than only using <code>Remove Errors</code>, which can hide data-quality problems with no explanation.</div>
+      </details>
+    </li>
+    <li><strong>Create the final <code>FactOrders</code> query from the staging query.</strong>
+      <ol>
+        <li>Right-click <code>stg_OrdersCombined</code> and choose <b>Reference</b>.</li>
+        <li>Rename the new query <code>FactOrders</code>.</li>
+        <li>Add the same <code>DataQualityIssue</code> logic used in <code>err_OrdersReview</code>.</li>
+        <li>Filter the query so only rows where <code>DataQualityIssue</code> is blank remain.</li>
+        <li>Apply explicit data types for <code>OrderId</code>, <code>OrderDate</code>, <code>CustomerName</code>, <code>ProductCode</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>SalesChannel</code>, and <code>SourceFile</code>.</li>
+        <li>Apply <code>fn_CleanText</code> to the customer and channel text columns before you close the editor.</li>
+      </ol>
+    </li>
+    <li><strong>Load <code>product-category-map.csv</code> and build <code>dim_ProductCategory</code>.</strong>
+      <ol>
+        <li>Click <b>Home &gt; New Source &gt; Web</b>.</li>
+        <li>Paste the <code>product-category-map.csv</code> URL from the <a href="#source-files">Source files</a> section, then click <b>OK</b>.</li>
+        <li>Choose <b>Anonymous</b> and click <b>Connect</b> if prompted.</li>
+        <li>Rename the new query <code>dim_ProductCategory</code>.</li>
+        <li>Keep the model-ready columns <code>ProductCode</code>, <code>ProductName</code>, <code>ProductCategory</code>, and <code>ProductSubcategory</code>, then apply <code>fn_CleanText</code> to the text fields.</li>
+      </ol>
+    </li>
+    <li><strong>Disable load for intermediate queries and document the staged architecture.</strong>
+      <ol>
+        <li>Right-click each raw query, <code>stg_OrdersCombined</code>, <code>err_OrdersReview</code>, and <code>fn_CleanText</code>.</li>
+        <li>Clear <b>Enable load</b> for those intermediate objects.</li>
+        <li>Leave <code>FactOrders</code> and <code>dim_ProductCategory</code> enabled for load.</li>
+        <li>Keep the required Web-source queries pointed at <code>RawDataBaseUrl</code>, and use <code>EnvironmentName</code> plus optional <code>SourceFolderPath</code> only to document how Dev/Test/Prod or offline delivery would be handled.</li>
+      </ol>
+      <table class="column-table"><thead><tr><th>Query</th><th>Source</th><th>Load enabled?</th><th>Required output</th></tr></thead><tbody>
 <tr><td><code>raw_Orders_2026_01</code></td><td><code>orders-2026-01.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>.</td></tr>
 <tr><td><code>raw_Orders_2026_02</code></td><td><code>orders-2026-02.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>.</td></tr>
 <tr><td><code>raw_Orders_2026_03</code></td><td><code>orders-2026-03.csv</code> Web URL</td><td>No</td><td>All source columns plus <code>SourceFile</code>; contains intentional errors.</td></tr>
@@ -241,23 +313,31 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td><code>err_OrdersReview</code></td><td>Reference staging query</td><td>No</td><td>Rows with a populated <code>DataQualityIssue</code> reason for review.</td></tr>
 <tr><td><code>dim_ProductCategory</code></td><td><code>product-category-map.csv</code> Web URL</td><td>Yes</td><td><code>ProductCode</code>, <code>ProductName</code>, <code>ProductCategory</code>, <code>ProductSubcategory</code>.</td></tr>
 <tr><td><code>fn_CleanText</code></td><td>Blank query function</td><td>No</td><td>Null-safe trim/clean/proper text function.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Open the PBIP project and Power Query.</strong><p>Open the current PBIP solution. Select <b>Transform data</b> to open Power Query Editor.</p></li>
-    <li><strong>Create module parameters.</strong><p>Create five Power Query parameters: <code>RawDataBaseUrl</code> as Text with value <code>https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/</code>; <code>SourceFolderPath</code> as Text and leave it blank unless using an offline folder path; <code>EnvironmentName</code> as Text or List with current value <code>Dev</code>; <code>RangeStart</code> as Date/Time with value <code>2026-01-01 00:00:00</code>; and <code>RangeEnd</code> as Date/Time with value <code>2026-04-01 00:00:00</code>.</p></li>
-    <li><strong>Load monthly order files.</strong><p>Use <b>New Source > Web</b> for each monthly order CSV. Name the raw queries <code>raw_Orders_2026_01</code>, <code>raw_Orders_2026_02</code>, and <code>raw_Orders_2026_03</code>.</p></li>
-    <li><strong>Review generated M fundamentals.</strong><p>Use the formula bar to identify applied steps and step references. Point out lists, records, and tables in the generated code, such as the option record in <code>Csv.Document</code> and the query list used by <code>Table.Combine</code>.</p></li>
-    <li><strong>Add source lineage.</strong><p>In each raw monthly query, add a custom column named SourceFile with the file name, such as <code>orders-2026-01.csv</code>. This helps identify which file produced each row.</p></li>
-    <li><strong>Append the monthly queries.</strong><p>Use <b>Append Queries as New</b> and append the three monthly order queries. Rename the result <code>stg_OrdersCombined</code>.</p></li>
-    <li><strong>Create the final fact query.</strong><p>Reference <code>stg_OrdersCombined</code> and name the new query <code>FactOrders</code>. Use the validation pattern to keep only rows with no data quality issue, then apply explicit data types for OrderId, OrderDate, ProductCode, Quantity, UnitPrice, and SalesChannel.</p></li>
-    <li><strong>Create and invoke a cleanup function.</strong><p>Create <code>fn_CleanText</code> to trim and clean nullable text values. Invoke it on <code>CustomerName</code> and <code>SalesChannel</code> in <code>FactOrders</code>, and on <code>ProductName</code>, <code>ProductCategory</code>, and <code>ProductSubcategory</code> in the product reference query.</p></li>
-    <li><strong>Identify bad data.</strong><p>Use column quality/profile and safe parsing logic to find the intentional bad date and bad quantity in the March file. Create <code>err_OrdersReview</code> as a disabled-load reference query before removing invalid rows from <code>FactOrders</code>.</p></li>
-    <li><strong>Document business-rule checks.</strong><p>Keep readable reasons for missing or invalid OrderDate, non-positive Quantity, non-positive UnitPrice, and missing ProductCode so reviewers can understand what was excluded.</p></li>
-    <li><strong>Load reference data.</strong><p>Use the Web connector for <code>product-category-map.csv</code>. Merge it into <code>FactOrders</code> on ProductCode or keep it as a dimension/reference table, depending on the lab design.</p></li>
-    <li><strong>Prepare for incremental refresh.</strong><p>Use the existing Date/Time parameters <code>RangeStart</code> and <code>RangeEnd</code>. Filter the final fact query on OrderDate using those parameters. Document Service-side incremental refresh as Verify for Gov.</p></li>
-    <li><strong>Review native queries and source systems.</strong><p>Keep native SQL optional until source security, gateway behavior, credentials, and Azure Government support are validated. Prefer maintainable Power Query steps for the core lab.</p></li>
+</tbody></table>
+      <details class="callout fyi">
+        <summary>FYI — why disable load on raw and staging queries.</summary>
+        <div class="fyi-body">Queries such as <code>raw_Orders_2026_01</code>, <code>stg_OrdersCombined</code>, <code>err_OrdersReview</code>, and <code>fn_CleanText</code> exist to support preparation, validation, and reuse—not to become report tables. Leaving load enabled would clutter the model and can increase refresh and memory usage with duplicate intermediate data. The staged pattern keeps only business-ready tables like <code>FactOrders</code> and <code>dim_ProductCategory</code> visible to report authors.</div>
+      </details>
+    </li>
+    <li><strong>Filter <code>FactOrders</code> with <code>RangeStart</code> and <code>RangeEnd</code> for incremental refresh preparation.</strong>
+      <ol>
+        <li>Select the <code>FactOrders</code> query.</li>
+        <li>Open the filter on <code>OrderDate</code>.</li>
+        <li>Apply a filter that keeps rows on or after <code>RangeStart</code> and before <code>RangeEnd</code>.</li>
+        <li>Confirm the filtered column is Date/Time-compatible so the query is ready for later incremental refresh policy setup.</li>
+      </ol>
+      <p>Desktop preparation is the required part of this lab. Service-side incremental refresh configuration remains <strong>Verify for Gov</strong>.</p>
+      <details class="callout fyi">
+        <summary>FYI — why <code>RangeStart</code> and <code>RangeEnd</code> matter.</summary>
+        <div class="fyi-body">These parameters mark the date window Power BI can later partition for incremental refresh, so only newer slices of <code>FactOrders</code> need to be reprocessed. The filter must be on the actual date column and use the parameter values directly, or the service may not recognize the pattern. Even though the policy is configured later, this Power Query step is what makes the dataset eligible for that optimization.</div>
+      </details>
+    </li>
+    <li><strong>Review query-folding and native-query limitations in context.</strong><p>Explain that file-based Web CSV imports do not provide the same folding behavior as SQL or other folding-capable sources, so <b>View Native Query</b> is only meaningful when you also test a connector that supports folding in the target environment. Keep native SQL optional and prefer maintainable Power Query steps for the core lab.</p>
+      <details class="callout fyi">
+        <summary>FYI — why query folding is still worth teaching here.</summary>
+        <div class="fyi-body">Folding means Power Query can push transforms back to the source, which is usually faster and reduces data movement. These Web CSV files do not really fold, so the lesson is not "make this source fold"—it is "recognize when a source cannot fold, and avoid assuming every connector behaves like SQL." That helps students understand why step order and source choice matter so much in larger production datasets.</div>
+      </details>
+    </li>
   </ol>
 </section>
         <section>
@@ -452,7 +532,7 @@ FilteredRows =
       </aside>
     </main>
     <nav class="bottomnav"><a href="02-advanced-dax.html">Previous</a><a href="jeopardy/lab03.html">Jeopardy review</a><a href="04-report-design-ux.html">Next</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>

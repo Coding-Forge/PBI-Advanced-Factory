@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -148,7 +157,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <div class="eyebrow">Lab 1 - Semantic model foundation</div>
       <h1>Advanced Semantic Modeling</h1>
       <p class="lede">Refactor a flat export into a reusable semantic model with facts, dimensions, role-playing dates, a segment bridge, targets, and Gov-aware optional storage-mode decisions.</p>
-      <div class="meta"><span>Advanced authoring</span><span>Deliverable: PBIP semantic model plan</span><span>PBIP-first</span></div>
+      <div class="meta"><span>Advanced authoring</span><span>Deliverable: Semantic model plan</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
@@ -161,7 +170,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <li>Composite-model decision notes</li></ul></div>
         </section>
         <section>
-  <h2>Source files</h2>
+  <h2 id="source-files">Source files</h2>
   <div class="urls">
     <div class="urlcard"><strong>sales-flat.csv</strong><code class="code" id="u1">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/sales-flat.csv</code><button class="copy" data-copy="u1">Copy URL</button></div>
     <div class="urlcard"><strong>customer-segments.csv</strong><code class="code" id="u2">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/customer-segments.csv</code><button class="copy" data-copy="u2">Copy URL</button></div>
@@ -169,87 +178,38 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
   </div>
 </section>
         <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Import the lab CSV sources</h3>
-  <ul>
-    <li>Use Get data &gt; Web for sales-flat.csv, customer-segments.csv, and targets.csv.</li>
-<li>Keep the raw sales query as a source reference before creating model queries.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Refactor sales into facts and dimensions</h3>
-  <ul>
-    <li>Create FactSales, DimCustomer, DimProduct, DimProductCategory, and DimTerritory with the README column lists.</li>
-<li>Remove duplicate rows from dimensions and hide technical keys that are not useful to report consumers.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Create date roles</h3>
-  <ul>
-    <li>Build DimOrderDate and DimShipDate using the approved Power Query fn_DimDate or DAX CALENDAR pattern.</li>
-<li>Mark date tables and connect each role to the matching FactSales date column.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Configure relationships and targets</h3>
-  <ul>
-    <li>Create one-to-many, single-direction relationships from dimensions to facts and bridge tables.</li>
-<li>Use DimProductCategory for product-category target relationships instead of a many-to-many shortcut.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Add customer segment bridge</h3>
-  <ul>
-    <li>Create BridgeCustomerSegment and DimSegment from customer-segments.csv.</li>
-<li>Test segment filtering without duplicating customer rows.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Document optional storage choices</h3>
-  <ul>
-    <li>Compare Import, DirectQuery, Dual, composite, hybrid, and large-model tradeoffs.</li>
-<li>Keep tenant-dependent features marked Verify for Gov unless validated.</li>
-  </ul>
-</div></div>
-        </section>
-        
-        <section><h2>Novice-friendly how-to guide</h2><div class="task-list">
-<div class="task-card"><h3>Reference a raw query into facts and dimensions</h3><ol><li>Right-click <code>raw_SalesFlat</code> and choose <strong>Reference</strong>.</li><li>Rename the new query to <code>FactSales</code>, <code>DimCustomer</code>, <code>DimProduct</code>, or <code>DimTerritory</code>.</li><li>Keep or remove columns to match the README table.</li><li>Remove duplicate rows from dimensions only.</li></ol></div>
-<div class="task-card"><h3>Create DimProductCategory</h3><ol><li>Reference <code>DimProduct</code>.</li><li>Rename the query <code>DimProductCategory</code>.</li><li>Remove <code>ProductKey</code>, <code>ProductName</code>, and <code>ProductSubcategory</code>.</li><li>Keep only <code>ProductCategory</code>, confirm text type, and remove duplicates.</li></ol></div>
-<div class="task-card"><h3>Create date role tables</h3><ol><li>Use the approved <code>fn_DimDate</code> or DAX <code>CALENDAR</code> pattern.</li><li>Create <code>DimOrderDate</code> and <code>DimShipDate</code>.</li><li>Mark each table as a date table.</li><li>Relate each role table to the matching fact date column.</li></ol></div>
-<div class="task-card"><h3>Create relationships in Model view</h3><ol><li>Drag each dimension primary key to the matching fact or bridge foreign key.</li><li>Confirm one-to-many cardinality, single cross-filter direction, and active status.</li><li>Use <code>DimProductCategory</code> for target category relationships.</li></ol></div>
-<div class="task-card"><h3>Evaluate composite model choices</h3><ol><li>Identify Import, DirectQuery, and Dual candidates.</li><li>Document freshness, performance, source-load, gateway, and tenant constraints.</li><li>Keep composite, DirectQuery, hybrid, and large-model work marked Verify for Gov unless validated.</li></ol></div>
-</div></section>
-        <section><h2>Implementation reference table</h2><div class="task-card"><h3>Fact and dimension column reference</h3>
-<table class="column-table"><thead><tr><th>Query</th><th>Columns to keep</th><th>Validation</th></tr></thead><tbody>
-<tr><td><code>FactSales</code></td><td><code>SalesOrderLineKey</code>, <code>OrderDate</code>, <code>ShipDate</code>, <code>InvoiceDate</code>, <code>CustomerKey</code>, <code>ProductKey</code>, <code>TerritoryKey</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>UnitCost</code>, <code>SalesAmount</code>, <code>GrossMargin</code></td><td>Transaction grain remains one row per sales order line.</td></tr>
-<tr><td><code>DimCustomer</code></td><td><code>CustomerKey</code>, <code>CustomerName</code>, <code>CustomerType</code>, <code>CustomerState</code>, <code>CustomerRegion</code></td><td>Duplicate customer rows removed.</td></tr>
-<tr><td><code>DimProduct</code></td><td><code>ProductKey</code>, <code>ProductName</code>, <code>ProductCategory</code>, <code>ProductSubcategory</code></td><td>Product rows stay at product grain.</td></tr>
-<tr><td><code>DimProductCategory</code></td><td><code>ProductCategory</code></td><td>One row per category for slicers and targets.</td></tr>
-<tr><td><code>DimTerritory</code></td><td><code>TerritoryKey</code>, <code>TerritoryName</code>, <code>TerritoryRegion</code></td><td>Duplicate territory rows removed.</td></tr>
-<tr><td><code>BridgeCustomerSegment</code></td><td><code>CustomerKey</code>, <code>Segment</code></td><td>Multi-segment customer mapping.</td></tr>
-<tr><td><code>DimSegment</code></td><td><code>Segment</code></td><td>Distinct segment list.</td></tr>
-</tbody></table><h3>Relationship reference</h3>
-<table class="column-table"><thead><tr><th>From</th><th>To</th><th>Cardinality</th><th>Direction</th><th>Notes</th></tr></thead><tbody>
-<tr><td><code>DimCustomer[CustomerKey]</code></td><td><code>FactSales[CustomerKey]</code></td><td>One-to-many</td><td>Single</td><td>Customer filters sales.</td></tr>
-<tr><td><code>DimProduct[ProductKey]</code></td><td><code>FactSales[ProductKey]</code></td><td>One-to-many</td><td>Single</td><td>Product filters sales.</td></tr>
-<tr><td><code>DimTerritory[TerritoryKey]</code></td><td><code>FactSales[TerritoryKey]</code></td><td>One-to-many</td><td>Single</td><td>Territory filters sales.</td></tr>
-<tr><td><code>DimOrderDate[Date]</code></td><td><code>FactSales[OrderDate]</code></td><td>One-to-many</td><td>Single</td><td>Primary date path.</td></tr>
-<tr><td><code>DimShipDate[Date]</code></td><td><code>FactSales[ShipDate]</code></td><td>One-to-many</td><td>Single</td><td>Ship-date role path.</td></tr>
-<tr><td><code>DimTerritory[TerritoryKey]</code></td><td><code>FactTargets[TerritoryKey]</code></td><td>One-to-many</td><td>Single</td><td>Targets by territory.</td></tr>
-<tr><td><code>DimProductCategory[ProductCategory]</code></td><td><code>DimProduct[ProductCategory]</code></td><td>One-to-many</td><td>Single</td><td>Category filters products.</td></tr>
-<tr><td><code>DimProductCategory[ProductCategory]</code></td><td><code>FactTargets[ProductCategory]</code></td><td>One-to-many</td><td>Single</td><td>Avoids many-to-many target relationship.</td></tr>
-<tr><td><code>DimSegment[Segment]</code></td><td><code>BridgeCustomerSegment[Segment]</code></td><td>One-to-many</td><td>Single</td><td>Segments filter the bridge.</td></tr>
-<tr><td><code>DimCustomer[CustomerKey]</code></td><td><code>BridgeCustomerSegment[CustomerKey]</code></td><td>One-to-many</td><td>Single</td><td>Customer filters bridge rows.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
+  <h2>Step-by-step walkthrough</h2>
   <ol class="steps">
-    <li><strong>Create or open the PBIP project.</strong><p>Open Power BI Desktop. If you are continuing the workshop solution, open the PBIP project in <code>pbi-local\</code>. If this is your first hands-on step, create a new blank report and save it as a Power BI project before importing data.</p></li>
-    <li><strong>Connect to the sales flat file.</strong><p>Select <b>Home > Get data > Web</b>. Paste the <code>sales-flat.csv</code> raw URL from the Source files section. Use Anonymous authentication for the public GitHub source, then choose <b>Transform data</b>.</p></li>
-    <li><strong>Name the raw query.</strong><p>In Power Query, rename the query to <code>raw_SalesFlat</code>. Do not do all modeling work directly in this raw query; keep it as your source reference.</p></li>
-    <li><strong>Create the sales fact query.</strong><p>Right-click <code>raw_SalesFlat</code> and choose <b>Reference</b>. Rename the new query <code>FactSales</code>. Use this exact column list so relationship keys and later DAX measures are not missed.</p>
+    <li><strong>Create or open your Power BI file.</strong><p>Open Power BI Desktop. If you are continuing the workshop solution, open the file in <code>pbi-local\</code>. If this is your first hands-on step, create a new blank report and save it as a Power BI file before importing data.</p></li>
+    <li><strong>Import <code>sales-flat.csv</code> from the web.</strong>
+      <ol>
+        <li>On the <b>Home</b> ribbon, click <b>Get data</b>, then click <b>Web</b>.</li>
+        <li>Paste the <code>sales-flat.csv</code> URL from the <a href="#source-files">Source files</a> section above, then click <b>OK</b>.</li>
+        <li>If prompted for authentication, choose <b>Anonymous</b> and click <b>Connect</b>.</li>
+        <li>In the Navigator preview, click <b>Transform data</b> to open Power Query Editor.</li>
+      </ol>
+    </li>
+    <li><strong>Rename the raw sales query.</strong><p>In the Queries pane on the left, double-click the query name and rename it to <code>raw_SalesFlat</code>. Keep this query as your source reference; do not build your model directly on top of it.</p>
+      <details class="callout fyi">
+        <summary>FYI — why keep a separate "raw_" staging query.</summary>
+        <div class="fyi-body">Loading the source data into its own untouched <code>raw_</code> query, then building <code>FactSales</code> and the dimension queries as <b>References</b> off of it, means the CSV is only imported from the web once no matter how many downstream queries you create. If the source format ever changes, you fix the one <code>raw_</code> query and every table that references it stays consistent. Using <b>Duplicate</b> instead of <b>Reference</b> would copy the import step into each new query, so a source fix would have to be repeated everywhere.</div>
+      </details>
+    </li>
+    <li><strong>Import <code>customer-segments.csv</code> from the web.</strong>
+      <ol>
+        <li>Click <b>Home &gt; Get data &gt; Web</b> again.</li>
+        <li>Paste the <code>customer-segments.csv</code> URL from the Source files section, click <b>OK</b>, choose <b>Anonymous</b>, then click <b>Connect</b>.</li>
+        <li>Click <b>Transform data</b>, then rename the new query <code>raw_CustomerSegments</code>.</li>
+      </ol>
+    </li>
+    <li><strong>Import <code>targets.csv</code> from the web.</strong>
+      <ol>
+        <li>Click <b>Home &gt; Get data &gt; Web</b> a third time.</li>
+        <li>Paste the <code>targets.csv</code> URL from the Source files section, click <b>OK</b>, choose <b>Anonymous</b>, then click <b>Connect</b>.</li>
+        <li>Click <b>Transform data</b>, then rename the new query <code>raw_Targets</code>.</li>
+      </ol>
+    </li>
+    <li><strong>Create the sales fact query.</strong><p>Right-click <code>raw_SalesFlat</code> in the Queries pane and choose <b>Reference</b>. Rename the new query <code>FactSales</code>. Use this exact column list so relationship keys and later DAX measures are not missed.</p>
       <table class="column-table">
         <thead><tr><th>Column</th><th>Action</th><th>Why</th></tr></thead>
         <tbody>
@@ -270,8 +230,18 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
           <tr><td><code>TerritoryName</code>, <code>TerritoryRegion</code></td><td>Remove from <code>FactSales</code></td><td>These belong in <code>DimTerritory</code>.</td></tr>
         </tbody>
       </table>
+      <details class="callout fyi">
+        <summary>FYI — fact vs. dimension tables (star schema).</summary>
+        <div class="fyi-body"><code>FactSales</code> keeps only the columns that are numeric/measurable (quantities, prices, amounts) or that are foreign keys pointing to a dimension (<code>CustomerKey</code>, <code>ProductKey</code>, <code>TerritoryKey</code>). Descriptive columns like <code>CustomerName</code> or <code>ProductCategory</code> move to their own dimension tables instead. This "star schema" shape — one fact table surrounded by narrow dimension tables joined on keys — is what makes Power BI's DAX engine fast and its relationships unambiguous; a wide, denormalized table with everything in one place would be slower to query and harder to relate correctly.</div>
+      </details>
     </li>
-    <li><strong>Create customer, product, and territory dimensions.</strong><p>Reference <code>raw_SalesFlat</code> three more times. Use the exact column lists below, then remove duplicate rows from each dimension query.</p>
+    <li><strong>Create customer, product, and territory dimensions.</strong>
+      <ol>
+        <li>Right-click <code>raw_SalesFlat</code> and choose <b>Reference</b>. Repeat this two more times so you have three new queries in total.</li>
+        <li>Rename the three new queries <code>DimCustomer</code>, <code>DimProduct</code>, and <code>DimTerritory</code>.</li>
+        <li>In each query, select only the columns listed in the <b>Columns to keep</b> column below (Ctrl-click each column header to multi-select), right-click any selected column header, and choose <b>Remove Other Columns</b>.</li>
+        <li>In each of the three queries, select all of the remaining columns (click the first column header, then Shift-click the last), right-click any selected column header, and choose <b>Remove Duplicates</b>.</li>
+      </ol>
       <table class="column-table">
         <thead><tr><th>Query</th><th>Columns to keep</th><th>Columns to remove</th></tr></thead>
         <tbody>
@@ -281,9 +251,19 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
           <tr><td><code>DimTerritory</code></td><td><code>TerritoryKey</code>, <code>TerritoryName</code>, <code>TerritoryRegion</code></td><td>All sales, date, customer, and product columns.</td></tr>
         </tbody>
       </table>
+      <div class="callout"><strong>Why remove duplicates:</strong> <code>raw_SalesFlat</code> is at transaction grain, so the same customer, product, or territory appears on many rows. A dimension table must have exactly one row per key value (<code>CustomerKey</code>, <code>ProductKey</code>, <code>TerritoryKey</code>). If you skip <b>Remove Duplicates</b>, the dimension will have repeated key values, Power BI will not be able to create a proper one-to-many relationship from that table to <code>FactSales</code>, and totals in your visuals will be inflated or incorrect. Always remove duplicates on the dimension side, never on the fact table.</div>
     </li>
-    <li><strong>Create the product category lookup.</strong><p><code>FactTargets</code> is stored at product-category grain, while <code>DimProduct</code> is stored at product grain. Do not relate <code>DimProduct[ProductCategory]</code> directly to <code>FactTargets[ProductCategory]</code> if Power BI detects many-to-many cardinality. Instead, reference <code>DimProduct</code>, rename the query <code>DimProductCategory</code>, remove <code>ProductKey</code>, <code>ProductName</code>, and <code>ProductSubcategory</code>, keep <code>ProductCategory</code> as the only remaining column, remove duplicate rows from <code>ProductCategory</code>, and load it as a small lookup dimension.</p></li>
+    <li><strong>Create the product category lookup.</strong><p><code>FactTargets</code> is stored at product-category grain, while <code>DimProduct</code> is stored at product grain. Do not relate <code>DimProduct[ProductCategory]</code> directly to <code>FactTargets[ProductCategory]</code> if Power BI detects many-to-many cardinality. Instead, reference <code>DimProduct</code>, rename the query <code>DimProductCategory</code>, remove <code>ProductKey</code>, <code>ProductName</code>, and <code>ProductSubcategory</code>, keep <code>ProductCategory</code> as the only remaining column, then select that column, right-click the column header, and choose <b>Remove Duplicates</b> so each category appears once before loading it as a small lookup dimension.</p>
+      <details class="callout fyi">
+        <summary>FYI — why grain mismatches need their own lookup table.</summary>
+        <div class="fyi-body"><code>DimProduct</code> has one row per product, so its <code>ProductCategory</code> column repeats for every product in a category — that is many-to-many when related directly to <code>FactTargets</code>, which is already at category grain. Power BI cannot reliably filter both directions across a many-to-many relationship. Adding a small <code>DimProductCategory</code> table with one row per distinct category gives both <code>DimProduct</code> and <code>FactTargets</code> a clean one-to-many relationship to a single, unambiguous source of category values.</div>
+      </details>
+    </li>
     <li><strong>Create date role tables.</strong><p>Create date tables for at least Order Date and Ship Date. For a beginner-friendly path, duplicate or reference a completed date table into <code>DimOrderDate</code> and <code>DimShipDate</code>. Use one of the approved patterns below.</p>
+      <details class="callout fyi">
+        <summary>FYI — why two separate date tables (role-playing dimensions).</summary>
+        <div class="fyi-body"><code>FactSales</code> has two date columns, <code>OrderDate</code> and <code>ShipDate</code>, but a single date table can only be related to one active relationship per fact table at a time. Loading two independent copies — <code>DimOrderDate</code> and <code>DimShipDate</code> — lets each play its own "role": one always relates to order date, the other to ship date, so you can filter or use time intelligence against either one without switching relationships on and off.</div>
+      </details>
       <details>
         <summary>Answer key / suggested date table patterns</summary>
         <p><strong>Use Power Query</strong> when the date table should be reusable across reports, parameterized by start/end date, aligned to a configurable fiscal year, or enriched with holidays before load. Create a blank query named <code>fn_DimDate</code> and paste this function in Advanced Editor.</p>
@@ -377,15 +357,22 @@ RETURN
         <div class="callout"><strong>Side note:</strong> Larger enterprise date dimensions often add period boundary dates, refresh-relative offsets, current-period flags, and ISO week attributes. Keep those optional in Lab 1 because they depend on business calendar rules, refresh timing, and whether the organization uses ISO week calendars.</div>
       </details>
     </li>
-    <li><strong>Load targets and customer segments.</strong><p>Use <b>Get data > Web</b> for <code>targets.csv</code> and <code>customer-segments.csv</code>. Use these exact column lists.</p>
-      <table class="column-table">
-        <thead><tr><th>Query</th><th>Columns to keep</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td><code>FactTargets</code></td><td><code>TargetMonth</code>, <code>TerritoryKey</code>, <code>ProductCategory</code>, <code>TargetSalesAmount</code></td><td>Monthly target fact table.</td></tr>
-          <tr><td><code>BridgeCustomerSegment</code></td><td><code>CustomerKey</code>, <code>Segment</code></td><td>Bridge table that maps customers to one or more segments.</td></tr>
-          <tr><td><code>DimSegment</code></td><td><code>Segment</code></td><td>Create this as a distinct list from <code>BridgeCustomerSegment[Segment]</code>.</td></tr>
-        </tbody>
-      </table>
+    <li><strong>Create <code>FactTargets</code> from <code>raw_Targets</code>.</strong>
+      <ol>
+        <li>Right-click <code>raw_Targets</code> and choose <b>Reference</b>.</li>
+        <li>Rename the new query <code>FactTargets</code>.</li>
+        <li>Keep only <code>TargetMonth</code>, <code>TerritoryKey</code>, <code>ProductCategory</code>, and <code>TargetSalesAmount</code>; remove any other columns.</li>
+      </ol>
+    </li>
+    <li><strong>Create <code>BridgeCustomerSegment</code> and <code>DimSegment</code> from <code>raw_CustomerSegments</code>.</strong>
+      <ol>
+        <li>Right-click <code>raw_CustomerSegments</code> and choose <b>Reference</b>. Rename it <code>BridgeCustomerSegment</code>. Keep only <code>CustomerKey</code> and <code>Segment</code>.</li>
+        <li>Right-click <code>BridgeCustomerSegment</code> and choose <b>Reference</b> again. Rename it <code>DimSegment</code>. Remove <code>CustomerKey</code>, keep only <code>Segment</code>, then remove duplicate rows so each segment appears once.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why a bridge table instead of a direct relationship.</summary>
+        <div class="fyi-body">A customer can belong to more than one segment, so <code>raw_CustomerSegments</code> has multiple rows per <code>CustomerKey</code>. Relating <code>DimCustomer</code> straight to <code>DimSegment</code> would be many-to-many. <code>BridgeCustomerSegment</code> keeps the full (<code>CustomerKey</code>, <code>Segment</code>) pair list, so <code>DimCustomer</code>-to-bridge and <code>DimSegment</code>-to-bridge can both stay clean one-to-many relationships instead of one ambiguous many-to-many relationship.</div>
+      </details>
     </li>
     <li><strong>Close and apply.</strong><p>Confirm data types before loading. Dates should be Date, quantities should be whole numbers, currency/amount columns should be decimal or fixed decimal, and keys should be text unless you intentionally model them otherwise.</p></li>
     <li><strong>Create relationships in Model view.</strong><p>Use the relationship setup reference below to create each relationship explicitly. The core lab path uses one-to-many cardinality and single-direction filtering from dimensions into facts or bridge tables.</p>
@@ -418,9 +405,18 @@ DimProductCategory ||--o{  FactTargets      : ProductCategory
 DimCustomer  ||--o{  BridgeCustomerSegment  : CustomerKey
 DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
       <div class="callout"><strong>Bridge-table note:</strong> Keep relationships single-direction for the core lab. If a segment slicer must directly filter sales, discuss the ambiguity and performance tradeoffs before using bidirectional filtering, or use an intentional DAX pattern such as <code>TREATAS</code>.</div>
+      <details class="callout fyi">
+        <summary>FYI — cardinality and cross-filter direction.</summary>
+        <div class="fyi-body"><b>Cardinality</b> describes how many rows on each side of a relationship can match (one-to-many is the healthy default for a star schema: one dimension row can relate to many fact rows). <b>Cross-filter direction</b> controls which way a filter travels: <b>Single</b> means the dimension filters the fact table but not the reverse; <b>Both</b> lets filters flow in both directions, which can create ambiguous results when several tables filter each other in a loop. Start every relationship single-direction and one-to-many; only switch to bidirectional when a specific report requirement needs it and you have tested for ambiguity.</div>
+      </details>
     </li>
     <li><strong>Validate the model.</strong><p>Create a simple table or matrix with CustomerName, ProductCategory, TerritoryRegion, and SalesAmount. Filter by date and segment to confirm the relationships behave as expected.</p></li>
-    <li><strong>Review composite model or DirectQuery choices.</strong><p>This optional lab is marked <strong>Verify for Gov</strong>. Identify which tables are good Import candidates, which sources might require DirectQuery, where Dual dimensions could help, and what gateway, tenant, source, and performance tradeoffs must be validated before using the pattern hands-on.</p></li>
+    <li><strong>Review composite model or DirectQuery choices.</strong><p>This optional lab is marked <strong>Verify for Gov</strong>. Identify which tables are good Import candidates, which sources might require DirectQuery, where Dual dimensions could help, and what gateway, tenant, source, and performance tradeoffs must be validated before using the pattern hands-on.</p>
+      <details class="callout fyi">
+        <summary>FYI — Import vs. DirectQuery vs. Dual.</summary>
+        <div class="fyi-body"><b>Import</b> copies data into memory for the fastest report performance but only reflects data as of the last refresh. <b>DirectQuery</b> sends live queries to the source for real-time results but is limited by source performance and DAX restrictions. <b>Dual</b> lets a table behave as either, chosen automatically per query, which is useful for small dimension tables shared between Import fact tables and DirectQuery fact tables in a composite model. Choose based on data freshness needs and source query performance, not by default.</div>
+      </details>
+    </li>
   </ol>
 </section>
         
@@ -446,7 +442,7 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
       </aside>
     </main>
     <nav class="bottomnav"><a href="index.html">Course home</a><a href="jeopardy/lab01.html">Jeopardy review</a><a href="02-advanced-dax.html">Next</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>

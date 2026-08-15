@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -148,7 +157,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <div class="eyebrow">Lab 9 - Operate and support</div>
       <h1>Monitoring and Governance</h1>
       <p class="lede">Monitor adoption, troubleshoot refresh, review tenant settings, inspect gateways, and document support operations.</p>
-      <div class="meta"><span>Operations</span><span>Deliverable: Operations runbook</span><span>PBIP-first</span></div>
+      <div class="meta"><span>Operations</span><span>Deliverable: Operations runbook</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
@@ -161,54 +170,95 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         </section>
         
         <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Review usage and adoption</h3>
-  <ul>
-    <li>Open usage metrics where available.</li>
-<li>Document adoption observations, training needs, support signals, and retirement candidates.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Troubleshoot refresh</h3>
-  <ul>
-    <li>Review refresh history, credentials, and gateway mapping.</li>
-<li>Document likely causes and next actions.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review governance settings</h3>
-  <ul>
-    <li>Review sharing, export, publish-to-web, external users, Build permission, and certification controls.</li>
-<li>Use read-only review unless approved.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review optional admin signals</h3>
-  <ul>
-    <li>Activity logs, admin monitoring, capacity metrics, Purview, and DLP are Verify for Gov.</li>
-<li>Record available evidence and access blockers.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Complete operations runbook</h3>
-  <ul>
-    <li>Document owners, sources, refresh, access, monitoring cadence, incident response, and Azure Government validation notes.</li>
-  </ul>
-</div></div>
-        </section>
-        
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Review usage metrics</h3><ol><li>Open the report or App in the Power BI Service.</li><li>Open usage metrics when tenant policy and permissions allow it.</li><li>Review views, unique viewers, page usage, and trends.</li><li>Document adoption observations, training needs, support signals, and retirement candidates.</li><li>If usage metrics are unavailable, record the tenant, license, or permission blocker.</li></ol></div>
-    <div class="task-card"><h3>Review refresh history</h3><ol><li>Open the workspace and select the semantic model.</li><li>Open refresh history or semantic model settings.</li><li>Record recent success/failure status, duration, and recipients.</li><li>For failures, capture the error summary, credential/gateway clue, likely cause, and next action.</li></ol></div>
-    <div class="task-card"><h3>Complete runbook evidence</h3><ol><li>Record content inventory, owners, sources, access model, monitoring cadence, and incident paths.</li><li>Mark activity logs, audit logs, admin monitoring, capacity metrics, Purview, and DLP as Verify for Gov unless validated.</li></ol></div>
-  </div>
-</section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Runbook area</th><th>Fields to complete</th><th>Source</th></tr></thead><tbody>
-<tr><td>Content inventory</td><td>Workspace, App, report, semantic model, PBIP path</td><td>Service and repository.</td></tr>
+  <h2>Step-by-step walkthrough</h2>
+  <ol class="steps">
+    <li><strong>Start from the content published in Lab 8.</strong><p>Use the report and semantic model already published to the Power BI Service. If you do not have direct workspace access in this environment, follow the instructor demo or screenshots and still complete the operational notes as a conceptual exercise.</p></li>
+    <li><strong>Open usage metrics for the deployed report.</strong>
+      <ol>
+        <li>In Power BI Service, open the workspace from Lab 8.</li>
+        <li>Open the published report or App you want to review.</li>
+        <li>Click the report <b>More options</b> menu (...) and choose <b>Usage metrics report</b> or <b>View usage metrics</b>.</li>
+        <li>Review total views, unique viewers, recent activity, and page-level usage if those visuals are available.</li>
+        <li>If the option is missing, record whether the blocker is permissions, licensing, tenant policy, or environment scope.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — what usage metrics are really telling you.</summary>
+        <div class="fyi-body">Usage metrics are an adoption signal, not a quality guarantee. They help you see whether a report is being opened, which pages are being used, and whether engagement is growing or fading, but they do not explain <i>why</i> people behave that way unless you combine them with stakeholder feedback and support history.</div>
+      </details>
+    </li>
+    <li><strong>Interpret the adoption signals.</strong><p>Record at least one high-use signal, one low-use or declining-use signal, and the follow-up action each pattern suggests. Tie the observation to a real support or governance action such as training, report retirement review, navigation cleanup, or added owner follow-up.</p>
+      <details class="callout fyi">
+        <summary>FYI — why adoption review is an operations task.</summary>
+        <div class="fyi-body">A heavily used report may justify more rigorous support, performance tuning, and owner coverage because business decisions depend on it. A low-use report can indicate poor discoverability, confusing design, duplicate content, or a report that should be retired, which is why monitoring adoption is part of governance rather than just curiosity.</div>
+      </details>
+    </li>
+    <li><strong>Review semantic model refresh history.</strong>
+      <ol>
+        <li>Return to the workspace.</li>
+        <li>Locate the semantic model, open its <b>More options</b> menu (...), then click <b>Settings</b>.</li>
+        <li>Open <b>Refresh history</b> or the refresh history section on the settings page.</li>
+        <li>Record the most recent refresh status, duration, and failure details if present.</li>
+      </ol>
+    </li>
+    <li><strong>Check credentials, privacy, and source mapping clues.</strong>
+      <ol>
+        <li>On the same settings page, expand <b>Data source credentials</b>.</li>
+        <li>Review the credential owner, authentication state, and privacy levels.</li>
+        <li>Check whether a gateway or cloud connection is referenced for the semantic model.</li>
+        <li>Document the likely next action for the current state, but do not change production credentials or schedules without approval.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why refresh troubleshooting usually starts here.</summary>
+        <div class="fyi-body">Many refresh failures are not caused by the DAX model at all; they trace back to expired credentials, ownership changes, mismatched privacy settings, or a missing gateway/cloud mapping. Looking at the credential owner and connection path first helps you separate data-access problems from actual model or source-data issues.</div>
+      </details>
+    </li>
+    <li><strong>Review tenant settings that affect governance.</strong>
+      <ol>
+        <li>If you have admin access, click the <b>Settings</b> gear in the Service header, then click <b>Admin portal</b>.</li>
+        <li>Open <b>Tenant settings</b>.</li>
+        <li>Review the settings that control sharing, export, publish to web, certification or endorsement, external guest access, and Build permissions.</li>
+        <li>Record which settings are enabled, limited to specific security groups, or left for customer policy decisions.</li>
+      </ol>
+      <p>If you do not have admin access, use the instructor walkthrough or screenshots and note that the review was conceptual.</p>
+      <details class="callout fyi">
+        <summary>FYI — why tenant settings are often group-scoped instead of simply on or off.</summary>
+        <div class="fyi-body">Settings like <b>Publish to web</b>, external sharing, export, and certification can create real compliance or data-loss risk if they are enabled for everyone. Limiting them to specific security groups lets the tenant allow approved use cases without making every workspace owner responsible for interpreting enterprise policy on their own.</div>
+      </details>
+    </li>
+    <li><strong>Inspect gateway health where a gateway is in use.</strong>
+      <ol>
+        <li>If the semantic model uses a gateway, open <b>Admin portal &gt; Manage gateways</b> or the gateway management page available in your tenant.</li>
+        <li>Select the gateway cluster and confirm whether it is online.</li>
+        <li>Review the configured data sources, stored credential owner, and gateway version.</li>
+        <li>Record the support owner and escalation path if the gateway goes offline or loses a data source mapping.</li>
+      </ol>
+      <p>If no gateway is used in this lab, state that the current workshop sources are cloud or public and that gateway monitoring is a future-state requirement.</p>
+      <details class="callout fyi">
+        <summary>FYI — why gateway monitoring matters even when the report design is fine.</summary>
+        <div class="fyi-body">A gateway is the runtime bridge between the Service and restricted data sources. If the cluster is offline, outdated, or mapped to the wrong source credentials, every scheduled refresh that depends on it can fail even though the report and semantic model were authored correctly.</div>
+      </details>
+    </li>
+    <li><strong>Review optional admin signals and note their blockers.</strong>
+      <ol>
+        <li>Check whether Activity logs, Audit logs, the Admin monitoring workspace, Capacity metrics, Microsoft Purview, and DLP policies are available to your role.</li>
+        <li>For each feature you can open, capture the specific evidence it provides for monitoring or governance.</li>
+        <li>For each feature you cannot open, record the admin permission, license, tenant, or cloud-validation blocker.</li>
+      </ol>
+      <p>These optional admin capabilities should remain marked <b>Verify for Gov</b> unless your tenant has already validated them.</p>
+      <details class="callout fyi">
+        <summary>FYI — why these admin signals complement each other.</summary>
+        <div class="fyi-body"><p style="margin:8px 0 0;">Each tool answers a different governance question, so one view rarely replaces the others.</p>
+        <ul style="margin:8px 0 0; padding-left:20px; color:var(--cp-text-muted);">
+          <li><b>Activity or Audit logs</b> help answer who did what and when.</li>
+          <li><b>Capacity metrics</b> help explain whether workload pressure is causing slowdowns or throttling.</li>
+          <li><b>Purview and DLP</b> focus on classification, protection, and policy enforcement rather than adoption.</li>
+        </ul></div>
+      </details>
+    </li>
+    <li><strong>Complete the operations runbook.</strong>
+      <p>Use the runbook structure below so content inventory, ownership, monitoring, and incident response details are captured consistently.</p>
+      <table class="column-table"><thead><tr><th>Runbook area</th><th>Fields to complete</th><th>Source</th></tr></thead><tbody>
+<tr><td>Content inventory</td><td>Workspace, App, report, semantic model, source file path</td><td>Service and repository.</td></tr>
 <tr><td>Ownership</td><td>Business owner, technical owner, support contact</td><td>Project governance.</td></tr>
 <tr><td>Adoption tracking</td><td>Usage pattern, training need, support signal, retirement candidate, follow-up owner</td><td>Usage metrics, App metrics, support queue, stakeholder feedback.</td></tr>
 <tr><td>Data sources</td><td>Source type, gateway required, credential owner</td><td>Semantic model settings.</td></tr>
@@ -216,21 +266,14 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td>Access</td><td>Workspace roles, App consumers, Build, RLS/OLS</td><td>Workspace/App/model settings.</td></tr>
 <tr><td>Monitoring cadence</td><td>Usage, refresh, gateway, capacity, compliance, owner review rhythm</td><td>Operations model.</td></tr>
 <tr><td>Incident response</td><td>Access, refresh, data quality, performance paths</td><td>Support model.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Start from a published report.</strong><p>Use the report and semantic model published in Lab 8. If you do not have workspace access in this environment, follow along with an instructor demo or screenshots instead of skipping the concepts.</p></li>
-    <li><strong>Open usage metrics.</strong><p>Open the published report, select the ellipsis (...) menu, and choose <b>Usage metrics report</b> (or <b>View usage metrics</b>). Review total views, unique viewers, views over time, and (if available) App usage. Write down one adoption observation (for example, "views dropped after week 2") and one follow-up action you would take.</p></li>
-    <li><strong>Interpret adoption signals.</strong><p>Compare pages/reports with consistently high views (candidates for more investment), very low views (possible training gap or retirement candidate), and declining trends (possible support or relevance issue), and note what each pattern suggests you should do next.</p></li>
-    <li><strong>Review refresh history.</strong><p>Open the semantic model's <b>Settings &gt; Refresh history</b> tab. Record the most recent refresh's status (success/failure), its duration, and — if it failed — the error detail shown.</p></li>
-    <li><strong>Check credentials and source settings.</strong><p>On the same Settings page, review the data source credentials and privacy level settings, and check whether a gateway is listed as required. Do not change any production credentials or schedules unless you have explicit approval to do so.</p></li>
-    <li><strong>Review tenant settings.</strong><p>If you have admin access, open the <b>Admin portal &gt; Tenant settings</b> and review the settings for external sharing, export, publish to web, certification, external guest (B2B) access, and Build permission defaults. If you do not have admin access, use instructor-provided screenshots or a conceptual walkthrough instead.</p></li>
-    <li><strong>Inspect gateway health where available.</strong><p>If a gateway is in use, open <b>Admin portal &gt; Manage gateways</b>, review the gateway cluster's status (online/offline), the data source mappings configured on it, who owns the stored credentials, the gateway version, and the escalation path if it goes offline.</p></li>
-    <li><strong>Review optional admin signals.</strong><p>Note whether Activity logs, Audit logs, the Admin monitoring workspace, Capacity metrics, Microsoft Purview, and DLP policies are accessible to you. Each requires specific admin permissions and tenant validation — record what you could see and what remained blocked.</p></li>
-    <li><strong>Complete the operations runbook.</strong><p>Fill in a short runbook covering: content inventory (which reports/models), owners, data sources, refresh schedule, access model (who can view/edit), monitoring cadence (how often usage/refresh is checked), incident response steps, and Azure Government validation notes for anything not yet confirmed in this tenant.</p></li>
-    <li><strong>Define support process.</strong><p>Write down who is responsible for handling refresh failures, access requests, data quality issues, performance complaints, enhancement requests, and adoption follow-up — even if the answer for this training environment is "the instructor" or "TBD."</p></li>
-    <li><strong>Document gaps.</strong><p>For every item in this lab you could not access directly (admin portal, gateway management, capacity metrics), write down the specific validation gap and who (role, not necessarily a name) would need to confirm it in a real deployment.</p></li>
+</tbody></table>
+      <details class="callout fyi">
+        <summary>FYI — why a runbook is part of governance.</summary>
+        <div class="fyi-body">The runbook turns scattered knowledge in the Service, repository, and support queue into a repeatable operating model. When ownership changes or an incident happens, the runbook is what keeps refresh troubleshooting, access requests, and escalation paths from depending on one person's memory.</div>
+      </details>
+    </li>
+    <li><strong>Define the support process.</strong><p>Write down who handles refresh failures, access requests, data quality issues, performance complaints, enhancement requests, and adoption follow-up. If the training environment does not have named owners, record the responsible role or the escalation path you would expect in production.</p></li>
+    <li><strong>Document the remaining validation gaps.</strong><p>For every feature you could not access directly, write down the exact gap, the role that would need to validate it in a real deployment, and whether the item is blocked by licensing, tenant policy, admin permissions, or Azure Government feature availability.</p></li>
   </ol>
 </section>
         
@@ -255,7 +298,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       </aside>
     </main>
     <nav class="bottomnav"><a href="08-service-enterprise-deployment.html">Previous</a><a href="jeopardy/lab09.html">Jeopardy review</a><a href="10-premium-fabric-capacity.html">Next</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>

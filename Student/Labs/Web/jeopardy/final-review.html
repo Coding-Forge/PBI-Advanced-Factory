@@ -73,8 +73,10 @@ button, input { font: inherit; }
   </style>
   <link rel="stylesheet" href="jeopardy.css">
   <style>
-    /* Final review board has 11 categories - allow horizontal scroll and slightly narrower tiles */
+    /* Final review board has up to 11 categories - allow horizontal scroll and slightly narrower tiles */
     .jp-board-inner { min-width: 1600px; }
+    .jp-delivery-toggle { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 12px; }
+    .jp-delivery-label { font-weight: 700; color: var(--cp-text-muted); }
   </style>
 </head>
 <body>
@@ -83,10 +85,51 @@ button, input { font: inherit; }
       <a href="../index.html">&larr; Course home</a>
       <a href="index.html">All Jeopardy boards</a>
     </nav>
+    <div class="jp-delivery-toggle" id="jp-delivery-toggle">
+      <span class="jp-delivery-label">Delivery length:</span>
+      <button class="jp-btn" id="jp-delivery-3" data-days="3">1-Day / 3-Day (Labs 1-7)</button>
+      <button class="jp-btn" id="jp-delivery-5" data-days="5">5-Day (All 11 modules)</button>
+    </div>
     <div id="jeopardy-root"><p>Loading board...</p></div>
     <div class="jp-overlay" id="jp-overlay" hidden></div>
   </div>
   <script src="data/final-review.js"></script>
+  <script>
+  (() => {
+    const storageKey = "pbi-advanced-factory:jeopardy:final-review:deliveryMode";
+    const params = new URLSearchParams(window.location.search);
+    const fromParam = params.get("delivery");
+    let mode = (fromParam === "3" || fromParam === "5") ? fromParam : (localStorage.getItem(storageKey) || "5");
+    if (mode !== "3" && mode !== "5") mode = "5";
+    localStorage.setItem(storageKey, mode);
+
+    const data = window.JEOPARDY_DATA;
+    const fullCategories = data.categories;
+    if (mode === "3") {
+      data.categories = fullCategories.slice(0, 7);
+      data.title = "Final Review: Power BI Advanced Factory (1-Day / 3-Day Delivery, Labs 1-7)";
+      data.boardId = "final-review-3day";
+    } else {
+      data.title = "Final Review: Power BI Advanced Factory (5-Day Delivery, All 11 Modules)";
+      data.boardId = "final-review-5day";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn3 = document.getElementById("jp-delivery-3");
+      const btn5 = document.getElementById("jp-delivery-5");
+      (mode === "3" ? btn3 : btn5).classList.add("jp-btn--primary");
+      [btn3, btn5].forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (btn.dataset.days === mode) return;
+          localStorage.setItem(storageKey, btn.dataset.days);
+          const url = new URL(window.location.href);
+          url.searchParams.set("delivery", btn.dataset.days);
+          window.location.href = url.toString();
+        });
+      });
+    });
+  })();
+</script>
   <script src="jeopardy.js"></script>
 </body>
 </html>

@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -148,101 +157,122 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <div class="eyebrow">Lab 12 - Enterprise-ready solution</div>
       <h1>Capstone</h1>
       <p class="lede">Bring together modeling, DAX, report UX, performance, security, Service deployment, governance, monitoring, and lifecycle management.</p>
-      <div class="meta"><span>Applied capstone</span><span>Deliverable: Validated PBIP solution package</span><span>PBIP-first</span></div>
+      <div class="meta"><span>Applied capstone</span><span>Deliverable: Validated solution package</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>PBIP source project</li>
+          <div class="panel"><ul><li>Power BI source file</li>
 <li>Optimized model and DAX</li>
 <li>Interactive report experience</li>
 <li>RLS-secured deployment</li>
 <li>Governance and operations evidence</li></ul></div>
         </section>
-        
+
         <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Build the semantic model</h3>
-  <ul>
-    <li>Create fact and dimension tables, relationships, hidden technical fields, and model-grain documentation.</li>
-<li>Document Gov-sensitive features as Gov-ready, Verify for Gov, or Commercial-focused.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Add advanced DAX</h3>
-  <ul>
-    <li>Create base, time-intelligence, variance, ranking/Top N, dynamic title, or measure-switching logic.</li>
-<li>Validate totals at multiple grains.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Build the report experience</h3>
-  <ul>
-    <li>Create executive, analyst, detail drillthrough, tooltip, bookmark/button, conditional formatting, mobile layout, and accessibility evidence.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Configure security</h3>
-  <ul>
-    <li>Create static and dynamic RLS, test in Desktop and Service where available, and document Build permission behavior.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Publish and distribute</h3>
-  <ul>
-    <li>Publish from PBIP-authored content, configure credentials and refresh where available, document gateway requirements, and create or review a Power BI App.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Govern and operate</h3>
-  <ul>
-    <li>Complete endorsement governance, operations runbook, usage metrics review, refresh history review, support ownership, and escalation path.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Optional enhanced extensions</h3>
-  <ul>
-    <li>Add Fabric/Git/Copilot/AI/API/automation features only after validation.</li>
-<li>Document availability status and fallback path for every optional feature.</li>
-  </ul>
-</div></div>
+          <h2>Step-by-step walkthrough</h2>
+          <ol class="steps">
+            <li><strong>Confirm your capstone starting point and save your Power BI file.</strong>
+              <ol>
+                <li>Start from your completed Lab 1-11 workshop solution — the same Power BI file you have been building throughout the workshop.</li>
+                <li>Open the file in Power BI Desktop and confirm it is fully up to date with everything you completed through Lab 11.</li>
+                <li>If you created a new working copy for the capstone, save it into the workshop repository before making changes.</li>
+                <li>Plan to complete one milestone at a time: semantic model, DAX, report UX, security, Service deployment, governance, monitoring, and evidence packaging.</li>
+              </ol>
+              <details class="callout fyi">
+        <summary>FYI — why the capstone is validation-focused.</summary>
+        <div class="fyi-body">This lab is meant to prove that the model, DAX, UX, security, and deployment practices from Labs 1-11 work together as one solution. Real projects rarely fail because a team never learned one more feature; they fail because nobody checked that the finished deliverable still works end to end after all the pieces were combined.</div>
+      </details>
+            </li>
+            <li><strong>Validate the semantic model.</strong>
+              <ol>
+                <li>Open <b>Model</b> view and confirm your solution uses fact and dimension tables with the same naming and grain conventions established in Lab 1.</li>
+                <li>Create or finish any missing relationships explicitly, then verify filter direction and cardinality before you move on.</li>
+                <li>Hide technical columns and key fields that should not appear in the report authoring experience.</li>
+                <li>Document the model grain and label any Gov-sensitive feature as <b>Gov-ready</b>, <b>Verify for Gov</b>, or <b>Commercial-focused</b>.</li>
+              </ol>
+              <details class="callout fyi">
+        <summary>FYI — why model grain and relationships are an early quality gate.</summary>
+        <div class="fyi-body">If the semantic model is wrong, every visual and measure built on top of it can still look polished while returning bad numbers. Confirming relationship direction, cardinality, and grain before you move on is the fastest way to prevent later DAX or report bugs that are really model-design problems.</div>
+      </details>
+            </li>
+            <li><strong>Validate the advanced DAX layer.</strong>
+              <ol>
+                <li>Create or review the base measures such as <code>Sales Amount</code>, <code>Gross Margin</code>, <code>Gross Margin %</code>, and <code>Quantity</code>.</li>
+                <li>Add or verify time-intelligence measures such as YTD, prior-year, and YoY % results.</li>
+                <li>Add or verify target variance, ranking or Top N logic with <code>RANKX</code>, and any dynamic title or measure-switching logic.</li>
+                <li>Validate the totals for every important measure at the customer, product, territory, and date grain before you continue.</li>
+              </ol>
+              <details class="callout fyi">
+        <summary>FYI — why DAX validation happens at multiple grains.</summary>
+        <div class="fyi-body">A measure can appear correct on a card and still be wrong by customer, product, territory, or date because of context mistakes. Checking totals at several grains is how you catch issues with time intelligence, ranking, or variance logic before those errors get repeated across the final report.</div>
+      </details>
+            </li>
+            <li><strong>Validate the report experience.</strong>
+              <ol>
+                <li>Build or review the <b>Executive Summary</b> and <b>Analyst Exploration</b> pages.</li>
+                <li>Create or confirm a detail <b>Drillthrough</b> page and a report page <b>Tooltip</b> page using the patterns from Lab 4.</li>
+                <li>Add at least one bookmark-driven interaction, such as show/hide or reset, and pair it with consistent navigation buttons.</li>
+                <li>Apply conditional formatting tied to a documented threshold, then complete the mobile layout and accessibility checks for alt text, tab order, contrast, and visual titles.</li>
+              </ol>
+            </li>
+            <li><strong>Validate security.</strong>
+              <ol>
+                <li>Import or create the security mapping table you need for role-based filtering.</li>
+                <li>Open <b>Modeling</b> &gt; <b>Manage roles</b> and create a static RLS role plus a dynamic RLS role that uses <code>USERPRINCIPALNAME()</code>.</li>
+                <li>Open <b>Modeling</b> &gt; <b>View as</b> and test both roles in Desktop.</li>
+                <li>If a training workspace is available, publish and test the same roles in the Service, then document who should receive <b>Build</b> permission and why.</li>
+              </ol>
+              <details class="callout fyi">
+        <summary>FYI — why RLS must be retested after changes.</summary>
+        <div class="fyi-body">Row-level security is not a one-time setup task. New measures, new relationships, or a new mapping table can change how filters flow, so testing both Desktop <b>View as</b> and Service behavior is what proves users will only see the rows they are supposed to see after the full capstone solution is assembled.</div>
+      </details>
+            </li>
+            <li><strong>Publish and distribute the solution.</strong>
+              <ol>
+                <li>In Power BI Desktop, click <b>Home</b> &gt; <b>Publish</b> and choose the approved training workspace if Service access is available.</li>
+                <li>In the Service, configure semantic model credentials and scheduled refresh, or document the gap if workspace access is not part of your learner environment.</li>
+                <li>Record any gateway requirement, or explicitly note why no gateway is needed for the approved workshop data path.</li>
+                <li>Create or review the Power BI App audience, then document the intended consumers and the workspace roles they should hold.</li>
+              </ol>
+              <details class="callout fyi">
+        <summary>FYI — why publish, refresh, and audience checks are part of the solution.</summary>
+        <div class="fyi-body">A polished report is not finished if credentials fail, refresh never runs, or the wrong audience receives access. Validating workspace roles, App audience, refresh settings, and gateway requirements is what turns a good Desktop file into a usable production-style deliverable.</div>
+      </details>
+            </li>
+            <li><strong>Complete governance and operations checks.</strong>
+              <ol>
+                <li>Finish the endorsement readiness checklist covering ownership, refresh reliability, security, data quality, and support evidence.</li>
+                <li>Draft a short operations runbook with refresh ownership, failure response, and support or escalation contacts.</li>
+                <li>If Service telemetry is available, review usage metrics and refresh history and record any follow-up actions.</li>
+                <li>Document the support owner, business owner, and escalation path for the capstone solution.</li>
+              </ol>
+            </li>
+            <li><strong>Review optional enhanced extensions only after validation.</strong><p>Optional Fabric workspace Git integration, Direct Lake, OneLake, Lakehouse or Warehouse features, Copilot or AI-assisted authoring, deployment pipelines, REST API automation, service principals, XMLA read/write, external tools, and capacity metrics should be added only after tenant, licensing, policy, and cloud availability are validated. For every optional feature you attempt, record its availability status and the fallback path you used if it was unavailable.</p></li>
+            <li><strong>Complete the validation rubric and package the evidence.</strong><p>Use the rubric below as your final submission checklist. Record evidence as you go instead of waiting until the end.</p>
+              <table class="column-table">
+                <thead><tr><th>Area</th><th>Required artifact</th><th>Validation evidence</th></tr></thead>
+                <tbody>
+                  <tr><td>Source control</td><td>Power BI file</td><td>Repository path and source review notes.</td></tr>
+                  <tr><td>Semantic model</td><td>Fact and dimension model</td><td>Relationship diagram or model-grain notes.</td></tr>
+                  <tr><td>DAX</td><td>Base, time, variance, ranking or Top N, and dynamic logic</td><td>Measure list and validation visuals.</td></tr>
+                  <tr><td>Report UX</td><td>Executive, analyst, detail, tooltip, bookmark or button, conditional formatting, and mobile pages</td><td>Screenshots or review notes plus accessibility checks.</td></tr>
+                  <tr><td>Security</td><td>Static and dynamic RLS</td><td>Desktop and Service role test results where available.</td></tr>
+                  <tr><td>Service distribution</td><td>Published report and semantic model, refresh settings, gateway notes, and App plan</td><td>Workspace, App, and refresh evidence or a documented gap.</td></tr>
+                  <tr><td>Governance and operations</td><td>Endorsement checklist, operations runbook, and monitoring or support notes</td><td>Completed documents and support ownership.</td></tr>
+                  <tr><td>Enhanced extensions</td><td>Fabric, Git, Copilot, AI, API, or automation feature notes</td><td>Availability status, validation evidence, and fallback path.</td></tr>
+                  <tr><td>Gov readiness</td><td>Feature status notes</td><td>Gov-ready, Verify for Gov, and Commercial-focused labels.</td></tr>
+                  <tr><td>Submission</td><td>Validation rubric and evidence package</td><td>Completed rubric plus screenshots and notes.</td></tr>
+                </tbody>
+              </table>
+              <details class="callout fyi">
+        <summary>FYI — why evidence collection matters.</summary>
+        <div class="fyi-body">In a real engagement, the final handoff is not just the Power BI file — it is also the proof that the team validated model quality, DAX results, security, publishing, and operational readiness. Capturing screenshots, notes, and rubric evidence as you go prevents last-minute guesswork and gives reviewers something concrete to sign off on.</div>
+      </details>
+            </li>
+          </ol>
         </section>
-        
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Work through the capstone safely</h3><ol><li>Start from the capstone starter PBIP or completed solution from the previous lab.</li><li>Complete one capability at a time: model, DAX, report UX, security, deployment, governance, and monitoring.</li><li>Save after each major milestone.</li><li>Validate each capability with the rubric before moving to the next one.</li><li>Record evidence as you go instead of waiting until the end.</li></ol></div>
-    <div class="task-card"><h3>Package capstone evidence</h3><ol><li>Include the PBIP source project.</li><li>Include screenshots or notes for relationships, report pages, RLS tests, refresh/deployment settings, and governance decisions.</li><li>Complete the validation rubric.</li><li>Mark optional unvalidated features as Verify for Gov or conceptual-only.</li></ol></div>
-  </div>
-</section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Area</th><th>Required artifact</th><th>Validation evidence</th></tr></thead><tbody>
-<tr><td>Source control</td><td>PBIP project</td><td>Repository path and source review notes.</td></tr>
-<tr><td>Semantic model</td><td>Fact/dimension model</td><td>Relationship diagram or model-grain notes.</td></tr>
-<tr><td>DAX</td><td>Base, time, variance, ranking/Top N, dynamic logic</td><td>Measure list and validation visuals.</td></tr>
-<tr><td>Report UX</td><td>Executive, analyst, detail, tooltip, bookmark/button, conditional formatting, mobile pages</td><td>Screenshots or review notes plus accessibility checks.</td></tr>
-<tr><td>Security</td><td>Static and dynamic RLS</td><td>Desktop and Service role test results where available.</td></tr>
-<tr><td>Service distribution</td><td>Published report/model, refresh settings, gateway notes, App plan</td><td>Workspace/App/refresh evidence or documented gap.</td></tr>
-<tr><td>Governance and operations</td><td>Endorsement checklist, operations runbook, monitoring/support notes</td><td>Completed documents and support ownership.</td></tr>
-<tr><td>Enhanced extensions</td><td>Fabric/Git/Copilot/AI/API/automation feature notes</td><td>Availability status, validation evidence, and fallback path.</td></tr>
-<tr><td>Gov readiness</td><td>Feature status notes</td><td>Gov-ready, Verify for Gov, Commercial-focused labels.</td></tr>
-<tr><td>Submission</td><td>Validation rubric and evidence package</td><td>Completed rubric plus screenshots/notes.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Task 1: Build the semantic model.</strong><p>Open or create the capstone PBIP project. Connect to the approved synthetic workshop data sources, create fact and dimension tables using the same naming and column conventions from Lab 1, configure relationships explicitly in Model view, hide technical/key columns from the Fields pane, and label any Gov-sensitive features (Verify for Gov / Commercial-focused) directly in your model documentation.</p></li>
-    <li><strong>Task 2: Add advanced DAX.</strong><p>Create base measures (Sales Amount, Gross Margin, Gross Margin %, Quantity), time-intelligence measures (YTD, prior-year, YoY %), variance measures against targets, ranking/Top N measures with <code>RANKX</code>, and dynamic title or measure-switching logic. Validate every measure's totals at the customer, product, territory, and date grain before moving on.</p></li>
-    <li><strong>Task 3: Build the report experience.</strong><p>Create the Executive Summary, Analyst Exploration, a detail Drillthrough page, and a Tooltip page following the patterns from Lab 4. Add bookmarks for at least one show/hide or reset interaction, navigation buttons consistent across pages, conditional formatting tied to a documented threshold, a mobile layout, and complete the accessibility checklist (alt text, tab order, contrast, titles).</p></li>
-    <li><strong>Task 4: Configure security.</strong><p>Import or create the security mapping table, build a static RLS role and a dynamic RLS role using <code>USERPRINCIPALNAME()</code> following the Lab 7 pattern, test both roles in Desktop with <b>View as</b>, test them in the Service where workspace access is available, and document who should have Build permission and why.</p></li>
-    <li><strong>Task 5: Publish and distribute.</strong><p>Publish the PBIP-authored report and semantic model to a training workspace if available. Configure data source credentials and scheduled refresh, document any gateway requirements (or why none are needed), create or review a Power BI App with a defined audience, and document who the intended consumers are and what workspace roles they hold.</p></li>
-    <li><strong>Task 6: Govern and operate.</strong><p>Complete an endorsement readiness checklist (ownership, refresh reliability, security, data quality, support evidence), draft a short operations runbook, review usage metrics and refresh history if a workspace is available, and identify the support owner and escalation path for this content.</p></li>
-    <li><strong>Task 7: Optional enhanced extensions.</strong><p>Only after explicit validation, layer in Fabric workspace Git integration, Direct Lake, OneLake, Copilot or other AI-assisted authoring, deployment pipelines, REST API automation, service principals, XMLA read/write, external tools, or capacity metrics. For every optional feature you attempt, record its current availability status in this tenant/cloud and the fallback path used if it turns out to be unavailable.</p></li>
-    <li><strong>Submit evidence.</strong><p>Package and submit: the PBIP source folder, a completed validation rubric, screenshots or notes documenting each task above, RLS test evidence (roles + test UPNs used), refresh/App/governance evidence where applicable, the operations runbook, and your Azure Government readiness notes covering every feature marked Verify for Gov during the capstone.</p></li>
-  </ol>
-</section>
         
         <section>
           <h2>Azure Government note</h2>
@@ -254,7 +284,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
           <p class="small"><span class="count">0</span> of 12 complete</p>
-          <label><input type="checkbox">PBIP source project used</label>
+          <label><input type="checkbox">Power BI source file used</label>
 <label><input type="checkbox">Semantic model follows star schema principles</label>
 <label><input type="checkbox">Advanced DAX measures validated</label>
 <label><input type="checkbox">Report UX and accessibility complete</label>
@@ -270,7 +300,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       </aside>
     </main>
     <nav class="bottomnav"><a href="11-automation-devops.html">Previous</a><a href="jeopardy/final-review.html">Final Jeopardy review</a><a href="index.html">Course home</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>

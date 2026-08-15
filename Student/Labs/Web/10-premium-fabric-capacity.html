@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -148,7 +157,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <div class="eyebrow">Lab 10 - Architecture decisions</div>
       <h1>Premium, Fabric, and Capacity</h1>
       <p class="lede">Compare Pro, PPU, Premium, and Fabric capacity and evaluate XMLA, paginated reports, Direct Lake, OneLake, Semantic Link, capacity metrics, and Gov-safe alternatives.</p>
-      <div class="meta"><span>Architecture</span><span>Deliverable: Capacity architecture recommendation</span><span>PBIP-first</span></div>
+      <div class="meta"><span>Architecture</span><span>Deliverable: Capacity architecture recommendation</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
@@ -162,53 +171,10 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         </section>
         
         <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Compare licensing and capacity options</h3>
-  <ul>
-    <li>Define user scale, model size, refresh, latency, governance, and integration needs.</li>
-<li>Compare Pro, PPU, Premium capacity, and Fabric capacity.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review XMLA endpoint</h3>
-  <ul>
-    <li>Validate capacity, tenant settings, workspace configuration, tooling, and cloud support.</li>
-<li>Document read/write and ALM use cases.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review paginated reports and large models</h3>
-  <ul>
-    <li>Validate paginated report licensing, workspace support, Report Builder use, and export behavior.</li>
-<li>Document large semantic model size, memory, refresh, and storage-format considerations.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review Fabric concepts</h3>
-  <ul>
-    <li>Direct Lake, OneLake, Lakehouse, Warehouse, Semantic Link, and autoscale are Commercial-focused / Verify for Gov.</li>
-<li>Document fallback paths when these features are not validated.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review capacity metrics and choose architecture</h3>
-  <ul>
-    <li>Map interactive workload, background workload, refresh pressure, and throttling symptoms to operational actions.</li>
-<li>Record the recommended architecture, risks, validation needs, and Gov-safe fallback.</li>
-  </ul>
-</div></div>
-        </section>
-        
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Compare capacity options</h3><ol><li>Start with user count, model size, refresh frequency, latency, sharing, governance, and integration needs.</li><li>Compare Pro, PPU, Premium capacity, and Fabric capacity against those requirements.</li><li>Mark features that require tenant, license, capacity, or cloud validation.</li><li>Choose a Gov-safe fallback when a feature is not validated.</li><li>Record the recommendation and reason.</li></ol></div>
-    <div class="task-card"><h3>Review capacity metrics conceptually</h3><ol><li>Identify the capacity or workspace that would be monitored.</li><li>Review refresh duration, query duration, throttling, memory, interactive workload, background workload, and user activity.</li><li>If the capacity metrics app is unavailable, document what evidence the admin team should provide.</li></ol></div>
-  </div>
-</section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Requirement or feature</th><th>Option</th><th>Gov status</th><th>Fallback or evidence</th></tr></thead><tbody>
+  <h2>Step-by-step walkthrough</h2>
+  <ol class="steps">
+    <li><strong>Compare the licensing and capacity options against the workload.</strong><p>Start with the business and technical requirements: user count, model size, refresh frequency, latency expectations, governance needs, data residency expectations, and any Fabric integration goals. Use the comparison table below to record which option fits, which option is still unvalidated, and what fallback you would use if the feature cannot be approved in the target environment.</p>
+      <table class="column-table"><thead><tr><th>Requirement or feature</th><th>Option</th><th>Gov status</th><th>Fallback or evidence</th></tr></thead><tbody>
 <tr><td>Standard sharing</td><td>Power BI Pro</td><td>Validate tenant/license</td><td>Instructor demo if no license.</td></tr>
 <tr><td>Premium-like user features</td><td>Premium Per User</td><td>Verify for Gov</td><td>Pro-compatible path.</td></tr>
 <tr><td>Enterprise scale</td><td>Premium capacity</td><td>Verify for Gov</td><td>Import model plus documented scale plan.</td></tr>
@@ -221,20 +187,90 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td>Notebook integration</td><td>Semantic Link</td><td>Commercial-focused / Verify for Gov</td><td>Document model metadata manually.</td></tr>
 <tr><td>Capacity elasticity</td><td>Autoscale</td><td>Commercial-focused / Verify for Gov</td><td>Capacity sizing review and operational escalation.</td></tr>
 <tr><td>Capacity health</td><td>Capacity metrics app</td><td>Verify for Gov</td><td>Usage, refresh, Performance Analyzer, and admin-provided telemetry.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Compare licensing and capacity options.</strong><p>On a worksheet or notes page, write down the number of users, approximate model size, refresh frequency needed, latency/freshness needs, governance requirements, data residency needs, and any Fabric-item integration requirements. Use that list to compare Pro, Premium Per User (PPU), Premium capacity, and Fabric capacity side by side, noting which requirement each option satisfies or fails.</p></li>
-    <li><strong>Review XMLA endpoint.</strong><p>If an approved external tool (such as Tabular Editor or SSMS) and XMLA read/write access are available, connect to the workspace's XMLA endpoint and browse the semantic model's metadata. If unavailable, document the use cases instead: ALM/version comparison, external-tool authoring, read/write automation workflows, and the security/admin settings that must be enabled first.</p></li>
-    <li><strong>Review paginated report fit.</strong><p>Ask whether this solution needs pixel-perfect export, invoices, statements, or highly formatted operational reports. If so, identify whether your license, workspace, and Report Builder access have been validated for paginated reports before attempting hands-on work.</p></li>
-    <li><strong>Review large semantic model needs.</strong><p>Decide whether the model's size, memory footprint, refresh duration, storage format (Large model storage format setting), or XMLA read/write workflows would require capacity-dependent settings in production. Mark any of these Verify for Gov until validated on the target capacity.</p></li>
-    <li><strong>Review Direct Lake.</strong><p>Compare Import, DirectQuery, and Direct Lake modes across data freshness, modeling flexibility, fallback-to-DirectQuery behavior, and Azure Government validation status, and record which mode fits this training scenario's needs best.</p></li>
-    <li><strong>Review OneLake, Lakehouse, and Warehouse.</strong><p>Discuss conceptually how data could be stored in OneLake, exposed through a Lakehouse or Warehouse, governed with workspace/item permissions, and consumed by Power BI via Direct Lake or a semantic model. Treat these as Commercial-focused / Verify for Gov unless your tenant has explicitly confirmed availability.</p></li>
-    <li><strong>Review Semantic Link.</strong><p>Discuss how a Fabric notebook could use Semantic Link to read semantic model metadata and data for data-science workflows, and record the security, availability, and fallback notes relevant to this environment.</p></li>
-    <li><strong>Review capacity metrics and throttling.</strong><p>If the Fabric/Premium Capacity Metrics app is available, open it and inspect interactive vs. background workload consumption, refresh pressure, memory usage, and any throttling indicators. If unavailable, discuss the symptoms of throttling (slow refresh, rejected queries, degraded interactivity) and the operational actions an admin would take (scale up, redistribute workloads, or optimize models).</p></li>
-    <li><strong>Choose a Gov-safe fallback.</strong><p>For any Fabric-specific feature not yet validated, default to Import mode, well-designed aggregations, incremental refresh (only where Service-side behavior is validated), and standard Power BI Service monitoring as the fallback delivery pattern.</p></li>
-    <li><strong>Document architecture recommendation.</strong><p>Write a short recommendation that states the selected licensing/capacity option, the assumptions behind it, the validation steps still required, the fallback path if a feature turns out to be unavailable, known risks, and who needs to review the recommendation before it is finalized.</p></li>
+</tbody></table>
+      <details class="callout fyi">
+        <summary>FYI — what changes when you move from shared to dedicated capacity.</summary>
+        <div class="fyi-body"><p style="margin:8px 0 0;">The important difference is not just licensing cost; it is operational control and workload isolation.</p>
+        <ul style="margin:8px 0 0; padding-left:20px; color:var(--cp-text-muted);">
+          <li><b>Pro</b> focuses on standard sharing in shared capacity.</li>
+          <li><b>PPU</b> brings some Premium-style features to individual users, but not a shared enterprise capacity for everyone.</li>
+          <li><b>Premium or Fabric capacity</b> adds dedicated resources and unlocks features such as XMLA scenarios, larger models, paginated reporting, and capacity-level monitoring where validated.</li>
+        </ul></div>
+      </details>
+    </li>
+    <li><strong>Review the XMLA endpoint path where it has been validated.</strong>
+      <ol>
+        <li>In Power BI Service, open the workspace that would host the semantic model.</li>
+        <li>Open <b>Workspace settings</b> and confirm the workspace is assigned to the validated license or capacity path needed for XMLA.</li>
+        <li>If your admin has provided an XMLA endpoint, copy or note the server name or connection string.</li>
+        <li>In an approved external tool, choose the connect-to-server option, paste the XMLA endpoint, authenticate, and open the semantic model metadata.</li>
+        <li>Record whether the environment is read-only, read-write, or blocked pending tenant validation.</li>
+      </ol>
+      <p>If tools or capacity are unavailable, document XMLA use cases conceptually instead of forcing the connection.</p>
+      <details class="callout fyi">
+        <summary>FYI — why the XMLA endpoint matters.</summary>
+        <div class="fyi-body">XMLA is what lets approved external tools inspect or manage semantic model metadata instead of treating the model like a black box in the browser. That is important for enterprise ALM scenarios such as scripted deployments, advanced model edits, and deeper troubleshooting, which is why XMLA often becomes a deciding factor in capacity planning.</div>
+      </details>
+    </li>
+    <li><strong>Review paginated report fit where the environment supports it.</strong>
+      <ol>
+        <li>If Power BI Report Builder is available, open it and create a blank paginated report.</li>
+        <li>Add a data source and dataset that use approved sample data.</li>
+        <li>Insert a table, add at least one parameter, and preview the report.</li>
+        <li>Publish to a validated workspace only if licensing and workspace support are confirmed.</li>
+        <li>Review export formats and note whether the pixel-perfect requirement justifies this report type.</li>
+      </ol>
+      <p>If Report Builder or workspace support is unavailable, keep this as a scenario discussion and record the blocker.</p>
+      <details class="callout fyi">
+        <summary>FYI — why paginated reports are a separate decision from interactive reports.</summary>
+        <div class="fyi-body">Paginated reports are designed for precise layout, repeating headers, multi-page printing, and export scenarios like invoice-style PDFs or operational detail dumps. If the requirement is "every row, exactly formatted, every time," a standard interactive Power BI report may be the wrong tool even if the data is the same.</div>
+      </details>
+    </li>
+    <li><strong>Review large semantic model requirements.</strong>
+      <ol>
+        <li>In the Service, confirm which capacity or license the workspace uses today.</li>
+        <li>Open the semantic model or workspace settings that expose size or storage behavior in your tenant.</li>
+        <li>Review whether large semantic model storage format, memory limits, refresh duration, or XMLA workflows are relevant to the workload.</li>
+        <li>Record every setting or constraint that still requires Azure Government validation.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why model size planning is about memory, not just file size.</summary>
+        <div class="fyi-body">Large semantic models affect refresh duration, in-memory footprint, and how much headroom the capacity has for concurrent report usage. That is why size-related decisions usually go together with incremental refresh, aggregations, model reduction, and capacity assignment rather than being treated as an isolated checkbox.</div>
+      </details>
+    </li>
+    <li><strong>Compare Direct Lake with Import and DirectQuery.</strong><p>Discuss the tradeoffs across freshness, modeling flexibility, fallback-to-DirectQuery behavior, operational complexity, and Azure Government readiness. If Direct Lake has not been validated, record Import mode plus refresh or aggregations as the default fallback path.</p>
+      <details class="callout fyi">
+        <summary>FYI — why Direct Lake is not just "faster Import."</summary>
+        <div class="fyi-body">Import mode gives the most mature modeling and predictable Power BI behavior, while DirectQuery trades speed for live-query access to the source. Direct Lake aims to reduce refresh movement by reading lake data more directly, but it adds new dependency and validation questions, so the architecture choice is really about operational fit and platform readiness, not only performance claims.</div>
+      </details>
+    </li>
+    <li><strong>Review OneLake, Lakehouse, and Warehouse as storage patterns.</strong><p>Document how each option would store data, how Power BI would consume it, what governance boundaries apply, and why these capabilities remain Commercial-focused or Verify for Gov until the target tenant confirms them.</p>
+      <details class="callout fyi">
+        <summary>FYI — why the storage pattern changes governance responsibilities.</summary>
+        <div class="fyi-body">Once reporting depends on shared lake or warehouse assets, BI teams are no longer governing only reports and semantic models; they also depend on upstream engineering, naming standards, security boundaries, and lifecycle controls in the storage platform. That is why a OneLake or Lakehouse decision usually involves more than the Power BI team alone.</div>
+      </details>
+    </li>
+    <li><strong>Review Semantic Link and autoscale as optional Fabric-era capabilities.</strong><p>Document how Semantic Link could expose semantic model metadata to notebooks and how autoscale could absorb temporary demand spikes on supported capacities. Mark both as Commercial-focused or Verify for Gov unless the target tenant has explicitly validated them, and record the non-Fabric fallback path.</p>
+      <details class="callout fyi">
+        <summary>FYI — why autoscale and Semantic Link are optional, not day-one requirements.</summary>
+        <div class="fyi-body">Autoscale can help with short bursts of demand, but it does not replace good model design or capacity sizing. Semantic Link can improve notebook-driven analysis against semantic models, but most core workshop outcomes still work without it, so both should be treated as acceleration features rather than blockers for initial deployment.</div>
+      </details>
+    </li>
+    <li><strong>Review capacity metrics and throttling signals.</strong>
+      <ol>
+        <li>If the Capacity Metrics app is available, open it from the Apps list or the capacity administration entry point provided by your tenant.</li>
+        <li>Select the relevant capacity or workspace scope.</li>
+        <li>Review interactive workload, background workload, refresh pressure, memory consumption, and throttling indicators.</li>
+        <li>Record the operational action each signal would trigger, such as optimization, workload redistribution, or scaling.</li>
+      </ol>
+      <p>If the app is unavailable, document which telemetry the admin team would need to provide instead.</p>
+      <details class="callout fyi">
+        <summary>FYI — why capacity metrics matter even before users complain.</summary>
+        <div class="fyi-body">CPU, memory, background refresh pressure, and throttling signals show whether the capacity is approaching a point where refreshes slow down or interactive reports become less responsive. Watching those patterns early lets you optimize datasets or rebalance workloads before the business experiences the problem as a "Power BI is slow" incident.</div>
+      </details>
+    </li>
+    <li><strong>Choose the Gov-safe fallback architecture.</strong><p>For any Fabric-specific or capacity-dependent feature that is still unvalidated, default to Import mode, well-designed aggregations, incremental refresh only where Service behavior is validated, and standard Power BI Service monitoring. Record exactly which advanced features are optional rather than required for day-one delivery.</p></li>
+    <li><strong>Document the final architecture recommendation.</strong><p>Write a short recommendation that states the selected licensing or capacity option, the assumptions behind it, the validation steps still required, known risks, the fallback path if a feature remains unavailable, and who must review the recommendation before it is finalized.</p></li>
   </ol>
 </section>
         
@@ -259,7 +295,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       </aside>
     </main>
     <nav class="bottomnav"><a href="09-monitoring-governance.html">Previous</a><a href="jeopardy/lab10.html">Jeopardy review</a><a href="11-automation-devops.html">Next</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>

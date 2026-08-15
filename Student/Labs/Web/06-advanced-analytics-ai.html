@@ -116,9 +116,18 @@ section { margin: 0 0 30px; }
 .steps > li { counter-increment: step; position: relative; padding: 18px 18px 18px 64px; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; box-shadow: 0 0 2px var(--cp-border), 0 1px 2px var(--cp-border); }
 .steps > li::before { content: counter(step); position: absolute; left: 18px; top: 18px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 800; }
 .steps p { margin: 6px 0 0; color: var(--cp-text-muted); }
+.steps > li > ol { list-style: lower-alpha; margin: 8px 0 0; padding-left: 20px; }
+.steps > li > ol li { margin: 4px 0; color: var(--cp-text-muted); }
 .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: var(--cp-accent-soft); color: var(--cp-accent); font-weight: 700; font-size: 0.78rem; }
 .callout { padding: 16px; border-left: 4px solid var(--cp-warning); background: var(--cp-surface-soft); border-radius: 0 0.625rem 0.625rem 0; }
 .callout.success { border-left-color: var(--cp-success); }
+.callout.fyi { padding: 0; }
+.callout.fyi > summary { padding: 16px; cursor: pointer; font-weight: 700; color: var(--cp-link); list-style: none; }
+.callout.fyi > summary::-webkit-details-marker { display: none; }
+.callout.fyi > summary::before { content: "\2139\FE0F  "; }
+.callout.fyi[open] > summary { padding-bottom: 8px; }
+.callout.fyi .fyi-body { padding: 0 16px 16px; color: var(--cp-text-muted); }
+.callout.fyi .fyi-body > *:first-child { margin-top: 0; }
 .urls { display: grid; gap: 12px; }
 .urlcard { padding: 15px; }
 .urlcard strong { display: block; margin-bottom: 6px; }
@@ -148,7 +157,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <div class="eyebrow">Lab 6 - Scenario and AI-aware analysis</div>
       <h1>Advanced Analytics and AI</h1>
       <p class="lede">Use what-if parameters as the Gov-ready core and evaluate advanced/AI features only when tenant availability is validated.</p>
-      <div class="meta"><span>Feature module</span><span>Deliverable: Analytics scenario and Gov-safe alternatives</span><span>PBIP-first</span></div>
+      <div class="meta"><span>Feature module</span><span>Deliverable: Analytics scenario and Gov-safe alternatives</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
       <article>
@@ -160,54 +169,111 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <li>Gov-safe fallback map</li></ul></div>
         </section>
         
-        <section>
-          <h2>Walkthrough tasks</h2>
-          <div class="task-list"><div class="task-card">
-  <h3>Create what-if scenario</h3>
-  <ul>
-    <li>Create Margin Adjustment %.</li>
-<li>Build adjusted gross margin measures and visuals.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Evaluate advanced visuals</h3>
-  <ul>
-    <li>Use decomposition tree, forecasting, anomaly detection, or key influencers only if available.</li>
-<li>Document interpretation limits and human validation requirements.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Review code and ML options</h3>
-  <ul>
-    <li>Keep Python/R visuals and Azure ML optional.</li>
-<li>Document runtime, package, identity, network, region, data residency, and Service requirements.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Discuss Copilot</h3>
-  <ul>
-    <li>Use the conceptual section unless Copilot is validated.</li>
-<li>Require human review for AI-generated output.</li>
-  </ul>
-</div>
-<div class="task-card">
-  <h3>Map Gov-safe fallbacks</h3>
-  <ul>
-    <li>Provide matrix/drillthrough, DAX thresholds, Top N, rolling averages, prior-period comparison, and native visual alternatives.</li>
-  </ul>
-</div></div>
-        </section>
-        
-        <section>
-  <h2>Novice-friendly how-to guide</h2>
-  <div class="task-list">
-    <div class="task-card"><h3>Create a what-if parameter</h3><ol><li>Select <strong>Modeling &gt; New parameter &gt; Numeric range</strong>.</li><li>Name the parameter <code>Margin Adjustment %</code>.</li><li>Set minimum, maximum, and increment values from the lab.</li><li>Keep the generated slicer.</li><li>Use the generated parameter measure inside an adjusted-margin DAX measure.</li></ol></div>
-    <div class="task-card"><h3>Use an advanced visual only when available</h3><ol><li>Confirm the visual is available in the target tenant.</li><li>Add the visual to a duplicate or practice page.</li><li>Add the measure to analyze and the dimensions to explain it.</li><li>Document what the visual suggests and what it does not prove.</li></ol></div>
-    <div class="task-card"><h3>Create a Gov-safe fallback</h3><ol><li>Use a matrix, bar chart, Top N filter, rolling average, or threshold measure.</li><li>Document how the fallback answers the same business question.</li><li>Mark AI or external runtime features as optional unless validated.</li></ol></div>
-  </div>
-</section>
-        <section><h2>Implementation reference table</h2><div class="task-card">
-<table class="column-table"><thead><tr><th>Feature</th><th>Status</th><th>What to create or review</th><th>Fallback</th></tr></thead><tbody>
+                <section>
+  <h2>Step-by-step walkthrough</h2>
+  <ol class="steps">
+    <li><strong>Continue from your Lab 05 report.</strong>
+      <ol>
+        <li>Open Power BI Desktop.</li>
+        <li>Open the same Power BI file you completed through Lab 05, from <code>pbi-local\</code> or your saved workshop solution folder. Keep working in that same file.</li>
+        <li>Go to the page where margin or sales scenario analysis makes the most sense, such as the Sales and Margin Analysis page.</li>
+        <li>If you want a safe practice area for optional visuals, duplicate the page first so you can compare the original and experimental versions side by side.</li>
+      </ol>
+    </li>
+    <li><strong>Create the <code>Margin Adjustment %</code> what-if parameter.</strong>
+      <ol>
+        <li>On the <b>Modeling</b> ribbon, click <b>New parameter</b>, then click <b>Numeric range</b>.</li>
+        <li>In the parameter dialog, set <b>Name</b> to <code>Margin Adjustment %</code>.</li>
+        <li>Set <b>Data type</b> to <b>Decimal number</b>, <b>Minimum</b> to <code>-10</code>, <b>Maximum</b> to <code>20</code>, <b>Increment</b> to <code>1</code>, and <b>Default</b> to <code>0</code>.</li>
+        <li>Leave <b>Add slicer to this page</b> checked so Power BI creates the slicer and the generated <code>[Margin Adjustment % Value]</code> measure.</li>
+        <li>Click <b>Create</b>.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — what a what-if parameter actually creates.</summary>
+        <div class="fyi-body"><code>Margin Adjustment %</code> is really a small disconnected table plus the generated <code>[Margin Adjustment % Value]</code> measure. The slicer changes that selected value, and your scenario measures read it without altering the underlying <code>FactSales</code> data, which makes it safe for side-by-side what-if analysis.</div>
+      </details>
+    </li>
+    <li><strong>Create the adjusted scenario measures.</strong>
+      <ol>
+        <li>On the <b>Home</b> or <b>Modeling</b> ribbon, click <b>New measure</b>.</li>
+        <li>Create <code>Adjusted Gross Margin</code> so it applies <code>[Margin Adjustment % Value]</code> to the existing margin logic or base <code>[Gross Margin]</code> measure.</li>
+        <li>Create <code>Adjusted Gross Margin %</code> so it returns the adjusted margin percentage relative to <code>[Sales Amount]</code>.</li>
+        <li>If you want a dynamic label, create the optional <code>Margin Scenario Title</code> measure shown in the answer key below.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why scenario logic belongs in measures, not columns.</summary>
+        <div class="fyi-body"><code>[Adjusted Gross Margin]</code> and <code>[Adjusted Gross Margin %]</code> need to recalculate instantly for each slicer choice, territory, product, or date context on the page. A measure can respond to the current <code>[Margin Adjustment % Value]</code>; a calculated column would store one fixed result at refresh time and would not behave like a live scenario.</div>
+      </details>
+    </li>
+    <li><strong>Add the scenario visuals and confirm they respond to the slicer.</strong>
+      <ol>
+        <li>Keep the auto-generated parameter slicer on the page or move it to a clear position near the top.</li>
+        <li>Add a card for the base <code>[Gross Margin]</code> measure.</li>
+        <li>Add a second card for <code>[Adjusted Gross Margin]</code>.</li>
+        <li>Add a clustered column chart or line chart that compares the base and adjusted measures by the business dimension you want to explain.</li>
+        <li>Change the slicer from <code>0</code> to a positive and negative value and confirm both cards and the comparison chart update together.</li>
+      </ol>
+      <figure class="figure"><img src="images/06-advanced-analytics/ScenarioBefore.png" alt="Scenario page with the Margin Adjustment % slicer at 0%, showing the base and adjusted Gross Margin cards matching."><figcaption>Scenario page before adjustment (slicer at 0%).</figcaption></figure>
+      <figure class="figure"><img src="images/06-advanced-analytics/ScenarioAfter.png" alt="Scenario page with the Margin Adjustment % slicer moved to a positive value, showing the Adjusted Gross Margin card and comparison chart responding."><figcaption>Scenario page after adjustment, with margin cards and chart updated.</figcaption></figure>
+    </li>
+    <li><strong>Evaluate the decomposition tree only if it is available in your tenant.</strong>
+      <ol>
+        <li>On the <b>Visualizations</b> pane, add a <b>Decomposition tree</b> visual if the visual is available and approved in this environment.</li>
+        <li>Drag <code>Sales Amount</code> or <code>Gross Margin</code> into <b>Analyze</b>.</li>
+        <li>Drag <code>Territory</code>, <code>Product Category</code>, <code>Customer Type</code>, and <code>Segment</code> into <b>Explain by</b>.</li>
+        <li>Try a manual drill path first, then try the AI-driven <b>High value</b> or <b>Low value</b> split only if that option is enabled.</li>
+        <li>If the visual is unavailable or still marked <b>Verify for Gov</b>, build the fallback instead: a matrix with the same fields nested on rows plus the Lab 4 drillthrough page for detail.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — decomposition tree manual vs. AI splits.</summary>
+        <div class="fyi-body">A manual path answers a business question you already have, such as breaking <code>Sales Amount</code> down by <code>Territory</code> then <code>Product Category</code>. The AI-driven <b>High value</b> or <b>Low value</b> split instead searches the fields in <b>Explain by</b> for the next branch that most strongly separates the result, which is useful for discovery but still needs human judgment.</div>
+      </details>
+    </li>
+    <li><strong>Evaluate forecasting or anomaly detection only if available.</strong>
+      <ol>
+        <li>Add a line chart with your date field on the X-axis and <code>Sales Amount</code> as the value.</li>
+        <li>Open the <b>Analytics</b> pane for that visual.</li>
+        <li>If forecasting is enabled, add a <b>Forecast</b> and set the forecast length and confidence interval for the scenario you want to discuss.</li>
+        <li>If anomaly detection is enabled on the supported visual, turn it on and review the highlighted points.</li>
+        <li>If neither feature is approved here, use the fallback path instead: create a rolling-average measure, a prior-period comparison measure, and a threshold flag such as <code>Below 90% of prior period</code>.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — what forecasting and anomaly detection are assuming.</summary>
+        <div class="fyi-body"><p style="margin:8px 0 0;">These features are not magic predictions; they infer patterns from the history on your line chart and expose how uncertain that inference is.</p>
+        <ul style="margin:8px 0 0; padding-left:20px; color:var(--cp-text-muted);">
+          <li><b>Forecast</b> extends the series based on historical trend and seasonality, so weak or sparse history makes the forecast less trustworthy.</li>
+          <li><b>Confidence interval</b> shows a likely range, not a guaranteed outcome; wider bands mean more uncertainty.</li>
+          <li><b>Anomaly detection</b> flags points that differ from the expected pattern, but a flagged point can be either a real business event or just noisy data that needs explanation.</li>
+        </ul></div>
+      </details>
+    </li>
+    <li><strong>Evaluate Key influencers only if available.</strong>
+      <ol>
+        <li>Add a <b>Key influencers</b> visual only if the tenant supports and approves it.</li>
+        <li>Choose a clear outcome such as a binary <code>Below Target</code> flag or another simple business result.</li>
+        <li>Add three to five explanatory fields so the visual has meaningful drivers to compare.</li>
+        <li>Review the ranked influencers and segments with the class, and explicitly discuss correlation versus causation.</li>
+        <li>If the visual is unavailable, build the fallback instead with ranked visuals, Top N filters, and <code>RANKX</code>-based comparisons from Lab 2.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — what Key influencers is actually doing.</summary>
+        <div class="fyi-body">The visual statistically compares the chosen outcome, such as a <code>Below Target</code> flag, against the explanatory fields you provide and ranks the factors most associated with a higher or lower likelihood of that outcome. It is great for surfacing patterns to investigate, but it does not prove that a field caused the result, which is why the lab explicitly calls out correlation versus causation.</div>
+      </details>
+    </li>
+    <li><strong>Keep Python/R and Azure ML as optional review topics unless validated.</strong><p>Do not enable Python/R visuals or Azure ML integration unless runtime approval, package approval, Service support, network egress, identity, region, and data residency have all been validated for this tenant. If those checks are not complete, stay on the Gov-safe path with native visuals or a static pre-scored sample output.</p>
+      <details class="callout fyi">
+        <summary>FYI — why governed AI prerequisites matter.</summary>
+        <div class="fyi-body">Python/R visuals and Azure ML can introduce package risk, outbound connectivity, identity dependencies, and data-movement questions that do not exist with native visuals alone. In a regulated tenant, the technical feature may work but still be unacceptable until security, region, and residency controls are proven.</div>
+      </details>
+    </li>
+    <li><strong>Keep Copilot conceptual unless the tenant is validated for it.</strong><p>If Copilot for Power BI or Fabric has not been validated here, explain the use case conceptually only: what it might summarize, what a prompt might ask, and why every AI-generated measure or narrative still requires human review before it is trusted or shared.</p>
+      <details class="callout fyi">
+        <summary>FYI — why human review is still required for AI outputs.</summary>
+        <div class="fyi-body">A generated narrative, measure, or explanation may sound confident while still misreading the business meaning of <code>[Gross Margin]</code>, <code>[Sales Amount]</code>, or the current filter context. Treat AI as a drafting aid: useful for speed, but never the final authority for numbers that will be shared with stakeholders.</div>
+      </details>
+    </li>
+    <li><strong>Document feature status and the fallback you used.</strong><p>Record whether each advanced feature is Gov-ready, Verify for Gov, or Commercial-focused in this tenant, then note the fallback pattern you actually used during the lab.</p>
+      <table class="column-table"><thead><tr><th>Feature</th><th>Status</th><th>What to create or review</th><th>Fallback</th></tr></thead><tbody>
 <tr><td>What-if parameter</td><td>Gov-ready</td><td><code>Margin Adjustment %</code> and adjusted margin measure</td><td>Required core path.</td></tr>
 <tr><td>Decomposition tree</td><td>Verify for Gov</td><td>Driver analysis by territory/product/customer/segment</td><td>Matrix plus drillthrough.</td></tr>
 <tr><td>Forecasting</td><td>Verify for Gov</td><td>Line chart Analytics pane forecast</td><td>Rolling average and prior-period comparison.</td></tr>
@@ -217,22 +283,8 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td>Azure ML</td><td>Verify for Gov</td><td>Validated workspace/identity/network/region</td><td>Static scored output.</td></tr>
 <tr><td>Copilot</td><td>Commercial-focused / Verify for Gov</td><td>Conceptual unless tenant, capacity, licensing, and data boundaries are validated</td><td>Human-authored explanation.</td></tr>
 <tr><td>Decision framework</td><td>Required documentation</td><td>Available, approved, residency acceptable, fallback identified</td><td>Use non-AI path when any answer is no.</td></tr>
-</tbody></table></div></section>
-        <section>
-  <h2>Detailed step-by-step procedure</h2>
-  <ol class="steps">
-    <li><strong>Start with the Gov-ready core.</strong><p>Open the report PBIP and choose a page where margin or sales scenario analysis makes sense — the Sales & Margin Analysis page from earlier labs is a good candidate.</p></li>
-    <li><strong>Create a what-if parameter.</strong><p>Select <b>Modeling &gt; New parameter &gt; Numeric range</b>. Name it <code>Margin Adjustment %</code>, set Data type to Decimal number, Minimum to -10, Maximum to 20, Increment to 1, and Default to 0. Leave <b>Add slicer to this page</b> checked so Power BI creates the slicer and the <code>[Margin Adjustment % Value]</code> measure automatically.</p></li>
-    <li><strong>Create adjusted measures.</strong><p>Create a measure named <code>Adjusted Gross Margin %</code> that adds <code>[Margin Adjustment % Value] / 100</code> to <code>[Gross Margin %]</code>, then a second measure <code>Adjusted Gross Margin</code> that multiplies the adjusted percentage by <code>[Sales Amount]</code>.</p></li>
-    <li><strong>Add scenario visuals.</strong><p>Add the auto-generated parameter slicer, a card for the base <code>[Gross Margin]</code>, a card for <code>[Adjusted Gross Margin]</code>, and a clustered column or line chart comparing the two side by side. Drag the slicer and confirm both cards and the chart move together as you change the adjustment percentage.</p>
-      <div class="figure"><figcaption><strong>Suggested illustration:</strong> before/after screenshot pair showing the adjustment slider at 0% vs. +10%, with the two margin cards visibly different.</figcaption></div>
+</tbody></table>
     </li>
-    <li><strong>Evaluate decomposition tree.</strong><p>If the Decomposition tree visual is available in your tenant, add it, set Sales Amount or Gross Margin as the analyzed metric, and add Territory, Product Category, Customer Type, and Segment as explain-by fields; try both manual expansion and the AI-driven High Value/Low Value split. If the visual is unavailable or marked Verify for Gov, build the Gov-safe alternate instead: a matrix with the same explain-by fields nested on rows plus the drillthrough page from Lab 4 for order-level detail.</p></li>
-    <li><strong>Evaluate forecasting/anomaly options.</strong><p>If available, add a line chart of Sales Amount by date, open the Analytics pane, and add a Forecast line (set forecast length and confidence interval) or Anomaly detection. If unavailable, build the Gov-safe fallback: a rolling-average measure, a prior-period comparison measure, and a DAX-based threshold flag (for example, "Below 90% of prior period").</p></li>
-    <li><strong>Evaluate key influencers.</strong><p>If available, add the Key influencers visual, set a clear outcome field (such as a binary "Below Target" flag) and 3-5 explanatory fields, and review the ranked influencer list together as a class, discussing correlation vs. causation. If unavailable, build ranking and Top N visuals instead using the <code>RANKX</code> pattern from Lab 2.</p></li>
-    <li><strong>Review Python/R and Azure ML.</strong><p>Do not enable Python/R visuals or Azure ML integration unless the required runtimes, packages, Service support, network egress, identity, and data residency requirements have been validated for this tenant. Use the native visuals covered above, or a static, pre-scored sample output described conceptually, as the fallback.</p></li>
-    <li><strong>Review Copilot conceptually.</strong><p>If Copilot for Power BI has not been validated in this tenant, present the conceptual walkthrough only (what it can summarize, what a DAX query prompt looks like) without live demonstration. Emphasize that any AI-generated summary or measure requires human review before being trusted or shared.</p></li>
-    <li><strong>Document feature status.</strong><p>For every advanced or AI-assisted feature covered in this lab (decomposition tree, forecasting, anomaly detection, key influencers, Python/R, Azure ML, Copilot), write down whether it is Gov-ready, Verify for Gov, or Commercial-focused in this tenant, and record the fallback pattern actually used in the lab.</p></li>
   </ol>
 </section>
         <section>
@@ -283,7 +335,7 @@ RETURN
       </aside>
     </main>
     <nav class="bottomnav"><a href="05-performance-optimization.html">Previous</a><a href="jeopardy/lab06.html">Jeopardy review</a><a href="07-security-design.html">Next</a></nav>
-    <footer>Power BI Advanced Factory - Synthetic data only - PBIP is the source of record</footer>
+    <footer>Power BI Advanced Factory - Synthetic data only</footer>
   </div>
   <script src="scripts/lab-progress.js"></script>
 </body>
