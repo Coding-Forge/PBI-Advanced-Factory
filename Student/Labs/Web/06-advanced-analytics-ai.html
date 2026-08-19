@@ -208,13 +208,16 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <div class="fyi-body">A manual path answers a business question you already have, such as breaking <code>Sales Amount</code> down by <code>TerritoryName</code> then <code>ProductCategory</code>. The AI-driven <b>High value</b> or <b>Low value</b> split instead searches the fields in <b>Explain by</b> for the next branch that most strongly separates the result, which is useful for discovery but still needs human judgment.</div>
       </details>
     </li>
-    <li><strong>Evaluate forecasting or anomaly detection only if available.</strong>
+    <li><strong>Build the forecast and anomaly-detection views on <code>Scenario &amp; AI Exploration</code>.</strong>
       <ol>
-        <li>Add a line chart with your date field on the X-axis and <code>Sales Amount</code> as the value.</li>
-        <li>Open the <b>Analytics</b> pane for that visual.</li>
-        <li>If forecasting is enabled, add a <b>Forecast</b> and set the forecast length and confidence interval for the scenario you want to discuss.</li>
-        <li>If anomaly detection is enabled on the supported visual, turn it on and review the highlighted points.</li>
-        <li>If neither feature is approved here, use the fallback path instead: create a rolling-average measure, a prior-period comparison measure, and a threshold flag such as <code>Below 90% of prior period</code>.</li>
+        <li>On the <code>Scenario &amp; AI Exploration</code> page, add a <b>Slicer</b> bound to your date hierarchy (<code>Year</code>, <code>Quarter</code>, <code>Month</code>, <code>Day</code>) so both line charts below can be filtered to a useful range.</li>
+        <li>Add a <b>Line chart</b> with your date field on <b>X-axis</b> (<code>Category</code>) and <code>[Sales Amount]</code> as <b>Y</b>.</li>
+        <li>Open the <b>Analytics</b> pane for that visual and, if forecasting is enabled, click <b>Add</b> next to <b>Forecast</b>; set the forecast length and confidence interval for the scenario you want to discuss.</li>
+        <li>Add a second <b>Line chart</b> with the same date field on <b>X-axis</b> and <code>[Sales Amount]</code> as <b>Y</b>.</li>
+        <li>Open the <b>Analytics</b> pane for that second visual and, if anomaly detection is enabled, turn it on and review the highlighted points.</li>
+        <li>Add a bookmark for each view: with the forecast chart visible, click <b>View &gt; Bookmarks &gt; Add</b> and rename it <code>Forecast</code>; with the anomaly chart visible, add a second bookmark and rename it to match your anomaly view (the sample project's bookmark is spelled <code>Anomolies</code> — match whatever you actually named yours).</li>
+        <li>Add two <b>Buttons</b> (<b>Insert &gt; Buttons &gt; Blank</b>) with the text <code>Forecast</code> and <code>Anomalies</code>, then set each button's <b>Action</b> type to <b>Bookmark</b> and point it at the matching bookmark so users can jump straight to either view.</li>
+        <li>If neither forecasting nor anomaly detection is approved in this tenant, use the fallback path instead: create a rolling-average measure, a prior-period comparison measure, and a threshold flag such as <code>Below 90% of prior period</code>.</li>
       </ol>
       <details class="callout fyi">
         <summary>FYI — what forecasting and anomaly detection are assuming.</summary>
@@ -223,7 +226,8 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
           <li><b>Forecast</b> extends the series based on historical trend and seasonality, so weak or sparse history makes the forecast less trustworthy.</li>
           <li><b>Confidence interval</b> shows a likely range, not a guaranteed outcome; wider bands mean more uncertainty.</li>
           <li><b>Anomaly detection</b> flags points that differ from the expected pattern, but a flagged point can be either a real business event or just noisy data that needs explanation.</li>
-        </ul></div>
+        </ul>
+        <p style="margin:8px 0 0;">Bookmarking each analytics view separately (rather than toggling one chart back and forth) keeps both explanations available side by side for a class walkthrough, and mirrors the same bookmark-plus-button navigation pattern you used in Lab 04.</p></div>
       </details>
     </li>
     <li><strong>Evaluate Key influencers only if available.</strong>
@@ -255,8 +259,8 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <table class="column-table"><thead><tr><th>Feature</th><th>Status</th><th>What to create or review</th><th>Fallback</th></tr></thead><tbody>
 <tr><td>What-if parameter</td><td>Gov-ready</td><td><code>Margin Adjustment %</code> and adjusted margin measures (built in Lab 04, reused here)</td><td>Required core path.</td></tr>
 <tr><td>Decomposition tree</td><td>Verify for Gov</td><td>Driver analysis by territory/product/customer/segment</td><td>Matrix plus drillthrough.</td></tr>
-<tr><td>Forecasting</td><td>Verify for Gov</td><td>Line chart Analytics pane forecast</td><td>Rolling average and prior-period comparison.</td></tr>
-<tr><td>Anomaly detection</td><td>Verify for Gov</td><td>Unusual trend identification on supported visuals</td><td>DAX threshold flags.</td></tr>
+<tr><td>Forecasting</td><td>Verify for Gov</td><td>Line chart Analytics pane forecast, bookmarked with a jump button</td><td>Rolling average and prior-period comparison.</td></tr>
+<tr><td>Anomaly detection</td><td>Verify for Gov</td><td>Second line chart's Analytics pane anomaly detection, bookmarked with a jump button</td><td>DAX threshold flags.</td></tr>
 <tr><td>Key influencers</td><td>Verify for Gov</td><td>AI visual for outcome analysis</td><td>Top N and ranked comparisons.</td></tr>
 <tr><td>Python/R</td><td>Verify for Gov</td><td>Approved runtime/packages only</td><td>Native visuals.</td></tr>
 <tr><td>Azure ML</td><td>Verify for Gov</td><td>Validated workspace/identity/network/region</td><td>Static scored output.</td></tr>
@@ -295,9 +299,10 @@ Adjusted Margin vs Base =
         <div class="checklist" data-progress="lab06">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 7 complete</p>
+          <p class="small"><span class="count">0</span> of 8 complete</p>
           <label><input type="checkbox">Scenario &amp; AI Exploration page built from the Lab 04 what-if parameter</label>
 <label><input type="checkbox">Scenario chart responds to the existing Margin Adjustment % slicer</label>
+<label><input type="checkbox">Forecast and anomaly-detection line charts bookmarked with jump buttons</label>
 <label><input type="checkbox">Optional AI/advanced visuals labeled</label>
 <label><input type="checkbox">Gov-safe fallback documented for each optional feature</label>
 <label><input type="checkbox">Python/R and Azure ML prerequisites documented if discussed</label>
