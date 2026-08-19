@@ -208,24 +208,26 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <ol>
         <li>Right-click an existing page tab and choose <b>Insert page</b>.</li>
         <li>Double-click the new page tab and rename it <code>Executive Summary</code>.</li>
-        <li>Add four KPI card visuals across the top of the canvas for <code>[Sales Amount]</code>, <code>[Gross Margin %]</code>, <code>[Sales Variance]</code>, and <code>[Quantity]</code>.</li>
-        <li>Add a line chart for sales trend below the cards.</li>
-        <li>Add one high-level breakdown visual, such as sales by territory, under or beside the trend.</li>
+        <li>In the <b>Visualizations</b> pane, click the <b>Card</b> icon to drop a blank card visual on the canvas, then drag <code>[Sales Amount]</code> into the <b>Fields</b> well. Repeat this three more times so you have four separate cards for <code>[Sales Amount]</code>, <code>[Gross Margin %]</code>, <code>[Sales Variance]</code>, and <code>[Quantity]</code>.</li>
+        <li>Resize each card so they are the same height and arrange them left to right in a single row across the top of the canvas, in the order listed above.</li>
+        <li>Click the <b>Line chart</b> icon in the Visualizations pane to add a new visual below the card row. Drag <code>DimDate[Date]</code> (or your date table's month/date field) into the <b>X-axis</b> well and drag <code>[Sales Amount]</code> into the <b>Y-axis</b> well.</li>
+        <li>Resize the line chart so it spans most of the width of the canvas, directly under the KPI cards.</li>
+        <li>Add one more visual for a high-level breakdown, such as a <b>Clustered bar chart</b>: drag <code>DimTerritory[TerritoryRegion]</code> into the <b>Y-axis</b> well and <code>[Sales Amount]</code> into the <b>X-axis</b> well. Place this visual under or beside the line chart so the page tells one connected story.</li>
       </ol>
       <figure class="figure"><img src="images/04-report-design/ExecutiveSummary.png" alt="Finished Executive Summary report page showing the KPI card row for Sales Amount, Gross Margin %, Sales Variance, and Quantity, the sales trend line chart, and the territory breakdown visual."><figcaption>Finished Executive Summary page layout.</figcaption></figure>
     </li>
     <li><strong>Create the <code>Analyst Exploration</code> page.</strong>
       <ol>
         <li>Insert another new page and rename it <code>Analyst Exploration</code>.</li>
-        <li>Add slicers for Order Date, Territory Region, Product Category, Customer, and Segment across the top or down one side.</li>
-        <li>Add a matrix or table that supports comparison across customer, product, territory, and segment.</li>
-        <li>Add at least one chart that responds to the same slicers so analysts can move between detail and pattern views.</li>
+        <li>Add five <b>Slicer</b> visuals: click the <b>Slicer</b> icon once per field, then drag in one of <code>DimDate[OrderDate]</code>, <code>DimTerritory[TerritoryRegion]</code>, <code>DimProductCategory[ProductCategory]</code>, <code>DimCustomer[CustomerName]</code>, and <code>DimSegment[Segment]</code> per slicer. Line them up across the top of the canvas or stack them down one side.</li>
+        <li>Click the <b>Matrix</b> icon to add a matrix visual. Drag <code>DimCustomer[CustomerName]</code>, <code>DimProductCategory[ProductCategory]</code>, <code>DimTerritory[TerritoryRegion]</code>, and <code>DimSegment[Segment]</code> into the <b>Rows</b> well, and drag <code>[Sales Amount]</code> into the <b>Values</b> well so analysts can compare across all four dimensions.</li>
+        <li>Add at least one chart, such as a <b>Clustered column chart</b>, with <code>DimDate[OrderDate]</code> (or month) in the <b>X-axis</b> well and <code>[Sales Amount]</code> in the <b>Y-axis</b> well, so the same five slicers filter both the matrix and this chart together.</li>
       </ol>
     </li>
     <li><strong>Create the operational or detail page for action monitoring.</strong>
       <ol>
         <li>Insert another page and give it a plain descriptive name that matches its action question.</li>
-        <li>Add monitoring visuals, an exception list, or a detail table that helps an operational user decide what to do next.</li>
+        <li>Add monitoring visuals such as a <b>Table</b> or <b>Line chart</b> visual to track a key measure over time, plus an exception list: add a <b>Table</b> visual and drag in <code>DimCustomer[CustomerName]</code>, <code>DimDate[OrderDate]</code>, and <code>[Sales Variance]</code>, then use the <b>Filters</b> pane to keep only rows where <code>[Sales Variance]</code> is below zero (or another threshold) so the table only shows the records needing attention.</li>
         <li>Keep this page focused on one action-oriented workflow instead of repeating the executive summary.</li>
       </ol>
     </li>
@@ -242,7 +244,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <li>In the Visualizations pane, find the <b>Drill through</b> field well.</li>
         <li>Drag <code>DimCustomer[CustomerName]</code> into the drillthrough field well.</li>
         <li>Confirm <b>Keep all filters</b> matches your design intent.</li>
-        <li>Add customer KPI cards and a transaction table to the page.</li>
+        <li>Add customer KPI cards and a transaction table to the page: add two <b>Card</b> visuals for <code>[Sales Amount]</code> and <code>[Quantity]</code>, then add a <b>Table</b> visual and drag in <code>DimDate[OrderDate]</code>, <code>DimProduct[ProductName]</code>, <code>[Sales Amount]</code>, and <code>[Quantity]</code> so it lists that customer's individual transactions.</li>
         <li>Add a back button with <b>Insert &gt; Buttons &gt; Back</b> or set a button action to <b>Back</b>.</li>
         <li>Test the page by right-clicking a customer value on another page and selecting <b>Drill through &gt; Customer Detail</b>.</li>
       </ol>
@@ -258,7 +260,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <li>Insert a new page and rename it <code>Sales Tooltip</code>.</li>
         <li>Open the page formatting settings and set the page type or page size to <b>Tooltip</b>.</li>
         <li>Turn on <b>Allow use as tooltip</b>.</li>
-        <li>Add compact KPI cards and a small trend visual sized to fit the tooltip canvas.</li>
+        <li>Add compact KPI cards and a small trend visual sized to fit the tooltip canvas: add two small <b>Card</b> visuals for <code>[Sales Amount]</code> and <code>[Gross Margin %]</code>, and add a small <b>Line chart</b> with <code>DimDate[Date]</code> in the <b>X-axis</b> well and <code>[Sales Amount]</code> in the <b>Y-axis</b> well, then resize all three so they fit the small tooltip canvas.</li>
         <li>Return to the main report page, select the visual that should use this tooltip, then set <b>Format &gt; General &gt; Tooltips</b> to <b>Report page</b> and choose <code>Sales Tooltip</code>.</li>
       </ol>
       <details class="callout fyi">
