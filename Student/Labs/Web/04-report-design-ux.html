@@ -156,7 +156,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <header>
       <div class="eyebrow">Lab 4 - Guided report experience</div>
       <h1>Report Design and UX</h1>
-      <p class="lede">Design audience-focused report pages with clear filters, drillthrough, tooltips, bookmarks, navigation, field parameters, conditional formatting, mobile layout, and accessibility review.</p>
+      <p class="lede">Build the <code>AzureGov</code> report's six pages click by click: <code>Executive Overview</code>, <code>Sales &amp; Margin Analysis</code>, <code>Customer &amp; Segmentation Detail</code>, <code>Hierarchies, Drill &amp; Groups</code>, <code>Security, Navigation &amp; Tooltip</code>, and <code>Sales Detail Tooltip</code> — with drillthrough, report page tooltips, bookmarks, navigation, field parameters, what-if parameters, conditional formatting, mobile layout, and accessibility review.</p>
       <div class="meta"><span>Advanced authoring</span><span>Deliverable: Interactive report pages</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
@@ -173,174 +173,212 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
   <h2>Step-by-step walkthrough</h2>
   <ol class="steps">
-    <li><strong>Open the report file from the earlier labs and confirm the model is ready.</strong>
+    <li><strong>Open the <code>AzureGov</code> report file and confirm the model is ready.</strong>
       <ol>
         <li>Open Power BI Desktop.</li>
-        <li>Open the workshop file from <code>pbi-local\</code>, using the semantic model from Lab 01 and the measures from Lab 02.</li>
-        <li>In the Fields pane, confirm measures such as <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, <code>[Sales Variance]</code>, and <code>[Quantity]</code> are available before you build report pages.</li>
+        <li>Choose <b>File &gt; Open</b> and browse to <code>pbi-local\AzureGov\AdvancedPBI.pbip</code>, which uses the semantic model from Lab 01 and the measures from Lab 02.</li>
+        <li>In the Fields pane, expand <code>_Measures</code> and confirm <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, <code>[Order Count]</code>, <code>[Quantity]</code>, <code>[Sales Variance]</code>, and <code>[Sales YoY %]</code> are available.</li>
+        <li>Confirm the dimension tables <code>DimCustomer</code>, <code>DimTerritory</code>, <code>DimProduct</code> (with its <code>Product Hierarchy</code>), <code>DimProductCategory</code>, <code>DimSegment</code>, <code>DimOrderDate</code>, and <code>DimShipDate</code> are all present before you build report pages.</li>
       </ol>
     </li>
     <li><strong>Plan the report surfaces before you place visuals.</strong>
       <ol>
-        <li>List the audience for each page: executive, analyst, and operational/detail.</li>
+        <li>List the audience for each page: executive, analyst/margin, customer, product, security, and support.</li>
         <li>Write one decision question per page so every visual supports a clear purpose.</li>
         <li>Keep slicer placement and naming consistent across pages so users can understand report context quickly.</li>
       </ol>
       <table class="column-table"><thead><tr><th>Page or feature</th><th>Exact name</th><th>Required fields/measures</th><th>Validation</th></tr></thead><tbody>
-<tr><td>Page</td><td><code>Executive Summary</code></td><td><code>Sales Amount</code>, <code>Gross Margin %</code>, <code>Sales Variance</code>, <code>Quantity</code></td><td>Executive KPIs and exceptions are visible.</td></tr>
-<tr><td>Page</td><td><code>Analyst Exploration</code></td><td>Date, territory, product, customer, and segment slicers</td><td>Slicers are clear and affect intended visuals.</td></tr>
-<tr><td>Operational/detail page</td><td>Operational or detail page</td><td>Monitoring visuals, exception list, or detail table</td><td>Page answers a specific action question.</td></tr>
-<tr><td>Drillthrough page</td><td><code>Customer Detail</code></td><td><code>DimCustomer[CustomerName]</code>, KPI cards, transaction table</td><td>Right-click opens filtered detail and Back returns.</td></tr>
-<tr><td>Tooltip page</td><td><code>Sales Tooltip</code></td><td>Compact sales/margin KPIs and trend</td><td>Hover displays contextual information.</td></tr>
-<tr><td>Bookmarks</td><td>Show/hide or reset state</td><td>Buttons plus Data, Display, Current page settings</td><td>Only intended visuals or filters change.</td></tr>
-<tr><td>Field parameter</td><td><code>Metric Parameter</code></td><td><code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, <code>[Quantity]</code></td><td>Slicer switches the visual metric.</td></tr>
-<tr><td>Optional field parameter</td><td><code>Dimension Parameter</code></td><td><code>DimProductCategory[ProductCategory]</code>, <code>DimTerritory[TerritoryRegion]</code>, <code>DimSegment[Segment]</code></td><td>Slicer switches axis or rows.</td></tr>
-<tr><td>Conditional formatting</td><td>Margin or variance thresholds</td><td>Status, color, or icon rules with written meaning</td><td>Color is not the only cue.</td></tr>
-<tr><td>Mobile layout</td><td>Mobile canvas</td><td>Highest-value KPIs and visuals</td><td>Readable in mobile preview.</td></tr>
+<tr><td>Page</td><td><code>Executive Overview</code></td><td><code>Sales Amount</code>, <code>Gross Margin %</code>, <code>Order Count</code>, <code>Sales YoY %</code>, <code>Sales Variance %</code></td><td>Executive KPIs, trend combo chart, and territory matrix are visible.</td></tr>
+<tr><td>Page</td><td><code>Sales &amp; Margin Analysis</code></td><td><code>Selected Margin Target</code>, <code>Adjusted Gross Margin</code>, <code>Gross Margin vs Target</code>, <code>Margin Target Status</code></td><td>Changing either slicer updates the cards and table colors.</td></tr>
+<tr><td>Drillthrough page</td><td><code>Customer &amp; Segmentation Detail</code></td><td><code>DimCustomer[CustomerName]</code>, <code>Sales Parameters</code> field parameter, transaction table</td><td>Right-click opens filtered detail and Back returns.</td></tr>
+<tr><td>Page</td><td><code>Hierarchies, Drill &amp; Groups</code></td><td><code>Product Hierarchy</code>, <code>Customer Sales Group</code></td><td>Drill up/down works and the drill-across button opens Customer Detail.</td></tr>
+<tr><td>Page</td><td><code>Security, Navigation &amp; Tooltip</code></td><td>RLS roles, <code>SecurityUserTerritory</code>, custom tooltip charts</td><td>View As Roles shows filtered data; hover shows the custom tooltip.</td></tr>
+<tr><td>Tooltip page</td><td><code>Sales Detail Tooltip</code></td><td>Compact sales/margin cards and a small trend line</td><td>Hover on an assigned visual displays this page.</td></tr>
+<tr><td>Bookmarks</td><td><code>Sales Visible</code> / <code>Sale Invisible</code></td><td>Buttons plus Data, Display, Current page settings</td><td>Only the intended visual and filter change.</td></tr>
+<tr><td>Field parameter</td><td><code>Sales Parameters</code></td><td><code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, <code>[Quantity]</code></td><td>Slicer switches the visual metric.</td></tr>
+<tr><td>What-if parameters</td><td><code>Margin Target</code>, <code>Margin Adjustment %</code></td><td>Manual disconnected table vs. native numeric range parameter</td><td>Both slicers change the margin cards independently.</td></tr>
+<tr><td>Conditional formatting</td><td><code>Margin Target Status</code></td><td><code>Margin Target Status Color</code> measure driving background color</td><td>Color is not the only cue; the status text is still visible.</td></tr>
+<tr><td>Mobile layout</td><td>Mobile canvas on <code>Executive Overview</code></td><td>Trend chart, territory matrix, two KPI cards</td><td>Readable in mobile preview.</td></tr>
 <tr><td>Accessibility review</td><td>Alt text, tab order, contrast, titles</td><td>Selection pane and visual formatting settings</td><td>Keyboard and screen-reader path documented.</td></tr>
 </tbody></table>
       <details class="callout fyi">
         <summary>FYI — why page purpose matters.</summary>
-        <div class="fyi-body">A page should answer one clear decision question, otherwise users get a crowded canvas that mixes executive KPIs, analyst exploration, and operational actions together. Separating <code>Executive Summary</code>, <code>Analyst Exploration</code>, and <code>Customer Detail</code> keeps the filter context understandable and makes each page easier to scan. Good UX in Power BI starts with information hierarchy, not with formatting.</div>
+        <div class="fyi-body">A page should answer one clear decision question, otherwise users get a crowded canvas that mixes executive KPIs, margin scenarios, and customer detail together. Separating <code>Executive Overview</code>, <code>Sales &amp; Margin Analysis</code>, and <code>Customer &amp; Segmentation Detail</code> keeps the filter context understandable and makes each page easier to scan. Good UX in Power BI starts with information hierarchy, not with formatting.</div>
       </details>
     </li>
-    <li><strong>Create the <code>Executive Summary</code> page.</strong>
+    <li><strong>Create the <code>Executive Overview</code> page.</strong>
       <ol>
         <li>Right-click an existing page tab and choose <b>Insert page</b>.</li>
-        <li>Double-click the new page tab and rename it <code>Executive Summary</code>.</li>
-        <li>In the <b>Visualizations</b> pane, click the <b>Card</b> icon to drop a blank card visual on the canvas, then drag <code>[Sales Amount]</code> into the <b>Fields</b> well. Repeat this three more times so you have four separate cards for <code>[Sales Amount]</code>, <code>[Gross Margin %]</code>, <code>[Sales Variance]</code>, and <code>[Quantity]</code>.</li>
-        <li>Resize each card so they are the same height and arrange them left to right in a single row across the top of the canvas, in the order listed above.</li>
-        <li>Click the <b>Line chart</b> icon in the Visualizations pane to add a new visual below the card row. Drag <code>DimDate[Date]</code> (or your date table's month/date field) into the <b>X-axis</b> well and drag <code>[Sales Amount]</code> into the <b>Y-axis</b> well.</li>
-        <li>Resize the line chart so it spans most of the width of the canvas, directly under the KPI cards.</li>
-        <li>Add one more visual for a high-level breakdown, such as a <b>Clustered bar chart</b>: drag <code>DimTerritory[TerritoryRegion]</code> into the <b>Y-axis</b> well and <code>[Sales Amount]</code> into the <b>X-axis</b> well. Place this visual under or beside the line chart so the page tells one connected story.</li>
+        <li>Double-click the new page tab and rename it <code>Executive Overview</code>.</li>
+        <li>Add a <b>Card</b> visual near the top-left as a dynamic header: drag in the <code>[Dynamic Title]</code> measure, then in the <b>Format</b> pane turn off <b>Category label</b> and increase the callout value font size. Because <code>[Dynamic Title]</code> is built from <code>"Sales Overview — " &amp; [Selected Territory Or Region]</code>, the header text will change automatically as users pick a territory.</li>
+        <li>Add four <b>Card</b> visuals in a single row below the header: drag in <code>[Sales Amount]</code>, <code>[Gross Margin %]</code>, <code>[Order Count]</code>, and <code>[Sales YoY %]</code> — one measure per card, left to right in that order.</li>
+        <li>In the <b>Format</b> pane for each card, open <b>General &gt; Properties</b> and add descriptive alt text such as <code>Sales amount KPI</code>, <code>Gross margin KPI</code>, <code>Order count KPI</code>, and <code>Year over year KPI</code>.</li>
+        <li>Add a <b>Slicer</b> visual in the top-right corner and drag in <code>DimOrderDate[Date]</code>.</li>
+        <li>Add a second <b>Slicer</b> visual beside it and drag in <code>DimTerritory[TerritoryRegion]</code>.</li>
+        <li>Add a <b>Matrix</b> visual under the two slicers: drag <code>DimTerritory[TerritoryRegion]</code> and <code>DimTerritory[TerritoryName]</code> into the <b>Rows</b> well, and drag <code>[Sales Amount]</code> and <code>[Gross Margin %]</code> into the <b>Values</b> well.</li>
+        <li>Add a <b>Line and stacked column chart</b> (combo chart) below the KPI cards: drag <code>DimOrderDate[Year]</code> and then <code>DimOrderDate[Date]</code> into the <b>X-axis</b> well (in that order, so Year is the outer level), drag <code>[Sales Amount]</code> into <b>Column Y-axis</b>, and drag <code>[Sales Variance %]</code> into <b>Line Y-axis</b>.</li>
+        <li>Add alt text to the combo chart, such as <code>Trend chart comparing YTD, prior year, and YoY performance</code>.</li>
       </ol>
-      <figure class="figure"><img src="images/04-report-design/ExecutiveSummary.png" alt="Finished Executive Summary report page showing the KPI card row for Sales Amount, Gross Margin %, Sales Variance, and Quantity, the sales trend line chart, and the territory breakdown visual."><figcaption>Finished Executive Summary page layout.</figcaption></figure>
+      <figure class="figure"><img src="images/04-report-design/ExecutiveSummary.png" alt="Finished Executive Overview report page showing the dynamic title, the KPI card row for Sales Amount, Gross Margin %, Order Count, and Sales YoY %, the date and territory slicers, the territory matrix, and the trend combo chart."><figcaption>Finished Executive Overview page layout.</figcaption></figure>
+      <details class="callout fyi">
+        <summary>FYI — why a card can act as a page title.</summary>
+        <div class="fyi-body">A Card visual bound to a text measure like <code>[Dynamic Title]</code> reacts to slicers the way a real visual does, while a plain textbox cannot. This is why the Executive Overview header changes to reflect the selected territory instead of staying static — the same trick used for <code>[Selected Territory Or Region]</code> anywhere else you want a headline that responds to filters.</div>
+      </details>
     </li>
-    <li><strong>Create the <code>Analyst Exploration</code> page.</strong>
+    <li><strong>Create the <code>Sales &amp; Margin Analysis</code> page.</strong>
       <ol>
-        <li>Insert another new page and rename it <code>Analyst Exploration</code>.</li>
-        <li>Add five <b>Slicer</b> visuals: click the <b>Slicer</b> icon once per field, then drag in one of <code>DimDate[OrderDate]</code>, <code>DimTerritory[TerritoryRegion]</code>, <code>DimProductCategory[ProductCategory]</code>, <code>DimCustomer[CustomerName]</code>, and <code>DimSegment[Segment]</code> per slicer. Line them up across the top of the canvas or stack them down one side.</li>
-        <li>Click the <b>Matrix</b> icon to add a matrix visual. Drag <code>DimCustomer[CustomerName]</code>, <code>DimProductCategory[ProductCategory]</code>, <code>DimTerritory[TerritoryRegion]</code>, and <code>DimSegment[Segment]</code> into the <b>Rows</b> well, and drag <code>[Sales Amount]</code> into the <b>Values</b> well so analysts can compare across all four dimensions.</li>
-        <li>Add at least one chart, such as a <b>Clustered column chart</b>, with <code>DimDate[OrderDate]</code> (or month) in the <b>X-axis</b> well and <code>[Sales Amount]</code> in the <b>Y-axis</b> well, so the same five slicers filter both the matrix and this chart together.</li>
+        <li>Insert another new page and rename it <code>Sales &amp; Margin Analysis</code>.</li>
+        <li>Add a <b>Textbox</b> near the top-left with the bold heading text <code>Sales &amp; Margin Analysis</code>.</li>
+        <li>Create the first what-if input as a manual disconnected table: open <b>Home &gt; Transform data</b>, choose <b>New source &gt; Blank table</b> (or right-click in the Queries pane and choose <b>New query &gt; Blank table</b>), name it <code>Margin Target</code>, and enter three columns — <code>MarginTargetLabel</code> (text: <code>20%</code>, <code>25%</code>, <code>30%</code>, <code>35%</code>, <code>40%</code>), <code>MarginTargetValue</code> (decimal: <code>0.20</code>, <code>0.25</code>, <code>0.30</code>, <code>0.35</code>, <code>0.40</code>), and <code>SortOrder</code> (whole number: <code>0</code>–<code>4</code>). Close &amp; Apply, then set <code>MarginTargetValue</code>'s <b>Sort by column</b> to <code>SortOrder</code> and confirm it does <b>not</b> relate to any other table.</li>
+        <li>Create the second what-if input using the native feature: click <b>Modeling &gt; New parameter &gt; Numeric range</b>, name it <code>Margin Adjustment %</code>, set <b>Data type</b> to <b>Decimal number</b>, <b>Minimum</b> to <code>-0.1</code>, <b>Maximum</b> to <code>0.2</code>, <b>Increment</b> to <code>0.01</code>, and <b>Default</b> to <code>0</code>, then leave <b>Add slicer to this page</b> checked.</li>
+        <li>Add two <b>Slicer</b> visuals side by side: drag <code>'Margin Target'[MarginTargetValue]</code> into the first, and confirm the auto-added <code>Margin Adjustment %</code> slicer sits beside it.</li>
+        <li>Add two <b>Card</b> visuals to the right of the slicers: drag in <code>[Selected Margin Target]</code> and <code>[Adjusted Gross Margin]</code>, with alt text <code>Selected margin target KPI</code> and <code>Adjusted gross margin KPI</code>.</li>
+        <li>Add a third <b>Card</b> visual below those two for <code>[Gross Margin vs Target]</code>, with alt text <code>Margin versus target KPI</code>.</li>
+        <li>Add a <b>Table</b> visual for the margin detail: drag in <code>DimTerritory[TerritoryName]</code>, <code>DimProductCategory[ProductCategory]</code>, <code>[Gross Margin %]</code>, <code>[Gross Margin vs Target]</code>, and <code>[Margin Target Status]</code>. Sort the table ascending by <code>Margin Target Status</code>.</li>
+        <li>Add a second <b>Table</b> visual for customer ranking: drag in <code>DimCustomer[CustomerName]</code>, <code>[Sales Amount]</code>, <code>[Customer Sales Rank]</code>, and <code>[Is Top 5 Customer]</code>.</li>
       </ol>
+      <details class="callout fyi">
+        <summary>FYI — two ways to build a what-if input.</summary>
+        <div class="fyi-body"><code>Margin Target</code> is a small hand-built table loaded through Power Query — useful when you need specific, named choices such as <code>20%</code> through <code>40%</code>. <code>Margin Adjustment %</code> uses <b>Modeling &gt; New parameter &gt; Numeric range</b>, which auto-generates a calculated table with a continuous slider from <code>-10%</code> to <code>20%</code> — better when any value in a range should be selectable. Both feed a <code>SELECTEDVALUE</code> measure ([Selected Margin Target] and [Selected Margin Adjustment %]) that the rest of the model reads from.</div>
+      </details>
     </li>
-    <li><strong>Create the operational or detail page for action monitoring.</strong>
+    <li><strong>Apply conditional formatting to the margin table.</strong>
       <ol>
-        <li>Insert another page and give it a plain descriptive name that matches its action question.</li>
-        <li>Add monitoring visuals such as a <b>Table</b> or <b>Line chart</b> visual to track a key measure over time, plus an exception list: add a <b>Table</b> visual and drag in <code>DimCustomer[CustomerName]</code>, <code>DimDate[OrderDate]</code>, and <code>[Sales Variance]</code>, then use the <b>Filters</b> pane to keep only rows where <code>[Sales Variance]</code> is below zero (or another threshold) so the table only shows the records needing attention.</li>
-        <li>Keep this page focused on one action-oriented workflow instead of repeating the executive summary.</li>
+        <li>Select the margin detail table you just built and, in the <b>Values</b> field well, click the dropdown arrow on <code>Margin Target Status</code>.</li>
+        <li>Choose <b>Conditional formatting &gt; Background color</b>.</li>
+        <li>Set <b>Format style</b> to <b>Field value</b> and choose the <code>[Margin Target Status Color]</code> measure, which returns green for <code>Above target</code>/<code>At target</code>, amber for <code>Near target</code>, and red for <code>Below target</code>.</li>
+        <li>Click <b>OK</b>, then confirm the <code>Margin Target Status</code> text (not just the color) is still visible in the cell so the rule works for users with color-vision differences.</li>
       </ol>
+      <details class="callout fyi">
+        <summary>FYI — why conditional formatting needs business meaning.</summary>
+        <div class="fyi-body"><code>[Margin Target Status Color]</code> is itself a measure that switches on <code>[Margin Target Status]</code>, so the color logic and the text logic can never disagree. If the threshold in <code>[Margin Target Status]</code> were arbitrary, the report would look polished but not guide action — pairing a documented DAX rule with a visible status label keeps the formatting explainable in a code review, not just to the eye.</div>
+      </details>
     </li>
-    <li><strong>Validate slicers, page filters, and report context.</strong>
+    <li><strong>Create the <code>Customer &amp; Segmentation Detail</code> drillthrough page.</strong>
       <ol>
-        <li>Click each slicer one at a time and confirm only the intended visuals change.</li>
-        <li>Open the <b>Filters</b> pane and use page-level filters where a filter should apply to the whole page.</li>
-        <li>Move or relabel slicers if a new learner could not quickly tell which filters are active.</li>
+        <li>Insert a new page and rename it <code>Customer &amp; Segmentation Detail</code>.</li>
+        <li>Add a <b>Textbox</b> heading with the bold text <code>Customer &amp; Segmentation Detail</code>.</li>
+        <li>In the <b>Visualizations</b> pane, find the <b>Drill through</b> field well and drag <code>DimCustomer[CustomerName]</code> into it.</li>
+        <li>Confirm <b>Keep all filters</b> matches your design intent (leave it on so date, territory, and product context from the source page carries over).</li>
+        <li>Build the field parameter used on this page: click <b>Modeling &gt; New parameter &gt; Fields</b>, name it <code>Sales Parameters</code>, add <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code> in that order, and leave <b>Add slicer to this page</b> checked.</li>
+        <li>Move the auto-added <code>Sales Parameters</code> slicer near the top-left of the page, under the drillthrough context.</li>
+        <li>Add a <b>Bar chart</b> below the slicer: drag <code>DimProductCategory[ProductCategory]</code> into <b>Y-axis</b>, then drag <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code> into the <b>Y-axis</b> field well as the parameter's four values (drag the generated <code>Sales Parameters</code> field on top of the four measures so the chart switches between them), and sort descending by <code>[Sales Amount]</code>. Add alt text <code>Bar chart of top customers by sales amount with custom sales tooltip</code>.</li>
+        <li>Add a <b>Table</b> visual to the right for segment detail: drag in <code>DimCustomer[CustomerName]</code> and <code>[Sales Amount]</code>.</li>
+        <li>Add another <b>Table</b> visual beside it comparing order date vs. ship date: drag in <code>DimTerritory[TerritoryRegion]</code>, <code>[Sales by Order Date]</code>, and <code>[Sales by Ship Date]</code>.</li>
+        <li>Add a <b>Table</b> visual across the bottom for transactions: drag in <code>FactSales[SalesOrderLineKey]</code>, <code>FactSales[OrderDate]</code>, <code>DimCustomer[CustomerName]</code>, <code>DimProductCategory[ProductCategory]</code>, <code>FactSales[Quantity]</code>, <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, and <code>[Gross Margin %]</code>. Add alt text <code>Transaction table showing orders and profitability for the selected customer</code>.</li>
+        <li>Add a back button with <b>Insert &gt; Buttons &gt; Navigation &gt; Back</b> in the top-left corner.</li>
+        <li>Test the page: go to another page, right-click a customer value in a table or chart, and choose <b>Drill through &gt; Customer &amp; Segmentation Detail</b>. Confirm the target page opens filtered to that one customer and the Back button returns you to where you started.</li>
       </ol>
-    </li>
-    <li><strong>Create the <code>Customer Detail</code> drillthrough page.</strong>
-      <ol>
-        <li>Insert a new page and rename it <code>Customer Detail</code>.</li>
-        <li>In the Visualizations pane, find the <b>Drill through</b> field well.</li>
-        <li>Drag <code>DimCustomer[CustomerName]</code> into the drillthrough field well.</li>
-        <li>Confirm <b>Keep all filters</b> matches your design intent.</li>
-        <li>Add customer KPI cards and a transaction table to the page: add two <b>Card</b> visuals for <code>[Sales Amount]</code> and <code>[Quantity]</code>, then add a <b>Table</b> visual and drag in <code>DimDate[OrderDate]</code>, <code>DimProduct[ProductName]</code>, <code>[Sales Amount]</code>, and <code>[Quantity]</code> so it lists that customer's individual transactions.</li>
-        <li>Add a back button with <b>Insert &gt; Buttons &gt; Back</b> or set a button action to <b>Back</b>.</li>
-        <li>Test the page by right-clicking a customer value on another page and selecting <b>Drill through &gt; Customer Detail</b>.</li>
-      </ol>
-      <figure class="figure"><img src="images/04-report-design/DrillThroughPopUp.png" alt="Right-click context menu in Power BI Desktop showing the Drill through option pointing to the Customer Detail page."><figcaption>Right-click drillthrough pop-up menu.</figcaption></figure>
-      <figure class="figure"><img src="images/04-report-design/DrillthroughPage.png" alt="Customer Detail drillthrough page filtered to the selected customer after drilling through."><figcaption>Resulting filtered Customer Detail drillthrough page.</figcaption></figure>
+      <figure class="figure"><img src="images/04-report-design/DrillThroughPopUp.png" alt="Right-click context menu in Power BI Desktop showing the Drill through option pointing to the Customer & Segmentation Detail page."><figcaption>Right-click drillthrough pop-up menu.</figcaption></figure>
+      <figure class="figure"><img src="images/04-report-design/DrillthroughPage.png" alt="Customer & Segmentation Detail drillthrough page filtered to the selected customer after drilling through."><figcaption>Resulting filtered Customer &amp; Segmentation Detail drillthrough page.</figcaption></figure>
       <details class="callout fyi">
         <summary>FYI — how drillthrough passes context.</summary>
-        <div class="fyi-body">Drillthrough automatically carries the selected <code>DimCustomer[CustomerName]</code> value to the target page, which is why the detail page opens already filtered to that customer. <b>Keep all filters</b> decides whether the rest of the source-page context—such as date, territory, or product slicers—travels too. Use drillthrough when a user needs a focused deep dive from one data point, not just a different visual state on the same page.</div>
+        <div class="fyi-body">Drillthrough automatically carries the selected <code>DimCustomer[CustomerName]</code> value to the target page, which is why the detail page opens already filtered to that customer. <b>Keep all filters</b> decides whether the rest of the source-page context — such as date, territory, or product slicers — travels too. Use drillthrough when a user needs a focused deep dive from one data point, not just a different visual state on the same page.</div>
       </details>
     </li>
-    <li><strong>Create the <code>Sales Tooltip</code> report page tooltip.</strong>
-      <ol>
-        <li>Insert a new page and rename it <code>Sales Tooltip</code>.</li>
-        <li>Open the page formatting settings and set the page type or page size to <b>Tooltip</b>.</li>
-        <li>Turn on <b>Allow use as tooltip</b>.</li>
-        <li>Add compact KPI cards and a small trend visual sized to fit the tooltip canvas: add two small <b>Card</b> visuals for <code>[Sales Amount]</code> and <code>[Gross Margin %]</code>, and add a small <b>Line chart</b> with <code>DimDate[Date]</code> in the <b>X-axis</b> well and <code>[Sales Amount]</code> in the <b>Y-axis</b> well, then resize all three so they fit the small tooltip canvas.</li>
-        <li>Return to the main report page, select the visual that should use this tooltip, then set <b>Format &gt; General &gt; Tooltips</b> to <b>Report page</b> and choose <code>Sales Tooltip</code>.</li>
-      </ol>
-      <details class="callout fyi">
-        <summary>FYI — why use a report page tooltip.</summary>
-        <div class="fyi-body">A report page tooltip gives extra context at the exact point of hover without forcing the user to leave the current visual. That makes it ideal for compact details such as a small sales trend or supporting KPIs that would otherwise clutter <code>Executive Summary</code>. Unlike drillthrough, a tooltip is for quick inspection, not navigation.</div>
-      </details>
-    </li>
-    <li><strong>Add bookmarks and button-driven guided interactions.</strong>
+    <li><strong>Add bookmarks that show and hide the bar chart on this page.</strong>
       <ol>
         <li>Open <b>View &gt; Bookmarks</b> to show the Bookmarks pane.</li>
-        <li>Set the visuals or filters to the state you want to capture, then click <b>Add</b>.</li>
-        <li>Rename the bookmark clearly, such as <code>Show Detail Panel</code> or <code>Reset Filters</code>.</li>
-        <li>Right-click the bookmark and confirm whether <b>Data</b>, <b>Display</b>, and <b>Current page</b> should be checked.</li>
-        <li>Add a button or shape, turn on <b>Action</b>, set the action type to <b>Bookmark</b>, and point it at the correct bookmark.</li>
+        <li>Select a customer in one of the tables so a specific person, such as <code>Sterling Telecom</code>, is filtered on the page, then click <b>Add</b>. Rename the new bookmark <code>Sales Visible</code>. Right-click it and confirm <b>Data</b> and <b>Display</b> are both checked so it captures the filter and the chart's visibility.</li>
+        <li>Select the bar chart, open <b>View &gt; Selection</b>, and click the eye icon to hide it. With the chart hidden, click <b>Add</b> again and rename the new bookmark <code>Sale Invisible</code>.</li>
+        <li>Add two small buttons or shapes near the chart. Turn on <b>Action</b> for each, set the action type to <b>Bookmark</b>, and point one at <code>Sales Visible</code> and the other at <code>Sale Invisible</code>.</li>
+        <li>Test both buttons and confirm only the bar chart's visibility and the customer filter change — nothing else on the page should move.</li>
       </ol>
       <details class="callout fyi">
         <summary>FYI — what a bookmark actually captures.</summary>
-        <div class="fyi-body">A bookmark can store more than visual visibility: it can also store filter/slicer state (<b>Data</b>) and the active page (<b>Current page</b>). That is why the checkbox choices matter so much—if you save too much state, a simple <code>Reset Filters</code> button can accidentally move users or hide visuals they did not expect. Use bookmarks for guided report states; use drillthrough when the goal is page-to-page detail based on a selected data point.</div>
+        <div class="fyi-body">A bookmark can store more than visual visibility: it can also store filter/slicer state (<b>Data</b>) and the active page (<b>Current page</b>). That is why the checkbox choices matter so much — the <code>Sales Visible</code> and <code>Sale Invisible</code> bookmarks both remember the same customer filter, but toggle whether the bar chart is shown, so clicking between them demonstrates the difference between hiding a visual and re-filtering the page.</div>
       </details>
     </li>
-    <li><strong>Add consistent navigation across report pages.</strong>
+    <li><strong>Create the <code>Hierarchies, Drill &amp; Groups</code> page.</strong>
       <ol>
-        <li>Insert a page navigator with <b>Insert &gt; Buttons &gt; Navigator &gt; Page navigator</b>, or add individual buttons with action type <b>Page navigation</b>.</li>
-        <li>Place the navigator in the same position on every page.</li>
-        <li>Use plain labels that match the visible page names.</li>
+        <li>Insert a new page and rename it <code>Hierarchies, Drill &amp; Groups</code>.</li>
+        <li>Add a <b>Textbox</b> heading with the bold text <code>Hierarchies, Drill &amp; Groups</code>.</li>
+        <li>Add a <b>Matrix</b> visual on the left: drag <code>DimProduct</code>'s <code>Product Hierarchy</code> (which contains <code>ProductCategory</code>, <code>ProductSubcategory</code>, and <code>ProductName</code>) into the <b>Rows</b> well as a single hierarchy, then drag <code>[Sales Amount]</code> and <code>[Gross Margin %]</code> into <b>Values</b>. Add alt text <code>Matrix using the Product Hierarchy (Category, Subcategory, Product) with drill-down/up and drill-across to Customer Detail enabled</code>.</li>
+        <li>On the matrix, use the drill icons in its header (or right-click a row) to test <b>Drill down</b> from Category to Subcategory to Product, and <b>Drill up</b> to collapse back — the same visual updates in place as you change levels.</li>
+        <li>Add a <b>Textbox</b> to the right explaining the three techniques on this page: drill-down/up on the matrix, drill-across via the navigation button below, and named groups in the table.</li>
+        <li>Add a <b>Table</b> visual under the textbox: drag in <code>DimCustomer[CustomerName]</code>, <code>[Sales Amount]</code>, and <code>[Customer Sales Group]</code>, which buckets customers into <code>Tier 1: $100K+</code> through <code>Tier 4: Under $10K</code> using a hand-authored DAX measure — the equivalent of Desktop's <b>New Group</b>/<b>New Bin</b> feature. Add alt text <code>Table of customers grouped into named sales tiers using the Customer Sales Group measure</code>.</li>
+        <li>Add a page navigator at the bottom with <b>Insert &gt; Buttons &gt; Navigator &gt; Page navigator</b> so users can jump to <code>Customer &amp; Segmentation Detail</code> — this is the report-level pattern for "drill-across" when a full drillthrough page isn't wired up for a given field.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — drill-down/up vs. drill-across vs. drillthrough.</summary>
+        <div class="fyi-body">Drill-down/up changes the level of detail on the <b>same</b> visual using its own hierarchy. Drill-across moves to a <b>different</b> page or visual that continues the same analysis thread — in this lab that's the page navigator button, since a full drillthrough page isn't bound to <code>Product Hierarchy</code>. Drillthrough (from the previous page) is the most targeted option: it opens a dedicated page already filtered to one selected value.</div>
+      </details>
+    </li>
+    <li><strong>Create the <code>Security, Navigation &amp; Tooltip</code> page.</strong>
+      <ol>
+        <li>Insert a new page and rename it <code>Security, Navigation &amp; Tooltip</code>.</li>
+        <li>Add a <b>Textbox</b> heading with the bold text <code>Security, Navigation &amp; Tooltip</code>.</li>
+        <li>Add a page navigator near the top with <b>Insert &gt; Buttons &gt; Navigator &gt; Page navigator</b>.</li>
+        <li>Add a <b>Textbox</b> below it with instructions for testers, such as <code>Use View As Roles in Power BI Desktop to test the static East Region role and the Dynamic Territory Security role driven by USERPRINCIPALNAME() and SecurityUserTerritory</code>. Add alt text <code>Instructions for testing static and dynamic row-level security</code>.</li>
+        <li>Add a <b>Table</b> visual below the instructions: drag in <code>SecurityUserTerritory[UserPrincipalName]</code>, <code>DimTerritory[TerritoryKey]</code>, and <code>DimTerritory[TerritoryName]</code> so testers can see which user maps to which territory.</li>
+        <li>Add a <b>Bar chart</b> on the right: drag <code>DimTerritory[TerritoryName]</code> into <b>Y-axis</b> and <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code> into <b>Y-axis</b> values. Add alt text <code>Bar chart of top customers by sales amount with custom sales tooltip</code>.</li>
+        <li>Add a <b>Clustered bar chart</b> below it with the same fields, then add a <b>Moving average</b> line using the built-in analytics feature (select the visual, open the <b>Analytics</b> pane, and click <b>Add</b> next to <b>Trend line</b> or <b>Moving average</b>).</li>
+      </ol>
+    </li>
+    <li><strong>Set up row-level security roles.</strong>
+      <ol>
+        <li>Click <b>Modeling &gt; Manage roles</b>.</li>
+        <li>Click <b>Create</b>, name the role <code>East Region</code>, select <code>DimTerritory</code>, and enter the DAX filter <code>[TerritoryRegion] = "East"</code> in the table filter expression box.</li>
+        <li>Click <b>Create</b> again, name the second role <code>Dynamic Territory Security</code>, select <code>SecurityUserTerritory</code>, and enter <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>. This works because <code>SecurityUserTerritory[TerritoryKey]</code> relates to <code>DimTerritory[TerritoryKey]</code>, so filtering the security table also filters every visual built from <code>DimTerritory</code>.</li>
+        <li>Click <b>Save</b>, then click <b>Modeling &gt; View as</b>, check <code>East Region</code>, and confirm the report only shows East territory data.</li>
+        <li>Repeat with <code>Dynamic Territory Security</code> and enter a specific user's UPN under <b>Other user</b> to confirm that user only sees their assigned territory.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — static vs. dynamic row-level security.</summary>
+        <div class="fyi-body"><code>East Region</code> is a static role: the filter value is hard-coded, so it always shows the same slice of data no matter who is assigned to it. <code>Dynamic Territory Security</code> is dynamic: <code>USERPRINCIPALNAME()</code> returns the signed-in user's account, which is looked up in <code>SecurityUserTerritory</code> to find their territory — one role definition automatically applies a different filter per user once published to the Service.</div>
+      </details>
+    </li>
+    <li><strong>Create the <code>Sales Detail Tooltip</code> report page tooltip.</strong>
+      <ol>
+        <li>Insert a new page and rename it <code>Sales Detail Tooltip</code>.</li>
+        <li>Open the page formatting settings (click the canvas background, then the <b>Format page</b> pane), set <b>Page information &gt; Type</b> to <b>Tooltip</b>, which automatically sizes the canvas to 320 × 240.</li>
+        <li>Add two small <b>Card</b> visuals side by side: drag in <code>[Sales Amount]</code> and <code>[Gross Margin %]</code>, with alt text <code>Tooltip sales card</code> and <code>Tooltip gross margin card</code>.</li>
+        <li>Add a small <b>Line chart</b> below the cards: drag <code>DimOrderDate[Date]</code> into <b>X-axis</b> and <code>[Sales Amount]</code> into <b>Y-axis</b>, then resize it to fit the remaining space on the small canvas.</li>
+        <li>Go to <code>Security, Navigation &amp; Tooltip</code>, select the bar chart and the clustered bar chart you built there, and in the <b>Format</b> pane set <b>General &gt; Tooltips &gt; Type</b> to <b>Report page</b> and <b>Page</b> to <code>Sales Detail Tooltip</code>.</li>
+        <li>Hover over either chart on <code>Security, Navigation &amp; Tooltip</code> to confirm the compact tooltip page appears at the pointer instead of the default hover box.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why use a report page tooltip.</summary>
+        <div class="fyi-body">A report page tooltip gives extra context at the exact point of hover without forcing the user to leave the current visual. That makes it ideal for compact details such as a small sales trend or supporting KPIs that would otherwise clutter <code>Executive Overview</code>. Unlike drillthrough, a tooltip is for quick inspection, not navigation — and because the page is marked <b>Hidden in view mode</b>, it never appears as a regular page tab.</div>
+      </details>
+    </li>
+    <li><strong>Add a bookmark navigator and consistent navigation across pages.</strong>
+      <ol>
+        <li>Return to <code>Executive Overview</code> and add a bookmark navigator with <b>Insert &gt; Buttons &gt; Navigator &gt; Bookmark navigator</b>.</li>
+        <li>In the <b>Format</b> pane under <b>Bookmarks</b>, confirm the navigator lists <code>Sales Visible</code> and <code>Sale Invisible</code> and set the default selected bookmark to <code>Sales Visible</code>. Because that bookmark's <b>Current page</b> option is checked, clicking it also jumps users to <code>Customer &amp; Segmentation Detail</code> already filtered to the demo customer.</li>
+        <li>Add a page navigator to <code>Executive Overview</code> with <b>Insert &gt; Buttons &gt; Navigator &gt; Page navigator</b> and confirm every other page (<code>Sales &amp; Margin Analysis</code>, <code>Hierarchies, Drill &amp; Groups</code>, <code>Security, Navigation &amp; Tooltip</code>) has one in the same position.</li>
         <li>Test navigation from every page so users are not forced to rely on page tabs only.</li>
       </ol>
     </li>
-    <li><strong>Create <code>Metric Parameter</code> and optionally <code>Dimension Parameter</code>.</strong>
+    <li><strong>Create the mobile layout for <code>Executive Overview</code>.</strong>
       <ol>
-        <li>Click <b>Modeling &gt; New parameter &gt; Fields</b>.</li>
-        <li>Name the parameter <code>Metric Parameter</code>.</li>
-        <li>Select <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code>.</li>
-        <li>Leave <b>Add slicer to this page</b> checked, then click <b>Create</b>.</li>
-        <li>Replace a single-measure visual value with the generated <code>Metric Parameter</code> field and test the slicer.</li>
-        <li>If you want a dimension switcher, repeat the same command to create <code>Dimension Parameter</code> with <code>DimProductCategory[ProductCategory]</code>, <code>DimTerritory[TerritoryRegion]</code>, and <code>DimSegment[Segment]</code>.</li>
+        <li>Go to <code>Executive Overview</code> and click <b>View &gt; Mobile layout</b>.</li>
+        <li>Drag the trend combo chart onto the mobile canvas first, at the top, since trend is the highest-priority visual.</li>
+        <li>Drag the territory matrix below the trend chart.</li>
+        <li>Drag only the <code>[Order Count]</code> and <code>[Gross Margin %]</code> cards onto the canvas side by side at the bottom — leave <code>[Sales Amount]</code> and <code>[Sales YoY %]</code> off the phone layout since screen space is limited and the matrix already surfaces sales by territory.</li>
+        <li>Resize each visual so the touch targets are large enough to tap comfortably.</li>
       </ol>
-      <div class="figure"><figcaption><strong>Suggested illustration:</strong> side-by-side screenshots of the same chart before and after switching the field-parameter slicer, showing the axis/label change.</figcaption></div>
       <details class="callout fyi">
-        <summary>FYI — what field parameters solve.</summary>
-        <div class="fyi-body"><code>Metric Parameter</code> lets one visual switch between <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code> without duplicating four separate charts. Power BI creates a helper table behind the scenes, so the slicer is driving which field the visual uses rather than filtering fact rows directly. This keeps the page cleaner while still giving analysts controlled flexibility.</div>
+        <summary>FYI — mobile layout is a priority exercise, not a shrink exercise.</summary>
+        <div class="fyi-body">Mobile layout does not automatically include every visual from the desktop canvas — you choose which ones matter most on a phone. Leaving <code>[Sales Amount]</code> and <code>[Sales YoY %]</code> off this layout is a deliberate trade-off: the trend chart and matrix already communicate performance, so the mobile canvas stays uncluttered instead of repeating the same numbers four times.</div>
       </details>
-    </li>
-    <li><strong>Apply threshold-based conditional formatting.</strong>
-      <ol>
-        <li>Choose a business threshold, such as negative <code>[Sales Variance]</code> or low <code>[Gross Margin %]</code>.</li>
-        <li>Select the visual, open the field dropdown, and choose <b>Conditional formatting</b>.</li>
-        <li>Configure background color, font color, or icons using the chosen measure and threshold.</li>
-        <li>Add a text label, legend, icon, or status field so color is not the only cue.</li>
-      </ol>
-      <p>If time allows, complete the disconnected margin-target challenge so the selected target, variance-to-target, and color logic stay aligned.</p>
-      <details class="callout fyi">
-        <summary>FYI — why conditional formatting needs business meaning.</summary>
-        <div class="fyi-body">Threshold colors only help when they represent a rule users can explain, such as negative <code>[Sales Variance]</code> or an unacceptable <code>[Gross Margin %]</code>. If the threshold is arbitrary, the report looks polished but does not guide action. Adding text, icons, or labels ensures the message still works for users with color-vision differences or when the report is printed.</div>
-      </details>
-    </li>
-    <li><strong>Create the mobile layout.</strong>
-      <ol>
-        <li>Click <b>View &gt; Mobile layout</b>.</li>
-        <li>Drag the highest-value visuals onto the mobile canvas in priority order.</li>
-        <li>Resize and reorder the visuals so touch targets are large and readable.</li>
-        <li>Keep dense tables off the phone layout unless the audience specifically needs them there.</li>
-      </ol>
     </li>
     <li><strong>Run the accessibility review before you finish.</strong>
       <ol>
-        <li>Select each visual and add descriptive alt text in the <b>Format</b> pane.</li>
-        <li>Open <b>View &gt; Selection</b> and arrange objects into a logical tab order.</li>
-        <li>Check contrast, confirm every visual title is descriptive, and avoid color-only meaning.</li>
-        <li>Use keyboard navigation to confirm the report flow is understandable without a mouse.</li>
+        <li>Select each visual across all six pages and add descriptive alt text in <b>Format &gt; General &gt; Properties &gt; Alt text</b> — reuse the alt text values you entered while building each visual as a checklist.</li>
+        <li>Open <b>View &gt; Selection</b> and arrange objects into a logical tab order on each page (titles and navigation first, then KPIs, then supporting detail).</li>
+        <li>Check contrast, confirm every visual title is descriptive, and confirm the <code>Margin Target Status</code> conditional formatting still shows text, not just color.</li>
+        <li>Use keyboard navigation (Tab and Enter) to confirm the report flow — including drillthrough, tooltip, and bookmark buttons — is understandable without a mouse.</li>
       </ol>
       <details class="callout fyi">
         <summary>FYI — accessibility improves usability for everyone.</summary>
-        <div class="fyi-body">Alt text, tab order, contrast, and descriptive titles are not just compliance tasks—they make the report easier to navigate, explain, and present. A clear keyboard path often exposes cluttered layouts or ambiguous labels that also confuse sighted mouse users. Treat accessibility review as a final UX quality check, not as a separate afterthought.</div>
+        <div class="fyi-body">Alt text, tab order, contrast, and descriptive titles are not just compliance tasks — they make the report easier to navigate, explain, and present. A clear keyboard path often exposes cluttered layouts or ambiguous labels that also confuse sighted mouse users. Treat accessibility review as a final UX quality check, not as a separate afterthought.</div>
       </details>
     </li>
   </ol>
 </section>
         
-<section><h2>Deeper Understanding Challenge</h2><div class="task-card"><h3>Build a disconnected metric selector</h3><p>Compare native field parameters with a Power Query selector table and a DAX <code>SWITCH</code> measure.</p><ol><li>Create a blank Power Query named <code>Metric Selector</code>.</li><li>Use <code>#table</code> to create rows for Sales Amount, Gross Margin, Gross Margin %, and Quantity.</li><li>Load the table without relationships.</li><li>Create <code>Selected Metric Value</code> using <code>SELECTEDVALUE</code> and <code>SWITCH</code>.</li></ol><pre class="code"><code>let
+<section><h2>Deeper Understanding Challenge</h2><div class="task-card"><h3>Build a disconnected metric selector</h3><p>Compare the native <code>Sales Parameters</code> field parameter you built earlier with a hand-built Power Query selector table and a DAX <code>SWITCH</code> measure — the model already includes an unconnected <code>Metric Parameter</code> table for this exact exercise.</p><ol><li>Create a blank Power Query named <code>Metric Parameter</code>.</li><li>Use <code>#table</code> to create rows for Sales Amount, Gross Margin, Gross Margin %, and Quantity, each with a <code>SortOrder</code>.</li><li>Load the table without relating it to any other table.</li><li>Set the <code>Metric</code> column's <b>Sort by column</b> to <code>SortOrder</code>.</li><li>Create <code>Selected Metric</code> using <code>SELECTEDVALUE</code> and <code>SWITCH</code>, then add a slicer bound to <code>Metric Parameter[Metric]</code> and a card bound to <code>[Selected Metric]</code> to test it.</li></ol><pre class="code"><code>let
     Source =
         #table(
             type table [Metric = text, SortOrder = Int64.Type],
@@ -352,9 +390,9 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
             }
         )
 in
-    Source</code></pre><pre class="code"><code>Selected Metric Value =
+    Source</code></pre><pre class="code"><code>Selected Metric =
 VAR SelectedMetric =
-    SELECTEDVALUE ( 'Metric Selector'[Metric], "Sales Amount" )
+    SELECTEDVALUE ( 'Metric Parameter'[Metric], "Sales Amount" )
 RETURN
     SWITCH (
         SelectedMetric,
@@ -374,7 +412,7 @@ RETURN
         <div class="checklist" data-progress="lab04">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 11 complete</p>
+          <p class="small"><span class="count">0</span> of 12 complete</p>
           <label><input type="checkbox">Report pages have clear audience and purpose</label>
 <label><input type="checkbox">Filters and slicers are understandable</label>
 <label><input type="checkbox">Drillthrough works</label>
@@ -382,10 +420,11 @@ RETURN
 <label><input type="checkbox">Bookmarks capture only intended behavior</label>
 <label><input type="checkbox">Navigation buttons are consistent</label>
 <label><input type="checkbox">Field parameter switches intended fields</label>
+<label><input type="checkbox">What-if parameters drive the margin cards</label>
 <label><input type="checkbox">Conditional formatting has documented thresholds</label>
+<label><input type="checkbox">RLS roles tested with View As</label>
 <label><input type="checkbox">Mobile layout is readable</label>
 <label><input type="checkbox">Accessibility review is complete</label>
-<label><input type="checkbox">Personalized and AI visuals have Gov notes</label>
         </div>
       </aside>
     </main>
