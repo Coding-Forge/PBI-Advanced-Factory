@@ -202,6 +202,21 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <div class="fyi-body">Loading the source data into its own untouched <code>raw_</code> query, then building <code>FactSales</code> and the dimension queries as <b>References</b> off of it, means the CSV is only imported from the web once no matter how many downstream queries you create. If the source format ever changes, you fix the one <code>raw_</code> query and every table that references it stays consistent. Using <b>Duplicate</b> instead of <b>Reference</b> would copy the import step into each new query, so a source fix would have to be repeated everywhere.</div>
       </details>
     </li>
+    <li><strong>Inspect <code>raw_SalesFlat</code> before you model it.</strong><p>Before you split this data into <code>FactSales</code> and its dimensions, spend a few minutes looking at what is actually in the column, not just its name. The statistics and quality bars below are what tell you whether a column is a safe relationship key, whether it needs cleanup first, and how a wide table like this should be split for a fast, well-shaped model.</p>
+      <ol>
+        <li>Click <b>View &gt; Schema view</b> to see every column's name and data type in one compact list — a fast way to confirm keys such as <code>CustomerKey</code>, <code>ProductKey</code>, and <code>TerritoryKey</code> are typed as text (not whole number) before you build relationships on them.</li>
+        <li>Switch back to <b>View &gt; Data view</b>, then open the dropdown under <b>View &gt; Query settings</b> (or the <b>Data view</b> dropdown) and turn on <b>Enable column profile</b>, <b>Show column quality details</b>, and <b>Show column profile in details pane</b>.</li>
+        <li>Look at the colored <b>Column quality</b> bar above each column header — the percentage split of <b>Valid</b>, <b>Error</b>, and <b>Empty</b> tells you at a glance whether a column is safe to use as a relationship key or a measure input; a key column with any <b>Empty</b> percentage will break relationship matches.</li>
+        <li>Click a column header (for example <code>ShipDate</code>) to open the <b>Column profile</b> details pane and review its statistics — <b>Count</b>, <b>Error count</b>, <b>Null count</b>, <b>Distinct count</b>, <b>Unique count</b>, <b>Min</b>, <b>Max</b>, and <b>Average</b> — plus the value-distribution chart.</li>
+        <li>Use <b>Distinct count</b> to decide how a column should be modeled: <code>CustomerKey</code> has far fewer distinct values than <code>SalesOrderLineKey</code>, which is exactly why it belongs on a narrow <code>DimCustomer</code> table with one row per distinct value, related one-to-many back to the wide <code>FactSales</code> table — a smaller, low-cardinality dimension keeps relationships fast and avoids repeating descriptive text like <code>CustomerName</code> on every transaction row.</li>
+      </ol>
+      <figure class="figure"><img src="images/01-advanced-semantic-modeling/HowtoGetColumnProfile.png" alt="Power Query View ribbon Query settings dropdown showing Enable column profile, Show column quality details, Show column value distribution, and related checkboxes, with column quality bars visible above the FactSales data grid."><figcaption>Turning on column profiling from the View ribbon; the colored bars above each column are the column-quality indicators.</figcaption></figure>
+      <figure class="figure"><img src="images/01-advanced-semantic-modeling/QueryProfile.png" alt="Power Query column profile details pane showing column statistics (count, error count, null count, distinct count, min, max, average) and a value distribution bar chart for the ShipDate column."><figcaption>Query Profile details pane for a selected column, including statistics and a value-distribution chart.</figcaption></figure>
+      <details class="callout fyi">
+        <summary>FYI — inspect before you transform.</summary>
+        <div class="fyi-body">Schema view, Query Profile, and Column quality never change your data — they only change what you can see about it. Checking column quality and distinct counts right after every import, before you split, filter, or rename anything, is what tells you which columns are safe relationship keys, which need cleanup first, and which are low-cardinality enough to become their own dimension table. Catching a bad or empty key column here takes minutes; finding it later as a broken relationship or a wrong total on a report page takes much longer.</div>
+      </details>
+    </li>
     <li><strong>Import <code>customer-segments.csv</code> from the web.</strong>
       <ol>
         <li>Click <b>Home &gt; Get data &gt; Web</b> again.</li>
@@ -445,21 +460,6 @@ RETURN
         <li>Remove the practice-only <code>Margin %</code> and <code>OrderLabel</code> columns from <code>FactSales</code> before continuing, since the real <code>[Gross Margin %]</code> measure you build later in DAX should be the one source of truth for margin.</li>
       </ol>
     </li>
-    <li><strong>Tour the View tab — inspecting a query instead of transforming it.</strong>
-      <ol>
-        <li><b>Diagram View:</b> click <b>View &gt; Diagram view</b> to see every query as a box with a line connecting each query to the queries it references — a fast way to confirm <code>FactSales</code>, <code>DimCustomer</code>, <code>DimProduct</code>, and <code>DimTerritory</code> all trace back to the same <code>raw_SalesFlat</code> query, exactly as this lab's naming convention intends.</li>
-        <li><b>Schema View:</b> click <b>View &gt; Schema view</b> for a column-focused list of a query — data types, positions, and names in one place, which is faster than Data view for bulk renaming or retyping many columns at once.</li>
-        <li><b>Query Profile:</b> enable it from the dropdown under <b>View &gt; Query settings &gt; Diagram view</b> (or the <b>Data view</b> dropdown) by turning on <b>Enable column profile</b> and <b>Show column profile in details pane</b>, then click a column header to see its statistics panel — count, error count, null count, distinct count, min/max, and a value-distribution chart — which is the fastest way to sanity-check a new import before building measures on it.</li>
-        <li><b>Column Quality:</b> with column profiling enabled, look at the small colored bar under each column header — it shows the percentage of <b>Valid</b>, <b>Error</b>, and <b>Empty</b> values in that column at a glance, without opening the full profile panel.</li>
-      </ol>
-      <figure class="figure"><img src="images/01-advanced-semantic-modeling/HowtoGetColumnProfile.png" alt="Power Query View ribbon Query settings dropdown showing Enable column profile, Show column quality details, Show column value distribution, and related checkboxes, with column quality bars visible above the FactSales data grid."><figcaption>Turning on column profiling from the View ribbon; the colored bars above each column are the column-quality indicators.</figcaption></figure>
-      <figure class="figure"><img src="images/01-advanced-semantic-modeling/QueryProfile.png" alt="Power Query column profile details pane showing column statistics (count, error count, null count, distinct count, min, max, average) and a value distribution bar chart for the ShipDate column."><figcaption>Query Profile details pane for a selected column, including statistics and a value-distribution chart.</figcaption></figure>
-      <figure class="figure"><img src="images/01-advanced-semantic-modeling/DiagramView.png" alt="Power Query Diagram view showing raw_SalesFlat connected to FactSales, DimCustomer, DimProduct, DimTerritory, DimProductCategory, and BridgeCustomerSegment, and fn_DimDate connected to DimDate, DimOrderDate, and DimShipDate."><figcaption>Diagram view showing how every query in this lab traces back to <code>raw_SalesFlat</code> or <code>fn_DimDate</code>.</figcaption></figure>
-      <details class="callout fyi">
-        <summary>FYI — transform vs. inspect.</summary>
-        <div class="fyi-body">Home, Transform, and Add Column ribbon commands change the data itself and add a new step to the query. View-tab tools (Diagram view, Schema view, Query Profile, Column quality) never change your data — they only change what you can see about it. Get in the habit of checking column quality and the value distribution right after every import, before you start transforming, so a bad source file is caught in minutes instead of showing up later as a wrong total on a report page.</div>
-      </details>
-    </li>
     <li><strong>Disable load for the practice-only queries.</strong><p>Right-click each of the six practice queries (<code>raw_TerritoryContacts</code>, <code>raw_RegionalNotes</code>, <code>raw_TerritoryManager</code>, <code>raw_MonthlyTargetsWide</code>, <code>raw_ProductAttributesTransposed</code>, <code>raw_CustomerAddressesSparse</code>) and uncheck <b>Enable load</b>, since they were only imported to practice these transforms and are not part of the star schema you are about to build relationships for. Keep the enriched <code>DimTerritory</code> merge if you want to carry the manager columns forward.</p></li>
     <li><strong>Close and apply.</strong><p>Confirm data types before loading. Dates should be Date, quantities should be whole numbers, currency/amount columns should be decimal or fixed decimal, and keys should be text unless you intentionally model them otherwise.</p></li>
     <li><strong>Create relationships in Model view.</strong><p>Use the relationship setup reference below to create each relationship explicitly. The core lab path uses one-to-many cardinality and single-direction filtering from dimensions into facts or bridge tables.</p>
@@ -498,6 +498,13 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
       </details>
     </li>
     <li><strong>Validate the model.</strong><p>Create a simple table or matrix with CustomerName, ProductCategory, TerritoryRegion, and SalesAmount. Filter by date and segment to confirm the relationships behave as expected.</p></li>
+    <li><strong>Trace query lineage with Diagram view.</strong><p>Now that every query is built and related, go back to Power Query and click <b>View &gt; Diagram view</b> to see the whole picture at once: every query as a box, with a line connecting it to the queries it references.</p>
+      <figure class="figure"><img src="images/01-advanced-semantic-modeling/DiagramView.png" alt="Power Query Diagram view showing raw_SalesFlat connected to FactSales, DimCustomer, DimProduct, DimTerritory, DimProductCategory, and BridgeCustomerSegment, and fn_DimDate connected to DimDate, DimOrderDate, and DimShipDate."><figcaption>Diagram view showing how every query in this lab traces back to <code>raw_SalesFlat</code> or <code>fn_DimDate</code>.</figcaption></figure>
+      <details class="callout fyi">
+        <summary>FYI — why lineage matters after the model is built.</summary>
+        <div class="fyi-body">Diagram view confirms <code>FactSales</code>, <code>DimCustomer</code>, <code>DimProduct</code>, and <code>DimTerritory</code> all trace back to the same <code>raw_SalesFlat</code> query, exactly as this lab's naming convention intends. This is the tool to reach for whenever you need to trace object dependencies — for example, before changing a source file's column names or deleting a query, use Diagram view first to confirm nothing downstream still depends on it.</div>
+      </details>
+    </li>
     <li><strong>Review composite model or DirectQuery choices.</strong><p>This optional lab is marked <strong>Verify for Gov</strong>. Identify which tables are good Import candidates, which sources might require DirectQuery, where Dual dimensions could help, and what gateway, tenant, source, and performance tradeoffs must be validated before using the pattern hands-on.</p>
       <details class="callout fyi">
         <summary>FYI — Import vs. DirectQuery vs. Dual.</summary>
@@ -516,8 +523,9 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
         <div class="checklist" data-progress="lab01">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 11 complete</p>
-          <label><input type="checkbox">Star schema created</label>
+          <p class="small"><span class="count">0</span> of 12 complete</p>
+          <label><input type="checkbox">Column quality and profile statistics reviewed on raw_SalesFlat before modeling</label>
+<label><input type="checkbox">Star schema created</label>
 <label><input type="checkbox">Fact and dimension names are clear</label>
 <label><input type="checkbox">Relationships validate as one-to-many where possible</label>
 <label><input type="checkbox">Filter direction is single unless justified</label>
@@ -527,7 +535,7 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
 <label><input type="checkbox">Measures total correctly by date, product, customer, territory, and segment</label>
 <label><input type="checkbox">Practiced Split Column, First Row as Headers, Remove Rows, and Merge Queries on real messy data</label>
 <label><input type="checkbox">Practiced Transpose, Unpivot Columns, and Fill Down on real messy data</label>
-<label><input type="checkbox">Comfortable locating Custom Column, Column From Examples, Invoke a Function, and the Diagram/Schema/Query Profile views</label>
+<label><input type="checkbox">Comfortable locating Custom Column, Column From Examples, Invoke a Function, and Diagram view for tracing lineage</label>
         </div>
       </aside>
     </main>
