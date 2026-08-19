@@ -196,15 +196,16 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     </li>
     <li><strong>Evaluate the decomposition tree only if it is available in your tenant.</strong>
       <ol>
+        <li>Stay on the <code>Scenario &amp; AI Exploration</code> page (or add it now if you have not already: right-click the page tab, <b>Insert page</b>, and add a page navigator and heading textbox matching your other pages).</li>
         <li>On the <b>Visualizations</b> pane, add a <b>Decomposition tree</b> visual if the visual is available and approved in this environment.</li>
-        <li>Drag <code>Sales Amount</code> or <code>Gross Margin</code> into <b>Analyze</b>.</li>
-        <li>Drag <code>Territory</code>, <code>Product Category</code>, <code>Customer Type</code>, and <code>Segment</code> into <b>Explain by</b>.</li>
+        <li>Drag <code>[Sales Amount]</code> into <b>Analyze</b>.</li>
+        <li>Drag <code>DimTerritory[TerritoryName]</code>, <code>DimProductCategory[ProductCategory]</code>, <code>DimCustomer[CustomerType]</code>, and <code>DimSegment[Segment]</code> into <b>Explain by</b>, in that order.</li>
         <li>Try a manual drill path first, then try the AI-driven <b>High value</b> or <b>Low value</b> split only if that option is enabled.</li>
         <li>If the visual is unavailable or still marked <b>Verify for Gov</b>, build the fallback instead: a matrix with the same fields nested on rows plus the Lab 4 drillthrough page for detail.</li>
       </ol>
       <details class="callout fyi">
         <summary>FYI — decomposition tree manual vs. AI splits.</summary>
-        <div class="fyi-body">A manual path answers a business question you already have, such as breaking <code>Sales Amount</code> down by <code>Territory</code> then <code>Product Category</code>. The AI-driven <b>High value</b> or <b>Low value</b> split instead searches the fields in <b>Explain by</b> for the next branch that most strongly separates the result, which is useful for discovery but still needs human judgment.</div>
+        <div class="fyi-body">A manual path answers a business question you already have, such as breaking <code>Sales Amount</code> down by <code>TerritoryName</code> then <code>ProductCategory</code>. The AI-driven <b>High value</b> or <b>Low value</b> split instead searches the fields in <b>Explain by</b> for the next branch that most strongly separates the result, which is useful for discovery but still needs human judgment.</div>
       </details>
     </li>
     <li><strong>Evaluate forecasting or anomaly detection only if available.</strong>
@@ -227,15 +228,15 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     </li>
     <li><strong>Evaluate Key influencers only if available.</strong>
       <ol>
-        <li>Add a <b>Key influencers</b> visual only if the tenant supports and approves it.</li>
-        <li>Choose a clear outcome such as a binary <code>Below Target</code> flag or another simple business result.</li>
-        <li>Add three to five explanatory fields so the visual has meaningful drivers to compare.</li>
+        <li>Add a <b>Key influencers</b> visual only if the tenant supports and approves it, on the same <code>Scenario &amp; AI Exploration</code> page.</li>
+        <li>Drag <code>[Sales Amount]</code> into <b>Explain by</b>'s target well (the outcome you want to understand).</li>
+        <li>Add <code>DimTerritory[TerritoryName]</code>, <code>DimCustomer[CustomerType]</code>, <code>DimProductCategory[ProductCategory]</code>, and <code>DimSegment[Segment]</code> as explanatory fields so the visual has four meaningful drivers to compare.</li>
         <li>Review the ranked influencers and segments with the class, and explicitly discuss correlation versus causation.</li>
         <li>If the visual is unavailable, build the fallback instead with ranked visuals, Top N filters, and <code>RANKX</code>-based comparisons from Lab 2.</li>
       </ol>
       <details class="callout fyi">
         <summary>FYI — what Key influencers is actually doing.</summary>
-        <div class="fyi-body">The visual statistically compares the chosen outcome, such as a <code>Below Target</code> flag, against the explanatory fields you provide and ranks the factors most associated with a higher or lower likelihood of that outcome. It is great for surfacing patterns to investigate, but it does not prove that a field caused the result, which is why the lab explicitly calls out correlation versus causation.</div>
+        <div class="fyi-body">The visual statistically compares the chosen outcome, such as <code>[Sales Amount]</code>, against the explanatory fields you provide and ranks the factors most associated with a higher or lower result. It is great for surfacing patterns to investigate, but it does not prove that a field caused the result, which is why the lab explicitly calls out correlation versus causation.</div>
       </details>
     </li>
     <li><strong>Keep Python/R and Azure ML as optional review topics unless validated.</strong><p>Do not enable Python/R visuals or Azure ML integration unless runtime approval, package approval, Service support, network egress, identity, region, and data residency have all been validated for this tenant. If those checks are not complete, stay on the Gov-safe path with native visuals or a static pre-scored sample output.</p>

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "b51b3db2f390c57db84e",
+  "position": {
+    "x": 24,
+    "y": 20,
+    "z": 7000,
+    "height": 60,
+    "width": 1000,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Scenario & AI Exploration",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "24px",
+                      "color": "#0f3d56"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
