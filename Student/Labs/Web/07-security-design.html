@@ -156,7 +156,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <header>
       <div class="eyebrow">Lab 7 - RLS and governance</div>
       <h1>Security Design</h1>
-      <p class="lede">Configure static and dynamic RLS, test roles, review Build permission, and document OLS, Purview, labels, external sharing, and B2B validation needs.</p>
+      <p class="lede">Configure static and dynamic RLS, build a dedicated <code>Security, Navigation &amp; Tooltip</code> test page, review Build permission, and document OLS, Purview, labels, external sharing, and B2B validation needs.</p>
       <div class="meta"><span>Governance</span><span>Deliverable: Security test evidence</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
@@ -165,6 +165,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
           <h2>What you will produce</h2>
           <div class="panel"><ul><li>Static RLS</li>
 <li>Dynamic RLS</li>
+<li><code>Security, Navigation &amp; Tooltip</code> test page</li>
 <li>Role testing evidence</li>
 <li>Security review checklist</li></ul></div>
         </section>
@@ -209,6 +210,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td>Mapping table</td><td><code>SecurityUserTerritory</code></td><td><code>UserPrincipalName</code>, <code>DisplayName</code>, <code>TerritoryKey</code>, <code>TerritoryName</code>, <code>AccessLevel</code></td><td>Rows loaded from Web URL.</td></tr>
 <tr><td>Role matrix</td><td><code>SecurityRoleMatrix</code></td><td>Persona/access documentation table</td><td>Used as documentation, not filtering.</td></tr>
 <tr><td>Relationship</td><td>Security to territory</td><td><code>SecurityUserTerritory[TerritoryKey]</code> to <code>DimTerritory[TerritoryKey]</code></td><td>Territory filters sales.</td></tr>
+<tr><td>Test page</td><td><code>Security, Navigation &amp; Tooltip</code></td><td>Page navigator, tester instructions, mapping table, two territory bar charts</td><td>Page shows the right UPN-to-territory mapping before roles exist.</td></tr>
 <tr><td>Static role</td><td><code>East Region</code></td><td>Filter <code>DimTerritory</code> to East region or keys</td><td>Only East data visible.</td></tr>
 <tr><td>Dynamic role</td><td><code>Dynamic Territory Security</code></td><td><code>[UserPrincipalName] = USERPRINCIPALNAME()</code></td><td>Mapped UPN sees expected territories.</td></tr>
 <tr><td>Service role assignment</td><td>RLS role membership</td><td>Assign approved users or groups after publishing</td><td>Test as role where available.</td></tr>
@@ -226,11 +228,25 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <li>Switch to <b>Model</b> view.</li>
         <li>Drag <code>SecurityUserTerritory[TerritoryKey]</code> onto <code>DimTerritory[TerritoryKey]</code>.</li>
         <li>In the relationship dialog, confirm the relationship is many-to-one from <code>SecurityUserTerritory</code> to <code>DimTerritory</code>, then click <b>OK</b>.</li>
-        <li>Add a quick table visual with <code>UserPrincipalName</code> and <code>TerritoryName</code> if you want to confirm the mapping rows look correct before creating roles.</li>
       </ol>
       <details class="callout fyi">
         <summary>FYI — why RLS filters propagate through relationships.</summary>
         <div class="fyi-body">The role does not need a direct filter on <code>FactSales</code> because a filter on <code>DimTerritory</code> can flow through the existing model relationships to the fact table. If that path is broken, inactive, or modeled in the wrong direction, the role may validate syntactically but still expose unexpected rows.</div>
+      </details>
+    </li>
+    <li><strong>Build the <code>Security, Navigation &amp; Tooltip</code> page to hold your test evidence.</strong>
+      <ol>
+        <li>Right-click an existing page tab, choose <b>Insert page</b>, and rename the new page <code>Security, Navigation &amp; Tooltip</code>.</li>
+        <li>Add a <b>Textbox</b> heading with the bold text <code>Security, Navigation &amp; Tooltip</code>.</li>
+        <li>Add a page navigator near the top with <b>Insert &gt; Buttons &gt; Navigator &gt; Page navigator</b> so this page fits into the same navigation pattern as the pages you built in Lab 04.</li>
+        <li>Add a <b>Textbox</b> below it with instructions for testers, such as <code>Use View As Roles in Power BI Desktop to test the static East Region role and the Dynamic Territory Security role driven by USERPRINCIPALNAME() and SecurityUserTerritory</code>. Add alt text <code>Instructions for testing static and dynamic row-level security</code>.</li>
+        <li>Add a <b>Table</b> visual below the instructions: drag in <code>SecurityUserTerritory[UserPrincipalName]</code>, <code>DimTerritory[TerritoryKey]</code>, and <code>DimTerritory[TerritoryName]</code> so testers can see which user maps to which territory before you create any roles.</li>
+        <li>Add a <b>Bar chart</b> on the right: drag <code>DimTerritory[TerritoryName]</code> into <b>Y-axis</b> and <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code> into the values well.</li>
+        <li>Add a <b>Clustered bar chart</b> below it with the same fields, then add a <b>Moving average</b> line using the built-in analytics feature (select the visual, open the <b>Analytics</b> pane, and click <b>Add</b> next to <b>Trend line</b> or <b>Moving average</b>).</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — why build a dedicated page before creating roles.</summary>
+        <div class="fyi-body">The <code>security_table</code> lets you confirm, at a glance, exactly which <code>UserPrincipalName</code> maps to which <code>TerritoryName</code> before you flip on <b>View as</b> — so when a role hides data as expected, you already know why. This page keeps security testing embedded in a working report instead of a standalone topic lab; the report-page-tooltip technique itself was already covered when you built <code>Sales Detail Tooltip</code> in Lab 04.</div>
       </details>
     </li>
     <li><strong>Create the static <code>East Region</code> role.</strong>
@@ -261,10 +277,11 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     </li>
     <li><strong>Test both roles in Power BI Desktop.</strong>
       <ol>
+        <li>Go to your <code>Security, Navigation &amp; Tooltip</code> page so the mapping table and territory charts are in view.</li>
         <li>On the <b>Modeling</b> ribbon, click <b>View as</b>.</li>
-        <li>Check the <code>East Region</code> role first, click <b>OK</b>, and confirm only East-region data is visible across the report.</li>
+        <li>Check the <code>East Region</code> role first, click <b>OK</b>, and confirm only East-region data is visible on the charts.</li>
         <li>Open <b>View as</b> again, check <code>Dynamic Territory Security</code>, and enter a sample UPN from <code>SecurityUserTerritory</code> or the answer key below.</li>
-        <li>Click <b>OK</b> and confirm the report shows only the territories mapped to that user.</li>
+        <li>Click <b>OK</b> and confirm the charts show only the territories mapped to that user, matching the row you can see in the mapping table.</li>
         <li>Record what data is visible for a one-territory user and for a multi-territory user.</li>
       </ol>
       <figure class="figure"><img src="images/07-security-design/ViewAs.png" alt="Power BI Desktop View as roles dialog with the Dynamic Territory Security role checked and a sample UPN entered."><figcaption>"View as roles" dialog with the dynamic role and test UPN entered.</figcaption></figure>
@@ -328,8 +345,9 @@ jordan.rep@contoso.example       // T04</code></pre>
         <div class="checklist" data-progress="lab07">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 8 complete</p>
+          <p class="small"><span class="count">0</span> of 9 complete</p>
           <label><input type="checkbox">Security data loaded</label>
+<label><input type="checkbox">Security, Navigation &amp; Tooltip page built</label>
 <label><input type="checkbox">Static RLS created</label>
 <label><input type="checkbox">Dynamic RLS created</label>
 <label><input type="checkbox">Desktop role test documented</label>

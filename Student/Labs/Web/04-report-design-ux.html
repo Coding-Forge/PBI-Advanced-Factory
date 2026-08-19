@@ -156,7 +156,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <header>
       <div class="eyebrow">Lab 4 - Guided report experience</div>
       <h1>Report Design and UX</h1>
-      <p class="lede">Build the <code>AzureGov</code> report's six pages click by click: <code>Executive Overview</code>, <code>Sales &amp; Margin Analysis</code>, <code>Customer &amp; Segmentation Detail</code>, <code>Hierarchies, Drill &amp; Groups</code>, <code>Security, Navigation &amp; Tooltip</code>, and <code>Sales Detail Tooltip</code> — with drillthrough, report page tooltips, bookmarks, navigation, field parameters, what-if parameters, conditional formatting, mobile layout, and accessibility review.</p>
+      <p class="lede">Build five pages of the <code>AzureGov</code> report click by click: <code>Executive Overview</code>, <code>Sales &amp; Margin Analysis</code>, <code>Customer &amp; Segmentation Detail</code>, <code>Hierarchies, Drill &amp; Groups</code>, and <code>Sales Detail Tooltip</code> — with drillthrough, report page tooltips, bookmarks, navigation, field parameters, what-if parameters, conditional formatting, mobile layout, and accessibility review. The <code>Security, Navigation &amp; Tooltip</code> page is built in Lab 07 alongside row-level security.</p>
       <div class="meta"><span>Advanced authoring</span><span>Deliverable: Interactive report pages</span><span>Power BI file</span></div>
     </header>
     <main class="layout">
@@ -192,8 +192,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
 <tr><td>Page</td><td><code>Sales &amp; Margin Analysis</code></td><td><code>Selected Margin Target</code>, <code>Adjusted Gross Margin</code>, <code>Gross Margin vs Target</code>, <code>Margin Target Status</code></td><td>Changing either slicer updates the cards and table colors.</td></tr>
 <tr><td>Drillthrough page</td><td><code>Customer &amp; Segmentation Detail</code></td><td><code>DimCustomer[CustomerName]</code>, <code>Sales Parameters</code> field parameter, transaction table</td><td>Right-click opens filtered detail and Back returns.</td></tr>
 <tr><td>Page</td><td><code>Hierarchies, Drill &amp; Groups</code></td><td><code>Product Hierarchy</code>, <code>Customer Sales Group</code></td><td>Drill up/down works and the drill-across button opens Customer Detail.</td></tr>
-<tr><td>Page</td><td><code>Security, Navigation &amp; Tooltip</code></td><td>RLS roles, <code>SecurityUserTerritory</code>, custom tooltip charts</td><td>View As Roles shows filtered data; hover shows the custom tooltip.</td></tr>
-<tr><td>Tooltip page</td><td><code>Sales Detail Tooltip</code></td><td>Compact sales/margin cards and a small trend line</td><td>Hover on an assigned visual displays this page.</td></tr>
+<tr><td>Tooltip page</td><td><code>Sales Detail Tooltip</code></td><td>Compact sales/margin cards and a small trend line</td><td>Hover on the <code>Customer &amp; Segmentation Detail</code> bar chart displays this page.</td></tr>
 <tr><td>Bookmarks</td><td><code>Sales Visible</code> / <code>Sale Invisible</code></td><td>Buttons plus Data, Display, Current page settings</td><td>Only the intended visual and filter change.</td></tr>
 <tr><td>Field parameter</td><td><code>Sales Parameters</code></td><td><code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, <code>[Quantity]</code></td><td>Slicer switches the visual metric.</td></tr>
 <tr><td>What-if parameters</td><td><code>Margin Target</code>, <code>Margin Adjustment %</code></td><td>Manual disconnected table vs. native numeric range parameter</td><td>Both slicers change the margin cards independently.</td></tr>
@@ -304,38 +303,14 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <div class="fyi-body">Drill-down/up changes the level of detail on the <b>same</b> visual using its own hierarchy. Drill-across moves to a <b>different</b> page or visual that continues the same analysis thread — in this lab that's the page navigator button, since a full drillthrough page isn't bound to <code>Product Hierarchy</code>. Drillthrough (from the previous page) is the most targeted option: it opens a dedicated page already filtered to one selected value.</div>
       </details>
     </li>
-    <li><strong>Create the <code>Security, Navigation &amp; Tooltip</code> page.</strong>
-      <ol>
-        <li>Insert a new page and rename it <code>Security, Navigation &amp; Tooltip</code>.</li>
-        <li>Add a <b>Textbox</b> heading with the bold text <code>Security, Navigation &amp; Tooltip</code>.</li>
-        <li>Add a page navigator near the top with <b>Insert &gt; Buttons &gt; Navigator &gt; Page navigator</b>.</li>
-        <li>Add a <b>Textbox</b> below it with instructions for testers, such as <code>Use View As Roles in Power BI Desktop to test the static East Region role and the Dynamic Territory Security role driven by USERPRINCIPALNAME() and SecurityUserTerritory</code>. Add alt text <code>Instructions for testing static and dynamic row-level security</code>.</li>
-        <li>Add a <b>Table</b> visual below the instructions: drag in <code>SecurityUserTerritory[UserPrincipalName]</code>, <code>DimTerritory[TerritoryKey]</code>, and <code>DimTerritory[TerritoryName]</code> so testers can see which user maps to which territory.</li>
-        <li>Add a <b>Bar chart</b> on the right: drag <code>DimTerritory[TerritoryName]</code> into <b>Y-axis</b> and <code>[Sales Amount]</code>, <code>[Gross Margin]</code>, <code>[Gross Margin %]</code>, and <code>[Quantity]</code> into <b>Y-axis</b> values. Add alt text <code>Bar chart of top customers by sales amount with custom sales tooltip</code>.</li>
-        <li>Add a <b>Clustered bar chart</b> below it with the same fields, then add a <b>Moving average</b> line using the built-in analytics feature (select the visual, open the <b>Analytics</b> pane, and click <b>Add</b> next to <b>Trend line</b> or <b>Moving average</b>).</li>
-      </ol>
-    </li>
-    <li><strong>Set up row-level security roles.</strong>
-      <ol>
-        <li>Click <b>Modeling &gt; Manage roles</b>.</li>
-        <li>Click <b>Create</b>, name the role <code>East Region</code>, select <code>DimTerritory</code>, and enter the DAX filter <code>[TerritoryRegion] = "East"</code> in the table filter expression box.</li>
-        <li>Click <b>Create</b> again, name the second role <code>Dynamic Territory Security</code>, select <code>SecurityUserTerritory</code>, and enter <code>[UserPrincipalName] = USERPRINCIPALNAME()</code>. This works because <code>SecurityUserTerritory[TerritoryKey]</code> relates to <code>DimTerritory[TerritoryKey]</code>, so filtering the security table also filters every visual built from <code>DimTerritory</code>.</li>
-        <li>Click <b>Save</b>, then click <b>Modeling &gt; View as</b>, check <code>East Region</code>, and confirm the report only shows East territory data.</li>
-        <li>Repeat with <code>Dynamic Territory Security</code> and enter a specific user's UPN under <b>Other user</b> to confirm that user only sees their assigned territory.</li>
-      </ol>
-      <details class="callout fyi">
-        <summary>FYI — static vs. dynamic row-level security.</summary>
-        <div class="fyi-body"><code>East Region</code> is a static role: the filter value is hard-coded, so it always shows the same slice of data no matter who is assigned to it. <code>Dynamic Territory Security</code> is dynamic: <code>USERPRINCIPALNAME()</code> returns the signed-in user's account, which is looked up in <code>SecurityUserTerritory</code> to find their territory — one role definition automatically applies a different filter per user once published to the Service.</div>
-      </details>
-    </li>
     <li><strong>Create the <code>Sales Detail Tooltip</code> report page tooltip.</strong>
       <ol>
         <li>Insert a new page and rename it <code>Sales Detail Tooltip</code>.</li>
         <li>Open the page formatting settings (click the canvas background, then the <b>Format page</b> pane), set <b>Page information &gt; Type</b> to <b>Tooltip</b>, which automatically sizes the canvas to 320 × 240.</li>
         <li>Add two small <b>Card</b> visuals side by side: drag in <code>[Sales Amount]</code> and <code>[Gross Margin %]</code>, with alt text <code>Tooltip sales card</code> and <code>Tooltip gross margin card</code>.</li>
         <li>Add a small <b>Line chart</b> below the cards: drag <code>DimOrderDate[Date]</code> into <b>X-axis</b> and <code>[Sales Amount]</code> into <b>Y-axis</b>, then resize it to fit the remaining space on the small canvas.</li>
-        <li>Go to <code>Security, Navigation &amp; Tooltip</code>, select the bar chart and the clustered bar chart you built there, and in the <b>Format</b> pane set <b>General &gt; Tooltips &gt; Type</b> to <b>Report page</b> and <b>Page</b> to <code>Sales Detail Tooltip</code>.</li>
-        <li>Hover over either chart on <code>Security, Navigation &amp; Tooltip</code> to confirm the compact tooltip page appears at the pointer instead of the default hover box.</li>
+        <li>Go to <code>Customer &amp; Segmentation Detail</code>, select the bar chart you built there (the one with alt text <code>Bar chart of top customers by sales amount with custom sales tooltip</code>), and in the <b>Format</b> pane set <b>General &gt; Tooltips &gt; Type</b> to <b>Report page</b> and <b>Page</b> to <code>Sales Detail Tooltip</code>.</li>
+        <li>Hover over that bar chart on <code>Customer &amp; Segmentation Detail</code> to confirm the compact tooltip page appears at the pointer instead of the default hover box.</li>
       </ol>
       <details class="callout fyi">
         <summary>FYI — why use a report page tooltip.</summary>
@@ -346,7 +321,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <ol>
         <li>Return to <code>Executive Overview</code> and add a bookmark navigator with <b>Insert &gt; Buttons &gt; Navigator &gt; Bookmark navigator</b>.</li>
         <li>In the <b>Format</b> pane under <b>Bookmarks</b>, confirm the navigator lists <code>Sales Visible</code> and <code>Sale Invisible</code> and set the default selected bookmark to <code>Sales Visible</code>. Because that bookmark's <b>Current page</b> option is checked, clicking it also jumps users to <code>Customer &amp; Segmentation Detail</code> already filtered to the demo customer.</li>
-        <li>Add a page navigator to <code>Executive Overview</code> with <b>Insert &gt; Buttons &gt; Navigator &gt; Page navigator</b> and confirm every other page (<code>Sales &amp; Margin Analysis</code>, <code>Hierarchies, Drill &amp; Groups</code>, <code>Security, Navigation &amp; Tooltip</code>) has one in the same position.</li>
+        <li>Add a page navigator to <code>Executive Overview</code> with <b>Insert &gt; Buttons &gt; Navigator &gt; Page navigator</b> and confirm every other page you built in this lab (<code>Sales &amp; Margin Analysis</code>, <code>Customer &amp; Segmentation Detail</code>, <code>Hierarchies, Drill &amp; Groups</code>) has one in the same position. You will add the same navigator to <code>Security, Navigation &amp; Tooltip</code> when you build that page in Lab 07.</li>
         <li>Test navigation from every page so users are not forced to rely on page tabs only.</li>
       </ol>
     </li>
@@ -365,7 +340,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     </li>
     <li><strong>Run the accessibility review before you finish.</strong>
       <ol>
-        <li>Select each visual across all six pages and add descriptive alt text in <b>Format &gt; General &gt; Properties &gt; Alt text</b> — reuse the alt text values you entered while building each visual as a checklist.</li>
+        <li>Select each visual across every page you built in this lab and add descriptive alt text in <b>Format &gt; General &gt; Properties &gt; Alt text</b> — reuse the alt text values you entered while building each visual as a checklist.</li>
         <li>Open <b>View &gt; Selection</b> and arrange objects into a logical tab order on each page (titles and navigation first, then KPIs, then supporting detail).</li>
         <li>Check contrast, confirm every visual title is descriptive, and confirm the <code>Margin Target Status</code> conditional formatting still shows text, not just color.</li>
         <li>Use keyboard navigation (Tab and Enter) to confirm the report flow — including drillthrough, tooltip, and bookmark buttons — is understandable without a mouse.</li>
@@ -412,7 +387,7 @@ RETURN
         <div class="checklist" data-progress="lab04">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 12 complete</p>
+          <p class="small"><span class="count">0</span> of 11 complete</p>
           <label><input type="checkbox">Report pages have clear audience and purpose</label>
 <label><input type="checkbox">Filters and slicers are understandable</label>
 <label><input type="checkbox">Drillthrough works</label>
@@ -422,7 +397,6 @@ RETURN
 <label><input type="checkbox">Field parameter switches intended fields</label>
 <label><input type="checkbox">What-if parameters drive the margin cards</label>
 <label><input type="checkbox">Conditional formatting has documented thresholds</label>
-<label><input type="checkbox">RLS roles tested with View As</label>
 <label><input type="checkbox">Mobile layout is readable</label>
 <label><input type="checkbox">Accessibility review is complete</label>
         </div>
