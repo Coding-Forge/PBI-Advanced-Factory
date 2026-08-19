@@ -374,6 +374,42 @@ RETURN
         <div class="fyi-body">A customer can belong to more than one segment, so <code>raw_CustomerSegments</code> has multiple rows per <code>CustomerKey</code>. Relating <code>DimCustomer</code> straight to <code>DimSegment</code> would be many-to-many. <code>BridgeCustomerSegment</code> keeps the full (<code>CustomerKey</code>, <code>Segment</code>) pair list, so <code>DimCustomer</code>-to-bridge and <code>DimSegment</code>-to-bridge can both stay clean one-to-many relationships instead of one ambiguous many-to-many relationship.</div>
       </details>
     </li>
+    <li><strong>Tour the rest of the Power Query ribbon and View tab.</strong><p>The queries you just built already use a few of Power Query's core transforms without calling them out by name. This step walks the same queries again so you can see where the rest of the everyday ribbon commands live, plus the View-tab tools that help you inspect a query instead of just transforming it.</p>
+      <p><b>Home ribbon — shaping and combining data</b></p>
+      <ol>
+        <li><b>Split Column by Delimiter:</b> select a text column that contains a separator character (for example a combined <code>City, State</code> column), then click <b>Home &gt; Split Column &gt; By Delimiter</b>, choose the delimiter (comma, space, colon, or custom), and pick <b>Each occurrence</b> or <b>Left-most/Right-most</b> depending on how many new columns you want.</li>
+        <li><b>Use First Row as Headers:</b> if a source is imported without column names (the first data row contains the header labels instead), click <b>Home &gt; Use First Row as Headers</b> to promote that row into real column names. <code>BridgeCustomerSegment</code> already does this automatically as part of its <code>Csv.Document</code> import step — open that query's <b>Promoted headers</b> step in the Applied Steps pane to see the underlying <code>Table.PromoteHeaders</code> call.</li>
+        <li><b>Remove Rows:</b> click <b>Home &gt; Remove Rows</b> to drop the top N rows, bottom N rows, a range of rows, duplicate rows, or rows with errors — useful for skipping a title row above the real header or trimming a known-bad trailing row. <code>BridgeCustomerSegment</code>'s <b>Filtered rows</b> step is the row-filtering equivalent (<code>Table.SelectRows</code>), shown in the screenshot below.</li>
+        <li><b>Merge Queries:</b> click <b>Home &gt; Merge Queries</b> to join two queries on a common key column, similar to a SQL join — pick the second table, select the matching column in each, and choose a join kind (<b>Left Outer</b> keeps every row from the first table, which is the safest default). This is the Power Query alternative to building a relationship in Model view, and is worth understanding even though this lab's dimensions are built with <b>Reference</b> plus <b>Remove Duplicates</b> instead.</li>
+      </ol>
+      <figure class="figure"><img src="images/01-advanced-semantic-modeling/QueryScripts.png" alt="Power Query Advanced Editor showing the BridgeCustomerSegment query with Promoted headers, Filtered rows, and Removed duplicates applied steps and the underlying M code."><figcaption><code>BridgeCustomerSegment</code>'s Applied Steps pane, showing Promoted headers and Filtered rows alongside the M code that generates them.</figcaption></figure>
+      <p><b>Transform ribbon — reshaping a table's layout</b></p>
+      <ol>
+        <li><b>Transpose:</b> click <b>Transform &gt; Transpose</b> to swap rows and columns — handy when a source system exports one row per field and one column per record instead of the usual layout.</li>
+        <li><b>Pivot Column / Unpivot Columns:</b> select a category column and a value column, then click <b>Transform &gt; Pivot Column</b> to turn distinct category values into new columns (for example, turning a <code>Month</code> column into twelve month columns). <b>Unpivot Columns</b> does the reverse — select the columns you want collapsed and click <b>Transform &gt; Unpivot Columns</b> to turn wide columns back into key/value rows, which is usually the shape Power BI's model prefers.</li>
+        <li><b>Fill Down / Fill Up:</b> click <b>Transform &gt; Fill &gt; Down</b> (or <b>Up</b>) to replace blank cells with the nearest non-blank value above (or below) them — common when a source only prints a category label on its first row and leaves the rest blank.</li>
+      </ol>
+      <p><b>Add Column ribbon — building new columns</b></p>
+      <ol>
+        <li><b>Column From Examples:</b> click <b>Add Column &gt; Column From Examples</b>, then type the value you expect for one or two rows; Power Query infers a transformation (such as extracting initials, concatenating text, or reformatting a date) and applies it to every row.</li>
+        <li><b>Custom Column:</b> click <b>Add Column &gt; Custom Column</b> and write a Power Query M formula (for example <code>= [UnitPrice] * [Quantity]</code>) to add a calculated column during data load, before the model even sees it.</li>
+        <li><b>Invoke a Function:</b> click <b>Add Column &gt; Invoke Custom Function</b> to run a reusable query function once per row of the current table, passing in one or more columns as parameters. This lab already uses this pattern indirectly — <code>fn_DimDate</code> is a function query invoked to generate <code>DimDate</code> — so this menu command is the row-by-row equivalent when a function needs to run against every row of an existing table instead of just once.</li>
+      </ol>
+      <p><b>View ribbon — inspecting your data instead of transforming it</b></p>
+      <ol>
+        <li><b>Diagram View:</b> click <b>View &gt; Diagram view</b> to see every query as a box with a line connecting each query to the queries it references — a fast way to confirm <code>FactSales</code>, <code>DimCustomer</code>, <code>DimProduct</code>, and <code>DimTerritory</code> all trace back to the same <code>raw_SalesFlat</code> query, exactly as this lab's naming convention intends.</li>
+        <li><b>Schema View:</b> click <b>View &gt; Schema view</b> for a column-focused list of a query — data types, positions, and names in one place, which is faster than Data view for bulk renaming or retyping many columns at once.</li>
+        <li><b>Query Profile:</b> enable it from the dropdown under <b>View &gt; Query settings &gt; Diagram view</b> (or the <b>Data view</b> dropdown) by turning on <b>Enable column profile</b> and <b>Show column profile in details pane</b>, then click a column header to see its statistics panel — count, error count, null count, distinct count, min/max, and a value-distribution chart — which is the fastest way to sanity-check a new import before building measures on it.</li>
+        <li><b>Column Quality:</b> with column profiling enabled, look at the small colored bar under each column header — it shows the percentage of <b>Valid</b>, <b>Error</b>, and <b>Empty</b> values in that column at a glance, without opening the full profile panel.</li>
+      </ol>
+      <figure class="figure"><img src="images/01-advanced-semantic-modeling/HowtoGetColumnProfile.png" alt="Power Query View ribbon Query settings dropdown showing Enable column profile, Show column quality details, Show column value distribution, and related checkboxes, with column quality bars visible above the FactSales data grid."><figcaption>Turning on column profiling from the View ribbon; the colored bars above each column are the column-quality indicators.</figcaption></figure>
+      <figure class="figure"><img src="images/01-advanced-semantic-modeling/QueryProfile.png" alt="Power Query column profile details pane showing column statistics (count, error count, null count, distinct count, min, max, average) and a value distribution bar chart for the ShipDate column."><figcaption>Query Profile details pane for a selected column, including statistics and a value-distribution chart.</figcaption></figure>
+      <figure class="figure"><img src="images/01-advanced-semantic-modeling/DiagramView.png" alt="Power Query Diagram view showing raw_SalesFlat connected to FactSales, DimCustomer, DimProduct, DimTerritory, DimProductCategory, and BridgeCustomerSegment, and fn_DimDate connected to DimDate, DimOrderDate, and DimShipDate."><figcaption>Diagram view showing how every query in this lab traces back to <code>raw_SalesFlat</code> or <code>fn_DimDate</code>.</figcaption></figure>
+      <details class="callout fyi">
+        <summary>FYI — transform vs. inspect.</summary>
+        <div class="fyi-body">Home, Transform, and Add Column ribbon commands change the data itself and add a new step to the query. View-tab tools (Diagram view, Schema view, Query Profile, Column quality) never change your data — they only change what you can see about it. Get in the habit of checking column quality and the value distribution right after every import, before you start transforming, so a bad source file is caught in minutes instead of showing up later as a wrong total on a report page.</div>
+      </details>
+    </li>
     <li><strong>Close and apply.</strong><p>Confirm data types before loading. Dates should be Date, quantities should be whole numbers, currency/amount columns should be decimal or fixed decimal, and keys should be text unless you intentionally model them otherwise.</p></li>
     <li><strong>Create relationships in Model view.</strong><p>Use the relationship setup reference below to create each relationship explicitly. The core lab path uses one-to-many cardinality and single-direction filtering from dimensions into facts or bridge tables.</p>
       <table class="column-table">
@@ -429,7 +465,7 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
         <div class="checklist" data-progress="lab01">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 8 complete</p>
+          <p class="small"><span class="count">0</span> of 9 complete</p>
           <label><input type="checkbox">Star schema created</label>
 <label><input type="checkbox">Fact and dimension names are clear</label>
 <label><input type="checkbox">Relationships validate as one-to-many where possible</label>
@@ -438,6 +474,7 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
 <label><input type="checkbox">Bridge table supports segment analysis</label>
 <label><input type="checkbox">Optional tenant-dependent features are labeled Verify for Gov</label>
 <label><input type="checkbox">Measures total correctly by date, product, customer, territory, and segment</label>
+<label><input type="checkbox">Comfortable locating Split Column, Fill, Pivot/Unpivot, Custom Column, and the Diagram/Schema/Query Profile views</label>
         </div>
       </aside>
     </main>
