@@ -215,7 +215,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <li>Open the <b>Analytics</b> pane for that visual and, if forecasting is enabled, click <b>Add</b> next to <b>Forecast</b>; set the forecast length and confidence interval for the scenario you want to discuss.</li>
         <li>Add a second <b>Line chart</b> with the same date field on <b>X-axis</b> and <code>[Sales Amount]</code> as <b>Y</b>.</li>
         <li>Open the <b>Analytics</b> pane for that second visual and, if anomaly detection is enabled, turn it on and review the highlighted points.</li>
-        <li>Add a bookmark for each view: with the forecast chart visible, click <b>View &gt; Bookmarks &gt; Add</b> and rename it <code>Forecast</code>; with the anomaly chart visible, add a second bookmark and rename it to match your anomaly view (the sample project's bookmark is spelled <code>Anomolies</code> — match whatever you actually named yours).</li>
+        <li>Add a bookmark for each view: with the forecast chart visible, click <b>View &gt; Bookmarks &gt; Add</b> and rename it <code>Forecast</code>; with the anomaly chart visible, add a second bookmark and rename it <code>Anomalies</code>.</li>
         <li>Add two <b>Buttons</b> (<b>Insert &gt; Buttons &gt; Blank</b>) with the text <code>Forecast</code> and <code>Anomalies</code>, then set each button's <b>Action</b> type to <b>Bookmark</b> and point it at the matching bookmark so users can jump straight to either view.</li>
         <li>If neither forecasting nor anomaly detection is approved in this tenant, use the fallback path instead: create a rolling-average measure, a prior-period comparison measure, and a threshold flag such as <code>Below 90% of prior period</code>.</li>
       </ol>

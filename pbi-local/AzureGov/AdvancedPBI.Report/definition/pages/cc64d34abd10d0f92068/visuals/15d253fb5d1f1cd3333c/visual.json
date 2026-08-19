@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Anomolies'"
+                  "Value": "'Anomalies'"
                 }
               }
             }

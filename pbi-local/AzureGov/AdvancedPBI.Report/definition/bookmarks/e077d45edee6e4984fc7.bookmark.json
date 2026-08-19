@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
-  "displayName": "Anomolies",
+  "displayName": "Anomalies",
   "name": "e077d45edee6e4984fc7",
   "options": {
     "targetVisualNames": [
