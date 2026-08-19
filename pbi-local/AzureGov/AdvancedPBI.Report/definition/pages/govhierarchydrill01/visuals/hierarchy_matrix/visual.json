@@ -198,6 +198,16 @@
                     }
                   ],
                   "isToggled": true
+                },
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'AI'"
+                      }
+                    }
+                  ],
+                  "isToggled": true
                 }
               ]
             }

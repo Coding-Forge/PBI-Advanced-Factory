@@ -1,0 +1,51 @@
+table Time_Cal
+	lineageTag: 4dee827d-bc4b-4366-ab1d-3631c4cbe450
+
+	column Time_Cal
+		lineageTag: 05dc8f9c-8579-4444-99de-aee5a7156edf
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Time_Cal Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Time_Cal Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Time_Cal Fields'
+		isHidden
+		lineageTag: 437e750a-8160-439a-b489-f0815c3c6c84
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Time_Cal Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Time_Cal Order'
+		isHidden
+		formatString: 0
+		lineageTag: dffc24f2-dd8f-4305-bc8f-4781db357071
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Time_Cal = calculated
+		mode: import
+		source =
+				{
+				    ("Sales Amount", NAMEOF('_Measures'[Sales Amount]), 0),
+				    ("Sales Amount (All Products)", NAMEOF('_Measures'[Sales Amount (All Products)]), 1),
+				    ("Sales Amount (Enterprise Only, Keep Filters)", NAMEOF('_Measures'[Sales Amount (Enterprise Only, Keep Filters)]), 2),
+				    ("Sales by Order Date", NAMEOF('_Measures'[Sales by Order Date]), 3),
+				    ("Sales by Ship Date", NAMEOF('_Measures'[Sales by Ship Date]), 4)
+				}
+
+	annotation PBI_Id = b89d74145b934ad9b5aa48b4b59be9bc
+

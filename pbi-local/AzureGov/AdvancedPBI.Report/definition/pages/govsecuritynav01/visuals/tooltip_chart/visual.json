@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "tooltip_chart",
   "position": {
-    "x": 920,
-    "y": 100,
+    "x": 920.13001083423626,
+    "y": 307.8656554712893,
     "z": 7000,
     "height": 520,
     "width": 960,

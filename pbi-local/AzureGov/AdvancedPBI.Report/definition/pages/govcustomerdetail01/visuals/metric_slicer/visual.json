@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "metric_slicer",
   "position": {
-    "x": 23.977521073993131,
-    "y": 100.10615048392133,
+    "x": 87.864406779661024,
+    "y": 100.23050847457628,
     "z": 3000,
     "height": 194.21792069934438,
     "width": 420.20605682172965,
