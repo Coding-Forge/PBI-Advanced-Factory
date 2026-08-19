@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "rls_note",
   "position": {
-    "x": 24,
-    "y": 100,
+    "x": 44.539184952978061,
+    "y": 99.912225705329163,
     "z": 4000,
-    "height": 180,
-    "width": 860,
+    "height": 181.16614420062697,
+    "width": 839.62382445141066,
     "tabOrder": 1000
   },
   "visual": {

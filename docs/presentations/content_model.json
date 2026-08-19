@@ -1,0 +1,1074 @@
+{
+ "title": {
+  "eyebrow": "A DATA STORYTELLING & GOVERNANCE CURRICULUM",
+  "title": "Advanced Power BI",
+  "subtitle": "From modeling fundamentals to enterprise-grade delivery: an 11-module\narc for analysts, BI developers, and platform owners who need Power BI\nto hold up under real production weight.",
+  "stats": [
+   [
+    "11",
+    "Curriculum modules"
+   ],
+   [
+    "40+",
+    "Guided exercises"
+   ],
+   [
+    "1",
+    "Capstone solution"
+   ]
+  ]
+ },
+ "instructor": {
+  "eyebrow": "MEET YOUR INSTRUCTOR",
+  "name": "Brandon Campbell",
+  "role": "Sr. Cloud Solution Architect",
+  "credential": "M.S., Computer Information Systems \u2014 Business Analytics",
+  "bio": "Brandon brings 22 years of experience as a data analyst and the last 9 years focused specifically on\nPower BI, helping organizations move from single-author reports to governed, production-grade BI\nplatforms. He is Microsoft Fabric certified and teaches this program the way he builds it for clients:\nwith an eye toward what actually holds up once real data, real users, and real deadlines show up.",
+  "stats": [
+   [
+    "22",
+    "Years as a Data Analyst"
+   ],
+   [
+    "9",
+    "Years with Power BI"
+   ],
+   [
+    "Fabric, Power BI, Data Scientist",
+    "Certified Practitioner"
+   ]
+  ]
+ },
+ "why": {
+  "eyebrow": "WHY THIS PROGRAM EXISTS",
+  "title": "Most Power BI training stops at chart-building.\nThis one doesn't.",
+  "cards": [
+   [
+    "Reports that survive contact with real data",
+    "Large fact tables, messy sources, and slow refreshes expose weak modeling fast. This program builds habits that hold up at scale, not just in a demo."
+   ],
+   [
+    "Governance is part of the design, not an afterthought",
+    "Row-level security, workspace strategy, and monitoring are taught alongside DAX and visuals -- because a report nobody trusts doesn't get used."
+   ],
+   [
+    "A path from author to platform owner",
+    "Learners move from single-report skills toward the operational and architectural judgment that senior BI roles actually require."
+   ]
+  ]
+ },
+ "arcs": [
+  {
+   "label": "ARC \u00b7 BUILD",
+   "headline": "Model it right before you calculate anything",
+   "description": "The foundation arc: turning raw, flat data into a trustworthy semantic model and a clean transformation layer -- the two things every later module depends on.",
+   "modules_ref": [
+    "01 \u00b7 Advanced Semantic Modeling",
+    "02 \u00b7 Advanced DAX",
+    "03 \u00b7 Advanced Power Query",
+    "Advanced Power BI  \u00b7  BUILD"
+   ]
+  },
+  {
+   "label": "ARC \u00b7 PRESENT",
+   "headline": "Turn a correct model into a report people actually use",
+   "description": "The experience arc: report UX that guides rather than overwhelms, a model fast enough to stay that way under load, and analytics that go beyond a static chart.",
+   "modules_ref": [
+    "04 \u00b7 Report Design & UX",
+    "05 \u00b7 Performance Optimization",
+    "06 \u00b7 Advanced Analytics & AI",
+    "Advanced Power BI  \u00b7  PRESENT"
+   ]
+  },
+  {
+   "label": "ARC \u00b7 PROTECT & OPERATE",
+   "headline": "A report that can't be trusted won't be used",
+   "description": "The trust arc: locking data down to the right audience, getting a solution live in the Service, and keeping it healthy once real users depend on it.",
+   "modules_ref": [
+    "07 \u00b7 Security Design",
+    "08 \u00b7 Service Deployment",
+    "09 \u00b7 Monitoring & Governance",
+    "Advanced Power BI  \u00b7  PROTECT & OPERATE"
+   ]
+  },
+  {
+   "label": "ARC \u00b7 SCALE",
+   "headline": "From one great report to a platform that scales",
+   "description": "The platform arc: capacity and architecture decisions, engineering discipline around Power BI artifacts, and the capstone that proves it all fits together.",
+   "modules_ref": [
+    "10 \u00b7 Capacity & Architecture",
+    "11 \u00b7 DevOps & Lifecycle",
+    "Capstone \u00b7 End-to-End Build",
+    "Advanced Power BI  \u00b7  SCALE"
+   ]
+  }
+ ],
+ "modules": [
+  {
+   "num": 1,
+   "arc_label": "BUILD",
+   "mod_num": "01",
+   "title": "Advanced Semantic Modeling",
+   "description": "Turning a flat file into a model that scales, and a schema that survives new requirements.",
+   "level": "LEVEL: Intermediate \u2192 Advanced",
+   "cards": [
+    [
+     "Star schema from first principles",
+     "Fact and dimension design, grain decisions, and why a wide flat table eventually breaks every report built on it."
+    ],
+    [
+     "Relationships that don't fight you",
+     "Role-playing dimensions, bridge tables, and composite/DirectQuery model choices with their tradeoffs."
+    ],
+    [
+     "Models built for growth",
+     "Handling large fact tables, incremental refresh readiness, and keeping a model maintainable as it scales."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 7,
+     "num": "01.1",
+     "title": "Star Schema From First Principles",
+     "why": "A correct grain and a clean fact/dimension split is the single decision that determines whether every later measure is easy or painful to write.",
+     "bullets": [
+      "Grain First \u2014 Decide what one row of the fact table represents before building anything else.",
+      "Facts Vs Dimensions \u2014 Facts hold numbers and foreign keys; dimensions hold the descriptive context used to slice them.",
+      "Flat Tables Break At Scale \u2014 A wide flat table works for a demo, but duplicates dimension data and breaks distinct-count and filter logic at scale.",
+      "Refactor Live, Not Theory \u2014 Refactoring a flat table into a star schema is demonstrated live, not just described."
+     ]
+    },
+    {
+     "slide": 8,
+     "num": "01.2",
+     "title": "Relationships That Don't Fight You",
+     "why": "Most 'DAX bugs' reported by learners later in the program are actually relationship design problems -- ambiguous filter paths, wrong cardinality, or a missing role-playing dimension.",
+     "bullets": [
+      "Dedicated Date Tables Per Role \u2014 Role-playing dimensions (e.g., order date vs. ship date) need their own dedicated date tables and active relationships.",
+      "Bridge Tables Resolve Many-To-Many \u2014 Resolve many-to-many relationships without duplicating fact rows.",
+      "Import Plus DirectQuery Deliberately \u2014 Composite models mix Import and DirectQuery deliberately -- know which tables need which mode and why.",
+      "Bidirectional Filtering Is Situational \u2014 A tool for specific problems, not a default setting."
+     ]
+    },
+    {
+     "slide": 9,
+     "num": "01.3",
+     "title": "Models Built For Growth",
+     "why": "A model that works great with 50,000 test rows can fall over with 50 million production rows -- and by then it's expensive to fix.",
+     "bullets": [
+      "Plan Incremental Refresh Early \u2014 Large fact tables need a plan for incremental refresh before they need it operationally.",
+      "Cardinality Choices Compound \u2014 Cardinality and column choices made early determine how much the model can grow before performance suffers.",
+      "Composite And Aggregations \u2014 Composite and aggregation strategies let a model stay fast without giving up detail entirely.",
+      "Maintainable Means Handoff-Ready \u2014 'Maintainable' means the next person on the team can understand the model too, not just the original author."
+     ]
+    },
+    {
+     "slide": 10,
+     "num": "01.4",
+     "title": "Role-Playing Dimensions",
+     "why": "The same fact table often needs to be sliced by more than one date -- order date, ship date, invoice date -- and without a deliberate pattern for that, a model quietly loses the ability to analyze more than one of them at once.",
+     "bullets": [
+      "One Date, Many Business Events \u2014 Order date, ship date, and invoice date all relate to \u201ca date,\u201d but they represent different business events and need independent filtering.",
+      "Duplicate The Date Dimension \u2014 Duplicating the date dimension (one table per role) keeps every relationship simple, active, and easy to reason about.",
+      "USERELATIONSHIP As Alternative \u2014 The alternative -- one shared date table with USERELATIONSHIP activated per measure -- trades table count for DAX complexity.",
+      "Skipping Doesn't Skip The Problem \u2014 Skipping this pattern doesn't remove the need for it; it just means the gap shows up later as a broken or missing analysis."
+     ]
+    },
+    {
+     "slide": 11,
+     "num": "01.5",
+     "title": "Bridge Tables & Composite Models",
+     "why": "Many-to-many relationships and mixed storage modes are two of the most common reasons a \u201csimple\u201d model turns into a support ticket -- both have a right pattern, and both punish shortcuts.",
+     "bullets": [
+      "Bridge Tables Prevent Duplication \u2014 A bridge table resolves many-to-many relationships (a customer in multiple segments) without duplicating fact rows or filtering ambiguity.",
+      "Never Wire Bridge To Fact \u2014 Never relate a bridge table directly into a fact table -- it filters through its related dimensions, not around them.",
+      "Composite Mode Matching \u2014 Composite models mix Import and DirectQuery deliberately, matching each table's mode to its actual freshness and performance need.",
+      "Judgment Call, Not Default \u2014 Both patterns are judgment calls, not defaults -- know when they solve a real problem versus when they add unnecessary complexity."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 2,
+   "arc_label": "BUILD",
+   "mod_num": "02",
+   "title": "Advanced DAX",
+   "description": "Getting past copy-pasted measures into real command of filter and row context.",
+   "level": "LEVEL: Advanced",
+   "cards": [
+    [
+     "Context, demystified",
+     "Filter context vs. row context, and why the same measure can return different numbers on two visuals."
+    ],
+    [
+     "Patterns that hold up under scrutiny",
+     "Time intelligence, semi-additive measures, ranking, and calculation groups -- built and explained, not memorized."
+    ],
+    [
+     "Measures that perform",
+     "Diagnosing slow DAX, using variables deliberately, and validating logic before layering complexity on top."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 13,
+     "num": "02.1",
+     "title": "Context, Demystified",
+     "why": "Almost every 'my measure gives a wrong number' problem is actually a filter-context or row-context misunderstanding -- once this clicks, most DAX bugs become diagnosable in seconds.",
+     "bullets": [
+      "Row Vs Filter Context \u2014 Row context exists inside iterators (SUMX, FILTER); filter context comes from visuals, slicers, and CALCULATE.",
+      "CALCULATE Transitions Context \u2014 CALCULATE is the tool that transitions row context into filter context -- this is the concept, not the syntax, to teach.",
+      "Card Vs Matrix Totals \u2014 The same measure can return different totals in a card vs. a matrix because the filter context is different, not because the measure is broken.",
+      "Test Measures In Simple Tables \u2014 Every new measure should be tested in a simple table visual before trusting it in a complex one."
+     ]
+    },
+    {
+     "slide": 14,
+     "num": "02.2",
+     "title": "Patterns That Hold Up Under Scrutiny",
+     "why": "Time intelligence and ranking measures are the ones stakeholders actually stare at during a business review -- they need to be right and explainable, not just plausible-looking.",
+     "bullets": [
+      "Marked Date Table Foundation \u2014 Time intelligence functions rely on a proper, contiguous marked date table -- this is where Module 1's foundation pays off.",
+      "Semi-Additive Needs Explicit Handling \u2014 Semi-additive measures (e.g., ending balance) need explicit handling; they don't sum correctly across time by default.",
+      "RANKX With Hand-Checked Validation \u2014 Dynamic Top N/ranking measures should be built with RANKX and validated against a static, hand-checked example.",
+      "Calculation Groups Reduce Duplication \u2014 Calculation groups reduce measure duplication when the same time-intelligence logic applies to many base measures."
+     ]
+    },
+    {
+     "slide": 15,
+     "num": "02.3",
+     "title": "Measures That Perform",
+     "why": "A correct measure that takes eight seconds to render is still a support ticket waiting to happen -- performance is part of correctness in a production report.",
+     "bullets": [
+      "Name Steps With VAR \u2014 Use VAR to name intermediate results -- it clarifies logic and can prevent redundant evaluation.",
+      "Diagnose Before Guessing \u2014 Diagnose slow measures with the query plan and Performance Analyzer before guessing at a fix.",
+      "Iterators Are Common Culprits \u2014 Iterators (SUMX, FILTER) over large tables are the most common source of slow DAX -- know when a simpler aggregation will do.",
+      "Correct First, Then Fast \u2014 Validate correctness first, then optimize -- a fast wrong answer is worse than a slow right one."
+     ]
+    },
+    {
+     "slide": 16,
+     "num": "02.4",
+     "title": "Filter Modification Functions",
+     "why": "ALL, REMOVEFILTERS, ALLEXCEPT, and TREATAS are the tools that let a measure deliberately override the filter context around it -- used well, they solve real business questions; used carelessly, they're where \u201c% of total\u201d measures quietly go wrong.",
+     "bullets": [
+      "ALL And REMOVEFILTERS Clear Everything \u2014 ALL and REMOVEFILTERS clear filters entirely, which is exactly what a \u201c% of grand total\u201d measure needs and exactly what breaks a measure that should stay filtered.",
+      "ALLEXCEPT Keeps Specific Filters \u2014 ALLEXCEPT keeps specific filters while clearing everything else -- useful, but easy to misuse if the \u201ckept\u201d columns aren't chosen deliberately.",
+      "KEEPFILTERS Adds, Not Replaces \u2014 KEEPFILTERS adds filters instead of replacing them, a subtle distinction that changes results inside CALCULATE.",
+      "TREATAS For Virtual Relationships \u2014 TREATAS applies a filter from one table's values onto another without a physical relationship -- powerful, but it should be a deliberate exception, not a workaround for bad model design."
+     ]
+    },
+    {
+     "slide": 17,
+     "num": "02.5",
+     "title": "Production-Ready DAX",
+     "why": "A measure that's correct in isolation can still be a production risk if nobody validated it against edge cases or documented what \u201ccorrect\u201d even means for that number.",
+     "bullets": [
+      "Catch Cheap Mistakes Early \u2014 Common mistakes -- implicit measures, unhandled blanks, and divide-by-zero -- are cheap to catch before a report ships and expensive to explain after it doesn't.",
+      "Validate Against Hand-Checked Examples \u2014 Check every new measure against a hand-checked example, not just a plausible-looking total.",
+      "Document Non-Obvious Logic \u2014 Document the business logic and assumptions behind non-obvious measures so the next author doesn't have to reverse-engineer them.",
+      "Trustworthy And Maintainable \u2014 \u201cProduction-ready\u201d means a measure a stakeholder can trust and a teammate can maintain -- not just one that returns a number."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 3,
+   "arc_label": "BUILD",
+   "mod_num": "03",
+   "title": "Advanced Power Query",
+   "description": "Building a transformation layer that's traceable, testable, and reusable -- not a black box.",
+   "level": "LEVEL: Advanced",
+   "cards": [
+    [
+     "Staged, parameterized pipelines",
+     "Parameters for source switching, staged queries, and functions that eliminate copy-pasted steps."
+    ],
+    [
+     "Query folding and performance",
+     "Understanding when a query pushes work back to the source, and when it silently stops."
+    ],
+    [
+     "Data quality as a first-class step",
+     "Error-review patterns and cleansing functions that make bad rows visible instead of silently dropped."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 19,
+     "num": "03.1",
+     "title": "Staged, Parameterized Pipelines",
+     "why": "A query pipeline built from named, staged steps and parameters can move from dev to test to production data sources in minutes instead of a manual rebuild.",
+     "bullets": [
+      "Parameters Isolate Environments \u2014 Parameters isolate source paths/connections so the same pipeline works across environments.",
+      "Staged Query Layers \u2014 Staging queries (raw \u2192 staged \u2192 final) make each transformation step reviewable in isolation.",
+      "Custom Functions Eliminate Duplication \u2014 Custom functions eliminate copy-pasted steps across similar queries -- one function, many callers.",
+      "Step Names As Documentation \u2014 Descriptive step names turn the Applied Steps pane into documentation, not a mystery."
+     ]
+    },
+    {
+     "slide": 20,
+     "num": "03.2",
+     "title": "Query Folding And Performance",
+     "why": "When folding breaks silently, the query still returns correct results -- it just pulls every row into memory and transforms it locally, which can turn a 30-second refresh into a 30-minute one.",
+     "bullets": [
+      "Folding Pushes Work Down \u2014 Folding means Power Query translates steps into a query the source executes natively (e.g., SQL).",
+      "Steps That Break Folding \u2014 Certain steps (custom columns with complex logic, some merges) can break folding -- know which ones.",
+      "View Native Query Often \u2014 Use 'View Native Query' or step-by-step inspection to confirm folding is still happening after each transformation.",
+      "Deliberate Local Processing \u2014 When folding isn't possible, decide deliberately where local processing happens rather than discovering it by accident."
+     ]
+    },
+    {
+     "slide": 21,
+     "num": "03.3",
+     "title": "Data Quality As A First-Class Step",
+     "why": "Silently dropped or coerced bad rows are one of the most dangerous failure modes in a BI solution -- the report looks fine and the numbers are simply wrong.",
+     "bullets": [
+      "Explicit Error-Review Query \u2014 Build an explicit error-review query that captures rows failing type conversion or business rules instead of discarding them.",
+      "Reusable Cleansing Functions \u2014 Cleansing functions (e.g., text normalization) should be reusable and applied consistently across sources.",
+      "Decide The Invalid-Row Policy \u2014 Decide and document what happens to invalid rows: excluded, corrected, or flagged for manual review.",
+      "Errors Are A Report Artifact \u2014 Treat the error-review query as a report artifact stakeholders can see, not just a developer scratch pad."
+     ]
+    },
+    {
+     "slide": 22,
+     "num": "03.4",
+     "title": "Native Queries and Source Systems",
+     "why": "Understanding what a source system actually receives -- not just what Power Query displays -- is what separates a query that scales from one that quietly overloads its source every refresh.",
+     "bullets": [
+      "See The Actual Statement \u2014 \u201cView Native Query\u201d shows the exact statement sent to the source, confirming folding is happening and revealing what the source will actually execute.",
+      "Not Every Source Folds \u2014 Some source systems (APIs, flat files) can't fold at all -- know which of your sources can and design around the ones that can't.",
+      "Security Checkpoint Too \u2014 Native query review is also a security checkpoint: it shows exactly what credentials and permissions a refresh depends on.",
+      "Respect Source System Limits \u2014 Treat the source system's own limits (rate limits, connection pools) as a real design constraint, not an afterthought."
+     ]
+    },
+    {
+     "slide": 23,
+     "num": "03.5",
+     "title": "Incremental Refresh Preparation",
+     "why": "Incremental refresh only works if the query is built to support it from the start -- retrofitting it onto an existing pipeline after the fact usually means redesigning the query, not just flipping a setting.",
+     "bullets": [
+      "Reliable Last-Modified Column \u2014 A reliable, indexed \u201clast modified\u201d or date column is the foundation every incremental refresh policy depends on.",
+      "Wire RangeStart And RangeEnd \u2014 Parameters that define the refresh window (RangeStart/RangeEnd) need to be wired into the query's filtering logic, not just declared.",
+      "Confirm Folding After Parameters \u2014 Confirm the query still folds correctly once range parameters are added -- a parameter that breaks folding defeats the purpose.",
+      "Foundation For Module 5 \u2014 Preparing for incremental refresh here is what makes Module 5's refresh strategy possible later."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 4,
+   "arc_label": "PRESENT",
+   "mod_num": "04",
+   "title": "Report Design & UX",
+   "description": "Designing navigation and interaction, not just placing visuals on a canvas.",
+   "level": "LEVEL: Intermediate \u2192 Advanced",
+   "cards": [
+    [
+     "Guided interaction patterns",
+     "Drillthrough, bookmarks, custom tooltips, and navigation that leads users somewhere intentional."
+    ],
+    [
+     "Hierarchies, drill & groups",
+     "Drill-down, drill-across, and custom groups/bins that let one visual answer questions at multiple levels of detail."
+    ],
+    [
+     "Flexible by design",
+     "Field parameters and dynamic titles that let one report answer several questions instead of one."
+    ],
+    [
+     "Built for every screen and every user",
+     "Mobile-optimized layouts, conditional formatting, and an accessibility pass before anything ships."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 26,
+     "num": "04.1",
+     "title": "Guided Interaction Patterns",
+     "why": "Users don't read instructions -- the report itself has to teach them where to click and what will happen when they do.",
+     "bullets": [
+      "Drillthrough For Detail \u2014 Drillthrough pages answer 'tell me more about this one thing' without cluttering the main view.",
+      "Bookmarks Capture State \u2014 Bookmarks capture a specific state (filters, visibility, selections) that can be recalled with one click.",
+      "Tooltips Add Context \u2014 Custom tooltips replace a bare number with context -- a mini visual, a trend, a comparison.",
+      "Make Navigation Obvious \u2014 Navigation should be visibly obvious, not just technically functional -- users won't discover a hidden feature."
+     ]
+    },
+    {
+     "slide": 27,
+     "num": "04.2",
+     "title": "Hierarchies, Drill & Groups",
+     "why": "A hierarchy lets one visual answer 'show me the summary' and 'show me exactly why' without building a separate visual or page for every level of detail.",
+     "bullets": [
+      "Build Hierarchies Once \u2014 Hierarchies (e.g., Category > Subcategory > Product) are built once in the model and reused across every visual that needs them.",
+      "Drill Up And Down \u2014 Drill-down moves a single visual deeper into its own hierarchy; drill-up reverses it -- both stay on the same visual.",
+      "Drill Across Visuals \u2014 Drill-across sends a selection to a different visual or page (via drillthrough or cross-report drill), showing related detail in a different context.",
+      "Groups And Bins \u2014 Groups and bins collapse many raw values into meaningful buckets (an 'Other' category, price bands) without changing the underlying data.",
+      "Show Next Level Deliberately \u2014 Turn on 'Show next level' and 'Expand all' deliberately -- they change how a user explores versus click-drills one level at a time."
+     ]
+    },
+    {
+     "slide": 28,
+     "num": "04.3",
+     "title": "Flexible By Design",
+     "why": "Field parameters turn one page into several reports' worth of value, which matters enormously when report sprawl is already a real governance problem in most organizations.",
+     "bullets": [
+      "Field Parameters Swap Fields \u2014 Field parameters let users swap the measure or dimension a visual is built on, without duplicating pages.",
+      "Dynamic Titles Reflect Selection \u2014 Dynamic titles that reflect the current selection make a flexible page still feel intentional, not generic.",
+      "Fewer, More Flexible Pages \u2014 Fewer, more flexible pages are easier to maintain and govern than many near-duplicate ones.",
+      "Sensible Defaults Still Matter \u2014 Flexibility should still have sensible defaults -- 'infinitely customizable' isn't the same as 'usable.'"
+     ]
+    },
+    {
+     "slide": 29,
+     "num": "04.4",
+     "title": "Built For Every Screen And Every User",
+     "why": "A report that only works well on a widescreen monitor for a sighted user with perfect color vision has quietly excluded a meaningful share of its actual audience.",
+     "bullets": [
+      "Mobile Is A Separate Pass \u2014 Mobile layout is a separate design pass, not an automatic resize of the desktop layout.",
+      "Formatting With Meaning \u2014 Conditional formatting should communicate meaning (status, threshold, direction), not just add color.",
+      "Accessibility Review Before Ship \u2014 An accessibility review checks tab order, alt text, and color contrast before a report ships.",
+      "Design For Edge Cases \u2014 Design for the edge-case user (screen reader, phone, colorblind) and the default experience improves for everyone."
+     ]
+    },
+    {
+     "slide": 30,
+     "num": "04.5",
+     "title": "Audience-Driven Design",
+     "why": "A report built for \u201ceveryone\u201d usually serves no one well -- an executive scanning for one number and an analyst investigating a trend need fundamentally different layouts, not the same page with more filters.",
+     "bullets": [
+      "Start With The Audience \u2014 Start every report with a specific primary audience and their first question, not a blank canvas and a list of available fields.",
+      "Shared Model, Different Layouts \u2014 An executive summary page and an analyst detail page can share a model without sharing a layout.",
+      "Match The Audience \u2014 Visual density, color use, and interactivity should match how sophisticated and how busy the actual audience is.",
+      "Ask Who And Why First \u2014 Ask \u201cwho opens this and what do they need to decide\u201d before placing a single visual."
+     ]
+    },
+    {
+     "slide": 31,
+     "num": "04.6",
+     "title": "Slicers and Filters as Design Tools",
+     "why": "Slicers and filters are the primary way users interact with a report -- placed and scoped carelessly, they create confusion (does this filter the whole page or just one visual?) faster than any visual design choice.",
+     "bullets": [
+      "Filter Scope Is A Choice \u2014 Filter scope (visual, page, or report level) should be a deliberate choice, communicated clearly, not left to default behavior.",
+      "Sync Slicers Carefully \u2014 Sync slicers across pages only when the same filter should logically apply everywhere -- otherwise it creates surprising side effects.",
+      "Too Many Slicers \u2014 Too many slicers on one page is itself a design smell -- it often means the report is trying to answer too many questions at once.",
+      "Default Filter State Matters \u2014 A well-designed default filter state matters as much as the slicers themselves -- users judge a report by what they see first."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 5,
+   "arc_label": "PRESENT",
+   "mod_num": "05",
+   "title": "Performance Optimization",
+   "description": "Finding out why a report is slow before guessing how to fix it.",
+   "level": "LEVEL: Advanced",
+   "cards": [
+    [
+     "Evidence before optimization",
+     "Performance Analyzer baselines and DAX Studio comparisons -- measure first, then change one thing."
+    ],
+    [
+     "Model size is a design decision",
+     "Cardinality reduction, aggregation tables, and composite model choices that shrink refresh and query time."
+    ],
+    [
+     "Refresh strategy at scale",
+     "Incremental refresh policy design and the licensing/capacity tradeoffs that come with it."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 33,
+     "num": "05.1",
+     "title": "Evidence Before Optimization",
+     "why": "Optimizing based on a guess wastes time and can make performance worse -- a baseline turns 'this feels slow' into 'this specific visual takes 4.2 seconds because of this specific query.'",
+     "bullets": [
+      "Break Down Load Time \u2014 Performance Analyzer breaks down visual load time into DAX query time, visual display time, and other time.",
+      "DAX Studio For Isolation \u2014 DAX Studio shows the underlying query and server timings for a measure in isolation.",
+      "Change One Thing At A Time \u2014 Capture the baseline, change exactly one thing, and re-measure -- don't change five things and hope.",
+      "Not Every Problem Is DAX \u2014 Some 'performance problems' are actually visual count or interaction problems, not DAX problems at all."
+     ]
+    },
+    {
+     "slide": 34,
+     "num": "05.2",
+     "title": "Model Size Is A Design Decision",
+     "why": "Reducing an unnecessary column's cardinality or removing an unused column can shrink a model more than any DAX tweak -- and it costs nothing at query time once it's done.",
+     "bullets": [
+      "Watch High-Cardinality Columns \u2014 High-cardinality columns (e.g., unique IDs, full timestamps) are expensive -- keep only what's needed at the grain required.",
+      "Aggregation Tables For Speed \u2014 Aggregation tables serve common high-level queries fast while detail tables remain available for drill-down.",
+      "Composite For Freshness \u2014 Composite models let a subset of tables use DirectQuery for freshness while the rest stay in-memory for speed.",
+      "Column Removal Wins \u2014 Column removal and cardinality reduction are usually the highest-leverage, lowest-risk performance wins available."
+     ]
+    },
+    {
+     "slide": 35,
+     "num": "05.3",
+     "title": "Refresh Strategy At Scale",
+     "why": "A report that takes 20 minutes to refresh isn't just annoying -- it delays every downstream decision that depends on the data being current, and it can hit capacity or gateway limits outright.",
+     "bullets": [
+      "Incremental Refresh Partitions \u2014 Incremental refresh only reprocesses new or changed partitions instead of the entire table.",
+      "Match Source Change Patterns \u2014 Refresh policy design (partition ranges, detection columns) has to match how the source data actually changes.",
+      "Licensing Sets The Ceiling \u2014 Licensing and capacity tier determine what refresh options and frequency are even available.",
+      "Document The Strategy \u2014 A refresh strategy should be documented, not just configured -- the next owner needs to understand why it's set up this way."
+     ]
+    },
+    {
+     "slide": 36,
+     "num": "05.4",
+     "title": "Visual and Rendering Performance",
+     "why": "Some \u201cslow report\u201d complaints have nothing to do with DAX or the model at all -- too many visuals on a page, unnecessary interactions, and heavy custom visuals can dominate load time on their own.",
+     "bullets": [
+      "Every Visual Fires A Query \u2014 Every visual on a page issues its own query -- fewer, more purposeful visuals often outperform a dense dashboard of small ones.",
+      "Custom Visuals Cost Time \u2014 Custom and R/Python visuals typically render slower than native visuals -- use them where they add real value, not by default.",
+      "Trim Cross-Highlighting \u2014 Disabling unnecessary cross-highlighting and interactions reduces the number of queries fired on every click.",
+      "Confirm The Real Bottleneck \u2014 Performance Analyzer separates DAX time from visual display time -- confirm which one is actually the bottleneck before optimizing the wrong thing."
+     ]
+    },
+    {
+     "slide": 37,
+     "num": "05.5",
+     "title": "DirectQuery and Hybrid Patterns",
+     "why": "DirectQuery trades import-mode speed for live data -- a hybrid (composite) model lets a team choose that tradeoff table-by-table instead of accepting it for an entire model.",
+     "bullets": [
+      "DirectQuery Runs Live \u2014 DirectQuery queries the source live on every interaction, so source performance becomes the report's performance.",
+      "Composite For Hybrid Freshness \u2014 Composite models let high-value, fast-changing tables use DirectQuery while stable, high-volume tables stay in Import mode.",
+      "Aggregations Front Detail \u2014 Aggregation tables can sit in Import mode in front of a DirectQuery detail table, serving common queries fast while keeping full detail available.",
+      "Choose For Real Freshness Needs \u2014 Choose DirectQuery for freshness requirements that actually exist today, not as a default \u201cjust in case\u201d setting."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 6,
+   "arc_label": "PRESENT",
+   "mod_num": "06",
+   "title": "Advanced Analytics & AI",
+   "description": "Going past the default chart into scenario modeling and AI-assisted analysis -- with eyes open about where it's available.",
+   "level": "LEVEL: Advanced",
+   "cards": [
+    [
+     "What-if, not just what-happened",
+     "Parameter-driven scenario analysis that lets stakeholders test assumptions live in the report."
+    ],
+    [
+     "The analytics visual toolkit",
+     "Decomposition trees, forecasting, and key influencers for driver analysis beyond a trend line."
+    ],
+    [
+     "AI-assisted authoring, used deliberately",
+     "Python/R visuals and Azure ML integration explored with a clear-eyed view of cloud and tenant availability."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 39,
+     "num": "06.1",
+     "title": "What-If, Not Just What-Happened",
+     "why": "A what-if parameter turns a static report into a decision tool -- stakeholders can test 'what if margin improves 2%' live instead of asking an analyst to rebuild the report for every scenario.",
+     "bullets": [
+      "Parameter-Driven Scenarios \u2014 What-if parameters generate a slicer-driven value that flows into a measure's calculation.",
+      "Show The Before And After \u2014 Pair the parameter with a clear before/after visual so the impact of the scenario is immediately obvious.",
+      "Document The Assumption \u2014 Document the assumption behind the scenario -- a number without its underlying assumption is easy to misread.",
+      "Universally Available Analytics \u2014 This is the most universally available advanced analytics feature -- it works the same way across clouds."
+     ]
+    },
+    {
+     "slide": 40,
+     "num": "06.2",
+     "title": "The Analytics Visual Toolkit",
+     "why": "Decomposition trees, forecasting, and key influencers answer 'why' and 'what's next,' not just 'what happened' -- that's a fundamentally different, higher-value conversation with stakeholders.",
+     "bullets": [
+      "Decomposition Trees Explore Drivers \u2014 Decomposition trees let users explore what's driving a metric interactively, without pre-building every breakdown.",
+      "Forecasting With Intervals \u2014 Forecasting visuals project a trend forward with a confidence interval, not a false-precision single number.",
+      "Key Influencers \u2014 Key influencers surface which factors most affect an outcome, using statistical analysis under the hood.",
+      "Confirm Cloud Availability \u2014 These visuals are commonly Commercial-cloud features -- confirm availability before building a delivery plan around them."
+     ]
+    },
+    {
+     "slide": 41,
+     "num": "06.3",
+     "title": "AI-Assisted Authoring, Used Deliberately",
+     "why": "Python/R visuals and Azure ML integration open real analytical power, but they also introduce dependencies (package policy, network, identity, region) that can quietly break a report outside a Commercial tenant.",
+     "bullets": [
+      "Python And R Visuals \u2014 Python/R visuals require Desktop configuration and depend on organizational package policy in the Service.",
+      "Azure ML Prerequisites \u2014 Azure Machine Learning integration depends on cloud, region, workspace, network, and identity configuration all lining up.",
+      "Validated, Not Assumed \u2014 Treat these features as 'available if validated,' not 'available by default' -- confirm in the actual delivery tenant.",
+      "Teach The Concept Anyway \u2014 Where these aren't available, teach the underlying concept and workflow even if the hands-on lab isn't possible."
+     ]
+    },
+    {
+     "slide": 42,
+     "num": "06.4",
+     "title": "Anomaly Detection",
+     "why": "A trend line shows what happened; anomaly detection flags the one point that doesn't fit the pattern -- often the exact moment a stakeholder actually needed to know about.",
+     "bullets": [
+      "Statistical, Not Just Visual \u2014 Anomaly detection highlights points in a time series that fall outside an expected statistical range, not just visually obvious spikes.",
+      "Clean Time Series Required \u2014 It works best on a clean, contiguous time series -- the same date table discipline from Module 1 pays off here too.",
+      "Humans Explain Anomalies \u2014 Flagged anomalies need a human explanation attached (a promotion, an outage, a data error) -- the feature finds them, it doesn't explain them.",
+      "Prompt Investigation, Don't Decide \u2014 Use it to prompt investigation, not to make an automated judgment call the business should make itself."
+     ]
+    },
+    {
+     "slide": 43,
+     "num": "06.5",
+     "title": "Copilot in Power BI and Fabric",
+     "why": "Copilot can draft a report, summarize a page, or explain a visual in plain language -- but it works from the model it's given, so a well-governed semantic model is what makes its answers trustworthy instead of just plausible-sounding.",
+     "bullets": [
+      "Model Quality Drives Copilot \u2014 Copilot's output quality depends directly on model quality -- clear naming, descriptions, and a clean star schema from Module 1 make it dramatically more useful.",
+      "First Draft, Not Final \u2014 Treat Copilot-generated visuals and summaries as a fast first draft to review, not a final, unreviewed answer.",
+      "Confirm Tenant Availability \u2014 Availability and tenant settings for Copilot features vary by licensing and cloud -- confirm what's enabled before planning a delivery around it.",
+      "Governance Still Applies \u2014 Copilot changes how reports get built, not what makes a report correct -- validation and governance still apply."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 7,
+   "arc_label": "PROTECT & OPERATE",
+   "mod_num": "07",
+   "title": "Security Design",
+   "description": "Designing row-level security like an architecture decision, not a checkbox.",
+   "level": "LEVEL: Advanced",
+   "cards": [
+    [
+     "Static and dynamic RLS",
+     "Building roles that scale from a handful of regions to a dynamic, user-driven security model."
+    ],
+    [
+     "Testing security like a user would",
+     "Validating roles in Desktop and Service, not just trusting the DAX filter is correct."
+    ],
+    [
+     "Where Build permission fits in",
+     "Understanding what elevated permissions expose, and designing around that risk deliberately."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 46,
+     "num": "07.1",
+     "title": "Static And Dynamic RLS",
+     "why": "Choosing the wrong RLS pattern for the organization's scale means either constant manual role maintenance or an overengineered dynamic model nobody can audit.",
+     "bullets": [
+      "Static RLS Is Simple \u2014 Static RLS assigns fixed filter values per role -- simple, auditable, but doesn't scale past a small number of roles.",
+      "Dynamic RLS Uses Identity \u2014 Dynamic RLS derives the filter from the logged-in user's identity against a security mapping table.",
+      "Dynamic Scales, With Tradeoffs \u2014 Dynamic RLS scales far better but is harder to test and requires a well-maintained user-to-permission mapping table.",
+      "Choose For Actual Group Count \u2014 Choose the pattern based on how many distinct access groups actually exist today and realistically will in two years."
+     ]
+    },
+    {
+     "slide": 47,
+     "num": "07.2",
+     "title": "Testing Security Like A User Would",
+     "why": "An RLS role that looks correct in the DAX editor can still leak data in practice -- the only real test is viewing the report exactly as that user would see it.",
+     "bullets": [
+      "View As Roles In Desktop \u2014 Use 'View As Roles' in Desktop to preview the report exactly as a given role would experience it.",
+      "Test In The Service Too \u2014 Test in the Service too -- Desktop and Service can behave differently depending on gateway and dataset configuration.",
+      "Cover Every Page And Tooltip \u2014 Check every visual and every drillthrough/tooltip page under each role, not just the main landing page.",
+      "Negative Testing Matters \u2014 Negative testing matters: confirm a role can't see what it shouldn't, not just that it can see what it should."
+     ]
+    },
+    {
+     "slide": 48,
+     "num": "07.3",
+     "title": "Where Build Permission Fits In",
+     "why": "Build permission on a dataset is powerful and easy to grant too broadly -- and because it bypasses report-level RLS enforcement in certain connection scenarios, understanding it is core to real security design, not a footnote.",
+     "bullets": [
+      "What Build Permission Grants \u2014 Build permission lets a user create new reports against the shared dataset directly.",
+      "Live Connections Can Bypass RLS \u2014 Depending on connection type, a user with Build permission and a live connection can potentially see data outside their intended RLS scope.",
+      "Grant Sparingly, Understand Fully \u2014 Grant Build deliberately and sparingly, understanding exactly what it unlocks for that user.",
+      "Audit Build Grants Ongoing \u2014 Document who has Build permission on sensitive datasets as part of the ongoing governance review, not a one-time setup step."
+     ]
+    },
+    {
+     "slide": 49,
+     "num": "07.4",
+     "title": "Object-Level Security (OLS)",
+     "why": "RLS hides rows; OLS hides entire tables or columns -- without it, a sensitive column (salary, SSN, margin) is visible to anyone with access to the table, no matter how well the rows are filtered.",
+     "bullets": [
+      "OLS Restricts Tables And Columns \u2014 OLS restricts visibility of specific tables or columns per role, independent of any row-level filtering.",
+      "Measures Can Leak Hidden Columns \u2014 A hidden column can still leak through a measure that references it -- audit dependent measures before hiding a column.",
+      "Configured Per Role \u2014 OLS is configured per role in the model, the same place static and dynamic RLS roles live.",
+      "Combine RLS And OLS \u2014 Combine RLS and OLS deliberately when a role needs both row-level and column-level restriction -- they solve different problems together."
+     ]
+    },
+    {
+     "slide": 50,
+     "num": "07.5",
+     "title": "Sensitivity Labels and Purview",
+     "why": "A perfectly secured report can still leak data the moment someone exports it to Excel or emails a screenshot -- sensitivity labels and Purview extend protection past the report itself.",
+     "bullets": [
+      "Labels Travel With The Data \u2014 Sensitivity labels (Public, Confidential, Highly Confidential) travel with the data even after export, not just inside the report.",
+      "Enforce Export Restrictions \u2014 Labels can restrict or watermark export, and enforce encryption on downloaded files.",
+      "Purview Sees The Tenant \u2014 Microsoft Purview gives visibility into where sensitive data actually lives and flows across the tenant, not just inside one workspace.",
+      "Consistency Or Nothing \u2014 Labeling is only effective if it's applied consistently -- an unlabeled sensitive dataset is invisible to every downstream control."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 8,
+   "arc_label": "PROTECT & OPERATE",
+   "mod_num": "08",
+   "title": "Service Deployment",
+   "description": "Getting from a working PBIX/PBIP to a solution real people depend on daily.",
+   "level": "LEVEL: Intermediate \u2192 Advanced",
+   "cards": [
+    [
+     "Publishing with intent",
+     "Workspace strategy, App packaging, and deployment pipelines instead of ad hoc publish clicks."
+    ],
+    [
+     "Refresh you can trust",
+     "Scheduled refresh, gateway considerations, and troubleshooting failures before users notice them."
+    ],
+    [
+     "A repeatable release process",
+     "Moving a report from dev to test to production with a process, not tribal memory."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 52,
+     "num": "08.1",
+     "title": "Publishing With Intent",
+     "why": "A workspace strategy decided in advance prevents the all-too-common outcome of dozens of ungoverned personal workspaces holding business-critical reports nobody officially owns.",
+     "bullets": [
+      "Plan Workspace Structure First \u2014 Workspace structure (by team, by domain, by environment) should be decided before reports start accumulating in it.",
+      "Apps Package Curated Content \u2014 Apps package a curated, permissioned view of workspace content for end users, separate from author-facing workspace access.",
+      "Deployment Pipelines Across Stages \u2014 Deployment pipelines move content through dev/test/production stages without manual re-publishing at each step.",
+      "Publish With An Owner \u2014 Publishing should be a deliberate act with an owner, not an ad hoc click whenever a report 'feels done.'"
+     ]
+    },
+    {
+     "slide": 53,
+     "num": "08.2",
+     "title": "Refresh You Can Trust",
+     "why": "A dashboard nobody trusts because it silently failed to refresh last Tuesday is worse than no dashboard at all -- it actively misleads decisions.",
+     "bullets": [
+      "Monitor, Don't Just Schedule \u2014 Scheduled refresh needs monitoring, not just configuration -- know how failures are surfaced and to whom.",
+      "Gateways Fail Silently \u2014 Gateway configuration and credentials are common points of silent failure; document them clearly.",
+      "Check Refresh Proactively \u2014 Build a habit of checking refresh history proactively rather than waiting for a user to report stale data.",
+      "Alerts To Someone Who Acts \u2014 Failure alerts should go to someone who can act, not just to an inbox nobody monitors."
+     ]
+    },
+    {
+     "slide": 54,
+     "num": "08.3",
+     "title": "A Repeatable Release Process",
+     "why": "Moving a report from 'my test version' to 'the production version everyone relies on' without a defined process is how untested changes end up in front of executives.",
+     "bullets": [
+      "Separate Dev, Test, Production \u2014 Define distinct dev, test, and production environments -- even a lightweight version of this separation helps.",
+      "Release Checklist Beats Memory \u2014 A release checklist (RLS tested, refresh validated, visuals reviewed) turns tribal memory into a repeatable process.",
+      "Same Outcome Every Time \u2014 Deployment pipelines or a documented manual process should produce the same outcome regardless of who runs it.",
+      "Process Prevents Skipping \u2014 The goal isn't heavyweight process for its own sake -- it's making sure nothing important gets skipped under deadline pressure."
+     ]
+    },
+    {
+     "slide": 55,
+     "num": "08.4",
+     "title": "Shared Semantic Models and Thin Reports",
+     "why": "Rebuilding the same measures in every new report is how organizations end up with five different definitions of \u201crevenue\u201d -- a shared model with thin reports on top of it is the fix.",
+     "bullets": [
+      "One Model, Many Reports \u2014 A shared semantic model is built and governed once; multiple thin reports connect live to it instead of duplicating its logic.",
+      "Thin Reports Prevent Drift \u2014 Thin reports contain only visuals and layout -- no local measures, no local tables, no drift from the source model.",
+      "One Number, Everywhere \u2014 This pattern is what makes \u201cone number, everywhere\u201d achievable at an organizational scale, not just within a single report.",
+      "Model Change Management \u2014 Changes to the shared model instantly and consistently affect every connected report -- powerful, but it raises the bar on model change management."
+     ]
+    },
+    {
+     "slide": 56,
+     "num": "08.5",
+     "title": "Endorsement: Promoted vs Certified",
+     "why": "Without endorsement, every dataset and report looks equally trustworthy in the Service -- endorsement is the visible signal that tells users which ones actually are.",
+     "bullets": [
+      "Promoted Is Self-Service \u2014 \u201cPromoted\u201d means the content owner vouches for it -- a lightweight, self-service signal of quality.",
+      "Certified Passes Formal Review \u2014 \u201cCertified\u201d means it passed a formal organizational review -- a stronger signal reserved for content that meets a defined bar.",
+      "Gate Certification Seriously \u2014 Certification should be gated by an actual review process, not handed out to keep authors happy.",
+      "Endorsement Aids Discovery \u2014 Endorsement status directly affects discoverability -- users can search and filter for certified content first."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 9,
+   "arc_label": "PROTECT & OPERATE",
+   "mod_num": "09",
+   "title": "Monitoring, Administration & Governance",
+   "description": "Running Power BI like a platform, not a pile of individually-managed reports.",
+   "level": "LEVEL: Advanced",
+   "cards": [
+    [
+     "Usage as a signal",
+     "Usage metrics and refresh history read as operational data, not vanity numbers."
+    ],
+    [
+     "Tenant settings with intention",
+     "Understanding what each governance lever controls and who should be allowed to change it."
+    ],
+    [
+     "An operations runbook that outlives you",
+     "Documenting the processes so governance survives a team change, not just a tenure."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 58,
+     "num": "09.1",
+     "title": "Usage As A Signal",
+     "why": "Usage metrics tell you which reports are actually load-bearing for the organization and which ones are quietly abandoned -- both are equally important to know.",
+     "bullets": [
+      "Usage Metrics Reports \u2014 Usage metrics reports show views, unique users, and trends over time per report and workspace.",
+      "Declining Usage Is A Signal \u2014 A report with declining usage may be broken, outdated, or simply superseded -- investigate rather than assume.",
+      "Fresh And Actually Used \u2014 Refresh history read alongside usage tells you whether a heavily used report is also a reliably fresh one.",
+      "Retire With Data \u2014 Use usage data to justify retiring reports, not just to justify building new ones."
+     ]
+    },
+    {
+     "slide": 59,
+     "num": "09.2",
+     "title": "Tenant Settings With Intention",
+     "why": "Tenant settings control organization-wide capabilities like external sharing and export -- getting them wrong is either a security exposure or an unnecessary blocker on legitimate work.",
+     "bullets": [
+      "Owner Per Setting \u2014 Every tenant setting should have a known owner and a documented reason for its current configuration.",
+      "Export Vs Security Tension \u2014 Export and sharing settings are common areas where security and usability pull in opposite directions.",
+      "Review Before Changing \u2014 Changes to tenant settings should go through the same review rigor as any other security-relevant change.",
+      "Scheduled Setting Reviews \u2014 Review tenant settings on a schedule -- they drift out of alignment with actual organizational need over time."
+     ]
+    },
+    {
+     "slide": 60,
+     "num": "09.3",
+     "title": "An Operations Runbook That Outlives You",
+     "why": "Governance that lives only in one administrator's head disappears the day that person changes roles -- a written runbook is what makes governance durable.",
+     "bullets": [
+      "Document The Why \u2014 Document the 'why' behind key decisions (workspace structure, tenant settings, RLS patterns), not just the 'what.'",
+      "Specific Enough To Follow Alone \u2014 A runbook should be specific enough that a new administrator could follow it without asking the previous owner.",
+      "Update On A Cadence \u2014 Review and update the runbook on a cadence -- stale documentation is almost as risky as no documentation.",
+      "Runbook Is A Governed Artifact \u2014 Treat the runbook itself as a governed artifact with an owner and a review date."
+     ]
+    },
+    {
+     "slide": 61,
+     "num": "09.4",
+     "title": "Activity and Audit Logs",
+     "why": "When something goes wrong -- a dataset deleted, permissions changed, data exported unexpectedly -- the activity log is the only reliable record of who did what and when.",
+     "bullets": [
+      "Activity Log Coverage \u2014 The activity log captures user actions across the tenant: views, exports, sharing changes, and administrative actions.",
+      "Know Queries Before Incidents \u2014 Audit logs support both security investigations and compliance reporting -- know how to query them before an incident, not during one.",
+      "Log Retention Is Governance \u2014 Retention and access to these logs is itself a governance decision that needs an owner and a documented policy.",
+      "Review, Don't Just React \u2014 Regularly reviewing logs (not just reacting to them) surfaces risky patterns -- like broad, unexpected sharing -- before they become incidents."
+     ]
+    },
+    {
+     "slide": 62,
+     "num": "09.5",
+     "title": "Purview and Data Loss Prevention",
+     "why": "Governance that only works inside Power BI has a blind spot -- Purview and DLP extend policy enforcement to wherever the data actually travels next, including outside the tenant.",
+     "bullets": [
+      "Purview Beyond Power BI \u2014 Microsoft Purview catalogs sensitive data across the broader Microsoft 365 and Azure estate, not just Power BI content.",
+      "DLP Acts Automatically \u2014 Data Loss Prevention (DLP) policies can automatically detect and act on sensitive data leaving approved boundaries.",
+      "Labels Plus DLP \u2014 Combining sensitivity labels with DLP turns a passive label into an enforced, active control.",
+      "Organization-Wide Compliance \u2014 This is where Power BI governance connects to organization-wide compliance -- it's not a Power BI-only concern."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 10,
+   "arc_label": "SCALE",
+   "mod_num": "10",
+   "title": "Premium, Fabric & Capacity Architecture",
+   "description": "Choosing the right capacity and architecture before scale forces the decision for you.",
+   "level": "LEVEL: Advanced",
+   "cards": [
+    [
+     "Capacity models compared",
+     "Shared, Premium, and Fabric capacity tradeoffs mapped to real workload patterns, not just price sheets."
+    ],
+    [
+     "Fabric-aware design",
+     "OneLake and Direct Lake concepts, and what they change about how a model should be built."
+    ],
+    [
+     "Planning for growth, not just today",
+     "Architecture decisions that anticipate the next 10x of data volume and user count."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 65,
+     "num": "10.1",
+     "title": "Capacity Models Compared",
+     "why": "The 'right' capacity tier depends on workload shape (refresh frequency, concurrent users, dataset size), not just budget -- picking based on price alone often causes a costly re-architecture later.",
+     "bullets": [
+      "Shared Capacity Has Limits \u2014 Shared capacity is fine for smaller, less demanding workloads but has real limits on refresh frequency and dataset size.",
+      "Premium And Fabric Unlock Scale \u2014 Premium/Fabric capacity unlocks larger datasets, more frequent refresh, and dedicated performance, at a cost tradeoff.",
+      "Map Workload To Tier \u2014 Map actual workload characteristics (concurrency, data volume, refresh needs) to capacity tiers before committing.",
+      "Migration Isn't Free \u2014 Capacity decisions are reversible but not free -- migrating workloads after the fact has real cost and effort."
+     ]
+    },
+    {
+     "slide": 66,
+     "num": "10.2",
+     "title": "Fabric-Aware Design",
+     "why": "OneLake and Direct Lake change some long-held assumptions about when data needs to be imported versus queried live -- modeling decisions made without this context can be needlessly conservative.",
+     "bullets": [
+      "OneLake Shared Storage \u2014 OneLake provides a single, shared storage layer that multiple Fabric workloads can reference without duplication.",
+      "Direct Lake Performance \u2014 Direct Lake mode can deliver near-Import-mode performance while querying data directly from OneLake.",
+      "Don't Rebuild Everything \u2014 Not every existing modeling pattern needs to change for Fabric -- but new projects should evaluate it deliberately.",
+      "Fabric Adoption Prerequisites \u2014 Fabric adoption is itself an architecture decision with tenant, licensing, and readiness prerequisites to confirm first."
+     ]
+    },
+    {
+     "slide": 67,
+     "num": "10.3",
+     "title": "Planning For Growth, Not Just Today",
+     "why": "An architecture that comfortably handles today's data volume and user count can become the org's biggest technical debt the moment either one grows tenfold.",
+     "bullets": [
+      "Plan For 10x Scale \u2014 Ask 'what does this look like at 10x scale' as a standard part of any new architecture decision.",
+      "Know The Breaking Points \u2014 Capacity, refresh strategy, and model design all have breaking points -- know roughly where they are before hitting them.",
+      "Review On A Cadence \u2014 Plan a capacity/architecture review cadence rather than only revisiting it after something breaks.",
+      "Proactive Beats Reactive \u2014 Growth planning is cheaper before the system is load-bearing than after -- treat it as proactive work, not reactive firefighting."
+     ]
+    },
+    {
+     "slide": 68,
+     "num": "10.4",
+     "title": "XMLA Endpoint",
+     "why": "The XMLA endpoint turns a Power BI semantic model into something external tools can connect to directly -- it's what makes enterprise-grade model management (version control, scripted deployment, external validation) possible at all.",
+     "bullets": [
+      "XMLA Connects External Tools \u2014 XMLA read/write access lets tools like Tabular Editor and ALM Toolkit connect to a published model exactly like a tabular database.",
+      "Enables DevOps On The Service \u2014 This is the mechanism that makes Module 11's external-tool and DevOps workflows possible on models already in the Service.",
+      "Read-Only For Other BI Tools \u2014 Read-only XMLA access also lets other BI tools query a Power BI model as a data source.",
+      "Premium Or Fabric Required \u2014 XMLA access requires Premium or Fabric capacity and the right tenant setting -- confirm both before planning around it."
+     ]
+    },
+    {
+     "slide": 69,
+     "num": "10.5",
+     "title": "Paginated Reports",
+     "why": "Some deliverables -- regulatory filings, invoices, multi-page statements -- need pixel-perfect, printable layouts that a standard Power BI canvas was never designed to produce.",
+     "bullets": [
+      "Print-Ready Layouts \u2014 Paginated reports (built in Report Builder) render precise, print-ready layouts that flow correctly across page boundaries.",
+      "Reuse Semantic Models \u2014 They can run against the same shared semantic models used by interactive Power BI reports -- no separate data layer required.",
+      "For Fixed-Format Documents \u2014 Use paginated reports specifically for fixed-format, high-volume, or exportable documents, not as a general reporting default.",
+      "Different Capacity And Licensing \u2014 Paginated report capacity and licensing requirements differ from interactive reports -- confirm availability before committing a delivery plan."
+     ]
+    }
+   ]
+  },
+  {
+   "num": 11,
+   "arc_label": "SCALE",
+   "mod_num": "11",
+   "title": "Automation, DevOps & Lifecycle Management",
+   "description": "Treating Power BI artifacts like source code, because eventually they have to be.",
+   "level": "LEVEL: Advanced",
+   "cards": [
+    [
+     "PBIP and version control",
+     "Git-friendly project files that make Power BI diffable, reviewable, and mergeable."
+    ],
+    [
+     "External tools and APIs",
+     "Using the broader tooling ecosystem to script, validate, and automate what used to be manual."
+    ],
+    [
+     "CI/CD concepts for BI",
+     "Deployment pipeline thinking applied to semantic models and reports, not just application code."
+    ]
+   ],
+   "topics": [
+    {
+     "slide": 71,
+     "num": "11.1",
+     "title": "PBIP And Version Control",
+     "why": "A binary PBIX file is a black box to source control -- PBIP's plain-text project structure is what makes real code review and collaboration on a Power BI file possible.",
+     "bullets": [
+      "Readable Folders Beat Binary \u2014 PBIP splits a report and model into readable folders and files instead of one opaque binary.",
+      "Meaningful Git Diffs \u2014 Plain-text definitions mean Git can show a meaningful diff -- what actually changed, not just 'the file changed.'",
+      "True Multi-Author Workflow \u2014 Multiple authors can work on different parts of the same solution with real merge and review capability.",
+      "Process Change, Not Just Format \u2014 Adopting PBIP is itself a process change for a team, not just a file-format setting to flip once."
+     ]
+    },
+    {
+     "slide": 72,
+     "num": "11.2",
+     "title": "External Tools And APIs",
+     "why": "The Power BI ecosystem's external tools and REST APIs let teams script and validate things that used to require slow, error-prone manual clicking through the UI.",
+     "bullets": [
+      "External Tool Ecosystem \u2014 External tools (Tabular Editor, DAX Studio, ALM Toolkit) extend what's possible beyond Desktop's built-in UI.",
+      "REST API For Scripting \u2014 The Power BI REST API enables scripted operations -- refresh triggers, dataset metadata, permission audits.",
+      "Safer Model Migrations \u2014 ALM Toolkit-style comparisons make model migrations and merges safer by showing exactly what will change.",
+      "Automate Repetitive Validation \u2014 Automating repetitive validation steps reduces the chance of a manual error during a release."
+     ]
+    },
+    {
+     "slide": 73,
+     "num": "11.3",
+     "title": "CI/CD Concepts For BI",
+     "why": "Applying deployment-pipeline thinking to semantic models and reports catches breaking changes before they reach production, the same way it does for application code.",
+     "bullets": [
+      "Automated Validation Before Deploy \u2014 A CI/CD mindset for BI means automated validation (does the model still build, do key measures still return expected results) before deployment.",
+      "Pipelines Reduce Manual Steps \u2014 Deployment pipelines or scripted release processes reduce the manual steps that introduce human error.",
+      "BI Automation Is Emerging \u2014 Automated testing for BI is less mature than for application code -- start with what can be automated today and grow from there.",
+      "Scales Module 8's Process \u2014 This module closes the loop with Module 8's repeatable release process -- automation is how that process scales past a handful of reports."
+     ]
+    },
+    {
+     "slide": 74,
+     "num": "11.4",
+     "title": "Service Principals for Automation",
+     "why": "Scripted deployments and pipelines need an identity to run as -- using a personal account for that is a common shortcut that quietly becomes a security and reliability liability.",
+     "bullets": [
+      "Application Identity \u2014 A service principal is an application identity, separate from any individual's account, used for automated operations.",
+      "Survives Personnel Change \u2014 Automation tied to a personal account breaks the moment that person leaves or changes roles -- a service principal doesn't have that problem.",
+      "Least Privilege \u2014 Grant a service principal only the specific permissions its automation actually needs, following least privilege.",
+      "Store Secrets In A Vault \u2014 Service principal credentials belong in a secrets manager (like Azure Key Vault), never hardcoded in a script or pipeline file."
+     ]
+    },
+    {
+     "slide": 75,
+     "num": "11.5",
+     "title": "Fabric Workspace Git Integration",
+     "why": "Native Git integration connects a Fabric workspace directly to a repository -- it turns \u201cexport, commit, remember to sync\u201d into an actual two-way, trackable connection between the Service and source control.",
+     "bullets": [
+      "Auto-Sync Workspace To Branch \u2014 Workspace items sync to a connected branch automatically, keeping the repository and the live workspace aligned.",
+      "Built On PBIP Structure \u2014 This builds directly on PBIP's plain-text structure -- without it, there'd be nothing meaningful for Git to track.",
+      "Conflict Resolution Process \u2014 Conflicts between workspace changes and repository changes need a clear resolution process, the same as any team Git workflow.",
+      "Fewer Manual Export Steps \u2014 Native integration reduces manual export/import steps, which is exactly where human error tends to creep into a release process."
+     ]
+    }
+   ]
+  }
+ ],
+ "capstone_raw": [
+  "CAPSTONE",
+  "One dataset. One deadline.\nEvery skill from Modules 1-11.",
+  "Learners take a single messy source dataset from raw files to a governed, secured, production-ready Power BI solution -- end to end, without a script to follow.",
+  "1",
+  "Model it",
+  "Build a star schema, handle grain and role-playing dates, and validate relationships.",
+  "2",
+  "Calculate it",
+  "Write the DAX measures the business actually asked for, not the easy ones.",
+  "3",
+  "Present it",
+  "Design a navigable, accessible report with drillthrough and a mobile layout.",
+  "4",
+  "Ship it",
+  "Publish, secure with RLS, and document it like it has to survive an audit.",
+  "Advanced Power BI  \u00b7  Capstone",
+  "75",
+  "\u2191 Curriculum Map"
+ ],
+ "closing": {
+  "eyebrow": "WHERE LEARNERS END UP",
+  "headline": "Confident modeling, defensible\nnumbers, and reports people trust.",
+  "body": "Advanced Power BI is built for teams who are past the tutorials and need\nthe judgment, patterns, and habits that hold up in production."
+ }
+}

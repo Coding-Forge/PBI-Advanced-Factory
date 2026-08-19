@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "security_table",
   "position": {
-    "x": 24,
-    "y": 320,
+    "x": 44.539184952978061,
+    "y": 308.16300940438873,
     "z": 5000,
-    "height": 520,
-    "width": 860,
+    "height": 532.062695924765,
+    "width": 860.08777429467091,
     "tabOrder": 2000
   },
   "visual": {
@@ -63,6 +63,34 @@
           ]
         }
       }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Users'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Security by user, role or territory'"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

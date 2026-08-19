@@ -58,7 +58,7 @@
               },
               "queryRef": "DimOrderDate.Month",
               "nativeQueryRef": "Month",
-              "active": false
+              "active": true
             },
             {
               "field": {
@@ -109,13 +109,26 @@
               "DimOrderDate.Quarter"
             ],
             "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrderDate"
+                    }
+                  },
+                  "Property": "Quarter"
+                }
+              }
+            ],
             "isPinned": true
           },
           {
             "queryRefs": [
               "DimOrderDate.Month"
             ],
-            "isCollapsed": true
+            "isCollapsed": true,
+            "isPinned": true
           },
           {
             "queryRefs": [
@@ -135,6 +148,28 @@
                 }
               ],
               "isToggled": true
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "2025L"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "4L"
+                      }
+                    }
+                  ],
+                  "isToggled": true
+                }
+              ]
             }
           ]
         }
