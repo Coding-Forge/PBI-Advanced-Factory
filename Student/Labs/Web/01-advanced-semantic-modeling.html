@@ -175,7 +175,14 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     <div class="urlcard"><strong>sales-flat.csv</strong><code class="code" id="u1">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/sales-flat.csv</code><button class="copy" data-copy="u1">Copy URL</button></div>
     <div class="urlcard"><strong>customer-segments.csv</strong><code class="code" id="u2">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/customer-segments.csv</code><button class="copy" data-copy="u2">Copy URL</button></div>
     <div class="urlcard"><strong>targets.csv</strong><code class="code" id="u3">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/targets.csv</code><button class="copy" data-copy="u3">Copy URL</button></div>
+    <div class="urlcard"><strong>territory-contacts.csv</strong><code class="code" id="u4">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/territory-contacts.csv</code><button class="copy" data-copy="u4">Copy URL</button></div>
+    <div class="urlcard"><strong>regional-notes.csv</strong><code class="code" id="u5">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/regional-notes.csv</code><button class="copy" data-copy="u5">Copy URL</button></div>
+    <div class="urlcard"><strong>territory-manager.csv</strong><code class="code" id="u6">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/territory-manager.csv</code><button class="copy" data-copy="u6">Copy URL</button></div>
+    <div class="urlcard"><strong>monthly-targets-wide.csv</strong><code class="code" id="u7">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/monthly-targets-wide.csv</code><button class="copy" data-copy="u7">Copy URL</button></div>
+    <div class="urlcard"><strong>product-attributes-transposed.csv</strong><code class="code" id="u8">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/product-attributes-transposed.csv</code><button class="copy" data-copy="u8">Copy URL</button></div>
+    <div class="urlcard"><strong>customer-addresses-sparse.csv</strong><code class="code" id="u9">https://raw.githubusercontent.com/Coding-Forge/PBI-Advanced-Factory/main/data/customer-addresses-sparse.csv</code><button class="copy" data-copy="u9">Copy URL</button></div>
   </div>
+  <p class="small" style="color:var(--cp-text-muted); margin-top:8px;">The last six files are practice-only: they exist so you can try Split Column, Merge Queries, Unpivot, Transpose, and Fill on real messy data. They are not related to <code>FactSales</code> and do not need to stay in your finished model — you can disable their load in <b>Close &amp; Apply</b> once you finish the practice step.</p>
 </section>
         <section>
   <h2>Step-by-step walkthrough</h2>
@@ -374,28 +381,71 @@ RETURN
         <div class="fyi-body">A customer can belong to more than one segment, so <code>raw_CustomerSegments</code> has multiple rows per <code>CustomerKey</code>. Relating <code>DimCustomer</code> straight to <code>DimSegment</code> would be many-to-many. <code>BridgeCustomerSegment</code> keeps the full (<code>CustomerKey</code>, <code>Segment</code>) pair list, so <code>DimCustomer</code>-to-bridge and <code>DimSegment</code>-to-bridge can both stay clean one-to-many relationships instead of one ambiguous many-to-many relationship.</div>
       </details>
     </li>
-    <li><strong>Tour the rest of the Power Query ribbon and View tab.</strong><p>The queries you just built already use a few of Power Query's core transforms without calling them out by name. This step walks the same queries again so you can see where the rest of the everyday ribbon commands live, plus the View-tab tools that help you inspect a query instead of just transforming it.</p>
-      <p><b>Home ribbon — shaping and combining data</b></p>
+    <li><strong>Practice shaping data: import the six practice files.</strong><p>The rest of Power Query's everyday commands are easiest to learn by using them on genuinely messy data, not by reading about them. Import all six practice files now the same way you imported <code>sales-flat.csv</code> — <b>Home &gt; Get data &gt; Web</b>, paste the URL from the <a href="#source-files">Source files</a> section, choose <b>Anonymous</b>, click <b>Connect</b>, then <b>Transform data</b> — and rename each query to match its file name (for example, <code>territory-contacts.csv</code> becomes <code>raw_TerritoryContacts</code>). You will reshape each one in the steps below, then choose whether to keep it loaded.</p></li>
+    <li><strong>Split Column by Delimiter — clean up <code>raw_TerritoryContacts</code>.</strong>
       <ol>
-        <li><b>Split Column by Delimiter:</b> select a text column that contains a separator character (for example a combined <code>City, State</code> column), then click <b>Home &gt; Split Column &gt; By Delimiter</b>, choose the delimiter (comma, space, colon, or custom), and pick <b>Each occurrence</b> or <b>Left-most/Right-most</b> depending on how many new columns you want.</li>
-        <li><b>Use First Row as Headers:</b> if a source is imported without column names (the first data row contains the header labels instead), click <b>Home &gt; Use First Row as Headers</b> to promote that row into real column names. <code>BridgeCustomerSegment</code> already does this automatically as part of its <code>Csv.Document</code> import step — open that query's <b>Promoted headers</b> step in the Applied Steps pane to see the underlying <code>Table.PromoteHeaders</code> call.</li>
-        <li><b>Remove Rows:</b> click <b>Home &gt; Remove Rows</b> to drop the top N rows, bottom N rows, a range of rows, duplicate rows, or rows with errors — useful for skipping a title row above the real header or trimming a known-bad trailing row. <code>BridgeCustomerSegment</code>'s <b>Filtered rows</b> step is the row-filtering equivalent (<code>Table.SelectRows</code>), shown in the screenshot below.</li>
-        <li><b>Merge Queries:</b> click <b>Home &gt; Merge Queries</b> to join two queries on a common key column, similar to a SQL join — pick the second table, select the matching column in each, and choose a join kind (<b>Left Outer</b> keeps every row from the first table, which is the safest default). This is the Power Query alternative to building a relationship in Model view, and is worth understanding even though this lab's dimensions are built with <b>Reference</b> plus <b>Remove Duplicates</b> instead.</li>
+        <li>Open <code>raw_TerritoryContacts</code>. Its <code>ContactName</code> column is stored as <code>"Last, First"</code> and its <code>Location</code> column as <code>"City, ST"</code> — both need to be split before they are usable.</li>
+        <li>Select the <code>ContactName</code> column, click <b>Home &gt; Split Column &gt; By Delimiter</b>, choose <b>Comma</b> as the delimiter and <b>Each occurrence</b>, then click <b>OK</b>. Rename the two resulting columns <code>LastName</code> and <code>FirstName</code>.</li>
+        <li>Repeat for the <code>Location</code> column, splitting it into <code>City</code> and <code>StateCode</code>.</li>
+      </ol>
+    </li>
+    <li><strong>Use First Row as Headers and Remove Rows — clean up <code>raw_RegionalNotes</code>.</strong>
+      <ol>
+        <li>Open <code>raw_RegionalNotes</code>. The import lands with a title row from the source file (<code>Regional Notes Export - Confidential...</code>) sitting above the real header row, so every column is named <code>Column1</code>, <code>Column2</code>, etc. and the real column names appear as the first row of data.</li>
+        <li>Click <b>Home &gt; Remove Rows &gt; Remove Top Rows</b>, enter <code>1</code>, and click <b>OK</b> to drop the confidential title row.</li>
+        <li>Click <b>Home &gt; Use First Row as Headers</b> to promote the next row (<code>TerritoryKey</code>, <code>Note</code>, <code>ReviewedBy</code>) into real column names.</li>
+        <li>Compare this to <code>BridgeCustomerSegment</code>'s <b>Promoted headers</b> step, shown in the screenshot below — that query's source file did not need a Remove Rows step first because it had no title row above the header.</li>
       </ol>
       <figure class="figure"><img src="images/01-advanced-semantic-modeling/QueryScripts.png" alt="Power Query Advanced Editor showing the BridgeCustomerSegment query with Promoted headers, Filtered rows, and Removed duplicates applied steps and the underlying M code."><figcaption><code>BridgeCustomerSegment</code>'s Applied Steps pane, showing Promoted headers and Filtered rows alongside the M code that generates them.</figcaption></figure>
-      <p><b>Transform ribbon — reshaping a table's layout</b></p>
+    </li>
+    <li><strong>Merge Queries — add manager contacts to <code>DimTerritory</code>.</strong>
       <ol>
-        <li><b>Transpose:</b> click <b>Transform &gt; Transpose</b> to swap rows and columns — handy when a source system exports one row per field and one column per record instead of the usual layout.</li>
-        <li><b>Pivot Column / Unpivot Columns:</b> select a category column and a value column, then click <b>Transform &gt; Pivot Column</b> to turn distinct category values into new columns (for example, turning a <code>Month</code> column into twelve month columns). <b>Unpivot Columns</b> does the reverse — select the columns you want collapsed and click <b>Transform &gt; Unpivot Columns</b> to turn wide columns back into key/value rows, which is usually the shape Power BI's model prefers.</li>
-        <li><b>Fill Down / Fill Up:</b> click <b>Transform &gt; Fill &gt; Down</b> (or <b>Up</b>) to replace blank cells with the nearest non-blank value above (or below) them — common when a source only prints a category label on its first row and leaves the rest blank.</li>
+        <li>Open <code>raw_TerritoryManager</code> and confirm it has one row per <code>TerritoryKey</code> with <code>ManagerName</code> and <code>ManagerEmail</code>.</li>
+        <li>Open <code>DimTerritory</code>, click <b>Home &gt; Merge Queries &gt; Merge Queries</b>, choose <code>raw_TerritoryManager</code> as the table to merge, select <code>TerritoryKey</code> in both tables, set <b>Join kind</b> to <b>Left Outer</b> (keeps every <code>DimTerritory</code> row even if a match is missing), and click <b>OK</b>.</li>
+        <li>Click the expand icon on the new merged column and choose only <code>ManagerName</code> and <code>ManagerEmail</code> to add them as new columns on <code>DimTerritory</code>.</li>
       </ol>
-      <p><b>Add Column ribbon — building new columns</b></p>
+      <details class="callout fyi">
+        <summary>FYI — Merge Queries vs. a model relationship.</summary>
+        <div class="fyi-body">Merge Queries pulls columns from one query into another <b>during data load</b>, producing one wider table — useful when you want the combined columns to always travel together, like adding a manager's name directly onto <code>DimTerritory</code>. A model relationship instead keeps the tables separate and lets DAX cross-filter between them at query time. Use Merge Queries for enrichment that belongs permanently on a dimension; use a relationship when the two tables should stay independent and related in the model.</div>
+      </details>
+    </li>
+    <li><strong>Unpivot Columns — reshape <code>raw_MonthlyTargetsWide</code> for the model.</strong>
       <ol>
-        <li><b>Column From Examples:</b> click <b>Add Column &gt; Column From Examples</b>, then type the value you expect for one or two rows; Power Query infers a transformation (such as extracting initials, concatenating text, or reformatting a date) and applies it to every row.</li>
-        <li><b>Custom Column:</b> click <b>Add Column &gt; Custom Column</b> and write a Power Query M formula (for example <code>= [UnitPrice] * [Quantity]</code>) to add a calculated column during data load, before the model even sees it.</li>
-        <li><b>Invoke a Function:</b> click <b>Add Column &gt; Invoke Custom Function</b> to run a reusable query function once per row of the current table, passing in one or more columns as parameters. This lab already uses this pattern indirectly — <code>fn_DimDate</code> is a function query invoked to generate <code>DimDate</code> — so this menu command is the row-by-row equivalent when a function needs to run against every row of an existing table instead of just once.</li>
+        <li>Open <code>raw_MonthlyTargetsWide</code>. It has one row per <code>TerritoryKey</code>/<code>ProductCategory</code> pair and twelve separate month columns (<code>Jan</code> through <code>Dec</code>) — a "wide" shape that is hard to filter or slice by month in a report.</li>
+        <li>Select the <code>Jan</code> through <code>Dec</code> columns (click <code>Jan</code>, then Shift-click <code>Dec</code>), right-click any of the selected headers, and choose <b>Unpivot Columns</b>.</li>
+        <li>Rename the two new columns <code>Attribute</code> to <code>Month</code> and <code>Value</code> to <code>TargetSalesAmount</code>. The table is now "tall" — one row per territory, category, and month — which matches the grain <code>FactTargets</code> already uses.</li>
       </ol>
-      <p><b>View ribbon — inspecting your data instead of transforming it</b></p>
+      <details class="callout fyi">
+        <summary>FYI — why Power BI prefers tall (unpivoted) tables.</summary>
+        <div class="fyi-body">A wide table with one column per month cannot be sliced by a <code>Month</code> field or related to a date dimension — Power BI would need a separate measure for every single column. An unpivoted, tall table has one <code>Month</code> column and one <code>Value</code> column, so a single measure and a single date relationship cover every month automatically. This is the same reason <code>FactTargets</code> stores <code>TargetMonth</code> as one column instead of twelve.</div>
+      </details>
+    </li>
+    <li><strong>Transpose — reshape <code>raw_ProductAttributesTransposed</code>.</strong>
+      <ol>
+        <li>Open <code>raw_ProductAttributesTransposed</code>. It was exported with attributes (<code>Weight</code>, <code>Color</code>, <code>Material</code>, <code>WarrantyYears</code>) as rows and products (<code>P001</code>–<code>P004</code>) as columns — the opposite of how a dimension table should be shaped.</li>
+        <li>Click <b>Transform &gt; Transpose</b> to swap rows and columns, so each attribute becomes its own column and each product becomes its own row.</li>
+        <li>Click <b>Home &gt; Use First Row as Headers</b> to promote the new header row (<code>Attribute</code>, <code>P001</code>, <code>P002</code>, <code>P003</code>, <code>P004</code>, now transposed into <code>ProductKey</code>, <code>Weight</code>, <code>Color</code>, <code>Material</code>, <code>WarrantyYears</code>).</li>
+      </ol>
+    </li>
+    <li><strong>Fill Down — repair <code>raw_CustomerAddressesSparse</code>.</strong>
+      <ol>
+        <li>Open <code>raw_CustomerAddressesSparse</code>. Its source only prints <code>Region</code> and <code>Segment</code> on the first row of each small group of customers, leaving the rest blank — a common export pattern from tools that avoid repeating a label visually.</li>
+        <li>Select the <code>Region</code> column, click <b>Transform &gt; Fill &gt; Down</b>, then repeat for the <code>Segment</code> column. Every blank cell is replaced with the nearest non-blank value above it.</li>
+      </ol>
+      <details class="callout fyi">
+        <summary>FYI — check your assumption before filling down.</summary>
+        <div class="fyi-body">Fill Down assumes the blank cells truly belong to the same group as the value above them — that is usually true for a "printed once" export like this one, but it is not always true for genuinely missing data. Always confirm the source file's grouping logic before filling down in a real project; filling down over unrelated blanks silently invents wrong values.</div>
+      </details>
+    </li>
+    <li><strong>Column From Examples, Custom Column, and Invoke a Function — practice on <code>FactSales</code>.</strong>
+      <ol>
+        <li>Open <code>FactSales</code>. Click <b>Add Column &gt; Custom Column</b>, name it <code>Margin %</code>, enter the formula <code>= [GrossMargin] / [SalesAmount]</code>, and click <b>OK</b> to add a calculated column during data load (you will build the equivalent as a DAX measure in Lab 02 — this is the same math done in Power Query instead).</li>
+        <li>Click <b>Add Column &gt; Column From Examples &gt; From Selection</b>, select the <code>SalesOrderLineKey</code> column, and in the new column type <code>SO-1001</code> for the first row; Power Query should infer a <code>"SO-" &amp; Text.From([SalesOrderLineKey])</code> transformation and apply it to every row. Rename the result <code>OrderLabel</code>.</li>
+        <li>To see <b>Invoke a Function</b> in the same lab, open <code>DimDate</code> and look at its single applied step — it is the result of invoking the <code>fn_DimDate</code> function query once to generate the whole table. To try the row-by-row version yourself, click <b>Add Column &gt; Invoke Custom Function</b> on any query, choose a function query such as <code>fn_DimDate</code>, and map its parameters to columns on the current table; Power Query then runs that function once per row instead of once overall.</li>
+        <li>Remove the practice-only <code>Margin %</code> and <code>OrderLabel</code> columns from <code>FactSales</code> before continuing, since the real <code>[Gross Margin %]</code> measure you build later in DAX should be the one source of truth for margin.</li>
+      </ol>
+    </li>
+    <li><strong>Tour the View tab — inspecting a query instead of transforming it.</strong>
       <ol>
         <li><b>Diagram View:</b> click <b>View &gt; Diagram view</b> to see every query as a box with a line connecting each query to the queries it references — a fast way to confirm <code>FactSales</code>, <code>DimCustomer</code>, <code>DimProduct</code>, and <code>DimTerritory</code> all trace back to the same <code>raw_SalesFlat</code> query, exactly as this lab's naming convention intends.</li>
         <li><b>Schema View:</b> click <b>View &gt; Schema view</b> for a column-focused list of a query — data types, positions, and names in one place, which is faster than Data view for bulk renaming or retyping many columns at once.</li>
@@ -410,6 +460,7 @@ RETURN
         <div class="fyi-body">Home, Transform, and Add Column ribbon commands change the data itself and add a new step to the query. View-tab tools (Diagram view, Schema view, Query Profile, Column quality) never change your data — they only change what you can see about it. Get in the habit of checking column quality and the value distribution right after every import, before you start transforming, so a bad source file is caught in minutes instead of showing up later as a wrong total on a report page.</div>
       </details>
     </li>
+    <li><strong>Disable load for the practice-only queries.</strong><p>Right-click each of the six practice queries (<code>raw_TerritoryContacts</code>, <code>raw_RegionalNotes</code>, <code>raw_TerritoryManager</code>, <code>raw_MonthlyTargetsWide</code>, <code>raw_ProductAttributesTransposed</code>, <code>raw_CustomerAddressesSparse</code>) and uncheck <b>Enable load</b>, since they were only imported to practice these transforms and are not part of the star schema you are about to build relationships for. Keep the enriched <code>DimTerritory</code> merge if you want to carry the manager columns forward.</p></li>
     <li><strong>Close and apply.</strong><p>Confirm data types before loading. Dates should be Date, quantities should be whole numbers, currency/amount columns should be decimal or fixed decimal, and keys should be text unless you intentionally model them otherwise.</p></li>
     <li><strong>Create relationships in Model view.</strong><p>Use the relationship setup reference below to create each relationship explicitly. The core lab path uses one-to-many cardinality and single-direction filtering from dimensions into facts or bridge tables.</p>
       <table class="column-table">
@@ -465,7 +516,7 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
         <div class="checklist" data-progress="lab01">
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
-          <p class="small"><span class="count">0</span> of 9 complete</p>
+          <p class="small"><span class="count">0</span> of 11 complete</p>
           <label><input type="checkbox">Star schema created</label>
 <label><input type="checkbox">Fact and dimension names are clear</label>
 <label><input type="checkbox">Relationships validate as one-to-many where possible</label>
@@ -474,7 +525,9 @@ DimSegment   ||--o{  BridgeCustomerSegment  : Segment</code></pre>
 <label><input type="checkbox">Bridge table supports segment analysis</label>
 <label><input type="checkbox">Optional tenant-dependent features are labeled Verify for Gov</label>
 <label><input type="checkbox">Measures total correctly by date, product, customer, territory, and segment</label>
-<label><input type="checkbox">Comfortable locating Split Column, Fill, Pivot/Unpivot, Custom Column, and the Diagram/Schema/Query Profile views</label>
+<label><input type="checkbox">Practiced Split Column, First Row as Headers, Remove Rows, and Merge Queries on real messy data</label>
+<label><input type="checkbox">Practiced Transpose, Unpivot Columns, and Fill Down on real messy data</label>
+<label><input type="checkbox">Comfortable locating Custom Column, Column From Examples, Invoke a Function, and the Diagram/Schema/Query Profile views</label>
         </div>
       </aside>
     </main>

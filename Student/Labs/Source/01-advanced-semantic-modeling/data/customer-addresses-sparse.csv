@@ -1,0 +1,11 @@
+CustomerKey,CustomerName,Region,Segment
+C001,Northwind Health,East,Healthcare
+C006,VanArsdel Health,,
+C002,Contoso Defense,East,Government
+C005,Adventure Works Gov,,
+C014,Adventure Works Group,,
+C003,Fabrikam Energy,Central,Energy
+C009,Margie's Travel Manufacturing,,
+C004,Wide World Logistics,West,Logistics
+C007,Blue Yonder Logistics,,
+C013,Northwind Logistics,,
