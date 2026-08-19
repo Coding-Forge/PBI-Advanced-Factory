@@ -163,7 +163,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <article>
         <section>
           <h2>What you will produce</h2>
-          <div class="panel"><ul><li>What-if parameter</li>
+          <div class="panel"><ul><li>Scenario comparison built on the Lab 04 what-if parameter</li>
 <li>Driver-analysis options</li>
 <li>AI feature validation</li>
 <li>Gov-safe fallback map</li></ul></div>
@@ -176,42 +176,20 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
       <ol>
         <li>Open Power BI Desktop.</li>
         <li>Open the same Power BI file you completed through Lab 05, from <code>pbi-local\</code> or your saved workshop solution folder. Keep working in that same file.</li>
-        <li>Go to the page where margin or sales scenario analysis makes the most sense, such as the Sales and Margin Analysis page.</li>
-        <li>If you want a safe practice area for optional visuals, duplicate the page first so you can compare the original and experimental versions side by side.</li>
-      </ol>
-    </li>
-    <li><strong>Create the <code>Margin Adjustment %</code> what-if parameter.</strong>
-      <ol>
-        <li>On the <b>Modeling</b> ribbon, click <b>New parameter</b>, then click <b>Numeric range</b>.</li>
-        <li>In the parameter dialog, set <b>Name</b> to <code>Margin Adjustment %</code>.</li>
-        <li>Set <b>Data type</b> to <b>Decimal number</b>, <b>Minimum</b> to <code>-10</code>, <b>Maximum</b> to <code>20</code>, <b>Increment</b> to <code>1</code>, and <b>Default</b> to <code>0</code>.</li>
-        <li>Leave <b>Add slicer to this page</b> checked so Power BI creates the slicer and the generated <code>[Margin Adjustment % Value]</code> measure.</li>
-        <li>Click <b>Create</b>.</li>
+        <li>Go to <code>Sales &amp; Margin Analysis</code>, the page where you already built the <code>Margin Adjustment %</code> what-if parameter and the <code>Adjusted Gross Margin</code>/<code>Adjusted Gross Margin %</code> measures in Lab 04.</li>
+        <li>Move the <code>Margin Adjustment %</code> slicer from <code>0</code> to a positive and a negative value and confirm the <code>Adjusted Gross Margin</code> card and margin detail table still respond. If they do not, fix that scenario before adding the AI-aware visuals in this lab.</li>
       </ol>
       <details class="callout fyi">
-        <summary>FYI — what a what-if parameter actually creates.</summary>
-        <div class="fyi-body"><code>Margin Adjustment %</code> is really a small disconnected table plus the generated <code>[Margin Adjustment % Value]</code> measure. The slicer changes that selected value, and your scenario measures read it without altering the underlying <code>FactSales</code> data, which makes it safe for side-by-side what-if analysis.</div>
+        <summary>FYI — this lab reuses your existing what-if parameter.</summary>
+        <div class="fyi-body">You already built the Gov-ready what-if scenario core in Lab 04: <code>Margin Adjustment %</code> (native numeric range parameter, decimal, <code>-0.1</code> to <code>0.2</code>) plus <code>[Selected Margin Adjustment %]</code>, <code>[Adjusted Gross Margin]</code>, and <code>[Adjusted Gross Margin %]</code>. Lab 06 does not rebuild that parameter — it uses those same fields as the input to decomposition, forecasting, and other AI-aware analysis so you can see how a governed scenario input feeds richer analytics.</div>
       </details>
     </li>
-    <li><strong>Create the adjusted scenario measures.</strong>
+    <li><strong>Add a scenario comparison visual driven by the existing parameter.</strong>
       <ol>
-        <li>On the <b>Home</b> or <b>Modeling</b> ribbon, click <b>New measure</b>.</li>
-        <li>Create <code>Adjusted Gross Margin</code> so it applies <code>[Margin Adjustment % Value]</code> to the existing margin logic or base <code>[Gross Margin]</code> measure.</li>
-        <li>Create <code>Adjusted Gross Margin %</code> so it returns the adjusted margin percentage relative to <code>[Sales Amount]</code>.</li>
-        <li>If you want a dynamic label, create the optional <code>Margin Scenario Title</code> measure shown in the answer key below.</li>
-      </ol>
-      <details class="callout fyi">
-        <summary>FYI — why scenario logic belongs in measures, not columns.</summary>
-        <div class="fyi-body"><code>[Adjusted Gross Margin]</code> and <code>[Adjusted Gross Margin %]</code> need to recalculate instantly for each slicer choice, territory, product, or date context on the page. A measure can respond to the current <code>[Margin Adjustment % Value]</code>; a calculated column would store one fixed result at refresh time and would not behave like a live scenario.</div>
-      </details>
-    </li>
-    <li><strong>Add the scenario visuals and confirm they respond to the slicer.</strong>
-      <ol>
-        <li>Keep the auto-generated parameter slicer on the page or move it to a clear position near the top.</li>
-        <li>Add a card for the base <code>[Gross Margin]</code> measure.</li>
-        <li>Add a second card for <code>[Adjusted Gross Margin]</code>.</li>
-        <li>Add a clustered column chart or line chart that compares the base and adjusted measures by the business dimension you want to explain.</li>
-        <li>Change the slicer from <code>0</code> to a positive and negative value and confirm both cards and the comparison chart update together.</li>
+        <li>Duplicate the <code>Sales &amp; Margin Analysis</code> page (right-click the page tab, click <b>Duplicate page</b>) so you have a safe practice area, and rename the copy <code>Scenario &amp; AI Exploration</code>.</li>
+        <li>On the new page, add a clustered column chart or line chart that compares <code>[Gross Margin]</code> and <code>[Adjusted Gross Margin]</code> by <code>DimTerritory[TerritoryName]</code> or <code>DimProductCategory[ProductCategory]</code>.</li>
+        <li>Move the existing <code>Margin Adjustment %</code> slicer to a clear position near the top of this page if it is not already visible.</li>
+        <li>Change the slicer from <code>0</code> to a positive and negative value and confirm the comparison chart updates alongside the cards you built in Lab 04.</li>
       </ol>
       <figure class="figure"><img src="images/06-advanced-analytics/ScenarioBefore.png" alt="Scenario page with the Margin Adjustment % slicer at 0%, showing the base and adjusted Gross Margin cards matching."><figcaption>Scenario page before adjustment (slicer at 0%).</figcaption></figure>
       <figure class="figure"><img src="images/06-advanced-analytics/ScenarioAfter.png" alt="Scenario page with the Margin Adjustment % slicer moved to a positive value, showing the Adjusted Gross Margin card and comparison chart responding."><figcaption>Scenario page after adjustment, with margin cards and chart updated.</figcaption></figure>
@@ -274,7 +252,7 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
     </li>
     <li><strong>Document feature status and the fallback you used.</strong><p>Record whether each advanced feature is Gov-ready, Verify for Gov, or Commercial-focused in this tenant, then note the fallback pattern you actually used during the lab.</p>
       <table class="column-table"><thead><tr><th>Feature</th><th>Status</th><th>What to create or review</th><th>Fallback</th></tr></thead><tbody>
-<tr><td>What-if parameter</td><td>Gov-ready</td><td><code>Margin Adjustment %</code> and adjusted margin measure</td><td>Required core path.</td></tr>
+<tr><td>What-if parameter</td><td>Gov-ready</td><td><code>Margin Adjustment %</code> and adjusted margin measures (built in Lab 04, reused here)</td><td>Required core path.</td></tr>
 <tr><td>Decomposition tree</td><td>Verify for Gov</td><td>Driver analysis by territory/product/customer/segment</td><td>Matrix plus drillthrough.</td></tr>
 <tr><td>Forecasting</td><td>Verify for Gov</td><td>Line chart Analytics pane forecast</td><td>Rolling average and prior-period comparison.</td></tr>
 <tr><td>Anomaly detection</td><td>Verify for Gov</td><td>Unusual trend identification on supported visuals</td><td>DAX threshold flags.</td></tr>
@@ -290,27 +268,20 @@ footer { padding: 24px 0 36px; border-top: 1px solid var(--cp-border); color: va
         <section>
   <h2>Answer key</h2>
   <details class="answer-key">
-    <summary>Show what-if parameter DAX pattern</summary>
+    <summary>Show the Lab 04 what-if measure pattern used in this lab</summary>
     <div class="answer-key__body">
-      <p>Power BI may generate slightly different names for the parameter table and selected-value measure. Adjust names to match your model.</p>
-<pre class="code"><code>// Generated or equivalent selected value measure
-Margin Adjustment % Value =
+      <p>These are the actual measures from <code>Sales &amp; Margin Analysis</code> — you built them in Lab 04 and this lab reuses them as-is. Confirm your model matches before continuing.</p>
+<pre class="code"><code>Selected Margin Adjustment % =
 SELECTEDVALUE ( 'Margin Adjustment %'[Margin Adjustment %], 0 )
 
-Adjusted Gross Margin =
-VAR AdjustmentRate =
-    DIVIDE ( [Margin Adjustment % Value], 100 )
-RETURN
-    [Gross Margin] * ( 1 + AdjustmentRate )
-
 Adjusted Gross Margin % =
-DIVIDE ( [Adjusted Gross Margin], [Sales Amount] )
+[Gross Margin %] + [Selected Margin Adjustment %]
 
-Margin Scenario Title =
-VAR Adjustment =
-    FORMAT ( DIVIDE ( [Margin Adjustment % Value], 100 ), "0%" )
-RETURN
-    "Margin scenario: " &amp; Adjustment</code></pre>
+Adjusted Gross Margin =
+[Adjusted Gross Margin %] * [Sales Amount]
+
+Adjusted Margin vs Base =
+[Adjusted Gross Margin] - [Gross Margin]</code></pre>
     </div>
   </details>
 </section>
@@ -324,8 +295,8 @@ RETURN
           <h2>Completion check</h2>
           <div class="progress"><div class="bar"></div></div>
           <p class="small"><span class="count">0</span> of 7 complete</p>
-          <label><input type="checkbox">What-if parameter works</label>
-<label><input type="checkbox">Scenario measures respond to parameter selection</label>
+          <label><input type="checkbox">Scenario &amp; AI Exploration page built from the Lab 04 what-if parameter</label>
+<label><input type="checkbox">Scenario chart responds to the existing Margin Adjustment % slicer</label>
 <label><input type="checkbox">Optional AI/advanced visuals labeled</label>
 <label><input type="checkbox">Gov-safe fallback documented for each optional feature</label>
 <label><input type="checkbox">Python/R and Azure ML prerequisites documented if discussed</label>
